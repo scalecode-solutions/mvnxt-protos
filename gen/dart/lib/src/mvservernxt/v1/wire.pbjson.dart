@@ -281,6 +281,15 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'updateConversationMetadata'
     },
+    {
+      '1': 'mark_delivered',
+      '3': 50,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MarkDelivered',
+      '9': 0,
+      '10': 'markDelivered'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -327,7 +336,8 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'lja25hbWUYMCABKAsyJy5tdnNlcnZlcm54dC52MS5TZXRDb252ZXJzYXRpb25OaWNrbmFtZUgA'
     'UhdzZXRDb252ZXJzYXRpb25OaWNrbmFtZRJuChx1cGRhdGVfY29udmVyc2F0aW9uX21ldGFkYX'
     'RhGDEgASgLMioubXZzZXJ2ZXJueHQudjEuVXBkYXRlQ29udmVyc2F0aW9uTWV0YWRhdGFIAFIa'
-    'dXBkYXRlQ29udmVyc2F0aW9uTWV0YWRhdGFCCQoHcGF5bG9hZA==');
+    'dXBkYXRlQ29udmVyc2F0aW9uTWV0YWRhdGESRgoObWFya19kZWxpdmVyZWQYMiABKAsyHS5tdn'
+    'NlcnZlcm54dC52MS5NYXJrRGVsaXZlcmVkSABSDW1hcmtEZWxpdmVyZWRCCQoHcGF5bG9hZA==');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -781,6 +791,15 @@ const Event$json = {
       '9': 0,
       '10': 'conversationMetadataChanged'
     },
+    {
+      '1': 'delivery_receipt_updated',
+      '3': 49,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.DeliveryReceiptUpdated',
+      '9': 0,
+      '10': 'deliveryReceiptUpdated'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -833,4 +852,6 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'NlcnZlcm54dC52MS5Db252ZXJzYXRpb25OaWNrbmFtZUNoYW5nZWRIAFIbY29udmVyc2F0aW9u'
     'Tmlja25hbWVDaGFuZ2VkEnEKHWNvbnZlcnNhdGlvbl9tZXRhZGF0YV9jaGFuZ2VkGDAgASgLMi'
     'subXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uTWV0YWRhdGFDaGFuZ2VkSABSG2NvbnZlcnNh'
-    'dGlvbk1ldGFkYXRhQ2hhbmdlZEIJCgdwYXlsb2Fk');
+    'dGlvbk1ldGFkYXRhQ2hhbmdlZBJiChhkZWxpdmVyeV9yZWNlaXB0X3VwZGF0ZWQYMSABKAsyJi'
+    '5tdnNlcnZlcm54dC52MS5EZWxpdmVyeVJlY2VpcHRVcGRhdGVkSABSFmRlbGl2ZXJ5UmVjZWlw'
+    'dFVwZGF0ZWRCCQoHcGF5bG9hZA==');

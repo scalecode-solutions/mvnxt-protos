@@ -94,6 +94,7 @@ private static final long serialVersionUID = 0L;
     UNPIN_MESSAGE(47),
     SET_CONVERSATION_NICKNAME(48),
     UPDATE_CONVERSATION_METADATA(49),
+    MARK_DELIVERED(50),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -140,6 +141,7 @@ private static final long serialVersionUID = 0L;
         case 47: return UNPIN_MESSAGE;
         case 48: return SET_CONVERSATION_NICKNAME;
         case 49: return UPDATE_CONVERSATION_METADATA;
+        case 50: return MARK_DELIVERED;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -508,9 +510,9 @@ private static final long serialVersionUID = 0L;
   public static final int CREATE_CONVERSATION_FIELD_NUMBER = 30;
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -522,9 +524,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -539,9 +541,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -1143,6 +1145,37 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadata.getDefaultInstance();
   }
 
+  public static final int MARK_DELIVERED_FIELD_NUMBER = 50;
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   * @return Whether the markDelivered field is set.
+   */
+  @java.lang.Override
+  public boolean hasMarkDelivered() {
+    return payloadCase_ == 50;
+  }
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   * @return The markDelivered.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered getMarkDelivered() {
+    if (payloadCase_ == 50) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder getMarkDeliveredOrBuilder() {
+    if (payloadCase_ == 50) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1246,6 +1279,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 49) {
       output.writeMessage(49, (app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadata) payload_);
+    }
+    if (payloadCase_ == 50) {
+      output.writeMessage(50, (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1374,6 +1410,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 49) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(49, (app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadata) payload_);
+    }
+    if (payloadCase_ == 50) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(50, (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -1510,6 +1550,10 @@ private static final long serialVersionUID = 0L;
         if (!getUpdateConversationMetadata()
             .equals(other.getUpdateConversationMetadata())) return false;
         break;
+      case 50:
+        if (!getMarkDelivered()
+            .equals(other.getMarkDelivered())) return false;
+        break;
       case 0:
       default:
     }
@@ -1642,6 +1686,10 @@ private static final long serialVersionUID = 0L;
       case 49:
         hash = (37 * hash) + UPDATE_CONVERSATION_METADATA_FIELD_NUMBER;
         hash = (53 * hash) + getUpdateConversationMetadata().hashCode();
+        break;
+      case 50:
+        hash = (37 * hash) + MARK_DELIVERED_FIELD_NUMBER;
+        hash = (53 * hash) + getMarkDelivered().hashCode();
         break;
       case 0:
       default:
@@ -1875,6 +1923,9 @@ private static final long serialVersionUID = 0L;
       if (updateConversationMetadataBuilder_ != null) {
         updateConversationMetadataBuilder_.clear();
       }
+      if (markDeliveredBuilder_ != null) {
+        markDeliveredBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -2035,6 +2086,10 @@ private static final long serialVersionUID = 0L;
           updateConversationMetadataBuilder_ != null) {
         result.payload_ = updateConversationMetadataBuilder_.build();
       }
+      if (payloadCase_ == 50 &&
+          markDeliveredBuilder_ != null) {
+        result.payload_ = markDeliveredBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -2169,6 +2224,10 @@ private static final long serialVersionUID = 0L;
         }
         case UPDATE_CONVERSATION_METADATA: {
           mergeUpdateConversationMetadata(other.getUpdateConversationMetadata());
+          break;
+        }
+        case MARK_DELIVERED: {
+          mergeMarkDelivered(other.getMarkDelivered());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -2409,6 +2468,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 49;
               break;
             } // case 394
+            case 402: {
+              input.readMessage(
+                  internalGetMarkDeliveredFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 50;
+              break;
+            } // case 402
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -3887,9 +3953,9 @@ private static final long serialVersionUID = 0L;
         app.mvchat.mvnxt.mvservernxt.v1.CreateConversation, app.mvchat.mvnxt.mvservernxt.v1.CreateConversation.Builder, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationOrBuilder> createConversationBuilder_;
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3901,9 +3967,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3925,9 +3991,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3947,9 +4013,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3967,9 +4033,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3996,9 +4062,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -4021,9 +4087,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -4033,9 +4099,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -4053,9 +4119,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -6775,6 +6841,148 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 49;
       onChanged();
       return updateConversationMetadataBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered, app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.Builder, app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder> markDeliveredBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     * @return Whether the markDelivered field is set.
+     */
+    @java.lang.Override
+    public boolean hasMarkDelivered() {
+      return payloadCase_ == 50;
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     * @return The markDelivered.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered getMarkDelivered() {
+      if (markDeliveredBuilder_ == null) {
+        if (payloadCase_ == 50) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 50) {
+          return markDeliveredBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    public Builder setMarkDelivered(app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered value) {
+      if (markDeliveredBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        markDeliveredBuilder_.setMessage(value);
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    public Builder setMarkDelivered(
+        app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.Builder builderForValue) {
+      if (markDeliveredBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        markDeliveredBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    public Builder mergeMarkDelivered(app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered value) {
+      if (markDeliveredBuilder_ == null) {
+        if (payloadCase_ == 50 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 50) {
+          markDeliveredBuilder_.mergeFrom(value);
+        } else {
+          markDeliveredBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    public Builder clearMarkDelivered() {
+      if (markDeliveredBuilder_ == null) {
+        if (payloadCase_ == 50) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 50) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        markDeliveredBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.Builder getMarkDeliveredBuilder() {
+      return internalGetMarkDeliveredFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder getMarkDeliveredOrBuilder() {
+      if ((payloadCase_ == 50) && (markDeliveredBuilder_ != null)) {
+        return markDeliveredBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 50) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered, app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.Builder, app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder> 
+        internalGetMarkDeliveredFieldBuilder() {
+      if (markDeliveredBuilder_ == null) {
+        if (!(payloadCase_ == 50)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
+        }
+        markDeliveredBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered, app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.Builder, app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 50;
+      onChanged();
+      return markDeliveredBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.ClientEnvelope)

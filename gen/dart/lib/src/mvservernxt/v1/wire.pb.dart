@@ -55,6 +55,7 @@ enum ClientEnvelope_Payload {
   unpinMessage,
   setConversationNickname,
   updateConversationMetadata,
+  markDelivered,
   notSet
 }
 
@@ -97,6 +98,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.UnpinMessage? unpinMessage,
     $3.SetConversationNickname? setConversationNickname,
     $3.UpdateConversationMetadata? updateConversationMetadata,
+    $3.MarkDelivered? markDelivered,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -135,6 +137,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       result.setConversationNickname = setConversationNickname;
     if (updateConversationMetadata != null)
       result.updateConversationMetadata = updateConversationMetadata;
+    if (markDelivered != null) result.markDelivered = markDelivered;
     return result;
   }
 
@@ -178,6 +181,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     47: ClientEnvelope_Payload.unpinMessage,
     48: ClientEnvelope_Payload.setConversationNickname,
     49: ClientEnvelope_Payload.updateConversationMetadata,
+    50: ClientEnvelope_Payload.markDelivered,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -213,7 +217,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       46,
       47,
       48,
-      49
+      49,
+      50
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -280,6 +285,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     ..aOM<$3.UpdateConversationMetadata>(
         49, _omitFieldNames ? '' : 'updateConversationMetadata',
         subBuilder: $3.UpdateConversationMetadata.create)
+    ..aOM<$3.MarkDelivered>(50, _omitFieldNames ? '' : 'markDelivered',
+        subBuilder: $3.MarkDelivered.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -330,6 +337,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(50)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -361,6 +369,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(50)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -475,9 +484,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(26)
   $2.ResendVerificationEmail ensureResendVerificationEmail() => $_ensure(9);
 
-  /// Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-  /// accommodate the full chat surface without crowding future
-  /// domains)
+  /// Chat (range extended to 30-50 as the surface grows. Contacts /
+  /// presence / receipts-v2 are tier-1 next — they get their own
+  /// domain ranges when they land.)
   @$pb.TagNumber(30)
   $3.CreateConversation get createConversation => $_getN(10);
   @$pb.TagNumber(30)
@@ -702,6 +711,17 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(49)
   $3.UpdateConversationMetadata ensureUpdateConversationMetadata() =>
       $_ensure(29);
+
+  @$pb.TagNumber(50)
+  $3.MarkDelivered get markDelivered => $_getN(30);
+  @$pb.TagNumber(50)
+  set markDelivered($3.MarkDelivered value) => $_setField(50, value);
+  @$pb.TagNumber(50)
+  $core.bool hasMarkDelivered() => $_has(30);
+  @$pb.TagNumber(50)
+  void clearMarkDelivered() => $_clearField(50);
+  @$pb.TagNumber(50)
+  $3.MarkDelivered ensureMarkDelivered() => $_ensure(30);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -1216,6 +1236,7 @@ enum Event_Payload {
   messageUnpinned,
   conversationNicknameChanged,
   conversationMetadataChanged,
+  deliveryReceiptUpdated,
   notSet
 }
 
@@ -1256,6 +1277,7 @@ class Event extends $pb.GeneratedMessage {
     $3.MessageUnpinned? messageUnpinned,
     $3.ConversationNicknameChanged? conversationNicknameChanged,
     $3.ConversationMetadataChanged? conversationMetadataChanged,
+    $3.DeliveryReceiptUpdated? deliveryReceiptUpdated,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1300,6 +1322,8 @@ class Event extends $pb.GeneratedMessage {
       result.conversationNicknameChanged = conversationNicknameChanged;
     if (conversationMetadataChanged != null)
       result.conversationMetadataChanged = conversationMetadataChanged;
+    if (deliveryReceiptUpdated != null)
+      result.deliveryReceiptUpdated = deliveryReceiptUpdated;
     return result;
   }
 
@@ -1340,6 +1364,7 @@ class Event extends $pb.GeneratedMessage {
     46: Event_Payload.messageUnpinned,
     47: Event_Payload.conversationNicknameChanged,
     48: Event_Payload.conversationMetadataChanged,
+    49: Event_Payload.deliveryReceiptUpdated,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1373,7 +1398,8 @@ class Event extends $pb.GeneratedMessage {
       45,
       46,
       47,
-      48
+      48,
+      49
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
@@ -1447,6 +1473,9 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$3.ConversationMetadataChanged>(
         48, _omitFieldNames ? '' : 'conversationMetadataChanged',
         subBuilder: $3.ConversationMetadataChanged.create)
+    ..aOM<$3.DeliveryReceiptUpdated>(
+        49, _omitFieldNames ? '' : 'deliveryReceiptUpdated',
+        subBuilder: $3.DeliveryReceiptUpdated.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1494,6 +1523,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(46)
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
+  @$pb.TagNumber(49)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1522,6 +1552,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(46)
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
+  @$pb.TagNumber(49)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1894,6 +1925,18 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(48)
   $3.ConversationMetadataChanged ensureConversationMetadataChanged() =>
       $_ensure(31);
+
+  @$pb.TagNumber(49)
+  $3.DeliveryReceiptUpdated get deliveryReceiptUpdated => $_getN(32);
+  @$pb.TagNumber(49)
+  set deliveryReceiptUpdated($3.DeliveryReceiptUpdated value) =>
+      $_setField(49, value);
+  @$pb.TagNumber(49)
+  $core.bool hasDeliveryReceiptUpdated() => $_has(32);
+  @$pb.TagNumber(49)
+  void clearDeliveryReceiptUpdated() => $_clearField(49);
+  @$pb.TagNumber(49)
+  $3.DeliveryReceiptUpdated ensureDeliveryReceiptUpdated() => $_ensure(32);
 }
 
 const $core.bool _omitFieldNames =

@@ -306,9 +306,9 @@ public object ClientEnvelopeKt {
 
     /**
      * ```
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -322,9 +322,9 @@ public object ClientEnvelopeKt {
       }
     /**
      * ```
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -334,9 +334,9 @@ public object ClientEnvelopeKt {
     }
     /**
      * ```
-     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-     * accommodate the full chat surface without crowding future
-     * domains)
+     * Chat (range extended to 30-50 as the surface grows. Contacts /
+     * presence / receipts-v2 are tier-1 next — they get their own
+     * domain ranges when they land.)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -801,6 +801,30 @@ public object ClientEnvelopeKt {
     public fun hasUpdateConversationMetadata(): kotlin.Boolean {
       return _builder.hasUpdateConversationMetadata()
     }
+
+    /**
+     * `.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];`
+     */
+    public var markDelivered: app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered
+      @kotlin.jvm.JvmName("getMarkDelivered")
+        get() = _builder.markDelivered
+      @kotlin.jvm.JvmName("setMarkDelivered")
+        set(value) {
+        _builder.markDelivered = value
+      }
+    /**
+     * `.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];`
+     */
+    public fun clearMarkDelivered() {
+      _builder.clearMarkDelivered()
+    }
+    /**
+     * `.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];`
+     * @return Whether the markDelivered field is set.
+     */
+    public fun hasMarkDelivered(): kotlin.Boolean {
+      return _builder.hasMarkDelivered()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -900,4 +924,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setConversati
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.updateConversationMetadataOrNull: app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadata?
   get() = if (hasUpdateConversationMetadata()) getUpdateConversationMetadata() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.markDeliveredOrNull: app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered?
+  get() = if (hasMarkDelivered()) getMarkDelivered() else null
 

@@ -564,5 +564,20 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChangedOrBuilder getConversationMetadataChangedOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   * @return Whether the deliveryReceiptUpdated field is set.
+   */
+  boolean hasDeliveryReceiptUpdated();
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   * @return The deliveryReceiptUpdated.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated getDeliveryReceiptUpdated();
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder getDeliveryReceiptUpdatedOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

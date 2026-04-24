@@ -887,6 +887,30 @@ public object EventKt {
     public fun hasConversationMetadataChanged(): kotlin.Boolean {
       return _builder.hasConversationMetadataChanged()
     }
+
+    /**
+     * `.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];`
+     */
+    public var deliveryReceiptUpdated: app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated
+      @kotlin.jvm.JvmName("getDeliveryReceiptUpdated")
+        get() = _builder.deliveryReceiptUpdated
+      @kotlin.jvm.JvmName("setDeliveryReceiptUpdated")
+        set(value) {
+        _builder.deliveryReceiptUpdated = value
+      }
+    /**
+     * `.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];`
+     */
+    public fun clearDeliveryReceiptUpdated() {
+      _builder.clearDeliveryReceiptUpdated()
+    }
+    /**
+     * `.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];`
+     * @return Whether the deliveryReceiptUpdated field is set.
+     */
+    public fun hasDeliveryReceiptUpdated(): kotlin.Boolean {
+      return _builder.hasDeliveryReceiptUpdated()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -989,4 +1013,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationNicknameCh
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationMetadataChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged?
   get() = if (hasConversationMetadataChanged()) getConversationMetadataChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.deliveryReceiptUpdatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated?
+  get() = if (hasDeliveryReceiptUpdated()) getDeliveryReceiptUpdated() else null
 

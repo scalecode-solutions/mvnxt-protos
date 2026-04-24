@@ -551,6 +551,26 @@ final $typed_data.Uint8List markReadDescriptor = $convert.base64Decode(
     'CghNYXJrUmVhZBInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdGlvbklkEiIKDW'
     'xhc3RfcmVhZF9zZXEYAiABKANSC2xhc3RSZWFkU2Vx');
 
+@$core.Deprecated('Use markDeliveredDescriptor instead')
+const MarkDelivered$json = {
+  '1': 'MarkDelivered',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {
+      '1': 'last_delivered_seq',
+      '3': 2,
+      '4': 1,
+      '5': 3,
+      '10': 'lastDeliveredSeq'
+    },
+  ],
+};
+
+/// Descriptor for `MarkDelivered`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List markDeliveredDescriptor = $convert.base64Decode(
+    'Cg1NYXJrRGVsaXZlcmVkEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udmVyc2F0aW9uSW'
+    'QSLAoSbGFzdF9kZWxpdmVyZWRfc2VxGAIgASgDUhBsYXN0RGVsaXZlcmVkU2Vx');
+
 @$core.Deprecated('Use createConversationResponseDescriptor instead')
 const CreateConversationResponse$json = {
   '1': 'CreateConversationResponse',
@@ -825,6 +845,37 @@ final $typed_data.Uint8List readReceiptUpdatedDescriptor = $convert.base64Decode
     'Rpb25JZBIXCgd1c2VyX2lkGAIgASgJUgZ1c2VySWQSIgoNbGFzdF9yZWFkX3NlcRgDIAEoA1IL'
     'bGFzdFJlYWRTZXESOQoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3'
     'RhbXBSCXVwZGF0ZWRBdA==');
+
+@$core.Deprecated('Use deliveryReceiptUpdatedDescriptor instead')
+const DeliveryReceiptUpdated$json = {
+  '1': 'DeliveryReceiptUpdated',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {
+      '1': 'last_delivered_seq',
+      '3': 3,
+      '4': 1,
+      '5': 3,
+      '10': 'lastDeliveredSeq'
+    },
+    {
+      '1': 'updated_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'updatedAt'
+    },
+  ],
+};
+
+/// Descriptor for `DeliveryReceiptUpdated`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deliveryReceiptUpdatedDescriptor = $convert.base64Decode(
+    'ChZEZWxpdmVyeVJlY2VpcHRVcGRhdGVkEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udm'
+    'Vyc2F0aW9uSWQSFwoHdXNlcl9pZBgCIAEoCVIGdXNlcklkEiwKEmxhc3RfZGVsaXZlcmVkX3Nl'
+    'cRgDIAEoA1IQbGFzdERlbGl2ZXJlZFNlcRI5Cgp1cGRhdGVkX2F0GAQgASgLMhouZ29vZ2xlLn'
+    'Byb3RvYnVmLlRpbWVzdGFtcFIJdXBkYXRlZEF0');
 
 @$core.Deprecated('Use messageEditedDescriptor instead')
 const MessageEdited$json = {
