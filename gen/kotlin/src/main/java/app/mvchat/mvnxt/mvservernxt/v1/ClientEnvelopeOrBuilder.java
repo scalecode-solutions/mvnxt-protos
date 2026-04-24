@@ -189,5 +189,137 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmailOrBuilder getResendVerificationEmailOrBuilder();
 
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
+   * @return Whether the createConversation field is set.
+   */
+  boolean hasCreateConversation();
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
+   * @return The createConversation.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.CreateConversation getCreateConversation();
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.CreateConversationOrBuilder getCreateConversationOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];</code>
+   * @return Whether the addMember field is set.
+   */
+  boolean hasAddMember();
+  /**
+   * <code>.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];</code>
+   * @return The addMember.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddMember getAddMember();
+  /**
+   * <code>.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddMemberOrBuilder getAddMemberOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];</code>
+   * @return Whether the removeMember field is set.
+   */
+  boolean hasRemoveMember();
+  /**
+   * <code>.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];</code>
+   * @return The removeMember.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveMember getRemoveMember();
+  /**
+   * <code>.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveMemberOrBuilder getRemoveMemberOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];</code>
+   * @return Whether the leaveConversation field is set.
+   */
+  boolean hasLeaveConversation();
+  /**
+   * <code>.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];</code>
+   * @return The leaveConversation.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.LeaveConversation getLeaveConversation();
+  /**
+   * <code>.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.LeaveConversationOrBuilder getLeaveConversationOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];</code>
+   * @return Whether the sendMessage field is set.
+   */
+  boolean hasSendMessage();
+  /**
+   * <code>.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];</code>
+   * @return The sendMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SendMessage getSendMessage();
+  /**
+   * <code>.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SendMessageOrBuilder getSendMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];</code>
+   * @return Whether the listConversations field is set.
+   */
+  boolean hasListConversations();
+  /**
+   * <code>.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];</code>
+   * @return The listConversations.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListConversations getListConversations();
+  /**
+   * <code>.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListConversationsOrBuilder getListConversationsOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];</code>
+   * @return Whether the getMessages field is set.
+   */
+  boolean hasGetMessages();
+  /**
+   * <code>.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];</code>
+   * @return The getMessages.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GetMessages getGetMessages();
+  /**
+   * <code>.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GetMessagesOrBuilder getGetMessagesOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];</code>
+   * @return Whether the markRead field is set.
+   */
+  boolean hasMarkRead();
+  /**
+   * <code>.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];</code>
+   * @return The markRead.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MarkRead getMarkRead();
+  /**
+   * <code>.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MarkReadOrBuilder getMarkReadOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

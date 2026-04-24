@@ -61,29 +61,44 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
   static {
     java.lang.String[] descriptorData = {
       "\n\031mvservernxt/v1/wire.proto\022\016mvservernxt" +
-      ".v1\032\037google/protobuf/timestamp.proto\032\033mv" +
-      "servernxt/v1/common.proto\032\032mvservernxt/v" +
-      "1/hello.proto\032\035mvservernxt/v1/identity.p" +
-      "roto\032\033mvservernxt/v1/system.proto\"\332\004\n\016Cl" +
-      "ientEnvelope\022\'\n\017idempotency_key\030\001 \001(\tR\016i" +
-      "dempotencyKey\022*\n\004ping\030\n \001(\0132\024.mvservernx" +
-      "t.v1.PingH\000R\004ping\022-\n\005hello\030\013 \001(\0132\025.mvser" +
-      "vernxt.v1.HelloH\000R\005hello\0226\n\010register\030\024 \001" +
-      "(\0132\030.mvservernxt.v1.RegisterH\000R\010register" +
-      "\022B\n\014authenticate\030\025 \001(\0132\034.mvservernxt.v1." +
-      "AuthenticateH\000R\014authenticate\022-\n\005login\030\026 " +
-      "\001(\0132\025.mvservernxt.v1.LoginH\000R\005login\0223\n\007r" +
-      "efresh\030\027 \001(\0132\027.mvservernxt.v1.RefreshH\000R" +
-      "\007refresh\0220\n\006logout\030\030 \001(\0132\026.mvservernxt.v" +
-      "1.LogoutH\000R\006logout\022@\n\014verify_email\030\031 \001(\013" +
-      "2\033.mvservernxt.v1.VerifyEmailH\000R\013verifyE" +
-      "mail\022e\n\031resend_verification_email\030\032 \001(\0132" +
-      "\'.mvservernxt.v1.ResendVerificationEmail" +
-      "H\000R\027resendVerificationEmailB\t\n\007payload\"\234" +
+      ".v1\032\037google/protobuf/timestamp.proto\032\031mv" +
+      "servernxt/v1/chat.proto\032\033mvservernxt/v1/" +
+      "common.proto\032\032mvservernxt/v1/hello.proto" +
+      "\032\035mvservernxt/v1/identity.proto\032\033mvserve" +
+      "rnxt/v1/system.proto\"\227\t\n\016ClientEnvelope\022" +
+      "\'\n\017idempotency_key\030\001 \001(\tR\016idempotencyKey" +
+      "\022*\n\004ping\030\n \001(\0132\024.mvservernxt.v1.PingH\000R\004" +
+      "ping\022-\n\005hello\030\013 \001(\0132\025.mvservernxt.v1.Hel" +
+      "loH\000R\005hello\0226\n\010register\030\024 \001(\0132\030.mvserver" +
+      "nxt.v1.RegisterH\000R\010register\022B\n\014authentic" +
+      "ate\030\025 \001(\0132\034.mvservernxt.v1.AuthenticateH" +
+      "\000R\014authenticate\022-\n\005login\030\026 \001(\0132\025.mvserve" +
+      "rnxt.v1.LoginH\000R\005login\0223\n\007refresh\030\027 \001(\0132" +
+      "\027.mvservernxt.v1.RefreshH\000R\007refresh\0220\n\006l" +
+      "ogout\030\030 \001(\0132\026.mvservernxt.v1.LogoutH\000R\006l" +
+      "ogout\022@\n\014verify_email\030\031 \001(\0132\033.mvservernx" +
+      "t.v1.VerifyEmailH\000R\013verifyEmail\022e\n\031resen" +
+      "d_verification_email\030\032 \001(\0132\'.mvservernxt" +
+      ".v1.ResendVerificationEmailH\000R\027resendVer" +
+      "ificationEmail\022U\n\023create_conversation\030\036 " +
+      "\001(\0132\".mvservernxt.v1.CreateConversationH" +
+      "\000R\022createConversation\022:\n\nadd_member\030\037 \001(" +
+      "\0132\031.mvservernxt.v1.AddMemberH\000R\taddMembe" +
+      "r\022C\n\rremove_member\030  \001(\0132\034.mvservernxt.v" +
+      "1.RemoveMemberH\000R\014removeMember\022R\n\022leave_" +
+      "conversation\030! \001(\0132!.mvservernxt.v1.Leav" +
+      "eConversationH\000R\021leaveConversation\022@\n\014se" +
+      "nd_message\030\" \001(\0132\033.mvservernxt.v1.SendMe" +
+      "ssageH\000R\013sendMessage\022R\n\022list_conversatio" +
+      "ns\030# \001(\0132!.mvservernxt.v1.ListConversati" +
+      "onsH\000R\021listConversations\022@\n\014get_messages" +
+      "\030$ \001(\0132\033.mvservernxt.v1.GetMessagesH\000R\013g" +
+      "etMessages\0227\n\tmark_read\030% \001(\0132\030.mvserver" +
+      "nxt.v1.MarkReadH\000R\010markReadB\t\n\007payload\"\234" +
       "\001\n\016ServerEnvelope\022\'\n\003ack\030\001 \001(\0132\023.mvserve" +
       "rnxt.v1.AckH\000R\003ack\022\'\n\003err\030\002 \001(\0132\023.mvserv" +
       "ernxt.v1.ErrH\000R\003err\022-\n\005event\030\003 \001(\0132\025.mvs" +
-      "ervernxt.v1.EventH\000R\005eventB\t\n\007payload\"\344\002" +
+      "ervernxt.v1.EventH\000R\005eventB\t\n\007payload\"\263\005" +
       "\n\003Ack\022\'\n\017idempotency_key\030\001 \001(\tR\016idempote" +
       "ncyKey\022\022\n\004code\030\002 \001(\005R\004code\022*\n\004pong\030\n \001(\013" +
       "2\024.mvservernxt.v1.PongH\000R\004pong\0225\n\005hello\030" +
@@ -92,43 +107,63 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
       ".RegisterResponseH\000R\010register\0225\n\005login\030\026" +
       " \001(\0132\035.mvservernxt.v1.LoginResponseH\000R\005l" +
       "ogin\022;\n\007refresh\030\027 \001(\0132\037.mvservernxt.v1.R" +
-      "efreshResponseH\000R\007refreshB\t\n\007payload\"t\n\003" +
-      "Err\022\'\n\017idempotency_key\030\001 \001(\tR\016idempotenc" +
-      "yKey\022\022\n\004code\030\002 \001(\005R\004code\022\030\n\007message\030\003 \001(" +
-      "\tR\007message\022\026\n\006reason\030\004 \001(\tR\006reason\"\341\006\n\005E" +
-      "vent\022\020\n\003seq\030\001 \001(\003R\003seq\022\026\n\006stream\030\002 \001(\tR\006" +
-      "stream\0228\n\ttimestamp\030\003 \001(\0132\032.google.proto" +
-      "buf.TimestampR\ttimestamp\022/\n\010actor_id\030\004 \001" +
-      "(\0132\024.mvservernxt.v1.UUIDR\007actorId\0227\n\014agg" +
-      "regate_id\030\005 \001(\0132\024.mvservernxt.v1.UUIDR\013a" +
-      "ggregateId\022C\n\rsystem_notice\030\n \001(\0132\034.mvse" +
-      "rvernxt.v1.SystemNoticeH\000R\014systemNotice\022" +
-      "I\n\017user_registered\030\024 \001(\0132\036.mvservernxt.v" +
-      "1.UserRegisteredH\000R\016userRegistered\022D\n\016us" +
-      "er_logged_in\030\026 \001(\0132\034.mvservernxt.v1.User" +
-      "LoggedInH\000R\014userLoggedIn\022I\n\017token_refres" +
-      "hed\030\027 \001(\0132\036.mvservernxt.v1.TokenRefreshe" +
-      "dH\000R\016tokenRefreshed\022G\n\017user_logged_out\030\030" +
-      " \001(\0132\035.mvservernxt.v1.UserLoggedOutH\000R\ru" +
-      "serLoggedOut\022l\n\034refresh_token_reuse_dete" +
-      "cted\030\031 \001(\0132).mvservernxt.v1.RefreshToken" +
-      "ReuseDetectedH\000R\031refreshTokenReuseDetect" +
-      "ed\022F\n\016email_verified\030\032 \001(\0132\035.mvservernxt" +
-      ".v1.EmailVerifiedH\000R\remailVerified\022_\n\027ve" +
-      "rification_email_sent\030\033 \001(\0132%.mvservernx" +
-      "t.v1.VerificationEmailSentH\000R\025verificati" +
-      "onEmailSentB\t\n\007payloadB\326\001\n\037app.mvchat.mv" +
-      "nxt.mvservernxt.v1B\tWireProtoP\001ZOgithub." +
-      "com/scalecode-solutions/mvnxt-protos/gen" +
-      "/go/mvservernxt/v1;mvservernxtv1\242\002\003MXX\252\002" +
-      "\016Mvservernxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvser" +
-      "vernxt\\V1\\GPBMetadata\352\002\017Mvservernxt::V1b" +
-      "\006proto3"
+      "efreshResponseH\000R\007refresh\022]\n\023create_conv" +
+      "ersation\030\036 \001(\0132*.mvservernxt.v1.CreateCo" +
+      "nversationResponseH\000R\022createConversation" +
+      "\022H\n\014send_message\030\" \001(\0132#.mvservernxt.v1." +
+      "SendMessageResponseH\000R\013sendMessage\022Z\n\022li" +
+      "st_conversations\030# \001(\0132).mvservernxt.v1." +
+      "ListConversationsResponseH\000R\021listConvers" +
+      "ations\022H\n\014get_messages\030$ \001(\0132#.mvservern" +
+      "xt.v1.GetMessagesResponseH\000R\013getMessages" +
+      "B\t\n\007payload\"t\n\003Err\022\'\n\017idempotency_key\030\001 " +
+      "\001(\tR\016idempotencyKey\022\022\n\004code\030\002 \001(\005R\004code\022" +
+      "\030\n\007message\030\003 \001(\tR\007message\022\026\n\006reason\030\004 \001(" +
+      "\tR\006reason\"\236\n\n\005Event\022\020\n\003seq\030\001 \001(\003R\003seq\022\026\n" +
+      "\006stream\030\002 \001(\tR\006stream\0228\n\ttimestamp\030\003 \001(\013" +
+      "2\032.google.protobuf.TimestampR\ttimestamp\022" +
+      "/\n\010actor_id\030\004 \001(\0132\024.mvservernxt.v1.UUIDR" +
+      "\007actorId\0227\n\014aggregate_id\030\005 \001(\0132\024.mvserve" +
+      "rnxt.v1.UUIDR\013aggregateId\022C\n\rsystem_noti" +
+      "ce\030\n \001(\0132\034.mvservernxt.v1.SystemNoticeH\000" +
+      "R\014systemNotice\022I\n\017user_registered\030\024 \001(\0132" +
+      "\036.mvservernxt.v1.UserRegisteredH\000R\016userR" +
+      "egistered\022D\n\016user_logged_in\030\026 \001(\0132\034.mvse" +
+      "rvernxt.v1.UserLoggedInH\000R\014userLoggedIn\022" +
+      "I\n\017token_refreshed\030\027 \001(\0132\036.mvservernxt.v" +
+      "1.TokenRefreshedH\000R\016tokenRefreshed\022G\n\017us" +
+      "er_logged_out\030\030 \001(\0132\035.mvservernxt.v1.Use" +
+      "rLoggedOutH\000R\ruserLoggedOut\022l\n\034refresh_t" +
+      "oken_reuse_detected\030\031 \001(\0132).mvservernxt." +
+      "v1.RefreshTokenReuseDetectedH\000R\031refreshT" +
+      "okenReuseDetected\022F\n\016email_verified\030\032 \001(" +
+      "\0132\035.mvservernxt.v1.EmailVerifiedH\000R\remai" +
+      "lVerified\022_\n\027verification_email_sent\030\033 \001" +
+      "(\0132%.mvservernxt.v1.VerificationEmailSen" +
+      "tH\000R\025verificationEmailSent\022X\n\024conversati" +
+      "on_created\030\036 \001(\0132#.mvservernxt.v1.Conver" +
+      "sationCreatedH\000R\023conversationCreated\022@\n\014" +
+      "member_added\030\037 \001(\0132\033.mvservernxt.v1.Memb" +
+      "erAddedH\000R\013memberAdded\022F\n\016member_removed" +
+      "\030  \001(\0132\035.mvservernxt.v1.MemberRemovedH\000R" +
+      "\rmemberRemoved\022=\n\013member_left\030! \001(\0132\032.mv" +
+      "servernxt.v1.MemberLeftH\000R\nmemberLeft\022@\n" +
+      "\014message_sent\030\" \001(\0132\033.mvservernxt.v1.Mes" +
+      "sageSentH\000R\013messageSent\022V\n\024read_receipt_" +
+      "updated\030# \001(\0132\".mvservernxt.v1.ReadRecei" +
+      "ptUpdatedH\000R\022readReceiptUpdatedB\t\n\007paylo" +
+      "adB\326\001\n\037app.mvchat.mvnxt.mvservernxt.v1B\t" +
+      "WireProtoP\001ZOgithub.com/scalecode-soluti" +
+      "ons/mvnxt-protos/gen/go/mvservernxt/v1;m" +
+      "vservernxtv1\242\002\003MXX\252\002\016Mvservernxt.V1\312\002\016Mv" +
+      "servernxt\\V1\342\002\032Mvservernxt\\V1\\GPBMetadat" +
+      "a\352\002\017Mvservernxt::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
+          app.mvchat.mvnxt.mvservernxt.v1.ChatProto.getDescriptor(),
           app.mvchat.mvnxt.mvservernxt.v1.CommonProto.getDescriptor(),
           app.mvchat.mvnxt.mvservernxt.v1.HelloProto.getDescriptor(),
           app.mvchat.mvnxt.mvservernxt.v1.IdentityProto.getDescriptor(),
@@ -139,7 +174,7 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_ClientEnvelope_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_ClientEnvelope_descriptor,
-        new java.lang.String[] { "IdempotencyKey", "Ping", "Hello", "Register", "Authenticate", "Login", "Refresh", "Logout", "VerifyEmail", "ResendVerificationEmail", "Payload", });
+        new java.lang.String[] { "IdempotencyKey", "Ping", "Hello", "Register", "Authenticate", "Login", "Refresh", "Logout", "VerifyEmail", "ResendVerificationEmail", "CreateConversation", "AddMember", "RemoveMember", "LeaveConversation", "SendMessage", "ListConversations", "GetMessages", "MarkRead", "Payload", });
     internal_static_mvservernxt_v1_ServerEnvelope_descriptor =
       getDescriptor().getMessageType(1);
     internal_static_mvservernxt_v1_ServerEnvelope_fieldAccessorTable = new
@@ -151,7 +186,7 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_Ack_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Ack_descriptor,
-        new java.lang.String[] { "IdempotencyKey", "Code", "Pong", "Hello", "Register", "Login", "Refresh", "Payload", });
+        new java.lang.String[] { "IdempotencyKey", "Code", "Pong", "Hello", "Register", "Login", "Refresh", "CreateConversation", "SendMessage", "ListConversations", "GetMessages", "Payload", });
     internal_static_mvservernxt_v1_Err_descriptor =
       getDescriptor().getMessageType(3);
     internal_static_mvservernxt_v1_Err_fieldAccessorTable = new
@@ -163,9 +198,10 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Event_descriptor,
-        new java.lang.String[] { "Seq", "Stream", "Timestamp", "ActorId", "AggregateId", "SystemNotice", "UserRegistered", "UserLoggedIn", "TokenRefreshed", "UserLoggedOut", "RefreshTokenReuseDetected", "EmailVerified", "VerificationEmailSent", "Payload", });
+        new java.lang.String[] { "Seq", "Stream", "Timestamp", "ActorId", "AggregateId", "SystemNotice", "UserRegistered", "UserLoggedIn", "TokenRefreshed", "UserLoggedOut", "RefreshTokenReuseDetected", "EmailVerified", "VerificationEmailSent", "ConversationCreated", "MemberAdded", "MemberRemoved", "MemberLeft", "MessageSent", "ReadReceiptUpdated", "Payload", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.TimestampProto.getDescriptor();
+    app.mvchat.mvnxt.mvservernxt.v1.ChatProto.getDescriptor();
     app.mvchat.mvnxt.mvservernxt.v1.CommonProto.getDescriptor();
     app.mvchat.mvnxt.mvservernxt.v1.HelloProto.getDescriptor();
     app.mvchat.mvnxt.mvservernxt.v1.IdentityProto.getDescriptor();

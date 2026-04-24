@@ -15,9 +15,10 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart'
-    as $3;
+    as $4;
 
-import 'common.pb.dart' as $4;
+import 'chat.pb.dart' as $3;
+import 'common.pb.dart' as $5;
 import 'hello.pb.dart' as $1;
 import 'identity.pb.dart' as $2;
 import 'system.pb.dart' as $0;
@@ -34,6 +35,14 @@ enum ClientEnvelope_Payload {
   logout,
   verifyEmail,
   resendVerificationEmail,
+  createConversation,
+  addMember,
+  removeMember,
+  leaveConversation,
+  sendMessage,
+  listConversations,
+  getMessages,
+  markRead,
   notSet
 }
 
@@ -56,6 +65,14 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $2.Logout? logout,
     $2.VerifyEmail? verifyEmail,
     $2.ResendVerificationEmail? resendVerificationEmail,
+    $3.CreateConversation? createConversation,
+    $3.AddMember? addMember,
+    $3.RemoveMember? removeMember,
+    $3.LeaveConversation? leaveConversation,
+    $3.SendMessage? sendMessage,
+    $3.ListConversations? listConversations,
+    $3.GetMessages? getMessages,
+    $3.MarkRead? markRead,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -69,6 +86,15 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (verifyEmail != null) result.verifyEmail = verifyEmail;
     if (resendVerificationEmail != null)
       result.resendVerificationEmail = resendVerificationEmail;
+    if (createConversation != null)
+      result.createConversation = createConversation;
+    if (addMember != null) result.addMember = addMember;
+    if (removeMember != null) result.removeMember = removeMember;
+    if (leaveConversation != null) result.leaveConversation = leaveConversation;
+    if (sendMessage != null) result.sendMessage = sendMessage;
+    if (listConversations != null) result.listConversations = listConversations;
+    if (getMessages != null) result.getMessages = getMessages;
+    if (markRead != null) result.markRead = markRead;
     return result;
   }
 
@@ -92,13 +118,22 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     24: ClientEnvelope_Payload.logout,
     25: ClientEnvelope_Payload.verifyEmail,
     26: ClientEnvelope_Payload.resendVerificationEmail,
+    30: ClientEnvelope_Payload.createConversation,
+    31: ClientEnvelope_Payload.addMember,
+    32: ClientEnvelope_Payload.removeMember,
+    33: ClientEnvelope_Payload.leaveConversation,
+    34: ClientEnvelope_Payload.sendMessage,
+    35: ClientEnvelope_Payload.listConversations,
+    36: ClientEnvelope_Payload.getMessages,
+    37: ClientEnvelope_Payload.markRead,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ClientEnvelope',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 21, 22, 23, 24, 25, 26])
+    ..oo(
+        0, [10, 11, 20, 21, 22, 23, 24, 25, 26, 30, 31, 32, 33, 34, 35, 36, 37])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
         subBuilder: $0.Ping.create)
@@ -119,6 +154,23 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     ..aOM<$2.ResendVerificationEmail>(
         26, _omitFieldNames ? '' : 'resendVerificationEmail',
         subBuilder: $2.ResendVerificationEmail.create)
+    ..aOM<$3.CreateConversation>(
+        30, _omitFieldNames ? '' : 'createConversation',
+        subBuilder: $3.CreateConversation.create)
+    ..aOM<$3.AddMember>(31, _omitFieldNames ? '' : 'addMember',
+        subBuilder: $3.AddMember.create)
+    ..aOM<$3.RemoveMember>(32, _omitFieldNames ? '' : 'removeMember',
+        subBuilder: $3.RemoveMember.create)
+    ..aOM<$3.LeaveConversation>(33, _omitFieldNames ? '' : 'leaveConversation',
+        subBuilder: $3.LeaveConversation.create)
+    ..aOM<$3.SendMessage>(34, _omitFieldNames ? '' : 'sendMessage',
+        subBuilder: $3.SendMessage.create)
+    ..aOM<$3.ListConversations>(35, _omitFieldNames ? '' : 'listConversations',
+        subBuilder: $3.ListConversations.create)
+    ..aOM<$3.GetMessages>(36, _omitFieldNames ? '' : 'getMessages',
+        subBuilder: $3.GetMessages.create)
+    ..aOM<$3.MarkRead>(37, _omitFieldNames ? '' : 'markRead',
+        subBuilder: $3.MarkRead.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -149,6 +201,14 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(24)
   @$pb.TagNumber(25)
   @$pb.TagNumber(26)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(31)
+  @$pb.TagNumber(32)
+  @$pb.TagNumber(33)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
+  @$pb.TagNumber(37)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -160,6 +220,14 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(24)
   @$pb.TagNumber(25)
   @$pb.TagNumber(26)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(31)
+  @$pb.TagNumber(32)
+  @$pb.TagNumber(33)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
+  @$pb.TagNumber(37)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -273,6 +341,95 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearResendVerificationEmail() => $_clearField(26);
   @$pb.TagNumber(26)
   $2.ResendVerificationEmail ensureResendVerificationEmail() => $_ensure(9);
+
+  /// Chat
+  @$pb.TagNumber(30)
+  $3.CreateConversation get createConversation => $_getN(10);
+  @$pb.TagNumber(30)
+  set createConversation($3.CreateConversation value) => $_setField(30, value);
+  @$pb.TagNumber(30)
+  $core.bool hasCreateConversation() => $_has(10);
+  @$pb.TagNumber(30)
+  void clearCreateConversation() => $_clearField(30);
+  @$pb.TagNumber(30)
+  $3.CreateConversation ensureCreateConversation() => $_ensure(10);
+
+  @$pb.TagNumber(31)
+  $3.AddMember get addMember => $_getN(11);
+  @$pb.TagNumber(31)
+  set addMember($3.AddMember value) => $_setField(31, value);
+  @$pb.TagNumber(31)
+  $core.bool hasAddMember() => $_has(11);
+  @$pb.TagNumber(31)
+  void clearAddMember() => $_clearField(31);
+  @$pb.TagNumber(31)
+  $3.AddMember ensureAddMember() => $_ensure(11);
+
+  @$pb.TagNumber(32)
+  $3.RemoveMember get removeMember => $_getN(12);
+  @$pb.TagNumber(32)
+  set removeMember($3.RemoveMember value) => $_setField(32, value);
+  @$pb.TagNumber(32)
+  $core.bool hasRemoveMember() => $_has(12);
+  @$pb.TagNumber(32)
+  void clearRemoveMember() => $_clearField(32);
+  @$pb.TagNumber(32)
+  $3.RemoveMember ensureRemoveMember() => $_ensure(12);
+
+  @$pb.TagNumber(33)
+  $3.LeaveConversation get leaveConversation => $_getN(13);
+  @$pb.TagNumber(33)
+  set leaveConversation($3.LeaveConversation value) => $_setField(33, value);
+  @$pb.TagNumber(33)
+  $core.bool hasLeaveConversation() => $_has(13);
+  @$pb.TagNumber(33)
+  void clearLeaveConversation() => $_clearField(33);
+  @$pb.TagNumber(33)
+  $3.LeaveConversation ensureLeaveConversation() => $_ensure(13);
+
+  @$pb.TagNumber(34)
+  $3.SendMessage get sendMessage => $_getN(14);
+  @$pb.TagNumber(34)
+  set sendMessage($3.SendMessage value) => $_setField(34, value);
+  @$pb.TagNumber(34)
+  $core.bool hasSendMessage() => $_has(14);
+  @$pb.TagNumber(34)
+  void clearSendMessage() => $_clearField(34);
+  @$pb.TagNumber(34)
+  $3.SendMessage ensureSendMessage() => $_ensure(14);
+
+  @$pb.TagNumber(35)
+  $3.ListConversations get listConversations => $_getN(15);
+  @$pb.TagNumber(35)
+  set listConversations($3.ListConversations value) => $_setField(35, value);
+  @$pb.TagNumber(35)
+  $core.bool hasListConversations() => $_has(15);
+  @$pb.TagNumber(35)
+  void clearListConversations() => $_clearField(35);
+  @$pb.TagNumber(35)
+  $3.ListConversations ensureListConversations() => $_ensure(15);
+
+  @$pb.TagNumber(36)
+  $3.GetMessages get getMessages => $_getN(16);
+  @$pb.TagNumber(36)
+  set getMessages($3.GetMessages value) => $_setField(36, value);
+  @$pb.TagNumber(36)
+  $core.bool hasGetMessages() => $_has(16);
+  @$pb.TagNumber(36)
+  void clearGetMessages() => $_clearField(36);
+  @$pb.TagNumber(36)
+  $3.GetMessages ensureGetMessages() => $_ensure(16);
+
+  @$pb.TagNumber(37)
+  $3.MarkRead get markRead => $_getN(17);
+  @$pb.TagNumber(37)
+  set markRead($3.MarkRead value) => $_setField(37, value);
+  @$pb.TagNumber(37)
+  $core.bool hasMarkRead() => $_has(17);
+  @$pb.TagNumber(37)
+  void clearMarkRead() => $_clearField(37);
+  @$pb.TagNumber(37)
+  $3.MarkRead ensureMarkRead() => $_ensure(17);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -384,7 +541,18 @@ class ServerEnvelope extends $pb.GeneratedMessage {
   Event ensureEvent() => $_ensure(2);
 }
 
-enum Ack_Payload { pong, hello, register, login, refresh, notSet }
+enum Ack_Payload {
+  pong,
+  hello,
+  register,
+  login,
+  refresh,
+  createConversation,
+  sendMessage,
+  listConversations,
+  getMessages,
+  notSet
+}
 
 /// Ack is returned for a successful command.
 class Ack extends $pb.GeneratedMessage {
@@ -396,6 +564,10 @@ class Ack extends $pb.GeneratedMessage {
     $2.RegisterResponse? register,
     $2.LoginResponse? login,
     $2.RefreshResponse? refresh,
+    $3.CreateConversationResponse? createConversation,
+    $3.SendMessageResponse? sendMessage,
+    $3.ListConversationsResponse? listConversations,
+    $3.GetMessagesResponse? getMessages,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -405,6 +577,11 @@ class Ack extends $pb.GeneratedMessage {
     if (register != null) result.register = register;
     if (login != null) result.login = login;
     if (refresh != null) result.refresh = refresh;
+    if (createConversation != null)
+      result.createConversation = createConversation;
+    if (sendMessage != null) result.sendMessage = sendMessage;
+    if (listConversations != null) result.listConversations = listConversations;
+    if (getMessages != null) result.getMessages = getMessages;
     return result;
   }
 
@@ -423,13 +600,17 @@ class Ack extends $pb.GeneratedMessage {
     20: Ack_Payload.register,
     22: Ack_Payload.login,
     23: Ack_Payload.refresh,
+    30: Ack_Payload.createConversation,
+    34: Ack_Payload.sendMessage,
+    35: Ack_Payload.listConversations,
+    36: Ack_Payload.getMessages,
     0: Ack_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Ack',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 22, 23])
+    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aI(2, _omitFieldNames ? '' : 'code')
     ..aOM<$0.Pong>(10, _omitFieldNames ? '' : 'pong',
@@ -442,6 +623,16 @@ class Ack extends $pb.GeneratedMessage {
         subBuilder: $2.LoginResponse.create)
     ..aOM<$2.RefreshResponse>(23, _omitFieldNames ? '' : 'refresh',
         subBuilder: $2.RefreshResponse.create)
+    ..aOM<$3.CreateConversationResponse>(
+        30, _omitFieldNames ? '' : 'createConversation',
+        subBuilder: $3.CreateConversationResponse.create)
+    ..aOM<$3.SendMessageResponse>(34, _omitFieldNames ? '' : 'sendMessage',
+        subBuilder: $3.SendMessageResponse.create)
+    ..aOM<$3.ListConversationsResponse>(
+        35, _omitFieldNames ? '' : 'listConversations',
+        subBuilder: $3.ListConversationsResponse.create)
+    ..aOM<$3.GetMessagesResponse>(36, _omitFieldNames ? '' : 'getMessages',
+        subBuilder: $3.GetMessagesResponse.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -467,12 +658,20 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(20)
   @$pb.TagNumber(22)
   @$pb.TagNumber(23)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
   Ack_Payload whichPayload() => _Ack_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(11)
   @$pb.TagNumber(20)
   @$pb.TagNumber(22)
   @$pb.TagNumber(23)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Correlates to ClientEnvelope.idempotency_key.
@@ -551,6 +750,54 @@ class Ack extends $pb.GeneratedMessage {
   void clearRefresh() => $_clearField(23);
   @$pb.TagNumber(23)
   $2.RefreshResponse ensureRefresh() => $_ensure(6);
+
+  /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+  /// empty Ack with no payload)
+  @$pb.TagNumber(30)
+  $3.CreateConversationResponse get createConversation => $_getN(7);
+  @$pb.TagNumber(30)
+  set createConversation($3.CreateConversationResponse value) =>
+      $_setField(30, value);
+  @$pb.TagNumber(30)
+  $core.bool hasCreateConversation() => $_has(7);
+  @$pb.TagNumber(30)
+  void clearCreateConversation() => $_clearField(30);
+  @$pb.TagNumber(30)
+  $3.CreateConversationResponse ensureCreateConversation() => $_ensure(7);
+
+  @$pb.TagNumber(34)
+  $3.SendMessageResponse get sendMessage => $_getN(8);
+  @$pb.TagNumber(34)
+  set sendMessage($3.SendMessageResponse value) => $_setField(34, value);
+  @$pb.TagNumber(34)
+  $core.bool hasSendMessage() => $_has(8);
+  @$pb.TagNumber(34)
+  void clearSendMessage() => $_clearField(34);
+  @$pb.TagNumber(34)
+  $3.SendMessageResponse ensureSendMessage() => $_ensure(8);
+
+  @$pb.TagNumber(35)
+  $3.ListConversationsResponse get listConversations => $_getN(9);
+  @$pb.TagNumber(35)
+  set listConversations($3.ListConversationsResponse value) =>
+      $_setField(35, value);
+  @$pb.TagNumber(35)
+  $core.bool hasListConversations() => $_has(9);
+  @$pb.TagNumber(35)
+  void clearListConversations() => $_clearField(35);
+  @$pb.TagNumber(35)
+  $3.ListConversationsResponse ensureListConversations() => $_ensure(9);
+
+  @$pb.TagNumber(36)
+  $3.GetMessagesResponse get getMessages => $_getN(10);
+  @$pb.TagNumber(36)
+  set getMessages($3.GetMessagesResponse value) => $_setField(36, value);
+  @$pb.TagNumber(36)
+  $core.bool hasGetMessages() => $_has(10);
+  @$pb.TagNumber(36)
+  void clearGetMessages() => $_clearField(36);
+  @$pb.TagNumber(36)
+  $3.GetMessagesResponse ensureGetMessages() => $_ensure(10);
 }
 
 /// Err is returned for a failed command.
@@ -658,6 +905,12 @@ enum Event_Payload {
   refreshTokenReuseDetected,
   emailVerified,
   verificationEmailSent,
+  conversationCreated,
+  memberAdded,
+  memberRemoved,
+  memberLeft,
+  messageSent,
+  readReceiptUpdated,
   notSet
 }
 
@@ -668,9 +921,9 @@ class Event extends $pb.GeneratedMessage {
   factory Event({
     $fixnum.Int64? seq,
     $core.String? stream,
-    $3.Timestamp? timestamp,
-    $4.UUID? actorId,
-    $4.UUID? aggregateId,
+    $4.Timestamp? timestamp,
+    $5.UUID? actorId,
+    $5.UUID? aggregateId,
     $0.SystemNotice? systemNotice,
     $2.UserRegistered? userRegistered,
     $2.UserLoggedIn? userLoggedIn,
@@ -679,6 +932,12 @@ class Event extends $pb.GeneratedMessage {
     $2.RefreshTokenReuseDetected? refreshTokenReuseDetected,
     $2.EmailVerified? emailVerified,
     $2.VerificationEmailSent? verificationEmailSent,
+    $3.ConversationCreated? conversationCreated,
+    $3.MemberAdded? memberAdded,
+    $3.MemberRemoved? memberRemoved,
+    $3.MemberLeft? memberLeft,
+    $3.MessageSent? messageSent,
+    $3.ReadReceiptUpdated? readReceiptUpdated,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -696,6 +955,14 @@ class Event extends $pb.GeneratedMessage {
     if (emailVerified != null) result.emailVerified = emailVerified;
     if (verificationEmailSent != null)
       result.verificationEmailSent = verificationEmailSent;
+    if (conversationCreated != null)
+      result.conversationCreated = conversationCreated;
+    if (memberAdded != null) result.memberAdded = memberAdded;
+    if (memberRemoved != null) result.memberRemoved = memberRemoved;
+    if (memberLeft != null) result.memberLeft = memberLeft;
+    if (messageSent != null) result.messageSent = messageSent;
+    if (readReceiptUpdated != null)
+      result.readReceiptUpdated = readReceiptUpdated;
     return result;
   }
 
@@ -717,21 +984,27 @@ class Event extends $pb.GeneratedMessage {
     25: Event_Payload.refreshTokenReuseDetected,
     26: Event_Payload.emailVerified,
     27: Event_Payload.verificationEmailSent,
+    30: Event_Payload.conversationCreated,
+    31: Event_Payload.memberAdded,
+    32: Event_Payload.memberRemoved,
+    33: Event_Payload.memberLeft,
+    34: Event_Payload.messageSent,
+    35: Event_Payload.readReceiptUpdated,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Event',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 20, 22, 23, 24, 25, 26, 27])
+    ..oo(0, [10, 20, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
-    ..aOM<$3.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
-        subBuilder: $3.Timestamp.create)
-    ..aOM<$4.UUID>(4, _omitFieldNames ? '' : 'actorId',
-        subBuilder: $4.UUID.create)
-    ..aOM<$4.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
-        subBuilder: $4.UUID.create)
+    ..aOM<$4.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
+        subBuilder: $4.Timestamp.create)
+    ..aOM<$5.UUID>(4, _omitFieldNames ? '' : 'actorId',
+        subBuilder: $5.UUID.create)
+    ..aOM<$5.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
+        subBuilder: $5.UUID.create)
     ..aOM<$0.SystemNotice>(10, _omitFieldNames ? '' : 'systemNotice',
         subBuilder: $0.SystemNotice.create)
     ..aOM<$2.UserRegistered>(20, _omitFieldNames ? '' : 'userRegistered',
@@ -750,6 +1023,20 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$2.VerificationEmailSent>(
         27, _omitFieldNames ? '' : 'verificationEmailSent',
         subBuilder: $2.VerificationEmailSent.create)
+    ..aOM<$3.ConversationCreated>(
+        30, _omitFieldNames ? '' : 'conversationCreated',
+        subBuilder: $3.ConversationCreated.create)
+    ..aOM<$3.MemberAdded>(31, _omitFieldNames ? '' : 'memberAdded',
+        subBuilder: $3.MemberAdded.create)
+    ..aOM<$3.MemberRemoved>(32, _omitFieldNames ? '' : 'memberRemoved',
+        subBuilder: $3.MemberRemoved.create)
+    ..aOM<$3.MemberLeft>(33, _omitFieldNames ? '' : 'memberLeft',
+        subBuilder: $3.MemberLeft.create)
+    ..aOM<$3.MessageSent>(34, _omitFieldNames ? '' : 'messageSent',
+        subBuilder: $3.MessageSent.create)
+    ..aOM<$3.ReadReceiptUpdated>(
+        35, _omitFieldNames ? '' : 'readReceiptUpdated',
+        subBuilder: $3.ReadReceiptUpdated.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -778,6 +1065,12 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(25)
   @$pb.TagNumber(26)
   @$pb.TagNumber(27)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(31)
+  @$pb.TagNumber(32)
+  @$pb.TagNumber(33)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -787,6 +1080,12 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(25)
   @$pb.TagNumber(26)
   @$pb.TagNumber(27)
+  @$pb.TagNumber(30)
+  @$pb.TagNumber(31)
+  @$pb.TagNumber(32)
+  @$pb.TagNumber(33)
+  @$pb.TagNumber(34)
+  @$pb.TagNumber(35)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -812,39 +1111,39 @@ class Event extends $pb.GeneratedMessage {
 
   /// When the event was written to the log.
   @$pb.TagNumber(3)
-  $3.Timestamp get timestamp => $_getN(2);
+  $4.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($3.Timestamp value) => $_setField(3, value);
+  set timestamp($4.Timestamp value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
   void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
-  $3.Timestamp ensureTimestamp() => $_ensure(2);
+  $4.Timestamp ensureTimestamp() => $_ensure(2);
 
   /// Who caused the event, if applicable.
   @$pb.TagNumber(4)
-  $4.UUID get actorId => $_getN(3);
+  $5.UUID get actorId => $_getN(3);
   @$pb.TagNumber(4)
-  set actorId($4.UUID value) => $_setField(4, value);
+  set actorId($5.UUID value) => $_setField(4, value);
   @$pb.TagNumber(4)
   $core.bool hasActorId() => $_has(3);
   @$pb.TagNumber(4)
   void clearActorId() => $_clearField(4);
   @$pb.TagNumber(4)
-  $4.UUID ensureActorId() => $_ensure(3);
+  $5.UUID ensureActorId() => $_ensure(3);
 
   /// Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
   @$pb.TagNumber(5)
-  $4.UUID get aggregateId => $_getN(4);
+  $5.UUID get aggregateId => $_getN(4);
   @$pb.TagNumber(5)
-  set aggregateId($4.UUID value) => $_setField(5, value);
+  set aggregateId($5.UUID value) => $_setField(5, value);
   @$pb.TagNumber(5)
   $core.bool hasAggregateId() => $_has(4);
   @$pb.TagNumber(5)
   void clearAggregateId() => $_clearField(5);
   @$pb.TagNumber(5)
-  $4.UUID ensureAggregateId() => $_ensure(4);
+  $5.UUID ensureAggregateId() => $_ensure(4);
 
   /// System
   @$pb.TagNumber(10)
@@ -938,6 +1237,74 @@ class Event extends $pb.GeneratedMessage {
   void clearVerificationEmailSent() => $_clearField(27);
   @$pb.TagNumber(27)
   $2.VerificationEmailSent ensureVerificationEmailSent() => $_ensure(12);
+
+  /// Chat
+  @$pb.TagNumber(30)
+  $3.ConversationCreated get conversationCreated => $_getN(13);
+  @$pb.TagNumber(30)
+  set conversationCreated($3.ConversationCreated value) =>
+      $_setField(30, value);
+  @$pb.TagNumber(30)
+  $core.bool hasConversationCreated() => $_has(13);
+  @$pb.TagNumber(30)
+  void clearConversationCreated() => $_clearField(30);
+  @$pb.TagNumber(30)
+  $3.ConversationCreated ensureConversationCreated() => $_ensure(13);
+
+  @$pb.TagNumber(31)
+  $3.MemberAdded get memberAdded => $_getN(14);
+  @$pb.TagNumber(31)
+  set memberAdded($3.MemberAdded value) => $_setField(31, value);
+  @$pb.TagNumber(31)
+  $core.bool hasMemberAdded() => $_has(14);
+  @$pb.TagNumber(31)
+  void clearMemberAdded() => $_clearField(31);
+  @$pb.TagNumber(31)
+  $3.MemberAdded ensureMemberAdded() => $_ensure(14);
+
+  @$pb.TagNumber(32)
+  $3.MemberRemoved get memberRemoved => $_getN(15);
+  @$pb.TagNumber(32)
+  set memberRemoved($3.MemberRemoved value) => $_setField(32, value);
+  @$pb.TagNumber(32)
+  $core.bool hasMemberRemoved() => $_has(15);
+  @$pb.TagNumber(32)
+  void clearMemberRemoved() => $_clearField(32);
+  @$pb.TagNumber(32)
+  $3.MemberRemoved ensureMemberRemoved() => $_ensure(15);
+
+  @$pb.TagNumber(33)
+  $3.MemberLeft get memberLeft => $_getN(16);
+  @$pb.TagNumber(33)
+  set memberLeft($3.MemberLeft value) => $_setField(33, value);
+  @$pb.TagNumber(33)
+  $core.bool hasMemberLeft() => $_has(16);
+  @$pb.TagNumber(33)
+  void clearMemberLeft() => $_clearField(33);
+  @$pb.TagNumber(33)
+  $3.MemberLeft ensureMemberLeft() => $_ensure(16);
+
+  @$pb.TagNumber(34)
+  $3.MessageSent get messageSent => $_getN(17);
+  @$pb.TagNumber(34)
+  set messageSent($3.MessageSent value) => $_setField(34, value);
+  @$pb.TagNumber(34)
+  $core.bool hasMessageSent() => $_has(17);
+  @$pb.TagNumber(34)
+  void clearMessageSent() => $_clearField(34);
+  @$pb.TagNumber(34)
+  $3.MessageSent ensureMessageSent() => $_ensure(17);
+
+  @$pb.TagNumber(35)
+  $3.ReadReceiptUpdated get readReceiptUpdated => $_getN(18);
+  @$pb.TagNumber(35)
+  set readReceiptUpdated($3.ReadReceiptUpdated value) => $_setField(35, value);
+  @$pb.TagNumber(35)
+  $core.bool hasReadReceiptUpdated() => $_has(18);
+  @$pb.TagNumber(35)
+  void clearReadReceiptUpdated() => $_clearField(35);
+  @$pb.TagNumber(35)
+  $3.ReadReceiptUpdated ensureReadReceiptUpdated() => $_ensure(18);
 }
 
 const $core.bool _omitFieldNames =

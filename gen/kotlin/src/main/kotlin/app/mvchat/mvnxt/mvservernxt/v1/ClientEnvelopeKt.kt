@@ -303,6 +303,210 @@ public object ClientEnvelopeKt {
     public fun hasResendVerificationEmail(): kotlin.Boolean {
       return _builder.hasResendVerificationEmail()
     }
+
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
+     */
+    public var createConversation: app.mvchat.mvnxt.mvservernxt.v1.CreateConversation
+      @kotlin.jvm.JvmName("getCreateConversation")
+        get() = _builder.createConversation
+      @kotlin.jvm.JvmName("setCreateConversation")
+        set(value) {
+        _builder.createConversation = value
+      }
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
+     */
+    public fun clearCreateConversation() {
+      _builder.clearCreateConversation()
+    }
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
+     * @return Whether the createConversation field is set.
+     */
+    public fun hasCreateConversation(): kotlin.Boolean {
+      return _builder.hasCreateConversation()
+    }
+
+    /**
+     * `.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];`
+     */
+    public var addMember: app.mvchat.mvnxt.mvservernxt.v1.AddMember
+      @kotlin.jvm.JvmName("getAddMember")
+        get() = _builder.addMember
+      @kotlin.jvm.JvmName("setAddMember")
+        set(value) {
+        _builder.addMember = value
+      }
+    /**
+     * `.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];`
+     */
+    public fun clearAddMember() {
+      _builder.clearAddMember()
+    }
+    /**
+     * `.mvservernxt.v1.AddMember add_member = 31 [json_name = "addMember"];`
+     * @return Whether the addMember field is set.
+     */
+    public fun hasAddMember(): kotlin.Boolean {
+      return _builder.hasAddMember()
+    }
+
+    /**
+     * `.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];`
+     */
+    public var removeMember: app.mvchat.mvnxt.mvservernxt.v1.RemoveMember
+      @kotlin.jvm.JvmName("getRemoveMember")
+        get() = _builder.removeMember
+      @kotlin.jvm.JvmName("setRemoveMember")
+        set(value) {
+        _builder.removeMember = value
+      }
+    /**
+     * `.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];`
+     */
+    public fun clearRemoveMember() {
+      _builder.clearRemoveMember()
+    }
+    /**
+     * `.mvservernxt.v1.RemoveMember remove_member = 32 [json_name = "removeMember"];`
+     * @return Whether the removeMember field is set.
+     */
+    public fun hasRemoveMember(): kotlin.Boolean {
+      return _builder.hasRemoveMember()
+    }
+
+    /**
+     * `.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];`
+     */
+    public var leaveConversation: app.mvchat.mvnxt.mvservernxt.v1.LeaveConversation
+      @kotlin.jvm.JvmName("getLeaveConversation")
+        get() = _builder.leaveConversation
+      @kotlin.jvm.JvmName("setLeaveConversation")
+        set(value) {
+        _builder.leaveConversation = value
+      }
+    /**
+     * `.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];`
+     */
+    public fun clearLeaveConversation() {
+      _builder.clearLeaveConversation()
+    }
+    /**
+     * `.mvservernxt.v1.LeaveConversation leave_conversation = 33 [json_name = "leaveConversation"];`
+     * @return Whether the leaveConversation field is set.
+     */
+    public fun hasLeaveConversation(): kotlin.Boolean {
+      return _builder.hasLeaveConversation()
+    }
+
+    /**
+     * `.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];`
+     */
+    public var sendMessage: app.mvchat.mvnxt.mvservernxt.v1.SendMessage
+      @kotlin.jvm.JvmName("getSendMessage")
+        get() = _builder.sendMessage
+      @kotlin.jvm.JvmName("setSendMessage")
+        set(value) {
+        _builder.sendMessage = value
+      }
+    /**
+     * `.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];`
+     */
+    public fun clearSendMessage() {
+      _builder.clearSendMessage()
+    }
+    /**
+     * `.mvservernxt.v1.SendMessage send_message = 34 [json_name = "sendMessage"];`
+     * @return Whether the sendMessage field is set.
+     */
+    public fun hasSendMessage(): kotlin.Boolean {
+      return _builder.hasSendMessage()
+    }
+
+    /**
+     * `.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];`
+     */
+    public var listConversations: app.mvchat.mvnxt.mvservernxt.v1.ListConversations
+      @kotlin.jvm.JvmName("getListConversations")
+        get() = _builder.listConversations
+      @kotlin.jvm.JvmName("setListConversations")
+        set(value) {
+        _builder.listConversations = value
+      }
+    /**
+     * `.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];`
+     */
+    public fun clearListConversations() {
+      _builder.clearListConversations()
+    }
+    /**
+     * `.mvservernxt.v1.ListConversations list_conversations = 35 [json_name = "listConversations"];`
+     * @return Whether the listConversations field is set.
+     */
+    public fun hasListConversations(): kotlin.Boolean {
+      return _builder.hasListConversations()
+    }
+
+    /**
+     * `.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];`
+     */
+    public var getMessages: app.mvchat.mvnxt.mvservernxt.v1.GetMessages
+      @kotlin.jvm.JvmName("getGetMessages")
+        get() = _builder.getMessages
+      @kotlin.jvm.JvmName("setGetMessages")
+        set(value) {
+        _builder.getMessages = value
+      }
+    /**
+     * `.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];`
+     */
+    public fun clearGetMessages() {
+      _builder.clearGetMessages()
+    }
+    /**
+     * `.mvservernxt.v1.GetMessages get_messages = 36 [json_name = "getMessages"];`
+     * @return Whether the getMessages field is set.
+     */
+    public fun hasGetMessages(): kotlin.Boolean {
+      return _builder.hasGetMessages()
+    }
+
+    /**
+     * `.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];`
+     */
+    public var markRead: app.mvchat.mvnxt.mvservernxt.v1.MarkRead
+      @kotlin.jvm.JvmName("getMarkRead")
+        get() = _builder.markRead
+      @kotlin.jvm.JvmName("setMarkRead")
+        set(value) {
+        _builder.markRead = value
+      }
+    /**
+     * `.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];`
+     */
+    public fun clearMarkRead() {
+      _builder.clearMarkRead()
+    }
+    /**
+     * `.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];`
+     * @return Whether the markRead field is set.
+     */
+    public fun hasMarkRead(): kotlin.Boolean {
+      return _builder.hasMarkRead()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -342,4 +546,28 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.verifyEmailOr
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.resendVerificationEmailOrNull: app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmail?
   get() = if (hasResendVerificationEmail()) getResendVerificationEmail() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.createConversationOrNull: app.mvchat.mvnxt.mvservernxt.v1.CreateConversation?
+  get() = if (hasCreateConversation()) getCreateConversation() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.addMemberOrNull: app.mvchat.mvnxt.mvservernxt.v1.AddMember?
+  get() = if (hasAddMember()) getAddMember() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.removeMemberOrNull: app.mvchat.mvnxt.mvservernxt.v1.RemoveMember?
+  get() = if (hasRemoveMember()) getRemoveMember() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.leaveConversationOrNull: app.mvchat.mvnxt.mvservernxt.v1.LeaveConversation?
+  get() = if (hasLeaveConversation()) getLeaveConversation() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.sendMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.SendMessage?
+  get() = if (hasSendMessage()) getSendMessage() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.listConversationsOrNull: app.mvchat.mvnxt.mvservernxt.v1.ListConversations?
+  get() = if (hasListConversations()) getListConversations() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.getMessagesOrNull: app.mvchat.mvnxt.mvservernxt.v1.GetMessages?
+  get() = if (hasGetMessages()) getGetMessages() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.markReadOrNull: app.mvchat.mvnxt.mvservernxt.v1.MarkRead?
+  get() = if (hasMarkRead()) getMarkRead() else null
 

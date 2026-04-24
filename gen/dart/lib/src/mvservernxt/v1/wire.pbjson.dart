@@ -101,6 +101,78 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'resendVerificationEmail'
     },
+    {
+      '1': 'create_conversation',
+      '3': 30,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.CreateConversation',
+      '9': 0,
+      '10': 'createConversation'
+    },
+    {
+      '1': 'add_member',
+      '3': 31,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.AddMember',
+      '9': 0,
+      '10': 'addMember'
+    },
+    {
+      '1': 'remove_member',
+      '3': 32,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.RemoveMember',
+      '9': 0,
+      '10': 'removeMember'
+    },
+    {
+      '1': 'leave_conversation',
+      '3': 33,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.LeaveConversation',
+      '9': 0,
+      '10': 'leaveConversation'
+    },
+    {
+      '1': 'send_message',
+      '3': 34,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SendMessage',
+      '9': 0,
+      '10': 'sendMessage'
+    },
+    {
+      '1': 'list_conversations',
+      '3': 35,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.ListConversations',
+      '9': 0,
+      '10': 'listConversations'
+    },
+    {
+      '1': 'get_messages',
+      '3': 36,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.GetMessages',
+      '9': 0,
+      '10': 'getMessages'
+    },
+    {
+      '1': 'mark_read',
+      '3': 37,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MarkRead',
+      '9': 0,
+      '10': 'markRead'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -119,7 +191,18 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'IWLm12c2VydmVybnh0LnYxLkxvZ291dEgAUgZsb2dvdXQSQAoMdmVyaWZ5X2VtYWlsGBkgASgL'
     'MhsubXZzZXJ2ZXJueHQudjEuVmVyaWZ5RW1haWxIAFILdmVyaWZ5RW1haWwSZQoZcmVzZW5kX3'
     'ZlcmlmaWNhdGlvbl9lbWFpbBgaIAEoCzInLm12c2VydmVybnh0LnYxLlJlc2VuZFZlcmlmaWNh'
-    'dGlvbkVtYWlsSABSF3Jlc2VuZFZlcmlmaWNhdGlvbkVtYWlsQgkKB3BheWxvYWQ=');
+    'dGlvbkVtYWlsSABSF3Jlc2VuZFZlcmlmaWNhdGlvbkVtYWlsElUKE2NyZWF0ZV9jb252ZXJzYX'
+    'Rpb24YHiABKAsyIi5tdnNlcnZlcm54dC52MS5DcmVhdGVDb252ZXJzYXRpb25IAFISY3JlYXRl'
+    'Q29udmVyc2F0aW9uEjoKCmFkZF9tZW1iZXIYHyABKAsyGS5tdnNlcnZlcm54dC52MS5BZGRNZW'
+    '1iZXJIAFIJYWRkTWVtYmVyEkMKDXJlbW92ZV9tZW1iZXIYICABKAsyHC5tdnNlcnZlcm54dC52'
+    'MS5SZW1vdmVNZW1iZXJIAFIMcmVtb3ZlTWVtYmVyElIKEmxlYXZlX2NvbnZlcnNhdGlvbhghIA'
+    'EoCzIhLm12c2VydmVybnh0LnYxLkxlYXZlQ29udmVyc2F0aW9uSABSEWxlYXZlQ29udmVyc2F0'
+    'aW9uEkAKDHNlbmRfbWVzc2FnZRgiIAEoCzIbLm12c2VydmVybnh0LnYxLlNlbmRNZXNzYWdlSA'
+    'BSC3NlbmRNZXNzYWdlElIKEmxpc3RfY29udmVyc2F0aW9ucxgjIAEoCzIhLm12c2VydmVybnh0'
+    'LnYxLkxpc3RDb252ZXJzYXRpb25zSABSEWxpc3RDb252ZXJzYXRpb25zEkAKDGdldF9tZXNzYW'
+    'dlcxgkIAEoCzIbLm12c2VydmVybnh0LnYxLkdldE1lc3NhZ2VzSABSC2dldE1lc3NhZ2VzEjcK'
+    'CW1hcmtfcmVhZBglIAEoCzIYLm12c2VydmVybnh0LnYxLk1hcmtSZWFkSABSCG1hcmtSZWFkQg'
+    'kKB3BheWxvYWQ=');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -215,6 +298,42 @@ const Ack$json = {
       '9': 0,
       '10': 'refresh'
     },
+    {
+      '1': 'create_conversation',
+      '3': 30,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.CreateConversationResponse',
+      '9': 0,
+      '10': 'createConversation'
+    },
+    {
+      '1': 'send_message',
+      '3': 34,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SendMessageResponse',
+      '9': 0,
+      '10': 'sendMessage'
+    },
+    {
+      '1': 'list_conversations',
+      '3': 35,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.ListConversationsResponse',
+      '9': 0,
+      '10': 'listConversations'
+    },
+    {
+      '1': 'get_messages',
+      '3': 36,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.GetMessagesResponse',
+      '9': 0,
+      '10': 'getMessages'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -229,7 +348,13 @@ final $typed_data.Uint8List ackDescriptor = $convert.base64Decode(
     '4KCHJlZ2lzdGVyGBQgASgLMiAubXZzZXJ2ZXJueHQudjEuUmVnaXN0ZXJSZXNwb25zZUgAUghy'
     'ZWdpc3RlchI1CgVsb2dpbhgWIAEoCzIdLm12c2VydmVybnh0LnYxLkxvZ2luUmVzcG9uc2VIAF'
     'IFbG9naW4SOwoHcmVmcmVzaBgXIAEoCzIfLm12c2VydmVybnh0LnYxLlJlZnJlc2hSZXNwb25z'
-    'ZUgAUgdyZWZyZXNoQgkKB3BheWxvYWQ=');
+    'ZUgAUgdyZWZyZXNoEl0KE2NyZWF0ZV9jb252ZXJzYXRpb24YHiABKAsyKi5tdnNlcnZlcm54dC'
+    '52MS5DcmVhdGVDb252ZXJzYXRpb25SZXNwb25zZUgAUhJjcmVhdGVDb252ZXJzYXRpb24SSAoM'
+    'c2VuZF9tZXNzYWdlGCIgASgLMiMubXZzZXJ2ZXJueHQudjEuU2VuZE1lc3NhZ2VSZXNwb25zZU'
+    'gAUgtzZW5kTWVzc2FnZRJaChJsaXN0X2NvbnZlcnNhdGlvbnMYIyABKAsyKS5tdnNlcnZlcm54'
+    'dC52MS5MaXN0Q29udmVyc2F0aW9uc1Jlc3BvbnNlSABSEWxpc3RDb252ZXJzYXRpb25zEkgKDG'
+    'dldF9tZXNzYWdlcxgkIAEoCzIjLm12c2VydmVybnh0LnYxLkdldE1lc3NhZ2VzUmVzcG9uc2VI'
+    'AFILZ2V0TWVzc2FnZXNCCQoHcGF5bG9hZA==');
 
 @$core.Deprecated('Use errDescriptor instead')
 const Err$json = {
@@ -350,6 +475,60 @@ const Event$json = {
       '9': 0,
       '10': 'verificationEmailSent'
     },
+    {
+      '1': 'conversation_created',
+      '3': 30,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.ConversationCreated',
+      '9': 0,
+      '10': 'conversationCreated'
+    },
+    {
+      '1': 'member_added',
+      '3': 31,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MemberAdded',
+      '9': 0,
+      '10': 'memberAdded'
+    },
+    {
+      '1': 'member_removed',
+      '3': 32,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MemberRemoved',
+      '9': 0,
+      '10': 'memberRemoved'
+    },
+    {
+      '1': 'member_left',
+      '3': 33,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MemberLeft',
+      '9': 0,
+      '10': 'memberLeft'
+    },
+    {
+      '1': 'message_sent',
+      '3': 34,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MessageSent',
+      '9': 0,
+      '10': 'messageSent'
+    },
+    {
+      '1': 'read_receipt_updated',
+      '3': 35,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.ReadReceiptUpdated',
+      '9': 0,
+      '10': 'readReceiptUpdated'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -373,4 +552,12 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'aFRva2VuUmV1c2VEZXRlY3RlZBJGCg5lbWFpbF92ZXJpZmllZBgaIAEoCzIdLm12c2VydmVybn'
     'h0LnYxLkVtYWlsVmVyaWZpZWRIAFINZW1haWxWZXJpZmllZBJfChd2ZXJpZmljYXRpb25fZW1h'
     'aWxfc2VudBgbIAEoCzIlLm12c2VydmVybnh0LnYxLlZlcmlmaWNhdGlvbkVtYWlsU2VudEgAUh'
-    'V2ZXJpZmljYXRpb25FbWFpbFNlbnRCCQoHcGF5bG9hZA==');
+    'V2ZXJpZmljYXRpb25FbWFpbFNlbnQSWAoUY29udmVyc2F0aW9uX2NyZWF0ZWQYHiABKAsyIy5t'
+    'dnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25DcmVhdGVkSABSE2NvbnZlcnNhdGlvbkNyZWF0ZW'
+    'QSQAoMbWVtYmVyX2FkZGVkGB8gASgLMhsubXZzZXJ2ZXJueHQudjEuTWVtYmVyQWRkZWRIAFIL'
+    'bWVtYmVyQWRkZWQSRgoObWVtYmVyX3JlbW92ZWQYICABKAsyHS5tdnNlcnZlcm54dC52MS5NZW'
+    '1iZXJSZW1vdmVkSABSDW1lbWJlclJlbW92ZWQSPQoLbWVtYmVyX2xlZnQYISABKAsyGi5tdnNl'
+    'cnZlcm54dC52MS5NZW1iZXJMZWZ0SABSCm1lbWJlckxlZnQSQAoMbWVzc2FnZV9zZW50GCIgAS'
+    'gLMhsubXZzZXJ2ZXJueHQudjEuTWVzc2FnZVNlbnRIAFILbWVzc2FnZVNlbnQSVgoUcmVhZF9y'
+    'ZWNlaXB0X3VwZGF0ZWQYIyABKAsyIi5tdnNlcnZlcm54dC52MS5SZWFkUmVjZWlwdFVwZGF0ZW'
+    'RIAFIScmVhZFJlY2VpcHRVcGRhdGVkQgkKB3BheWxvYWQ=');
