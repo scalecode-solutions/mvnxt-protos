@@ -1,0 +1,72 @@
+// Audience is the server-internal audience descriptor stored alongside
+// every event-log entry whose delivery is bounded to a specific set of
+// users. The ws-broadcast subscriber reads it to resolve recipients;
+// future subscribers (push, audit, search) read the same descriptor.
+//
+// This is the proto shape for doc 07's capability-token concept. Slice-1
+// ships the unsigned form with Kind=LIST (explicit user set). Later
+// slices add:
+//   - Signing (HMAC over the canonical bytes, stored in `signature`)
+//   - Dynamic kinds (GROUP resolved via conversation members, CONTACTS
+//     via contact graph, etc.) once those domains exist
+//
+// Envelope column on the events row is bytea; we proto-encode an Audience
+// into it. No JSON intermediate, no string keys — typed end to end.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+// AudienceKind enumerates how recipients are derived. More kinds land
+// without renumbering.
+enum AudienceKind {
+  AUDIENCE_KIND_UNSPECIFIED = 0;
+
+  // PUBLIC: every user that can see the containing aggregate. Used for
+  // things like public pulse posts. No include/exclude — the aggregate
+  // itself defines visibility.
+  AUDIENCE_KIND_PUBLIC = 1;
+
+  // LIST: explicit user set. `include` holds the uuids; `exclude` may
+  // remove some. Slice-1 chat uses this — the resolver just reads
+  // `include`. Simple, verifiable, no external lookups.
+  AUDIENCE_KIND_LIST = 2;
+
+  // CONTACTS: caller's contact graph. `context["owner_id"]` names the
+  // owner whose contacts expand here. Resolved when subscriber fans
+  // out; not slice-1.
+  AUDIENCE_KIND_CONTACTS = 3;
+
+  // GROUP: current active members of a conversation. Context carries
+  // `conv_id`. Resolved by the subscriber querying chat store. Not
+  // slice-1 — chat currently enumerates members into LIST at append
+  // time so fan-out is stable even if membership changes later.
+  AUDIENCE_KIND_GROUP = 4;
+
+  // USER: exactly one recipient. Equivalent to LIST with include=[one].
+  AUDIENCE_KIND_USER = 5;
+}
+
+// Audience is the typed descriptor. Store proto-encoded bytes in the
+// `events.audience` bytea column.
+message Audience {
+  // Schema version. Bump when a breaking change ships.
+  int32 version = 1;
+
+  AudienceKind kind = 2;
+
+  // Explicit recipients (LIST, USER).
+  // UUID strings — matches the rest of our wire where IDs are strings.
+  repeated string include = 3;
+
+  // Removals applied after kind-specific resolution.
+  repeated string exclude = 4;
+
+  // Kind-specific context (GROUP's conv_id, CONTACTS' owner_id, etc.).
+  map<string, string> context = 5;
+
+  // HMAC over the canonical bytes of (version, kind, include, exclude,
+  // context). Empty until signing lands. Future verifiers MUST fail
+  // closed on missing signature once the server's key material is
+  // wired up.
+  bytes signature = 6;
+}
