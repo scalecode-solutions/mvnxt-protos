@@ -136,4 +136,34 @@ public interface HelloResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getSessionIdBytes();
+
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   * @return Whether the idempotency field is set.
+   */
+  boolean hasIdempotency();
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   * @return The idempotency.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy getIdempotency();
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder getIdempotencyOrBuilder();
 }

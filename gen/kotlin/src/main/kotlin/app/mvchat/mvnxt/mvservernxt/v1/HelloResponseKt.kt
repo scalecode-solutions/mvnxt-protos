@@ -239,9 +239,54 @@ public object HelloResponseKt {
     public fun clearSessionId() {
       _builder.clearSessionId()
     }
+
+    /**
+     * ```
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * ```
+     *
+     * `.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];`
+     */
+    public var idempotency: app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy
+      @kotlin.jvm.JvmName("getIdempotency")
+        get() = _builder.idempotency
+      @kotlin.jvm.JvmName("setIdempotency")
+        set(value) {
+        _builder.idempotency = value
+      }
+    /**
+     * ```
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * ```
+     *
+     * `.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];`
+     */
+    public fun clearIdempotency() {
+      _builder.clearIdempotency()
+    }
+    /**
+     * ```
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * ```
+     *
+     * `.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];`
+     * @return Whether the idempotency field is set.
+     */
+    public fun hasIdempotency(): kotlin.Boolean {
+      return _builder.hasIdempotency()
+    }
+
+    public val HelloResponseKt.Dsl.idempotencyOrNull: app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy?
+      get() = _builder.idempotencyOrNull
   }
 }
 @kotlin.jvm.JvmSynthetic
 public inline fun app.mvchat.mvnxt.mvservernxt.v1.HelloResponse.copy(block: `app.mvchat.mvnxt.mvservernxt.v1`.HelloResponseKt.Dsl.() -> kotlin.Unit): app.mvchat.mvnxt.mvservernxt.v1.HelloResponse =
   `app.mvchat.mvnxt.mvservernxt.v1`.HelloResponseKt.Dsl._create(this.toBuilder()).apply { block() }._build()
+
+public val app.mvchat.mvnxt.mvservernxt.v1.HelloResponseOrBuilder.idempotencyOrNull: app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy?
+  get() = if (hasIdempotency()) getIdempotency() else null
 

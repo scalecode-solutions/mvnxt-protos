@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1amvservernxt/v1/hello.proto\x12\x0emvservernxt.v1\"\xd0\x01\n\x05Hello\x12\x32\n\x06\x63lient\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.ClientInfoR\x06\x63lient\x12\x1b\n\tdevice_id\x18\x02 \x01(\tR\x08\x64\x65viceId\x12.\n\x06locale\x18\x03 \x01(\x0b\x32\x16.mvservernxt.v1.LocaleR\x06locale\x12\x46\n\x0c\x63\x61pabilities\x18\x04 \x01(\x0b\x32\".mvservernxt.v1.ClientCapabilitiesR\x0c\x63\x61pabilities\"\xa1\x01\n\nClientInfo\x12\x19\n\x08\x61pp_name\x18\x01 \x01(\tR\x07\x61ppName\x12\x1f\n\x0b\x61pp_version\x18\x02 \x01(\tR\nappVersion\x12!\n\x0c\x62uild_number\x18\x03 \x01(\tR\x0b\x62uildNumber\x12\x34\n\x08platform\x18\x04 \x01(\x0e\x32\x18.mvservernxt.v1.PlatformR\x08platform\"@\n\x06Locale\x12\x1a\n\x08language\x18\x01 \x01(\tR\x08language\x12\x1a\n\x08timezone\x18\x02 \x01(\tR\x08timezone\"0\n\x12\x43lientCapabilities\x12\x1a\n\x08supports\x18\x01 \x03(\tR\x08supports\"\xd6\x01\n\rHelloResponse\x12%\n\x0eserver_version\x18\x01 \x01(\tR\rserverVersion\x12#\n\rserver_commit\x18\x02 \x01(\tR\x0cserverCommit\x12)\n\x10protocol_version\x18\x03 \x01(\tR\x0fprotocolVersion\x12/\n\x13server_capabilities\x18\x04 \x03(\tR\x12serverCapabilities\x12\x1d\n\nsession_id\x18\x05 \x01(\tR\tsessionId*\xae\x01\n\x08Platform\x12\x18\n\x14PLATFORM_UNSPECIFIED\x10\x00\x12\x10\n\x0cPLATFORM_IOS\x10\x01\x12\x14\n\x10PLATFORM_ANDROID\x10\x02\x12\x10\n\x0cPLATFORM_WEB\x10\x03\x12\x12\n\x0ePLATFORM_MACOS\x10\x04\x12\x14\n\x10PLATFORM_WINDOWS\x10\x05\x12\x12\n\x0ePLATFORM_LINUX\x10\x06\x12\x10\n\x0cPLATFORM_CLI\x10\x07\x42\xd7\x01\n\x1f\x61pp.mvchat.mvnxt.mvservernxt.v1B\nHelloProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1amvservernxt/v1/hello.proto\x12\x0emvservernxt.v1\"\xd0\x01\n\x05Hello\x12\x32\n\x06\x63lient\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.ClientInfoR\x06\x63lient\x12\x1b\n\tdevice_id\x18\x02 \x01(\tR\x08\x64\x65viceId\x12.\n\x06locale\x18\x03 \x01(\x0b\x32\x16.mvservernxt.v1.LocaleR\x06locale\x12\x46\n\x0c\x63\x61pabilities\x18\x04 \x01(\x0b\x32\".mvservernxt.v1.ClientCapabilitiesR\x0c\x63\x61pabilities\"\xa1\x01\n\nClientInfo\x12\x19\n\x08\x61pp_name\x18\x01 \x01(\tR\x07\x61ppName\x12\x1f\n\x0b\x61pp_version\x18\x02 \x01(\tR\nappVersion\x12!\n\x0c\x62uild_number\x18\x03 \x01(\tR\x0b\x62uildNumber\x12\x34\n\x08platform\x18\x04 \x01(\x0e\x32\x18.mvservernxt.v1.PlatformR\x08platform\"@\n\x06Locale\x12\x1a\n\x08language\x18\x01 \x01(\tR\x08language\x12\x1a\n\x08timezone\x18\x02 \x01(\tR\x08timezone\"0\n\x12\x43lientCapabilities\x12\x1a\n\x08supports\x18\x01 \x03(\tR\x08supports\"\x9b\x02\n\rHelloResponse\x12%\n\x0eserver_version\x18\x01 \x01(\tR\rserverVersion\x12#\n\rserver_commit\x18\x02 \x01(\tR\x0cserverCommit\x12)\n\x10protocol_version\x18\x03 \x01(\tR\x0fprotocolVersion\x12/\n\x13server_capabilities\x18\x04 \x03(\tR\x12serverCapabilities\x12\x1d\n\nsession_id\x18\x05 \x01(\tR\tsessionId\x12\x43\n\x0bidempotency\x18\x06 \x01(\x0b\x32!.mvservernxt.v1.IdempotencyPolicyR\x0bidempotency\"4\n\x11IdempotencyPolicy\x12\x1f\n\x0bttl_seconds\x18\x01 \x01(\x03R\nttlSeconds*\xae\x01\n\x08Platform\x12\x18\n\x14PLATFORM_UNSPECIFIED\x10\x00\x12\x10\n\x0cPLATFORM_IOS\x10\x01\x12\x14\n\x10PLATFORM_ANDROID\x10\x02\x12\x10\n\x0cPLATFORM_WEB\x10\x03\x12\x12\n\x0ePLATFORM_MACOS\x10\x04\x12\x14\n\x10PLATFORM_WINDOWS\x10\x05\x12\x12\n\x0ePLATFORM_LINUX\x10\x06\x12\x10\n\x0cPLATFORM_CLI\x10\x07\x42\xd7\x01\n\x1f\x61pp.mvchat.mvnxt.mvservernxt.v1B\nHelloProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,8 +32,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mvservernxt.v1.hello_pb2', 
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\037app.mvchat.mvnxt.mvservernxt.v1B\nHelloProtoP\001ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1\\GPBMetadata\352\002\017Mvservernxt::V1'
-  _globals['_PLATFORM']._serialized_start=755
-  _globals['_PLATFORM']._serialized_end=929
+  _globals['_PLATFORM']._serialized_start=878
+  _globals['_PLATFORM']._serialized_end=1052
   _globals['_HELLO']._serialized_start=47
   _globals['_HELLO']._serialized_end=255
   _globals['_CLIENTINFO']._serialized_start=258
@@ -43,5 +43,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_CLIENTCAPABILITIES']._serialized_start=487
   _globals['_CLIENTCAPABILITIES']._serialized_end=535
   _globals['_HELLORESPONSE']._serialized_start=538
-  _globals['_HELLORESPONSE']._serialized_end=752
+  _globals['_HELLORESPONSE']._serialized_end=821
+  _globals['_IDEMPOTENCYPOLICY']._serialized_start=823
+  _globals['_IDEMPOTENCYPOLICY']._serialized_end=875
 # @@protoc_insertion_point(module_scope)

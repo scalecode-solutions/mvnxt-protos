@@ -19,7 +19,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/hello.proto.
  */
 export const file_mvservernxt_v1_hello: GenFile = /*@__PURE__*/
-  fileDesc("ChptdnNlcnZlcm54dC92MS9oZWxsby5wcm90bxIObXZzZXJ2ZXJueHQudjEiqAEKBUhlbGxvEioKBmNsaWVudBgBIAEoCzIaLm12c2VydmVybnh0LnYxLkNsaWVudEluZm8SEQoJZGV2aWNlX2lkGAIgASgJEiYKBmxvY2FsZRgDIAEoCzIWLm12c2VydmVybnh0LnYxLkxvY2FsZRI4CgxjYXBhYmlsaXRpZXMYBCABKAsyIi5tdnNlcnZlcm54dC52MS5DbGllbnRDYXBhYmlsaXRpZXMidQoKQ2xpZW50SW5mbxIQCghhcHBfbmFtZRgBIAEoCRITCgthcHBfdmVyc2lvbhgCIAEoCRIUCgxidWlsZF9udW1iZXIYAyABKAkSKgoIcGxhdGZvcm0YBCABKA4yGC5tdnNlcnZlcm54dC52MS5QbGF0Zm9ybSIsCgZMb2NhbGUSEAoIbGFuZ3VhZ2UYASABKAkSEAoIdGltZXpvbmUYAiABKAkiJgoSQ2xpZW50Q2FwYWJpbGl0aWVzEhAKCHN1cHBvcnRzGAEgAygJIokBCg1IZWxsb1Jlc3BvbnNlEhYKDnNlcnZlcl92ZXJzaW9uGAEgASgJEhUKDXNlcnZlcl9jb21taXQYAiABKAkSGAoQcHJvdG9jb2xfdmVyc2lvbhgDIAEoCRIbChNzZXJ2ZXJfY2FwYWJpbGl0aWVzGAQgAygJEhIKCnNlc3Npb25faWQYBSABKAkqrgEKCFBsYXRmb3JtEhgKFFBMQVRGT1JNX1VOU1BFQ0lGSUVEEAASEAoMUExBVEZPUk1fSU9TEAESFAoQUExBVEZPUk1fQU5EUk9JRBACEhAKDFBMQVRGT1JNX1dFQhADEhIKDlBMQVRGT1JNX01BQ09TEAQSFAoQUExBVEZPUk1fV0lORE9XUxAFEhIKDlBMQVRGT1JNX0xJTlVYEAYSEAoMUExBVEZPUk1fQ0xJEAdC1wEKH2FwcC5tdmNoYXQubXZueHQubXZzZXJ2ZXJueHQudjFCCkhlbGxvUHJvdG9QAVpPZ2l0aHViLmNvbS9zY2FsZWNvZGUtc29sdXRpb25zL212bnh0LXByb3Rvcy9nZW4vZ28vbXZzZXJ2ZXJueHQvdjE7bXZzZXJ2ZXJueHR2MaICA01YWKoCDk12c2VydmVybnh0LlYxygIOTXZzZXJ2ZXJueHRcVjHiAhpNdnNlcnZlcm54dFxWMVxHUEJNZXRhZGF0YeoCD012c2VydmVybnh0OjpWMWIGcHJvdG8z");
+  fileDesc("ChptdnNlcnZlcm54dC92MS9oZWxsby5wcm90bxIObXZzZXJ2ZXJueHQudjEiqAEKBUhlbGxvEioKBmNsaWVudBgBIAEoCzIaLm12c2VydmVybnh0LnYxLkNsaWVudEluZm8SEQoJZGV2aWNlX2lkGAIgASgJEiYKBmxvY2FsZRgDIAEoCzIWLm12c2VydmVybnh0LnYxLkxvY2FsZRI4CgxjYXBhYmlsaXRpZXMYBCABKAsyIi5tdnNlcnZlcm54dC52MS5DbGllbnRDYXBhYmlsaXRpZXMidQoKQ2xpZW50SW5mbxIQCghhcHBfbmFtZRgBIAEoCRITCgthcHBfdmVyc2lvbhgCIAEoCRIUCgxidWlsZF9udW1iZXIYAyABKAkSKgoIcGxhdGZvcm0YBCABKA4yGC5tdnNlcnZlcm54dC52MS5QbGF0Zm9ybSIsCgZMb2NhbGUSEAoIbGFuZ3VhZ2UYASABKAkSEAoIdGltZXpvbmUYAiABKAkiJgoSQ2xpZW50Q2FwYWJpbGl0aWVzEhAKCHN1cHBvcnRzGAEgAygJIsEBCg1IZWxsb1Jlc3BvbnNlEhYKDnNlcnZlcl92ZXJzaW9uGAEgASgJEhUKDXNlcnZlcl9jb21taXQYAiABKAkSGAoQcHJvdG9jb2xfdmVyc2lvbhgDIAEoCRIbChNzZXJ2ZXJfY2FwYWJpbGl0aWVzGAQgAygJEhIKCnNlc3Npb25faWQYBSABKAkSNgoLaWRlbXBvdGVuY3kYBiABKAsyIS5tdnNlcnZlcm54dC52MS5JZGVtcG90ZW5jeVBvbGljeSIoChFJZGVtcG90ZW5jeVBvbGljeRITCgt0dGxfc2Vjb25kcxgBIAEoAyquAQoIUGxhdGZvcm0SGAoUUExBVEZPUk1fVU5TUEVDSUZJRUQQABIQCgxQTEFURk9STV9JT1MQARIUChBQTEFURk9STV9BTkRST0lEEAISEAoMUExBVEZPUk1fV0VCEAMSEgoOUExBVEZPUk1fTUFDT1MQBBIUChBQTEFURk9STV9XSU5ET1dTEAUSEgoOUExBVEZPUk1fTElOVVgQBhIQCgxQTEFURk9STV9DTEkQB0LXAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUIKSGVsbG9Qcm90b1ABWk9naXRodWIuY29tL3NjYWxlY29kZS1zb2x1dGlvbnMvbXZueHQtcHJvdG9zL2dlbi9nby9tdnNlcnZlcm54dC92MTttdnNlcnZlcm54dHYxogIDTVhYqgIOTXZzZXJ2ZXJueHQuVjHKAg5NdnNlcnZlcm54dFxWMeICGk12c2VydmVybnh0XFYxXEdQQk1ldGFkYXRh6gIPTXZzZXJ2ZXJueHQ6OlYxYgZwcm90bzM");
 
 /**
  * Hello is the pre-auth handshake.
@@ -208,6 +208,14 @@ export type HelloResponse = Message<"mvservernxt.v1.HelloResponse"> & {
    * @generated from field: string session_id = 5;
    */
   sessionId: string;
+
+  /**
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   *
+   * @generated from field: mvservernxt.v1.IdempotencyPolicy idempotency = 6;
+   */
+  idempotency?: IdempotencyPolicy | undefined;
 };
 
 /**
@@ -216,6 +224,46 @@ export type HelloResponse = Message<"mvservernxt.v1.HelloResponse"> & {
  */
 export const HelloResponseSchema: GenMessage<HelloResponse> = /*@__PURE__*/
   messageDesc(file_mvservernxt_v1_hello, 4);
+
+/**
+ * IdempotencyPolicy tells clients how long the server retains
+ * idempotency_key → response mappings, and which commands it applies to.
+ *
+ * Scope: ttl_seconds applies to commands that can be keyed by stable user
+ * identity. That covers:
+ *   - Every authenticated command (session has bound user_id)
+ *   - Refresh (user_id extracted from the refresh token server-side)
+ *
+ * Unauthenticated commands with no stable identity — Hello, Register,
+ * Login, Authenticate — use in-memory session-scoped caching that expires
+ * when the WebSocket disconnects. Clients don't need cross-reconnect
+ * persistence for these: reconnect-then-re-issue is safe because their
+ * natural dedup (username uniqueness on Register, idempotent-by-nature
+ * Login/Authenticate/Hello) catches duplicates at the domain layer.
+ *
+ * For the scoped commands: clients SHOULD persist unresolved sends with
+ * their original key for at most ttl_seconds. Past that, re-originate
+ * with a fresh key and rely on domain-layer natural-key dedup (e.g. a
+ * client_msg_id unique per conversation) to catch any stale success.
+ *
+ * Servers may change this policy across releases; clients should re-read
+ * on every Hello rather than caching across runs.
+ *
+ * @generated from message mvservernxt.v1.IdempotencyPolicy
+ */
+export type IdempotencyPolicy = Message<"mvservernxt.v1.IdempotencyPolicy"> & {
+  /**
+   * @generated from field: int64 ttl_seconds = 1;
+   */
+  ttlSeconds: bigint;
+};
+
+/**
+ * Describes the message mvservernxt.v1.IdempotencyPolicy.
+ * Use `create(IdempotencyPolicySchema)` to create a new message.
+ */
+export const IdempotencyPolicySchema: GenMessage<IdempotencyPolicy> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_hello, 5);
 
 /**
  * Platform enumerates the broad runtime environment. Expand with

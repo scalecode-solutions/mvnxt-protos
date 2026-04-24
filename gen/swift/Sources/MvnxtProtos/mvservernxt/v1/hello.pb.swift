@@ -231,6 +231,53 @@ public struct Mvservernxt_V1_HelloResponse: Sendable {
   /// correlating server-side logs with client-side error reports.
   public var sessionID: String = String()
 
+  /// Current idempotency-cache policy. Clients read this at handshake time
+  /// to size their pending-send persistence window.
+  public var idempotency: Mvservernxt_V1_IdempotencyPolicy {
+    get {_idempotency ?? Mvservernxt_V1_IdempotencyPolicy()}
+    set {_idempotency = newValue}
+  }
+  /// Returns true if `idempotency` has been explicitly set.
+  public var hasIdempotency: Bool {self._idempotency != nil}
+  /// Clears the value of `idempotency`. Subsequent reads from it will return its default value.
+  public mutating func clearIdempotency() {self._idempotency = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _idempotency: Mvservernxt_V1_IdempotencyPolicy? = nil
+}
+
+/// IdempotencyPolicy tells clients how long the server retains
+/// idempotency_key → response mappings, and which commands it applies to.
+///
+/// Scope: ttl_seconds applies to commands that can be keyed by stable user
+/// identity. That covers:
+///   - Every authenticated command (session has bound user_id)
+///   - Refresh (user_id extracted from the refresh token server-side)
+///
+/// Unauthenticated commands with no stable identity — Hello, Register,
+/// Login, Authenticate — use in-memory session-scoped caching that expires
+/// when the WebSocket disconnects. Clients don't need cross-reconnect
+/// persistence for these: reconnect-then-re-issue is safe because their
+/// natural dedup (username uniqueness on Register, idempotent-by-nature
+/// Login/Authenticate/Hello) catches duplicates at the domain layer.
+///
+/// For the scoped commands: clients SHOULD persist unresolved sends with
+/// their original key for at most ttl_seconds. Past that, re-originate
+/// with a fresh key and rely on domain-layer natural-key dedup (e.g. a
+/// client_msg_id unique per conversation) to catch any stale success.
+///
+/// Servers may change this policy across releases; clients should re-read
+/// on every Hello rather than caching across runs.
+public struct Mvservernxt_V1_IdempotencyPolicy: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ttlSeconds: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -405,7 +452,7 @@ extension Mvservernxt_V1_ClientCapabilities: SwiftProtobuf.Message, SwiftProtobu
 
 extension Mvservernxt_V1_HelloResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".HelloResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}server_version\0\u{3}server_commit\0\u{3}protocol_version\0\u{3}server_capabilities\0\u{3}session_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}server_version\0\u{3}server_commit\0\u{3}protocol_version\0\u{3}server_capabilities\0\u{3}session_id\0\u{1}idempotency\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -418,12 +465,17 @@ extension Mvservernxt_V1_HelloResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 3: try { try decoder.decodeSingularStringField(value: &self.protocolVersion) }()
       case 4: try { try decoder.decodeRepeatedStringField(value: &self.serverCapabilities) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.sessionID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._idempotency) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.serverVersion.isEmpty {
       try visitor.visitSingularStringField(value: self.serverVersion, fieldNumber: 1)
     }
@@ -439,6 +491,9 @@ extension Mvservernxt_V1_HelloResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.sessionID.isEmpty {
       try visitor.visitSingularStringField(value: self.sessionID, fieldNumber: 5)
     }
+    try { if let v = self._idempotency {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -448,6 +503,37 @@ extension Mvservernxt_V1_HelloResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.protocolVersion != rhs.protocolVersion {return false}
     if lhs.serverCapabilities != rhs.serverCapabilities {return false}
     if lhs.sessionID != rhs.sessionID {return false}
+    if lhs._idempotency != rhs._idempotency {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_IdempotencyPolicy: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".IdempotencyPolicy"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}ttl_seconds\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.ttlSeconds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.ttlSeconds != 0 {
+      try visitor.visitSingularInt64Field(value: self.ttlSeconds, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_IdempotencyPolicy, rhs: Mvservernxt_V1_IdempotencyPolicy) -> Bool {
+    if lhs.ttlSeconds != rhs.ttlSeconds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -142,6 +142,14 @@ const HelloResponse$json = {
       '10': 'serverCapabilities'
     },
     {'1': 'session_id', '3': 5, '4': 1, '5': 9, '10': 'sessionId'},
+    {
+      '1': 'idempotency',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.IdempotencyPolicy',
+      '10': 'idempotency'
+    },
   ],
 };
 
@@ -150,4 +158,18 @@ final $typed_data.Uint8List helloResponseDescriptor = $convert.base64Decode(
     'Cg1IZWxsb1Jlc3BvbnNlEiUKDnNlcnZlcl92ZXJzaW9uGAEgASgJUg1zZXJ2ZXJWZXJzaW9uEi'
     'MKDXNlcnZlcl9jb21taXQYAiABKAlSDHNlcnZlckNvbW1pdBIpChBwcm90b2NvbF92ZXJzaW9u'
     'GAMgASgJUg9wcm90b2NvbFZlcnNpb24SLwoTc2VydmVyX2NhcGFiaWxpdGllcxgEIAMoCVISc2'
-    'VydmVyQ2FwYWJpbGl0aWVzEh0KCnNlc3Npb25faWQYBSABKAlSCXNlc3Npb25JZA==');
+    'VydmVyQ2FwYWJpbGl0aWVzEh0KCnNlc3Npb25faWQYBSABKAlSCXNlc3Npb25JZBJDCgtpZGVt'
+    'cG90ZW5jeRgGIAEoCzIhLm12c2VydmVybnh0LnYxLklkZW1wb3RlbmN5UG9saWN5UgtpZGVtcG'
+    '90ZW5jeQ==');
+
+@$core.Deprecated('Use idempotencyPolicyDescriptor instead')
+const IdempotencyPolicy$json = {
+  '1': 'IdempotencyPolicy',
+  '2': [
+    {'1': 'ttl_seconds', '3': 1, '4': 1, '5': 3, '10': 'ttlSeconds'},
+  ],
+};
+
+/// Descriptor for `IdempotencyPolicy`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List idempotencyPolicyDescriptor = $convert.base64Decode(
+    'ChFJZGVtcG90ZW5jeVBvbGljeRIfCgt0dGxfc2Vjb25kcxgBIAEoA1IKdHRsU2Vjb25kcw==');

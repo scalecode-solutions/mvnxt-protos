@@ -12,6 +12,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'hello.pbenum.dart';
@@ -357,6 +358,7 @@ class HelloResponse extends $pb.GeneratedMessage {
     $core.String? protocolVersion,
     $core.Iterable<$core.String>? serverCapabilities,
     $core.String? sessionId,
+    IdempotencyPolicy? idempotency,
   }) {
     final result = create();
     if (serverVersion != null) result.serverVersion = serverVersion;
@@ -365,6 +367,7 @@ class HelloResponse extends $pb.GeneratedMessage {
     if (serverCapabilities != null)
       result.serverCapabilities.addAll(serverCapabilities);
     if (sessionId != null) result.sessionId = sessionId;
+    if (idempotency != null) result.idempotency = idempotency;
     return result;
   }
 
@@ -386,6 +389,8 @@ class HelloResponse extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'protocolVersion')
     ..pPS(4, _omitFieldNames ? '' : 'serverCapabilities')
     ..aOS(5, _omitFieldNames ? '' : 'sessionId')
+    ..aOM<IdempotencyPolicy>(6, _omitFieldNames ? '' : 'idempotency',
+        subBuilder: IdempotencyPolicy.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -450,6 +455,95 @@ class HelloResponse extends $pb.GeneratedMessage {
   $core.bool hasSessionId() => $_has(4);
   @$pb.TagNumber(5)
   void clearSessionId() => $_clearField(5);
+
+  /// Current idempotency-cache policy. Clients read this at handshake time
+  /// to size their pending-send persistence window.
+  @$pb.TagNumber(6)
+  IdempotencyPolicy get idempotency => $_getN(5);
+  @$pb.TagNumber(6)
+  set idempotency(IdempotencyPolicy value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasIdempotency() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearIdempotency() => $_clearField(6);
+  @$pb.TagNumber(6)
+  IdempotencyPolicy ensureIdempotency() => $_ensure(5);
+}
+
+/// IdempotencyPolicy tells clients how long the server retains
+/// idempotency_key → response mappings, and which commands it applies to.
+///
+/// Scope: ttl_seconds applies to commands that can be keyed by stable user
+/// identity. That covers:
+///   - Every authenticated command (session has bound user_id)
+///   - Refresh (user_id extracted from the refresh token server-side)
+///
+/// Unauthenticated commands with no stable identity — Hello, Register,
+/// Login, Authenticate — use in-memory session-scoped caching that expires
+/// when the WebSocket disconnects. Clients don't need cross-reconnect
+/// persistence for these: reconnect-then-re-issue is safe because their
+/// natural dedup (username uniqueness on Register, idempotent-by-nature
+/// Login/Authenticate/Hello) catches duplicates at the domain layer.
+///
+/// For the scoped commands: clients SHOULD persist unresolved sends with
+/// their original key for at most ttl_seconds. Past that, re-originate
+/// with a fresh key and rely on domain-layer natural-key dedup (e.g. a
+/// client_msg_id unique per conversation) to catch any stale success.
+///
+/// Servers may change this policy across releases; clients should re-read
+/// on every Hello rather than caching across runs.
+class IdempotencyPolicy extends $pb.GeneratedMessage {
+  factory IdempotencyPolicy({
+    $fixnum.Int64? ttlSeconds,
+  }) {
+    final result = create();
+    if (ttlSeconds != null) result.ttlSeconds = ttlSeconds;
+    return result;
+  }
+
+  IdempotencyPolicy._();
+
+  factory IdempotencyPolicy.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory IdempotencyPolicy.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'IdempotencyPolicy',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'ttlSeconds')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IdempotencyPolicy clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IdempotencyPolicy copyWith(void Function(IdempotencyPolicy) updates) =>
+      super.copyWith((message) => updates(message as IdempotencyPolicy))
+          as IdempotencyPolicy;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IdempotencyPolicy create() => IdempotencyPolicy._();
+  @$core.override
+  IdempotencyPolicy createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static IdempotencyPolicy getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<IdempotencyPolicy>(create);
+  static IdempotencyPolicy? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get ttlSeconds => $_getI64(0);
+  @$pb.TagNumber(1)
+  set ttlSeconds($fixnum.Int64 value) => $_setInt64(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasTtlSeconds() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTtlSeconds() => $_clearField(1);
 }
 
 const $core.bool _omitFieldNames =

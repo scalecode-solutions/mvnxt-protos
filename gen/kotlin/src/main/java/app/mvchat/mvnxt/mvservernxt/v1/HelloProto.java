@@ -51,6 +51,11 @@ public final class HelloProto extends com.google.protobuf.GeneratedFile {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_HelloResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_IdempotencyPolicy_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_IdempotencyPolicy_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -73,22 +78,25 @@ public final class HelloProto extends com.google.protobuf.GeneratedFile {
       ".PlatformR\010platform\"@\n\006Locale\022\032\n\010languag" +
       "e\030\001 \001(\tR\010language\022\032\n\010timezone\030\002 \001(\tR\010tim" +
       "ezone\"0\n\022ClientCapabilities\022\032\n\010supports\030" +
-      "\001 \003(\tR\010supports\"\326\001\n\rHelloResponse\022%\n\016ser" +
+      "\001 \003(\tR\010supports\"\233\002\n\rHelloResponse\022%\n\016ser" +
       "ver_version\030\001 \001(\tR\rserverVersion\022#\n\rserv" +
       "er_commit\030\002 \001(\tR\014serverCommit\022)\n\020protoco" +
       "l_version\030\003 \001(\tR\017protocolVersion\022/\n\023serv" +
       "er_capabilities\030\004 \003(\tR\022serverCapabilitie" +
-      "s\022\035\n\nsession_id\030\005 \001(\tR\tsessionId*\256\001\n\010Pla" +
-      "tform\022\030\n\024PLATFORM_UNSPECIFIED\020\000\022\020\n\014PLATF" +
-      "ORM_IOS\020\001\022\024\n\020PLATFORM_ANDROID\020\002\022\020\n\014PLATF" +
-      "ORM_WEB\020\003\022\022\n\016PLATFORM_MACOS\020\004\022\024\n\020PLATFOR" +
-      "M_WINDOWS\020\005\022\022\n\016PLATFORM_LINUX\020\006\022\020\n\014PLATF" +
-      "ORM_CLI\020\007B\327\001\n\037app.mvchat.mvnxt.mvservern" +
-      "xt.v1B\nHelloProtoP\001ZOgithub.com/scalecod" +
-      "e-solutions/mvnxt-protos/gen/go/mvserver" +
-      "nxt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt" +
-      ".V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1\\GP" +
-      "BMetadata\352\002\017Mvservernxt::V1b\006proto3"
+      "s\022\035\n\nsession_id\030\005 \001(\tR\tsessionId\022C\n\013idem" +
+      "potency\030\006 \001(\0132!.mvservernxt.v1.Idempoten" +
+      "cyPolicyR\013idempotency\"4\n\021IdempotencyPoli" +
+      "cy\022\037\n\013ttl_seconds\030\001 \001(\003R\nttlSeconds*\256\001\n\010" +
+      "Platform\022\030\n\024PLATFORM_UNSPECIFIED\020\000\022\020\n\014PL" +
+      "ATFORM_IOS\020\001\022\024\n\020PLATFORM_ANDROID\020\002\022\020\n\014PL" +
+      "ATFORM_WEB\020\003\022\022\n\016PLATFORM_MACOS\020\004\022\024\n\020PLAT" +
+      "FORM_WINDOWS\020\005\022\022\n\016PLATFORM_LINUX\020\006\022\020\n\014PL" +
+      "ATFORM_CLI\020\007B\327\001\n\037app.mvchat.mvnxt.mvserv" +
+      "ernxt.v1B\nHelloProtoP\001ZOgithub.com/scale" +
+      "code-solutions/mvnxt-protos/gen/go/mvser" +
+      "vernxt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvserver" +
+      "nxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1" +
+      "\\GPBMetadata\352\002\017Mvservernxt::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -123,7 +131,13 @@ public final class HelloProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_HelloResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_HelloResponse_descriptor,
-        new java.lang.String[] { "ServerVersion", "ServerCommit", "ProtocolVersion", "ServerCapabilities", "SessionId", });
+        new java.lang.String[] { "ServerVersion", "ServerCommit", "ProtocolVersion", "ServerCapabilities", "SessionId", "Idempotency", });
+    internal_static_mvservernxt_v1_IdempotencyPolicy_descriptor =
+      getDescriptor().getMessageType(5);
+    internal_static_mvservernxt_v1_IdempotencyPolicy_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_IdempotencyPolicy_descriptor,
+        new java.lang.String[] { "TtlSeconds", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

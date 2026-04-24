@@ -372,7 +372,10 @@ type HelloResponse struct {
 	ServerCapabilities []string `protobuf:"bytes,4,rep,name=server_capabilities,json=serverCapabilities,proto3" json:"server_capabilities,omitempty"`
 	// Server-assigned session identifier. Opaque to the client. Useful when
 	// correlating server-side logs with client-side error reports.
-	SessionId     string `protobuf:"bytes,5,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	SessionId string `protobuf:"bytes,5,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	// Current idempotency-cache policy. Clients read this at handshake time
+	// to size their pending-send persistence window.
+	Idempotency   *IdempotencyPolicy `protobuf:"bytes,6,opt,name=idempotency,proto3" json:"idempotency,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -442,6 +445,79 @@ func (x *HelloResponse) GetSessionId() string {
 	return ""
 }
 
+func (x *HelloResponse) GetIdempotency() *IdempotencyPolicy {
+	if x != nil {
+		return x.Idempotency
+	}
+	return nil
+}
+
+// IdempotencyPolicy tells clients how long the server retains
+// idempotency_key → response mappings, and which commands it applies to.
+//
+// Scope: ttl_seconds applies to commands that can be keyed by stable user
+// identity. That covers:
+//   - Every authenticated command (session has bound user_id)
+//   - Refresh (user_id extracted from the refresh token server-side)
+//
+// Unauthenticated commands with no stable identity — Hello, Register,
+// Login, Authenticate — use in-memory session-scoped caching that expires
+// when the WebSocket disconnects. Clients don't need cross-reconnect
+// persistence for these: reconnect-then-re-issue is safe because their
+// natural dedup (username uniqueness on Register, idempotent-by-nature
+// Login/Authenticate/Hello) catches duplicates at the domain layer.
+//
+// For the scoped commands: clients SHOULD persist unresolved sends with
+// their original key for at most ttl_seconds. Past that, re-originate
+// with a fresh key and rely on domain-layer natural-key dedup (e.g. a
+// client_msg_id unique per conversation) to catch any stale success.
+//
+// Servers may change this policy across releases; clients should re-read
+// on every Hello rather than caching across runs.
+type IdempotencyPolicy struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TtlSeconds    int64                  `protobuf:"varint,1,opt,name=ttl_seconds,json=ttlSeconds,proto3" json:"ttl_seconds,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IdempotencyPolicy) Reset() {
+	*x = IdempotencyPolicy{}
+	mi := &file_mvservernxt_v1_hello_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IdempotencyPolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IdempotencyPolicy) ProtoMessage() {}
+
+func (x *IdempotencyPolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_hello_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IdempotencyPolicy.ProtoReflect.Descriptor instead.
+func (*IdempotencyPolicy) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_hello_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *IdempotencyPolicy) GetTtlSeconds() int64 {
+	if x != nil {
+		return x.TtlSeconds
+	}
+	return 0
+}
+
 var File_mvservernxt_v1_hello_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_hello_proto_rawDesc = "" +
@@ -463,14 +539,18 @@ const file_mvservernxt_v1_hello_proto_rawDesc = "" +
 	"\blanguage\x18\x01 \x01(\tR\blanguage\x12\x1a\n" +
 	"\btimezone\x18\x02 \x01(\tR\btimezone\"0\n" +
 	"\x12ClientCapabilities\x12\x1a\n" +
-	"\bsupports\x18\x01 \x03(\tR\bsupports\"\xd6\x01\n" +
+	"\bsupports\x18\x01 \x03(\tR\bsupports\"\x9b\x02\n" +
 	"\rHelloResponse\x12%\n" +
 	"\x0eserver_version\x18\x01 \x01(\tR\rserverVersion\x12#\n" +
 	"\rserver_commit\x18\x02 \x01(\tR\fserverCommit\x12)\n" +
 	"\x10protocol_version\x18\x03 \x01(\tR\x0fprotocolVersion\x12/\n" +
 	"\x13server_capabilities\x18\x04 \x03(\tR\x12serverCapabilities\x12\x1d\n" +
 	"\n" +
-	"session_id\x18\x05 \x01(\tR\tsessionId*\xae\x01\n" +
+	"session_id\x18\x05 \x01(\tR\tsessionId\x12C\n" +
+	"\vidempotency\x18\x06 \x01(\v2!.mvservernxt.v1.IdempotencyPolicyR\vidempotency\"4\n" +
+	"\x11IdempotencyPolicy\x12\x1f\n" +
+	"\vttl_seconds\x18\x01 \x01(\x03R\n" +
+	"ttlSeconds*\xae\x01\n" +
 	"\bPlatform\x12\x18\n" +
 	"\x14PLATFORM_UNSPECIFIED\x10\x00\x12\x10\n" +
 	"\fPLATFORM_IOS\x10\x01\x12\x14\n" +
@@ -496,7 +576,7 @@ func file_mvservernxt_v1_hello_proto_rawDescGZIP() []byte {
 }
 
 var file_mvservernxt_v1_hello_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_mvservernxt_v1_hello_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_mvservernxt_v1_hello_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_mvservernxt_v1_hello_proto_goTypes = []any{
 	(Platform)(0),              // 0: mvservernxt.v1.Platform
 	(*Hello)(nil),              // 1: mvservernxt.v1.Hello
@@ -504,17 +584,19 @@ var file_mvservernxt_v1_hello_proto_goTypes = []any{
 	(*Locale)(nil),             // 3: mvservernxt.v1.Locale
 	(*ClientCapabilities)(nil), // 4: mvservernxt.v1.ClientCapabilities
 	(*HelloResponse)(nil),      // 5: mvservernxt.v1.HelloResponse
+	(*IdempotencyPolicy)(nil),  // 6: mvservernxt.v1.IdempotencyPolicy
 }
 var file_mvservernxt_v1_hello_proto_depIdxs = []int32{
 	2, // 0: mvservernxt.v1.Hello.client:type_name -> mvservernxt.v1.ClientInfo
 	3, // 1: mvservernxt.v1.Hello.locale:type_name -> mvservernxt.v1.Locale
 	4, // 2: mvservernxt.v1.Hello.capabilities:type_name -> mvservernxt.v1.ClientCapabilities
 	0, // 3: mvservernxt.v1.ClientInfo.platform:type_name -> mvservernxt.v1.Platform
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	6, // 4: mvservernxt.v1.HelloResponse.idempotency:type_name -> mvservernxt.v1.IdempotencyPolicy
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_hello_proto_init() }
@@ -528,7 +610,7 @@ func file_mvservernxt_v1_hello_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mvservernxt_v1_hello_proto_rawDesc), len(file_mvservernxt_v1_hello_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

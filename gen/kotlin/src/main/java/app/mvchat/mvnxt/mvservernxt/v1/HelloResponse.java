@@ -58,6 +58,7 @@ private static final long serialVersionUID = 0L;
             app.mvchat.mvnxt.mvservernxt.v1.HelloResponse.class, app.mvchat.mvnxt.mvservernxt.v1.HelloResponse.Builder.class);
   }
 
+  private int bitField0_;
   public static final int SERVER_VERSION_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
   private volatile java.lang.Object serverVersion_ = "";
@@ -305,6 +306,47 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int IDEMPOTENCY_FIELD_NUMBER = 6;
+  private app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy idempotency_;
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   * @return Whether the idempotency field is set.
+   */
+  @java.lang.Override
+  public boolean hasIdempotency() {
+    return ((bitField0_ & 0x00000001) != 0);
+  }
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   * @return The idempotency.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy getIdempotency() {
+    return idempotency_ == null ? app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.getDefaultInstance() : idempotency_;
+  }
+  /**
+   * <pre>
+   * Current idempotency-cache policy. Clients read this at handshake time
+   * to size their pending-send persistence window.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder getIdempotencyOrBuilder() {
+    return idempotency_ == null ? app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.getDefaultInstance() : idempotency_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -333,6 +375,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sessionId_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 5, sessionId_);
+    }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      output.writeMessage(6, getIdempotency());
     }
     getUnknownFields().writeTo(output);
   }
@@ -363,6 +408,10 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sessionId_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(5, sessionId_);
     }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(6, getIdempotency());
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -388,6 +437,11 @@ private static final long serialVersionUID = 0L;
         .equals(other.getServerCapabilitiesList())) return false;
     if (!getSessionId()
         .equals(other.getSessionId())) return false;
+    if (hasIdempotency() != other.hasIdempotency()) return false;
+    if (hasIdempotency()) {
+      if (!getIdempotency()
+          .equals(other.getIdempotency())) return false;
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -411,6 +465,10 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + SESSION_ID_FIELD_NUMBER;
     hash = (53 * hash) + getSessionId().hashCode();
+    if (hasIdempotency()) {
+      hash = (37 * hash) + IDEMPOTENCY_FIELD_NUMBER;
+      hash = (53 * hash) + getIdempotency().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -534,13 +592,19 @@ private static final long serialVersionUID = 0L;
 
     // Construct using app.mvchat.mvnxt.mvservernxt.v1.HelloResponse.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessage
+              .alwaysUseFieldBuilders) {
+        internalGetIdempotencyFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -552,6 +616,11 @@ private static final long serialVersionUID = 0L;
       serverCapabilities_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
       sessionId_ = "";
+      idempotency_ = null;
+      if (idempotencyBuilder_ != null) {
+        idempotencyBuilder_.dispose();
+        idempotencyBuilder_ = null;
+      }
       return this;
     }
 
@@ -601,6 +670,14 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000010) != 0)) {
         result.sessionId_ = sessionId_;
       }
+      int to_bitField0_ = 0;
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.idempotency_ = idempotencyBuilder_ == null
+            ? idempotency_
+            : idempotencyBuilder_.build();
+        to_bitField0_ |= 0x00000001;
+      }
+      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -644,6 +721,9 @@ private static final long serialVersionUID = 0L;
         sessionId_ = other.sessionId_;
         bitField0_ |= 0x00000010;
         onChanged();
+      }
+      if (other.hasIdempotency()) {
+        mergeIdempotency(other.getIdempotency());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -696,6 +776,13 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000010;
               break;
             } // case 42
+            case 50: {
+              input.readMessage(
+                  internalGetIdempotencyFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 50
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1240,6 +1327,172 @@ private static final long serialVersionUID = 0L;
       bitField0_ |= 0x00000010;
       onChanged();
       return this;
+    }
+
+    private app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy idempotency_;
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.Builder, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder> idempotencyBuilder_;
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     * @return Whether the idempotency field is set.
+     */
+    public boolean hasIdempotency() {
+      return ((bitField0_ & 0x00000020) != 0);
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     * @return The idempotency.
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy getIdempotency() {
+      if (idempotencyBuilder_ == null) {
+        return idempotency_ == null ? app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.getDefaultInstance() : idempotency_;
+      } else {
+        return idempotencyBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public Builder setIdempotency(app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy value) {
+      if (idempotencyBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        idempotency_ = value;
+      } else {
+        idempotencyBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public Builder setIdempotency(
+        app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.Builder builderForValue) {
+      if (idempotencyBuilder_ == null) {
+        idempotency_ = builderForValue.build();
+      } else {
+        idempotencyBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public Builder mergeIdempotency(app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy value) {
+      if (idempotencyBuilder_ == null) {
+        if (((bitField0_ & 0x00000020) != 0) &&
+          idempotency_ != null &&
+          idempotency_ != app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.getDefaultInstance()) {
+          getIdempotencyBuilder().mergeFrom(value);
+        } else {
+          idempotency_ = value;
+        }
+      } else {
+        idempotencyBuilder_.mergeFrom(value);
+      }
+      if (idempotency_ != null) {
+        bitField0_ |= 0x00000020;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public Builder clearIdempotency() {
+      bitField0_ = (bitField0_ & ~0x00000020);
+      idempotency_ = null;
+      if (idempotencyBuilder_ != null) {
+        idempotencyBuilder_.dispose();
+        idempotencyBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.Builder getIdempotencyBuilder() {
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return internalGetIdempotencyFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder getIdempotencyOrBuilder() {
+      if (idempotencyBuilder_ != null) {
+        return idempotencyBuilder_.getMessageOrBuilder();
+      } else {
+        return idempotency_ == null ?
+            app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.getDefaultInstance() : idempotency_;
+      }
+    }
+    /**
+     * <pre>
+     * Current idempotency-cache policy. Clients read this at handshake time
+     * to size their pending-send persistence window.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.IdempotencyPolicy idempotency = 6 [json_name = "idempotency"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.Builder, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder> 
+        internalGetIdempotencyFieldBuilder() {
+      if (idempotencyBuilder_ == null) {
+        idempotencyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicy.Builder, app.mvchat.mvnxt.mvservernxt.v1.IdempotencyPolicyOrBuilder>(
+                getIdempotency(),
+                getParentForChildren(),
+                isClean());
+        idempotency_ = null;
+      }
+      return idempotencyBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.HelloResponse)

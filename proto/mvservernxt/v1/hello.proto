@@ -95,4 +95,34 @@ message HelloResponse {
   // Server-assigned session identifier. Opaque to the client. Useful when
   // correlating server-side logs with client-side error reports.
   string session_id = 5;
+
+  // Current idempotency-cache policy. Clients read this at handshake time
+  // to size their pending-send persistence window.
+  IdempotencyPolicy idempotency = 6;
+}
+
+// IdempotencyPolicy tells clients how long the server retains
+// idempotency_key → response mappings, and which commands it applies to.
+//
+// Scope: ttl_seconds applies to commands that can be keyed by stable user
+// identity. That covers:
+//   - Every authenticated command (session has bound user_id)
+//   - Refresh (user_id extracted from the refresh token server-side)
+//
+// Unauthenticated commands with no stable identity — Hello, Register,
+// Login, Authenticate — use in-memory session-scoped caching that expires
+// when the WebSocket disconnects. Clients don't need cross-reconnect
+// persistence for these: reconnect-then-re-issue is safe because their
+// natural dedup (username uniqueness on Register, idempotent-by-nature
+// Login/Authenticate/Hello) catches duplicates at the domain layer.
+//
+// For the scoped commands: clients SHOULD persist unresolved sends with
+// their original key for at most ttl_seconds. Past that, re-originate
+// with a fresh key and rely on domain-layer natural-key dedup (e.g. a
+// client_msg_id unique per conversation) to catch any stale success.
+//
+// Servers may change this policy across releases; clients should re-read
+// on every Hello rather than caching across runs.
+message IdempotencyPolicy {
+  int64 ttl_seconds = 1;
 }
