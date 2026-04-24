@@ -386,6 +386,133 @@ public object ConversationKt {
     public fun clearTheme() {
       _builder.clearTheme()
     }
+
+    /**
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
+     */
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class MembersProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     */
+     public val members: com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>
+      @kotlin.jvm.JvmSynthetic
+  get() = com.google.protobuf.kotlin.DslList(
+        _builder.membersList
+      )
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     * @param value The members to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addMembers")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.add(value: app.mvchat.mvnxt.mvservernxt.v1.GroupMember) {
+      _builder.addMembers(value)
+    }
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     * @param value The members to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignMembers")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.plusAssign(value: app.mvchat.mvnxt.mvservernxt.v1.GroupMember) {
+      add(value)
+    }
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     * @param values The members to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAllMembers")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.addAll(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.GroupMember>) {
+      _builder.addAllMembers(values)
+    }
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     * @param values The members to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAllMembers")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.plusAssign(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.GroupMember>) {
+      addAll(values)
+    }
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     * @param index The index to set the value at.
+     * @param value The members to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setMembers")
+    public operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.set(index: kotlin.Int, value: app.mvchat.mvnxt.mvservernxt.v1.GroupMember) {
+      _builder.setMembers(index, value)
+    }
+    /**
+     * ```
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];`
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("clearMembers")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember, MembersProxy>.clear() {
+      _builder.clearMembers()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

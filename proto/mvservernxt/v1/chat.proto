@@ -48,6 +48,26 @@ enum DeletionKind {
   DELETION_KIND_EXPIRED      = 3;
 }
 
+// ConversationRole is the per-member role within a group. DMs keep
+// every member as MEMBER — role-gated commands reject on DMs.
+//
+// Semantics (enforced server-side in the chat handlers):
+//
+//   OWNER:   exactly one per group. Can promote, demote, transfer,
+//            everything an admin can do. Cannot be removed;
+//            transfers ownership to leave a group.
+//   ADMIN:   zero or more. Can Add/Remove members (but not other
+//            admins or the owner), set disappearing messages,
+//            update conversation metadata, delete-for-everyone any
+//            message. Cannot change roles.
+//   MEMBER:  default. Sends / edits-own / reacts / reads / leaves.
+enum ConversationRole {
+  CONVERSATION_ROLE_UNSPECIFIED = 0;
+  CONVERSATION_ROLE_MEMBER      = 1;
+  CONVERSATION_ROLE_ADMIN       = 2;
+  CONVERSATION_ROLE_OWNER       = 3;
+}
+
 // Reaction is one emoji reaction from one user on one message.
 // Servers return a full list on Message.reactions; clients aggregate
 // by emoji for display.
@@ -129,6 +149,21 @@ message Conversation {
   // clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
   // default. Max 64 chars.
   string                    theme                = 10;
+
+  // Per-member detail for active members (left_at IS NULL), keyed
+  // on user_id. Present alongside member_ids — clients can use
+  // either. members carries role so UIs can render "owner" /
+  // "admin" badges without a follow-up fetch. DMs return empty
+  // here (role model doesn't apply).
+  repeated GroupMember      members              = 11;
+}
+
+// GroupMember is one active member's public projection: user_id +
+// role. Nickname, join time, and read state are not included —
+// those are per-viewer / fetch-on-demand concerns.
+message GroupMember {
+  string           user_id = 1;
+  ConversationRole role    = 2;
 }
 
 // Message is the client-facing view of one message row.
@@ -505,6 +540,37 @@ message UpdateConversationMetadata {
   optional string theme           = 4;
 }
 
+// PromoteMember raises a MEMBER to ADMIN in a group. Caller must be
+// OWNER or ADMIN. Target must be a current member (not left).
+// Re-promoting an ADMIN is a no-op. Rejected on DMs. Cannot target
+// self (there's no useful path that goes through Promote for self).
+message PromoteMember {
+  string conversation_id = 1;
+  string user_id         = 2;
+}
+
+// DemoteMember lowers an ADMIN to MEMBER. Caller must be OWNER
+// (admins cannot demote each other — keeps the power structure
+// honest). Demoting a MEMBER is a no-op. Cannot target the owner;
+// use TransferOwnership. Rejected on DMs.
+message DemoteMember {
+  string conversation_id = 1;
+  string user_id         = 2;
+}
+
+// TransferOwnership atomically swaps the OWNER role with the named
+// target. The caller (current owner) becomes ADMIN; the target
+// becomes OWNER. Caller must be OWNER. Target must be a current
+// active member. Cannot target self. Rejected on DMs.
+//
+// Used as the owner's explicit "leave" path — owners cannot simply
+// LeaveConversation while holding the role; they must hand off
+// first.
+message TransferOwnership {
+  string conversation_id = 1;
+  string new_owner_id    = 2;
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
@@ -788,6 +854,22 @@ message ConversationMetadataChanged {
   optional string           title           = 2;
   optional string           description     = 3;
   optional string           theme           = 4;
+  string                    changed_by      = 5;
+  google.protobuf.Timestamp changed_at      = 6;
+}
+
+// MemberRoleChanged fires for each Promote/Demote/TransferOwnership
+// that actually moves a role. A TransferOwnership emits TWO
+// MemberRoleChanged events in one fan-out: one for the demoted
+// owner (→ admin) and one for the promoted target (→ owner).
+//
+// Audience: every active member of the conversation — role changes
+// are public within the group.
+message MemberRoleChanged {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;  // whose role changed
+  ConversationRole          previous_role   = 3;
+  ConversationRole          new_role        = 4;
   string                    changed_by      = 5;
   google.protobuf.Timestamp changed_at      = 6;
 }

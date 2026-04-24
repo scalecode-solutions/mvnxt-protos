@@ -95,6 +95,9 @@ private static final long serialVersionUID = 0L;
     SET_CONVERSATION_NICKNAME(48),
     UPDATE_CONVERSATION_METADATA(49),
     MARK_DELIVERED(50),
+    PROMOTE_MEMBER(51),
+    DEMOTE_MEMBER(52),
+    TRANSFER_OWNERSHIP(53),
     ADD_CONTACT(100),
     REMOVE_CONTACT(101),
     LIST_CONTACTS(102),
@@ -152,6 +155,9 @@ private static final long serialVersionUID = 0L;
         case 48: return SET_CONVERSATION_NICKNAME;
         case 49: return UPDATE_CONVERSATION_METADATA;
         case 50: return MARK_DELIVERED;
+        case 51: return PROMOTE_MEMBER;
+        case 52: return DEMOTE_MEMBER;
+        case 53: return TRANSFER_OWNERSHIP;
         case 100: return ADD_CONTACT;
         case 101: return REMOVE_CONTACT;
         case 102: return LIST_CONTACTS;
@@ -1196,6 +1202,99 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered.getDefaultInstance();
   }
 
+  public static final int PROMOTE_MEMBER_FIELD_NUMBER = 51;
+  /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   * @return Whether the promoteMember field is set.
+   */
+  @java.lang.Override
+  public boolean hasPromoteMember() {
+    return payloadCase_ == 51;
+  }
+  /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   * @return The promoteMember.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.PromoteMember getPromoteMember() {
+    if (payloadCase_ == 51) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder getPromoteMemberOrBuilder() {
+    if (payloadCase_ == 51) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+  }
+
+  public static final int DEMOTE_MEMBER_FIELD_NUMBER = 52;
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   * @return Whether the demoteMember field is set.
+   */
+  @java.lang.Override
+  public boolean hasDemoteMember() {
+    return payloadCase_ == 52;
+  }
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   * @return The demoteMember.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DemoteMember getDemoteMember() {
+    if (payloadCase_ == 52) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder getDemoteMemberOrBuilder() {
+    if (payloadCase_ == 52) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+  }
+
+  public static final int TRANSFER_OWNERSHIP_FIELD_NUMBER = 53;
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   * @return Whether the transferOwnership field is set.
+   */
+  @java.lang.Override
+  public boolean hasTransferOwnership() {
+    return payloadCase_ == 53;
+  }
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   * @return The transferOwnership.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership getTransferOwnership() {
+    if (payloadCase_ == 53) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder getTransferOwnershipOrBuilder() {
+    if (payloadCase_ == 53) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+  }
+
   public static final int ADD_CONTACT_FIELD_NUMBER = 100;
   /**
    * <pre>
@@ -1637,6 +1736,15 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 50) {
       output.writeMessage(50, (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_);
     }
+    if (payloadCase_ == 51) {
+      output.writeMessage(51, (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_);
+    }
+    if (payloadCase_ == 52) {
+      output.writeMessage(52, (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_);
+    }
+    if (payloadCase_ == 53) {
+      output.writeMessage(53, (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_);
+    }
     if (payloadCase_ == 100) {
       output.writeMessage(100, (app.mvchat.mvnxt.mvservernxt.v1.AddContact) payload_);
     }
@@ -1798,6 +1906,18 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 50) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(50, (app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered) payload_);
+    }
+    if (payloadCase_ == 51) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(51, (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_);
+    }
+    if (payloadCase_ == 52) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(52, (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_);
+    }
+    if (payloadCase_ == 53) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(53, (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_);
     }
     if (payloadCase_ == 100) {
       size += com.google.protobuf.CodedOutputStream
@@ -1978,6 +2098,18 @@ private static final long serialVersionUID = 0L;
         if (!getMarkDelivered()
             .equals(other.getMarkDelivered())) return false;
         break;
+      case 51:
+        if (!getPromoteMember()
+            .equals(other.getPromoteMember())) return false;
+        break;
+      case 52:
+        if (!getDemoteMember()
+            .equals(other.getDemoteMember())) return false;
+        break;
+      case 53:
+        if (!getTransferOwnership()
+            .equals(other.getTransferOwnership())) return false;
+        break;
       case 100:
         if (!getAddContact()
             .equals(other.getAddContact())) return false;
@@ -2154,6 +2286,18 @@ private static final long serialVersionUID = 0L;
       case 50:
         hash = (37 * hash) + MARK_DELIVERED_FIELD_NUMBER;
         hash = (53 * hash) + getMarkDelivered().hashCode();
+        break;
+      case 51:
+        hash = (37 * hash) + PROMOTE_MEMBER_FIELD_NUMBER;
+        hash = (53 * hash) + getPromoteMember().hashCode();
+        break;
+      case 52:
+        hash = (37 * hash) + DEMOTE_MEMBER_FIELD_NUMBER;
+        hash = (53 * hash) + getDemoteMember().hashCode();
+        break;
+      case 53:
+        hash = (37 * hash) + TRANSFER_OWNERSHIP_FIELD_NUMBER;
+        hash = (53 * hash) + getTransferOwnership().hashCode();
         break;
       case 100:
         hash = (37 * hash) + ADD_CONTACT_FIELD_NUMBER;
@@ -2431,6 +2575,15 @@ private static final long serialVersionUID = 0L;
       if (markDeliveredBuilder_ != null) {
         markDeliveredBuilder_.clear();
       }
+      if (promoteMemberBuilder_ != null) {
+        promoteMemberBuilder_.clear();
+      }
+      if (demoteMemberBuilder_ != null) {
+        demoteMemberBuilder_.clear();
+      }
+      if (transferOwnershipBuilder_ != null) {
+        transferOwnershipBuilder_.clear();
+      }
       if (addContactBuilder_ != null) {
         addContactBuilder_.clear();
       }
@@ -2630,6 +2783,18 @@ private static final long serialVersionUID = 0L;
           markDeliveredBuilder_ != null) {
         result.payload_ = markDeliveredBuilder_.build();
       }
+      if (payloadCase_ == 51 &&
+          promoteMemberBuilder_ != null) {
+        result.payload_ = promoteMemberBuilder_.build();
+      }
+      if (payloadCase_ == 52 &&
+          demoteMemberBuilder_ != null) {
+        result.payload_ = demoteMemberBuilder_.build();
+      }
+      if (payloadCase_ == 53 &&
+          transferOwnershipBuilder_ != null) {
+        result.payload_ = transferOwnershipBuilder_.build();
+      }
       if (payloadCase_ == 100 &&
           addContactBuilder_ != null) {
         result.payload_ = addContactBuilder_.build();
@@ -2808,6 +2973,18 @@ private static final long serialVersionUID = 0L;
         }
         case MARK_DELIVERED: {
           mergeMarkDelivered(other.getMarkDelivered());
+          break;
+        }
+        case PROMOTE_MEMBER: {
+          mergePromoteMember(other.getPromoteMember());
+          break;
+        }
+        case DEMOTE_MEMBER: {
+          mergeDemoteMember(other.getDemoteMember());
+          break;
+        }
+        case TRANSFER_OWNERSHIP: {
+          mergeTransferOwnership(other.getTransferOwnership());
           break;
         }
         case ADD_CONTACT: {
@@ -3095,6 +3272,27 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 50;
               break;
             } // case 402
+            case 410: {
+              input.readMessage(
+                  internalGetPromoteMemberFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 51;
+              break;
+            } // case 410
+            case 418: {
+              input.readMessage(
+                  internalGetDemoteMemberFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 52;
+              break;
+            } // case 418
+            case 426: {
+              input.readMessage(
+                  internalGetTransferOwnershipFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 53;
+              break;
+            } // case 426
             case 802: {
               input.readMessage(
                   internalGetAddContactFieldBuilder().getBuilder(),
@@ -7674,6 +7872,432 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 50;
       onChanged();
       return markDeliveredBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.PromoteMember, app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder> promoteMemberBuilder_;
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     * @return Whether the promoteMember field is set.
+     */
+    @java.lang.Override
+    public boolean hasPromoteMember() {
+      return payloadCase_ == 51;
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     * @return The promoteMember.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.PromoteMember getPromoteMember() {
+      if (promoteMemberBuilder_ == null) {
+        if (payloadCase_ == 51) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 51) {
+          return promoteMemberBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    public Builder setPromoteMember(app.mvchat.mvnxt.mvservernxt.v1.PromoteMember value) {
+      if (promoteMemberBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        promoteMemberBuilder_.setMessage(value);
+      }
+      payloadCase_ = 51;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    public Builder setPromoteMember(
+        app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.Builder builderForValue) {
+      if (promoteMemberBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        promoteMemberBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 51;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    public Builder mergePromoteMember(app.mvchat.mvnxt.mvservernxt.v1.PromoteMember value) {
+      if (promoteMemberBuilder_ == null) {
+        if (payloadCase_ == 51 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 51) {
+          promoteMemberBuilder_.mergeFrom(value);
+        } else {
+          promoteMemberBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 51;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    public Builder clearPromoteMember() {
+      if (promoteMemberBuilder_ == null) {
+        if (payloadCase_ == 51) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 51) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        promoteMemberBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.Builder getPromoteMemberBuilder() {
+      return internalGetPromoteMemberFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder getPromoteMemberOrBuilder() {
+      if ((payloadCase_ == 51) && (promoteMemberBuilder_ != null)) {
+        return promoteMemberBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 51) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.PromoteMember, app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder> 
+        internalGetPromoteMemberFieldBuilder() {
+      if (promoteMemberBuilder_ == null) {
+        if (!(payloadCase_ == 51)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.getDefaultInstance();
+        }
+        promoteMemberBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.PromoteMember, app.mvchat.mvnxt.mvservernxt.v1.PromoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.PromoteMember) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 51;
+      onChanged();
+      return promoteMemberBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DemoteMember, app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder> demoteMemberBuilder_;
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     * @return Whether the demoteMember field is set.
+     */
+    @java.lang.Override
+    public boolean hasDemoteMember() {
+      return payloadCase_ == 52;
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     * @return The demoteMember.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DemoteMember getDemoteMember() {
+      if (demoteMemberBuilder_ == null) {
+        if (payloadCase_ == 52) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 52) {
+          return demoteMemberBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    public Builder setDemoteMember(app.mvchat.mvnxt.mvservernxt.v1.DemoteMember value) {
+      if (demoteMemberBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        demoteMemberBuilder_.setMessage(value);
+      }
+      payloadCase_ = 52;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    public Builder setDemoteMember(
+        app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.Builder builderForValue) {
+      if (demoteMemberBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        demoteMemberBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 52;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    public Builder mergeDemoteMember(app.mvchat.mvnxt.mvservernxt.v1.DemoteMember value) {
+      if (demoteMemberBuilder_ == null) {
+        if (payloadCase_ == 52 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 52) {
+          demoteMemberBuilder_.mergeFrom(value);
+        } else {
+          demoteMemberBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 52;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    public Builder clearDemoteMember() {
+      if (demoteMemberBuilder_ == null) {
+        if (payloadCase_ == 52) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 52) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        demoteMemberBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.Builder getDemoteMemberBuilder() {
+      return internalGetDemoteMemberFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder getDemoteMemberOrBuilder() {
+      if ((payloadCase_ == 52) && (demoteMemberBuilder_ != null)) {
+        return demoteMemberBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 52) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DemoteMember, app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder> 
+        internalGetDemoteMemberFieldBuilder() {
+      if (demoteMemberBuilder_ == null) {
+        if (!(payloadCase_ == 52)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.getDefaultInstance();
+        }
+        demoteMemberBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.DemoteMember, app.mvchat.mvnxt.mvservernxt.v1.DemoteMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.DemoteMember) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 52;
+      onChanged();
+      return demoteMemberBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.Builder, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder> transferOwnershipBuilder_;
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     * @return Whether the transferOwnership field is set.
+     */
+    @java.lang.Override
+    public boolean hasTransferOwnership() {
+      return payloadCase_ == 53;
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     * @return The transferOwnership.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership getTransferOwnership() {
+      if (transferOwnershipBuilder_ == null) {
+        if (payloadCase_ == 53) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 53) {
+          return transferOwnershipBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    public Builder setTransferOwnership(app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership value) {
+      if (transferOwnershipBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        transferOwnershipBuilder_.setMessage(value);
+      }
+      payloadCase_ = 53;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    public Builder setTransferOwnership(
+        app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.Builder builderForValue) {
+      if (transferOwnershipBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        transferOwnershipBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 53;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    public Builder mergeTransferOwnership(app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership value) {
+      if (transferOwnershipBuilder_ == null) {
+        if (payloadCase_ == 53 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 53) {
+          transferOwnershipBuilder_.mergeFrom(value);
+        } else {
+          transferOwnershipBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 53;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    public Builder clearTransferOwnership() {
+      if (transferOwnershipBuilder_ == null) {
+        if (payloadCase_ == 53) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 53) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        transferOwnershipBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.Builder getTransferOwnershipBuilder() {
+      return internalGetTransferOwnershipFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder getTransferOwnershipOrBuilder() {
+      if ((payloadCase_ == 53) && (transferOwnershipBuilder_ != null)) {
+        return transferOwnershipBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 53) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.Builder, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder> 
+        internalGetTransferOwnershipFieldBuilder() {
+      if (transferOwnershipBuilder_ == null) {
+        if (!(payloadCase_ == 53)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.getDefaultInstance();
+        }
+        transferOwnershipBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership.Builder, app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 53;
+      onChanged();
+      return transferOwnershipBuilder_;
     }
 
     private com.google.protobuf.SingleFieldBuilder<

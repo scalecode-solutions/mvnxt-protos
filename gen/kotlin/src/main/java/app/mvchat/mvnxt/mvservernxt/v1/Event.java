@@ -90,6 +90,7 @@ private static final long serialVersionUID = 0L;
     CONVERSATION_NICKNAME_CHANGED(47),
     CONVERSATION_METADATA_CHANGED(48),
     DELIVERY_RECEIPT_UPDATED(49),
+    MEMBER_ROLE_CHANGED(50),
     CONTACT_ADDED(100),
     CONTACT_REMOVED(101),
     USER_BLOCKED(102),
@@ -141,6 +142,7 @@ private static final long serialVersionUID = 0L;
         case 47: return CONVERSATION_NICKNAME_CHANGED;
         case 48: return CONVERSATION_METADATA_CHANGED;
         case 49: return DELIVERY_RECEIPT_UPDATED;
+        case 50: return MEMBER_ROLE_CHANGED;
         case 100: return CONTACT_ADDED;
         case 101: return CONTACT_REMOVED;
         case 102: return USER_BLOCKED;
@@ -1244,6 +1246,37 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
   }
 
+  public static final int MEMBER_ROLE_CHANGED_FIELD_NUMBER = 50;
+  /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   * @return Whether the memberRoleChanged field is set.
+   */
+  @java.lang.Override
+  public boolean hasMemberRoleChanged() {
+    return payloadCase_ == 50;
+  }
+  /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   * @return The memberRoleChanged.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged getMemberRoleChanged() {
+    if (payloadCase_ == 50) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder getMemberRoleChangedOrBuilder() {
+    if (payloadCase_ == 50) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+  }
+
   public static final int CONTACT_ADDED_FIELD_NUMBER = 100;
   /**
    * <pre>
@@ -1573,6 +1606,9 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 49) {
       output.writeMessage(49, (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_);
     }
+    if (payloadCase_ == 50) {
+      output.writeMessage(50, (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_);
+    }
     if (payloadCase_ == 100) {
       output.writeMessage(100, (app.mvchat.mvnxt.mvservernxt.v1.ContactAdded) payload_);
     }
@@ -1730,6 +1766,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 49) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(49, (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_);
+    }
+    if (payloadCase_ == 50) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(50, (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_);
     }
     if (payloadCase_ == 100) {
       size += com.google.protobuf.CodedOutputStream
@@ -1903,6 +1943,10 @@ private static final long serialVersionUID = 0L;
         if (!getDeliveryReceiptUpdated()
             .equals(other.getDeliveryReceiptUpdated())) return false;
         break;
+      case 50:
+        if (!getMemberRoleChanged()
+            .equals(other.getMemberRoleChanged())) return false;
+        break;
       case 100:
         if (!getContactAdded()
             .equals(other.getContactAdded())) return false;
@@ -2070,6 +2114,10 @@ private static final long serialVersionUID = 0L;
       case 49:
         hash = (37 * hash) + DELIVERY_RECEIPT_UPDATED_FIELD_NUMBER;
         hash = (53 * hash) + getDeliveryReceiptUpdated().hashCode();
+        break;
+      case 50:
+        hash = (37 * hash) + MEMBER_ROLE_CHANGED_FIELD_NUMBER;
+        hash = (53 * hash) + getMemberRoleChanged().hashCode();
         break;
       case 100:
         hash = (37 * hash) + CONTACT_ADDED_FIELD_NUMBER;
@@ -2345,6 +2393,9 @@ private static final long serialVersionUID = 0L;
       if (deliveryReceiptUpdatedBuilder_ != null) {
         deliveryReceiptUpdatedBuilder_.clear();
       }
+      if (memberRoleChangedBuilder_ != null) {
+        memberRoleChangedBuilder_.clear();
+      }
       if (contactAddedBuilder_ != null) {
         contactAddedBuilder_.clear();
       }
@@ -2547,6 +2598,10 @@ private static final long serialVersionUID = 0L;
           deliveryReceiptUpdatedBuilder_ != null) {
         result.payload_ = deliveryReceiptUpdatedBuilder_.build();
       }
+      if (payloadCase_ == 50 &&
+          memberRoleChangedBuilder_ != null) {
+        result.payload_ = memberRoleChangedBuilder_.build();
+      }
       if (payloadCase_ == 100 &&
           contactAddedBuilder_ != null) {
         result.payload_ = contactAddedBuilder_.build();
@@ -2713,6 +2768,10 @@ private static final long serialVersionUID = 0L;
         }
         case DELIVERY_RECEIPT_UPDATED: {
           mergeDeliveryReceiptUpdated(other.getDeliveryReceiptUpdated());
+          break;
+        }
+        case MEMBER_ROLE_CHANGED: {
+          mergeMemberRoleChanged(other.getMemberRoleChanged());
           break;
         }
         case CONTACT_ADDED: {
@@ -2996,6 +3055,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 49;
               break;
             } // case 394
+            case 402: {
+              input.readMessage(
+                  internalGetMemberRoleChangedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 50;
+              break;
+            } // case 402
             case 802: {
               input.readMessage(
                   internalGetContactAddedFieldBuilder().getBuilder(),
@@ -7765,6 +7831,148 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 49;
       onChanged();
       return deliveryReceiptUpdatedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder> memberRoleChangedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     * @return Whether the memberRoleChanged field is set.
+     */
+    @java.lang.Override
+    public boolean hasMemberRoleChanged() {
+      return payloadCase_ == 50;
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     * @return The memberRoleChanged.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged getMemberRoleChanged() {
+      if (memberRoleChangedBuilder_ == null) {
+        if (payloadCase_ == 50) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 50) {
+          return memberRoleChangedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    public Builder setMemberRoleChanged(app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged value) {
+      if (memberRoleChangedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        memberRoleChangedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    public Builder setMemberRoleChanged(
+        app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.Builder builderForValue) {
+      if (memberRoleChangedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        memberRoleChangedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    public Builder mergeMemberRoleChanged(app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged value) {
+      if (memberRoleChangedBuilder_ == null) {
+        if (payloadCase_ == 50 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 50) {
+          memberRoleChangedBuilder_.mergeFrom(value);
+        } else {
+          memberRoleChangedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 50;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    public Builder clearMemberRoleChanged() {
+      if (memberRoleChangedBuilder_ == null) {
+        if (payloadCase_ == 50) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 50) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        memberRoleChangedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.Builder getMemberRoleChangedBuilder() {
+      return internalGetMemberRoleChangedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder getMemberRoleChangedOrBuilder() {
+      if ((payloadCase_ == 50) && (memberRoleChangedBuilder_ != null)) {
+        return memberRoleChangedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 50) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder> 
+        internalGetMemberRoleChangedFieldBuilder() {
+      if (memberRoleChangedBuilder_ == null) {
+        if (!(payloadCase_ == 50)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.getDefaultInstance();
+        }
+        memberRoleChangedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 50;
+      onChanged();
+      return memberRoleChangedBuilder_;
     }
 
     private com.google.protobuf.SingleFieldBuilder<

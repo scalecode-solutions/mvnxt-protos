@@ -299,6 +299,7 @@ class Conversation extends $pb.GeneratedMessage {
     $core.int? disappearingSeconds,
     $core.String? description,
     $core.String? theme,
+    $core.Iterable<GroupMember>? members,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -312,6 +313,7 @@ class Conversation extends $pb.GeneratedMessage {
       result.disappearingSeconds = disappearingSeconds;
     if (description != null) result.description = description;
     if (theme != null) result.theme = theme;
+    if (members != null) result.members.addAll(members);
     return result;
   }
 
@@ -340,6 +342,8 @@ class Conversation extends $pb.GeneratedMessage {
     ..aI(8, _omitFieldNames ? '' : 'disappearingSeconds')
     ..aOS(9, _omitFieldNames ? '' : 'description')
     ..aOS(10, _omitFieldNames ? '' : 'theme')
+    ..pPM<GroupMember>(11, _omitFieldNames ? '' : 'members',
+        subBuilder: GroupMember.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -463,6 +467,84 @@ class Conversation extends $pb.GeneratedMessage {
   $core.bool hasTheme() => $_has(9);
   @$pb.TagNumber(10)
   void clearTheme() => $_clearField(10);
+
+  /// Per-member detail for active members (left_at IS NULL), keyed
+  /// on user_id. Present alongside member_ids — clients can use
+  /// either. members carries role so UIs can render "owner" /
+  /// "admin" badges without a follow-up fetch. DMs return empty
+  /// here (role model doesn't apply).
+  @$pb.TagNumber(11)
+  $pb.PbList<GroupMember> get members => $_getList(10);
+}
+
+/// GroupMember is one active member's public projection: user_id +
+/// role. Nickname, join time, and read state are not included —
+/// those are per-viewer / fetch-on-demand concerns.
+class GroupMember extends $pb.GeneratedMessage {
+  factory GroupMember({
+    $core.String? userId,
+    ConversationRole? role,
+  }) {
+    final result = create();
+    if (userId != null) result.userId = userId;
+    if (role != null) result.role = role;
+    return result;
+  }
+
+  GroupMember._();
+
+  factory GroupMember.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory GroupMember.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GroupMember',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aE<ConversationRole>(2, _omitFieldNames ? '' : 'role',
+        enumValues: ConversationRole.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GroupMember clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GroupMember copyWith(void Function(GroupMember) updates) =>
+      super.copyWith((message) => updates(message as GroupMember))
+          as GroupMember;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GroupMember create() => GroupMember._();
+  @$core.override
+  GroupMember createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static GroupMember getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GroupMember>(create);
+  static GroupMember? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  ConversationRole get role => $_getN(1);
+  @$pb.TagNumber(2)
+  set role(ConversationRole value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasRole() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRole() => $_clearField(2);
 }
 
 /// Message is the client-facing view of one message row.
@@ -2252,6 +2334,220 @@ class UpdateConversationMetadata extends $pb.GeneratedMessage {
   $core.bool hasTheme() => $_has(3);
   @$pb.TagNumber(4)
   void clearTheme() => $_clearField(4);
+}
+
+/// PromoteMember raises a MEMBER to ADMIN in a group. Caller must be
+/// OWNER or ADMIN. Target must be a current member (not left).
+/// Re-promoting an ADMIN is a no-op. Rejected on DMs. Cannot target
+/// self (there's no useful path that goes through Promote for self).
+class PromoteMember extends $pb.GeneratedMessage {
+  factory PromoteMember({
+    $core.String? conversationId,
+    $core.String? userId,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    return result;
+  }
+
+  PromoteMember._();
+
+  factory PromoteMember.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory PromoteMember.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'PromoteMember',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  PromoteMember clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  PromoteMember copyWith(void Function(PromoteMember) updates) =>
+      super.copyWith((message) => updates(message as PromoteMember))
+          as PromoteMember;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static PromoteMember create() => PromoteMember._();
+  @$core.override
+  PromoteMember createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static PromoteMember getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<PromoteMember>(create);
+  static PromoteMember? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+}
+
+/// DemoteMember lowers an ADMIN to MEMBER. Caller must be OWNER
+/// (admins cannot demote each other — keeps the power structure
+/// honest). Demoting a MEMBER is a no-op. Cannot target the owner;
+/// use TransferOwnership. Rejected on DMs.
+class DemoteMember extends $pb.GeneratedMessage {
+  factory DemoteMember({
+    $core.String? conversationId,
+    $core.String? userId,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    return result;
+  }
+
+  DemoteMember._();
+
+  factory DemoteMember.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DemoteMember.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DemoteMember',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DemoteMember clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DemoteMember copyWith(void Function(DemoteMember) updates) =>
+      super.copyWith((message) => updates(message as DemoteMember))
+          as DemoteMember;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DemoteMember create() => DemoteMember._();
+  @$core.override
+  DemoteMember createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DemoteMember getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DemoteMember>(create);
+  static DemoteMember? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+}
+
+/// TransferOwnership atomically swaps the OWNER role with the named
+/// target. The caller (current owner) becomes ADMIN; the target
+/// becomes OWNER. Caller must be OWNER. Target must be a current
+/// active member. Cannot target self. Rejected on DMs.
+///
+/// Used as the owner's explicit "leave" path — owners cannot simply
+/// LeaveConversation while holding the role; they must hand off
+/// first.
+class TransferOwnership extends $pb.GeneratedMessage {
+  factory TransferOwnership({
+    $core.String? conversationId,
+    $core.String? newOwnerId,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (newOwnerId != null) result.newOwnerId = newOwnerId;
+    return result;
+  }
+
+  TransferOwnership._();
+
+  factory TransferOwnership.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory TransferOwnership.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'TransferOwnership',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'newOwnerId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TransferOwnership clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TransferOwnership copyWith(void Function(TransferOwnership) updates) =>
+      super.copyWith((message) => updates(message as TransferOwnership))
+          as TransferOwnership;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static TransferOwnership create() => TransferOwnership._();
+  @$core.override
+  TransferOwnership createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static TransferOwnership getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransferOwnership>(create);
+  static TransferOwnership? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get newOwnerId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set newOwnerId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasNewOwnerId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNewOwnerId() => $_clearField(2);
 }
 
 /// MarkRead advances the caller's last_read_seq on a conversation.
@@ -4734,6 +5030,132 @@ class ConversationMetadataChanged extends $pb.GeneratedMessage {
   $core.bool hasTheme() => $_has(3);
   @$pb.TagNumber(4)
   void clearTheme() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get changedBy => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set changedBy($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasChangedBy() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearChangedBy() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.Timestamp get changedAt => $_getN(5);
+  @$pb.TagNumber(6)
+  set changedAt($0.Timestamp value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasChangedAt() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearChangedAt() => $_clearField(6);
+  @$pb.TagNumber(6)
+  $0.Timestamp ensureChangedAt() => $_ensure(5);
+}
+
+/// MemberRoleChanged fires for each Promote/Demote/TransferOwnership
+/// that actually moves a role. A TransferOwnership emits TWO
+/// MemberRoleChanged events in one fan-out: one for the demoted
+/// owner (→ admin) and one for the promoted target (→ owner).
+///
+/// Audience: every active member of the conversation — role changes
+/// are public within the group.
+class MemberRoleChanged extends $pb.GeneratedMessage {
+  factory MemberRoleChanged({
+    $core.String? conversationId,
+    $core.String? userId,
+    ConversationRole? previousRole,
+    ConversationRole? newRole,
+    $core.String? changedBy,
+    $0.Timestamp? changedAt,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (previousRole != null) result.previousRole = previousRole;
+    if (newRole != null) result.newRole = newRole;
+    if (changedBy != null) result.changedBy = changedBy;
+    if (changedAt != null) result.changedAt = changedAt;
+    return result;
+  }
+
+  MemberRoleChanged._();
+
+  factory MemberRoleChanged.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MemberRoleChanged.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MemberRoleChanged',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aE<ConversationRole>(3, _omitFieldNames ? '' : 'previousRole',
+        enumValues: ConversationRole.values)
+    ..aE<ConversationRole>(4, _omitFieldNames ? '' : 'newRole',
+        enumValues: ConversationRole.values)
+    ..aOS(5, _omitFieldNames ? '' : 'changedBy')
+    ..aOM<$0.Timestamp>(6, _omitFieldNames ? '' : 'changedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MemberRoleChanged clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MemberRoleChanged copyWith(void Function(MemberRoleChanged) updates) =>
+      super.copyWith((message) => updates(message as MemberRoleChanged))
+          as MemberRoleChanged;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MemberRoleChanged create() => MemberRoleChanged._();
+  @$core.override
+  MemberRoleChanged createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MemberRoleChanged getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MemberRoleChanged>(create);
+  static MemberRoleChanged? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  ConversationRole get previousRole => $_getN(2);
+  @$pb.TagNumber(3)
+  set previousRole(ConversationRole value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPreviousRole() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPreviousRole() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  ConversationRole get newRole => $_getN(3);
+  @$pb.TagNumber(4)
+  set newRole(ConversationRole value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasNewRole() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNewRole() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get changedBy => $_getSZ(4);

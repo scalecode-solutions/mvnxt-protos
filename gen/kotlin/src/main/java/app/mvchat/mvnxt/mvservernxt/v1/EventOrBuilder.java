@@ -580,6 +580,21 @@ public interface EventOrBuilder extends
   app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder getDeliveryReceiptUpdatedOrBuilder();
 
   /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   * @return Whether the memberRoleChanged field is set.
+   */
+  boolean hasMemberRoleChanged();
+  /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   * @return The memberRoleChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged getMemberRoleChanged();
+  /**
+   * <code>.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChangedOrBuilder getMemberRoleChangedOrBuilder();
+
+  /**
    * <pre>
    * Contacts (range 100-109)
    * </pre>

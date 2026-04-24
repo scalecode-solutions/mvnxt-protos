@@ -913,6 +913,30 @@ public object EventKt {
     }
 
     /**
+     * `.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];`
+     */
+    public var memberRoleChanged: app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged
+      @kotlin.jvm.JvmName("getMemberRoleChanged")
+        get() = _builder.memberRoleChanged
+      @kotlin.jvm.JvmName("setMemberRoleChanged")
+        set(value) {
+        _builder.memberRoleChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];`
+     */
+    public fun clearMemberRoleChanged() {
+      _builder.clearMemberRoleChanged()
+    }
+    /**
+     * `.mvservernxt.v1.MemberRoleChanged member_role_changed = 50 [json_name = "memberRoleChanged"];`
+     * @return Whether the memberRoleChanged field is set.
+     */
+    public fun hasMemberRoleChanged(): kotlin.Boolean {
+      return _builder.hasMemberRoleChanged()
+    }
+
+    /**
      * ```
      * Contacts (range 100-109)
      * ```
@@ -1190,6 +1214,9 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationMetadataCh
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.deliveryReceiptUpdatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated?
   get() = if (hasDeliveryReceiptUpdated()) getDeliveryReceiptUpdated() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.memberRoleChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MemberRoleChanged?
+  get() = if (hasMemberRoleChanged()) getMemberRoleChanged() else null
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.contactAddedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ContactAdded?
   get() = if (hasContactAdded()) getContactAdded() else null
