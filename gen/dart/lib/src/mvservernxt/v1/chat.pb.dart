@@ -141,8 +141,11 @@ class Conversation extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $pb.PbList<$core.String> get memberIds => $_getList(5);
 
-  /// Seq of the latest message in the conversation, or 0 if no messages
-  /// yet. Useful for sorting in ListConversations without an extra query.
+  /// Seq of the latest message ever sent to this conversation, or 0 if
+  /// none yet. MONOTONIC — never decrements. Message deletes and unsends
+  /// leave tombstone rows that preserve the seq, so this always reflects
+  /// the highwater of conversation activity. Used by ListConversations
+  /// to sort without an extra query.
   @$pb.TagNumber(7)
   $fixnum.Int64 get lastMessageSeq => $_getI64(6);
   @$pb.TagNumber(7)
@@ -163,6 +166,7 @@ class Message extends $pb.GeneratedMessage {
     $core.String? body,
     $core.String? replyToId,
     $0.Timestamp? createdAt,
+    $core.String? clientMessageId,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -172,6 +176,7 @@ class Message extends $pb.GeneratedMessage {
     if (body != null) result.body = body;
     if (replyToId != null) result.replyToId = replyToId;
     if (createdAt != null) result.createdAt = createdAt;
+    if (clientMessageId != null) result.clientMessageId = clientMessageId;
     return result;
   }
 
@@ -196,6 +201,7 @@ class Message extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'replyToId')
     ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'createdAt',
         subBuilder: $0.Timestamp.create)
+    ..aOS(8, _omitFieldNames ? '' : 'clientMessageId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -281,6 +287,24 @@ class Message extends $pb.GeneratedMessage {
   void clearCreatedAt() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureCreatedAt() => $_ensure(6);
+
+  /// Client-assigned correlator echoed from SendMessage.client_message_id.
+  /// Empty for messages created server-side (e.g. system notices) or sent
+  /// by clients that didn't supply one.
+  ///
+  /// Used by sending clients to match their optimistic-UI placeholder
+  /// against the canonical server message when it arrives back via the
+  /// MessageSent broadcast event. Without this, a client can't tell its
+  /// own just-sent message apart from a duplicate and ends up rendering
+  /// both the placeholder AND the canonical copy.
+  @$pb.TagNumber(8)
+  $core.String get clientMessageId => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set clientMessageId($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasClientMessageId() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearClientMessageId() => $_clearField(8);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -290,6 +314,16 @@ class Message extends $pb.GeneratedMessage {
 /// Validation:
 ///   - DM: exactly one other member_id, not the creator's own.
 ///   - GROUP: at least one other member_id, title required.
+///
+/// DM find-or-create semantics: if a DM between the caller and the named
+/// other user already exists, the existing conversation is returned
+/// (not a new one). The other user cannot have "blocked" the caller out
+/// of a DM — existing DMs resurface when re-opened. GROUPs always create
+/// a fresh conversation regardless of overlapping membership.
+///
+/// DM immutability: DM membership is fixed at creation. AddMember on a
+/// DM is rejected. If a third person needs in, the caller creates a new
+/// GROUP with the two existing DM members + the third.
 ///
 /// Returns CreateConversationResponse with the full Conversation.
 class CreateConversation extends $pb.GeneratedMessage {
@@ -572,11 +606,13 @@ class SendMessage extends $pb.GeneratedMessage {
     $core.String? conversationId,
     $core.String? body,
     $core.String? replyToId,
+    $core.String? clientMessageId,
   }) {
     final result = create();
     if (conversationId != null) result.conversationId = conversationId;
     if (body != null) result.body = body;
     if (replyToId != null) result.replyToId = replyToId;
+    if (clientMessageId != null) result.clientMessageId = clientMessageId;
     return result;
   }
 
@@ -596,6 +632,7 @@ class SendMessage extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'conversationId')
     ..aOS(2, _omitFieldNames ? '' : 'body')
     ..aOS(3, _omitFieldNames ? '' : 'replyToId')
+    ..aOS(4, _omitFieldNames ? '' : 'clientMessageId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -643,6 +680,24 @@ class SendMessage extends $pb.GeneratedMessage {
   $core.bool hasReplyToId() => $_has(2);
   @$pb.TagNumber(3)
   void clearReplyToId() => $_clearField(3);
+
+  /// Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+  /// ClientEnvelope.idempotency_key (which covers retry dedup) — this
+  /// field travels through to the MessageSent broadcast event so the
+  /// sender's own sessions can match the canonical server message
+  /// against their optimistic placeholder.
+  ///
+  /// Optional. Empty string means "don't correlate" — the sending client
+  /// will see the broadcast as a fresh message. Server stores it as-is
+  /// on the Message row; uniqueness is not enforced.
+  @$pb.TagNumber(4)
+  $core.String get clientMessageId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set clientMessageId($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasClientMessageId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearClientMessageId() => $_clearField(4);
 }
 
 /// ListConversations returns the caller's active conversations. Slice 1
@@ -705,22 +760,30 @@ class ListConversations extends $pb.GeneratedMessage {
 }
 
 /// GetMessages pulls a window of messages from one conversation.
+/// Caller must be a member.
 ///
-///   since_seq = 0  → newest `limit` messages (initial load)
-///   since_seq > 0  → messages with seq > since_seq (forward catch-up)
+/// Three modes, picked by which of since_seq / before_seq is non-zero:
 ///
-/// Caller must be a member. Results ordered by seq ASC when doing
-/// forward catch-up, seq DESC when doing initial load.
+///   since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+///   since_seq > 0, before_seq = 0  → seq > since_seq (forward catch-up)
+///   since_seq = 0, before_seq > 0  → seq < before_seq (scroll up / older)
+///
+/// Setting both since_seq AND before_seq is rejected with a validation
+/// error — the intent is ambiguous. Results are always ordered by seq
+/// ASC so clients can append without sorting; for initial-load and
+/// scroll-up modes this means the oldest in the window comes first.
 class GetMessages extends $pb.GeneratedMessage {
   factory GetMessages({
     $core.String? conversationId,
     $fixnum.Int64? sinceSeq,
     $core.int? limit,
+    $fixnum.Int64? beforeSeq,
   }) {
     final result = create();
     if (conversationId != null) result.conversationId = conversationId;
     if (sinceSeq != null) result.sinceSeq = sinceSeq;
     if (limit != null) result.limit = limit;
+    if (beforeSeq != null) result.beforeSeq = beforeSeq;
     return result;
   }
 
@@ -740,6 +803,7 @@ class GetMessages extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'conversationId')
     ..aInt64(2, _omitFieldNames ? '' : 'sinceSeq')
     ..aI(3, _omitFieldNames ? '' : 'limit')
+    ..aInt64(4, _omitFieldNames ? '' : 'beforeSeq')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -787,13 +851,32 @@ class GetMessages extends $pb.GeneratedMessage {
   $core.bool hasLimit() => $_has(2);
   @$pb.TagNumber(3)
   void clearLimit() => $_clearField(3);
+
+  /// For reverse pagination (scroll up): return messages with seq
+  /// strictly less than this value, newest first within the `limit`.
+  /// 0 means "not set" — see mode table above.
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get beforeSeq => $_getI64(3);
+  @$pb.TagNumber(4)
+  set beforeSeq($fixnum.Int64 value) => $_setInt64(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasBeforeSeq() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearBeforeSeq() => $_clearField(4);
 }
 
 /// MarkRead advances the caller's last_read_seq on a conversation.
 /// Idempotent — sending a value ≤ the stored one is a no-op.
 ///
-/// Emits ReadReceiptUpdated to the caller's own sessions (multi-device
-/// sync) AND to other members (so their UI can show "seen by X").
+/// Emits ReadReceiptUpdated. The subscriber (ws-broadcast) decides
+/// who receives it based on the caller's read-receipt visibility
+/// preference:
+///   - Always fans out to the caller's OWN sessions (multi-device
+///     state sync — not privacy-sensitive).
+///   - Fans out to OTHER members only if the caller hasn't disabled
+///     read-receipt visibility. The preference itself lands with the
+///     settings domain; slice-1 behavior is "always broadcast to
+///     everyone" (v1 default).
 class MarkRead extends $pb.GeneratedMessage {
   factory MarkRead({
     $core.String? conversationId,
@@ -1483,6 +1566,7 @@ class MessageSent extends $pb.GeneratedMessage {
     $core.String? body,
     $core.String? replyToId,
     $0.Timestamp? createdAt,
+    $core.String? clientMessageId,
   }) {
     final result = create();
     if (messageId != null) result.messageId = messageId;
@@ -1492,6 +1576,7 @@ class MessageSent extends $pb.GeneratedMessage {
     if (body != null) result.body = body;
     if (replyToId != null) result.replyToId = replyToId;
     if (createdAt != null) result.createdAt = createdAt;
+    if (clientMessageId != null) result.clientMessageId = clientMessageId;
     return result;
   }
 
@@ -1516,6 +1601,7 @@ class MessageSent extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'replyToId')
     ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'createdAt',
         subBuilder: $0.Timestamp.create)
+    ..aOS(8, _omitFieldNames ? '' : 'clientMessageId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1601,6 +1687,16 @@ class MessageSent extends $pb.GeneratedMessage {
   void clearCreatedAt() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureCreatedAt() => $_ensure(6);
+
+  /// Echoed from SendMessage.client_message_id. See Message.client_message_id.
+  @$pb.TagNumber(8)
+  $core.String get clientMessageId => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set clientMessageId($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasClientMessageId() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearClientMessageId() => $_clearField(8);
 }
 
 /// ReadReceiptUpdated fires for each MarkRead that actually advances the

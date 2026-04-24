@@ -98,8 +98,11 @@ type Conversation struct {
 	// Current active membership (left_at IS NULL). Order is not guaranteed
 	// stable across calls; clients should treat as a set.
 	MemberIds []string `protobuf:"bytes,6,rep,name=member_ids,json=memberIds,proto3" json:"member_ids,omitempty"`
-	// Seq of the latest message in the conversation, or 0 if no messages
-	// yet. Useful for sorting in ListConversations without an extra query.
+	// Seq of the latest message ever sent to this conversation, or 0 if
+	// none yet. MONOTONIC — never decrements. Message deletes and unsends
+	// leave tombstone rows that preserve the seq, so this always reflects
+	// the highwater of conversation activity. Used by ListConversations
+	// to sort without an extra query.
 	LastMessageSeq int64 `protobuf:"varint,7,opt,name=last_message_seq,json=lastMessageSeq,proto3" json:"last_message_seq,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -187,16 +190,26 @@ func (x *Conversation) GetLastMessageSeq() int64 {
 // Message is the client-facing view of one message row.
 type Message struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // UUIDv4
+	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // UUIDv4, server-assigned
 	ConversationId string                 `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
 	Seq            int64                  `protobuf:"varint,3,opt,name=seq,proto3" json:"seq,omitempty"` // Per-conversation monotonic.
 	SenderId       string                 `protobuf:"bytes,4,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
 	Body           string                 `protobuf:"bytes,5,opt,name=body,proto3" json:"body,omitempty"` // Plain text in slice 1.
 	// Reply threading. Empty string if this message isn't a reply.
-	ReplyToId     string                 `protobuf:"bytes,6,opt,name=reply_to_id,json=replyToId,proto3" json:"reply_to_id,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	ReplyToId string                 `protobuf:"bytes,6,opt,name=reply_to_id,json=replyToId,proto3" json:"reply_to_id,omitempty"`
+	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// Client-assigned correlator echoed from SendMessage.client_message_id.
+	// Empty for messages created server-side (e.g. system notices) or sent
+	// by clients that didn't supply one.
+	//
+	// Used by sending clients to match their optimistic-UI placeholder
+	// against the canonical server message when it arrives back via the
+	// MessageSent broadcast event. Without this, a client can't tell its
+	// own just-sent message apart from a duplicate and ends up rendering
+	// both the placeholder AND the canonical copy.
+	ClientMessageId string `protobuf:"bytes,8,opt,name=client_message_id,json=clientMessageId,proto3" json:"client_message_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *Message) Reset() {
@@ -278,6 +291,13 @@ func (x *Message) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *Message) GetClientMessageId() string {
+	if x != nil {
+		return x.ClientMessageId
+	}
+	return ""
+}
+
 // CreateConversation makes a new conversation and auto-adds the creator
 // as a member. `member_ids` are the OTHER members (the creator is
 // implicit).
@@ -285,6 +305,16 @@ func (x *Message) GetCreatedAt() *timestamppb.Timestamp {
 // Validation:
 //   - DM: exactly one other member_id, not the creator's own.
 //   - GROUP: at least one other member_id, title required.
+//
+// DM find-or-create semantics: if a DM between the caller and the named
+// other user already exists, the existing conversation is returned
+// (not a new one). The other user cannot have "blocked" the caller out
+// of a DM — existing DMs resurface when re-opened. GROUPs always create
+// a fresh conversation regardless of overlapping membership.
+//
+// DM immutability: DM membership is fixed at creation. AddMember on a
+// DM is rejected. If a third person needs in, the caller creates a new
+// GROUP with the two existing DM members + the third.
 //
 // Returns CreateConversationResponse with the full Conversation.
 type CreateConversation struct {
@@ -517,8 +547,18 @@ type SendMessage struct {
 	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
 	Body           string                 `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
 	ReplyToId      string                 `protobuf:"bytes,3,opt,name=reply_to_id,json=replyToId,proto3" json:"reply_to_id,omitempty"` // Optional; empty = not a reply.
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+	// ClientEnvelope.idempotency_key (which covers retry dedup) — this
+	// field travels through to the MessageSent broadcast event so the
+	// sender's own sessions can match the canonical server message
+	// against their optimistic placeholder.
+	//
+	// Optional. Empty string means "don't correlate" — the sending client
+	// will see the broadcast as a fresh message. Server stores it as-is
+	// on the Message row; uniqueness is not enforced.
+	ClientMessageId string `protobuf:"bytes,4,opt,name=client_message_id,json=clientMessageId,proto3" json:"client_message_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *SendMessage) Reset() {
@@ -568,6 +608,13 @@ func (x *SendMessage) GetBody() string {
 func (x *SendMessage) GetReplyToId() string {
 	if x != nil {
 		return x.ReplyToId
+	}
+	return ""
+}
+
+func (x *SendMessage) GetClientMessageId() string {
+	if x != nil {
+		return x.ClientMessageId
 	}
 	return ""
 }
@@ -622,19 +669,29 @@ func (x *ListConversations) GetLimit() int32 {
 }
 
 // GetMessages pulls a window of messages from one conversation.
+// Caller must be a member.
 //
-//	since_seq = 0  → newest `limit` messages (initial load)
-//	since_seq > 0  → messages with seq > since_seq (forward catch-up)
+// Three modes, picked by which of since_seq / before_seq is non-zero:
 //
-// Caller must be a member. Results ordered by seq ASC when doing
-// forward catch-up, seq DESC when doing initial load.
+//	since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+//	since_seq > 0, before_seq = 0  → seq > since_seq (forward catch-up)
+//	since_seq = 0, before_seq > 0  → seq < before_seq (scroll up / older)
+//
+// Setting both since_seq AND before_seq is rejected with a validation
+// error — the intent is ambiguous. Results are always ordered by seq
+// ASC so clients can append without sorting; for initial-load and
+// scroll-up modes this means the oldest in the window comes first.
 type GetMessages struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
 	SinceSeq       int64                  `protobuf:"varint,2,opt,name=since_seq,json=sinceSeq,proto3" json:"since_seq,omitempty"`
 	Limit          int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"` // 0 = server default (50).
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// For reverse pagination (scroll up): return messages with seq
+	// strictly less than this value, newest first within the `limit`.
+	// 0 means "not set" — see mode table above.
+	BeforeSeq     int64 `protobuf:"varint,4,opt,name=before_seq,json=beforeSeq,proto3" json:"before_seq,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetMessages) Reset() {
@@ -688,11 +745,25 @@ func (x *GetMessages) GetLimit() int32 {
 	return 0
 }
 
+func (x *GetMessages) GetBeforeSeq() int64 {
+	if x != nil {
+		return x.BeforeSeq
+	}
+	return 0
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
-// Emits ReadReceiptUpdated to the caller's own sessions (multi-device
-// sync) AND to other members (so their UI can show "seen by X").
+// Emits ReadReceiptUpdated. The subscriber (ws-broadcast) decides
+// who receives it based on the caller's read-receipt visibility
+// preference:
+//   - Always fans out to the caller's OWN sessions (multi-device
+//     state sync — not privacy-sensitive).
+//   - Fans out to OTHER members only if the caller hasn't disabled
+//     read-receipt visibility. The preference itself lands with the
+//     settings domain; slice-1 behavior is "always broadcast to
+//     everyone" (v1 default).
 type MarkRead struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
@@ -1228,8 +1299,10 @@ type MessageSent struct {
 	Body           string                 `protobuf:"bytes,5,opt,name=body,proto3" json:"body,omitempty"`
 	ReplyToId      string                 `protobuf:"bytes,6,opt,name=reply_to_id,json=replyToId,proto3" json:"reply_to_id,omitempty"`
 	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// Echoed from SendMessage.client_message_id. See Message.client_message_id.
+	ClientMessageId string `protobuf:"bytes,8,opt,name=client_message_id,json=clientMessageId,proto3" json:"client_message_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *MessageSent) Reset() {
@@ -1309,6 +1382,13 @@ func (x *MessageSent) GetCreatedAt() *timestamppb.Timestamp {
 		return x.CreatedAt
 	}
 	return nil
+}
+
+func (x *MessageSent) GetClientMessageId() string {
+	if x != nil {
+		return x.ClientMessageId
+	}
+	return ""
 }
 
 // ReadReceiptUpdated fires for each MarkRead that actually advances the
@@ -1397,7 +1477,7 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x1d\n" +
 	"\n" +
 	"member_ids\x18\x06 \x03(\tR\tmemberIds\x12(\n" +
-	"\x10last_message_seq\x18\a \x01(\x03R\x0elastMessageSeq\"\xe0\x01\n" +
+	"\x10last_message_seq\x18\a \x01(\x03R\x0elastMessageSeq\"\x8c\x02\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12'\n" +
 	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x12\x10\n" +
@@ -1406,7 +1486,8 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\x04body\x18\x05 \x01(\tR\x04body\x12\x1e\n" +
 	"\vreply_to_id\x18\x06 \x01(\tR\treplyToId\x129\n" +
 	"\n" +
-	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x7f\n" +
+	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12*\n" +
+	"\x11client_message_id\x18\b \x01(\tR\x0fclientMessageId\"\x7f\n" +
 	"\x12CreateConversation\x124\n" +
 	"\x04type\x18\x01 \x01(\x0e2 .mvservernxt.v1.ConversationTypeR\x04type\x12\x1d\n" +
 	"\n" +
@@ -1419,17 +1500,20 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"<\n" +
 	"\x11LeaveConversation\x12'\n" +
-	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\"j\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\"\x96\x01\n" +
 	"\vSendMessage\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x12\n" +
 	"\x04body\x18\x02 \x01(\tR\x04body\x12\x1e\n" +
-	"\vreply_to_id\x18\x03 \x01(\tR\treplyToId\")\n" +
+	"\vreply_to_id\x18\x03 \x01(\tR\treplyToId\x12*\n" +
+	"\x11client_message_id\x18\x04 \x01(\tR\x0fclientMessageId\")\n" +
 	"\x11ListConversations\x12\x14\n" +
-	"\x05limit\x18\x01 \x01(\x05R\x05limit\"i\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\"\x88\x01\n" +
 	"\vGetMessages\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x1b\n" +
 	"\tsince_seq\x18\x02 \x01(\x03R\bsinceSeq\x12\x14\n" +
-	"\x05limit\x18\x03 \x01(\x05R\x05limit\"W\n" +
+	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x1d\n" +
+	"\n" +
+	"before_seq\x18\x04 \x01(\x03R\tbeforeSeq\"W\n" +
 	"\bMarkRead\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\"\n" +
 	"\rlast_read_seq\x18\x02 \x01(\x03R\vlastReadSeq\"^\n" +
@@ -1468,7 +1552,7 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"MemberLeft\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x123\n" +
-	"\aleft_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x06leftAt\"\xf3\x01\n" +
+	"\aleft_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x06leftAt\"\x9f\x02\n" +
 	"\vMessageSent\x12\x1d\n" +
 	"\n" +
 	"message_id\x18\x01 \x01(\tR\tmessageId\x12'\n" +
@@ -1478,7 +1562,8 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\x04body\x18\x05 \x01(\tR\x04body\x12\x1e\n" +
 	"\vreply_to_id\x18\x06 \x01(\tR\treplyToId\x129\n" +
 	"\n" +
-	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xb5\x01\n" +
+	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12*\n" +
+	"\x11client_message_id\x18\b \x01(\tR\x0fclientMessageId\"\xb5\x01\n" +
 	"\x12ReadReceiptUpdated\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\"\n" +

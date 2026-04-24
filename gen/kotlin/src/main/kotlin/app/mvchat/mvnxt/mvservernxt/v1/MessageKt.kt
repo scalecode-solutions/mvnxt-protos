@@ -35,7 +35,7 @@ public object MessageKt {
 
     /**
      * ```
-     * UUIDv4
+     * UUIDv4, server-assigned
      * ```
      *
      * `string id = 1 [json_name = "id"];`
@@ -49,7 +49,7 @@ public object MessageKt {
       }
     /**
      * ```
-     * UUIDv4
+     * UUIDv4, server-assigned
      * ```
      *
      * `string id = 1 [json_name = "id"];`
@@ -193,6 +193,47 @@ public object MessageKt {
 
     public val MessageKt.Dsl.createdAtOrNull: com.google.protobuf.Timestamp?
       get() = _builder.createdAtOrNull
+
+    /**
+     * ```
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * ```
+     *
+     * `string client_message_id = 8 [json_name = "clientMessageId"];`
+     */
+    public var clientMessageId: kotlin.String
+      @kotlin.jvm.JvmName("getClientMessageId")
+        get() = _builder.clientMessageId
+      @kotlin.jvm.JvmName("setClientMessageId")
+        set(value) {
+        _builder.clientMessageId = value
+      }
+    /**
+     * ```
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * ```
+     *
+     * `string client_message_id = 8 [json_name = "clientMessageId"];`
+     */
+    public fun clearClientMessageId() {
+      _builder.clearClientMessageId()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

@@ -37,4 +37,16 @@ public interface GetMessagesOrBuilder extends
    * @return The limit.
    */
   int getLimit();
+
+  /**
+   * <pre>
+   * For reverse pagination (scroll up): return messages with seq
+   * strictly less than this value, newest first within the `limit`.
+   * 0 means "not set" — see mode table above.
+   * </pre>
+   *
+   * <code>int64 before_seq = 4 [json_name = "beforeSeq"];</code>
+   * @return The beforeSeq.
+   */
+  long getBeforeSeq();
 }

@@ -108,8 +108,11 @@ public struct Mvservernxt_V1_Conversation: Sendable {
   /// stable across calls; clients should treat as a set.
   public var memberIds: [String] = []
 
-  /// Seq of the latest message in the conversation, or 0 if no messages
-  /// yet. Useful for sorting in ListConversations without an extra query.
+  /// Seq of the latest message ever sent to this conversation, or 0 if
+  /// none yet. MONOTONIC — never decrements. Message deletes and unsends
+  /// leave tombstone rows that preserve the seq, so this always reflects
+  /// the highwater of conversation activity. Used by ListConversations
+  /// to sort without an extra query.
   public var lastMessageSeq: Int64 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -125,7 +128,7 @@ public struct Mvservernxt_V1_Message: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// UUIDv4
+  /// UUIDv4, server-assigned
   public var id: String = String()
 
   public var conversationID: String = String()
@@ -150,6 +153,17 @@ public struct Mvservernxt_V1_Message: Sendable {
   /// Clears the value of `createdAt`. Subsequent reads from it will return its default value.
   public mutating func clearCreatedAt() {self._createdAt = nil}
 
+  /// Client-assigned correlator echoed from SendMessage.client_message_id.
+  /// Empty for messages created server-side (e.g. system notices) or sent
+  /// by clients that didn't supply one.
+  ///
+  /// Used by sending clients to match their optimistic-UI placeholder
+  /// against the canonical server message when it arrives back via the
+  /// MessageSent broadcast event. Without this, a client can't tell its
+  /// own just-sent message apart from a duplicate and ends up rendering
+  /// both the placeholder AND the canonical copy.
+  public var clientMessageID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -164,6 +178,16 @@ public struct Mvservernxt_V1_Message: Sendable {
 /// Validation:
 ///   - DM: exactly one other member_id, not the creator's own.
 ///   - GROUP: at least one other member_id, title required.
+///
+/// DM find-or-create semantics: if a DM between the caller and the named
+/// other user already exists, the existing conversation is returned
+/// (not a new one). The other user cannot have "blocked" the caller out
+/// of a DM — existing DMs resurface when re-opened. GROUPs always create
+/// a fresh conversation regardless of overlapping membership.
+///
+/// DM immutability: DM membership is fixed at creation. AddMember on a
+/// DM is rejected. If a third person needs in, the caller creates a new
+/// GROUP with the two existing DM members + the third.
 ///
 /// Returns CreateConversationResponse with the full Conversation.
 public struct Mvservernxt_V1_CreateConversation: Sendable {
@@ -252,6 +276,17 @@ public struct Mvservernxt_V1_SendMessage: Sendable {
   /// Optional; empty = not a reply.
   public var replyToID: String = String()
 
+  /// Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+  /// ClientEnvelope.idempotency_key (which covers retry dedup) — this
+  /// field travels through to the MessageSent broadcast event so the
+  /// sender's own sessions can match the canonical server message
+  /// against their optimistic placeholder.
+  ///
+  /// Optional. Empty string means "don't correlate" — the sending client
+  /// will see the broadcast as a fresh message. Server stores it as-is
+  /// on the Message row; uniqueness is not enforced.
+  public var clientMessageID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -275,12 +310,18 @@ public struct Mvservernxt_V1_ListConversations: Sendable {
 }
 
 /// GetMessages pulls a window of messages from one conversation.
+/// Caller must be a member.
 ///
-///   since_seq = 0  → newest `limit` messages (initial load)
-///   since_seq > 0  → messages with seq > since_seq (forward catch-up)
+/// Three modes, picked by which of since_seq / before_seq is non-zero:
 ///
-/// Caller must be a member. Results ordered by seq ASC when doing
-/// forward catch-up, seq DESC when doing initial load.
+///   since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+///   since_seq > 0, before_seq = 0  → seq > since_seq (forward catch-up)
+///   since_seq = 0, before_seq > 0  → seq < before_seq (scroll up / older)
+///
+/// Setting both since_seq AND before_seq is rejected with a validation
+/// error — the intent is ambiguous. Results are always ordered by seq
+/// ASC so clients can append without sorting; for initial-load and
+/// scroll-up modes this means the oldest in the window comes first.
 public struct Mvservernxt_V1_GetMessages: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -293,6 +334,11 @@ public struct Mvservernxt_V1_GetMessages: Sendable {
   /// 0 = server default (50).
   public var limit: Int32 = 0
 
+  /// For reverse pagination (scroll up): return messages with seq
+  /// strictly less than this value, newest first within the `limit`.
+  /// 0 means "not set" — see mode table above.
+  public var beforeSeq: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -301,8 +347,15 @@ public struct Mvservernxt_V1_GetMessages: Sendable {
 /// MarkRead advances the caller's last_read_seq on a conversation.
 /// Idempotent — sending a value ≤ the stored one is a no-op.
 ///
-/// Emits ReadReceiptUpdated to the caller's own sessions (multi-device
-/// sync) AND to other members (so their UI can show "seen by X").
+/// Emits ReadReceiptUpdated. The subscriber (ws-broadcast) decides
+/// who receives it based on the caller's read-receipt visibility
+/// preference:
+///   - Always fans out to the caller's OWN sessions (multi-device
+///     state sync — not privacy-sensitive).
+///   - Fans out to OTHER members only if the caller hasn't disabled
+///     read-receipt visibility. The preference itself lands with the
+///     settings domain; slice-1 behavior is "always broadcast to
+///     everyone" (v1 default).
 public struct Mvservernxt_V1_MarkRead: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -531,6 +584,9 @@ public struct Mvservernxt_V1_MessageSent: Sendable {
   /// Clears the value of `createdAt`. Subsequent reads from it will return its default value.
   public mutating func clearCreatedAt() {self._createdAt = nil}
 
+  /// Echoed from SendMessage.client_message_id. See Message.client_message_id.
+  public var clientMessageID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -642,7 +698,7 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Message"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -657,6 +713,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 5: try { try decoder.decodeSingularStringField(value: &self.body) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createdAt) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
       default: break
       }
     }
@@ -688,6 +745,9 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try { if let v = self._createdAt {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    if !self.clientMessageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -699,6 +759,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.body != rhs.body {return false}
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs._createdAt != rhs._createdAt {return false}
+    if lhs.clientMessageID != rhs.clientMessageID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -846,7 +907,7 @@ extension Mvservernxt_V1_LeaveConversation: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SendMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}client_message_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -857,6 +918,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.body) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
       default: break
       }
     }
@@ -872,6 +934,9 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.replyToID.isEmpty {
       try visitor.visitSingularStringField(value: self.replyToID, fieldNumber: 3)
     }
+    if !self.clientMessageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -879,6 +944,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.conversationID != rhs.conversationID {return false}
     if lhs.body != rhs.body {return false}
     if lhs.replyToID != rhs.replyToID {return false}
+    if lhs.clientMessageID != rhs.clientMessageID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -916,7 +982,7 @@ extension Mvservernxt_V1_ListConversations: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Mvservernxt_V1_GetMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".GetMessages"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}since_seq\0\u{1}limit\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}since_seq\0\u{1}limit\0\u{3}before_seq\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -927,6 +993,7 @@ extension Mvservernxt_V1_GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
       case 2: try { try decoder.decodeSingularInt64Field(value: &self.sinceSeq) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.beforeSeq) }()
       default: break
       }
     }
@@ -942,6 +1009,9 @@ extension Mvservernxt_V1_GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.limit != 0 {
       try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 3)
     }
+    if self.beforeSeq != 0 {
+      try visitor.visitSingularInt64Field(value: self.beforeSeq, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -949,6 +1019,7 @@ extension Mvservernxt_V1_GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.conversationID != rhs.conversationID {return false}
     if lhs.sinceSeq != rhs.sinceSeq {return false}
     if lhs.limit != rhs.limit {return false}
+    if lhs.beforeSeq != rhs.beforeSeq {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1325,7 +1396,7 @@ extension Mvservernxt_V1_MemberLeft: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
 extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".MessageSent"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1340,6 +1411,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 5: try { try decoder.decodeSingularStringField(value: &self.body) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createdAt) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
       default: break
       }
     }
@@ -1371,6 +1443,9 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try { if let v = self._createdAt {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    if !self.clientMessageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1382,6 +1457,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.body != rhs.body {return false}
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs._createdAt != rhs._createdAt {return false}
+    if lhs.clientMessageID != rhs.clientMessageID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

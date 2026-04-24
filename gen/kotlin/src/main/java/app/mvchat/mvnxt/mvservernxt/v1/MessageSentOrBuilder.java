@@ -90,4 +90,24 @@ public interface MessageSentOrBuilder extends
    * <code>.google.protobuf.Timestamp created_at = 7 [json_name = "createdAt"];</code>
    */
   com.google.protobuf.TimestampOrBuilder getCreatedAtOrBuilder();
+
+  /**
+   * <pre>
+   * Echoed from SendMessage.client_message_id. See Message.client_message_id.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The clientMessageId.
+   */
+  java.lang.String getClientMessageId();
+  /**
+   * <pre>
+   * Echoed from SendMessage.client_message_id. See Message.client_message_id.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The bytes for clientMessageId.
+   */
+  com.google.protobuf.ByteString
+      getClientMessageIdBytes();
 }

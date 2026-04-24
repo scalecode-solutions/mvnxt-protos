@@ -13,12 +13,18 @@ public inline fun getMessages(block: app.mvchat.mvnxt.mvservernxt.v1.GetMessages
 /**
  * ```
  * GetMessages pulls a window of messages from one conversation.
+ * Caller must be a member.
  *
- * since_seq = 0  → newest `limit` messages (initial load)
- * since_seq > 0  → messages with seq > since_seq (forward catch-up)
+ * Three modes, picked by which of since_seq / before_seq is non-zero:
  *
- * Caller must be a member. Results ordered by seq ASC when doing
- * forward catch-up, seq DESC when doing initial load.
+ * since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+ * since_seq > 0, before_seq = 0  → seq > since_seq (forward catch-up)
+ * since_seq = 0, before_seq > 0  → seq < before_seq (scroll up / older)
+ *
+ * Setting both since_seq AND before_seq is rejected with a validation
+ * error — the intent is ambiguous. Results are always ordered by seq
+ * ASC so clients can append without sorting; for initial-load and
+ * scroll-up modes this means the oldest in the window comes first.
  * ```
  *
  * Protobuf type `mvservernxt.v1.GetMessages`
@@ -96,6 +102,35 @@ public object GetMessagesKt {
      */
     public fun clearLimit() {
       _builder.clearLimit()
+    }
+
+    /**
+     * ```
+     * For reverse pagination (scroll up): return messages with seq
+     * strictly less than this value, newest first within the `limit`.
+     * 0 means "not set" — see mode table above.
+     * ```
+     *
+     * `int64 before_seq = 4 [json_name = "beforeSeq"];`
+     */
+    public var beforeSeq: kotlin.Long
+      @kotlin.jvm.JvmName("getBeforeSeq")
+        get() = _builder.beforeSeq
+      @kotlin.jvm.JvmName("setBeforeSeq")
+        set(value) {
+        _builder.beforeSeq = value
+      }
+    /**
+     * ```
+     * For reverse pagination (scroll up): return messages with seq
+     * strictly less than this value, newest first within the `limit`.
+     * 0 means "not set" — see mode table above.
+     * ```
+     *
+     * `int64 before_seq = 4 [json_name = "beforeSeq"];`
+     */
+    public fun clearBeforeSeq() {
+      _builder.clearBeforeSeq()
     }
   }
 }
