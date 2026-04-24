@@ -1,0 +1,28 @@
+{
+  "name": "@scalecode-solutions/mvnxt-protos",
+  "version": "0.1.0",
+  "description": "Generated TypeScript bindings for the mvServerNXT wire protocol.",
+  "type": "module",
+  "main": "./src/mvservernxt/v1/wire_pb.js",
+  "types": "./src/mvservernxt/v1/wire_pb.d.ts",
+  "exports": {
+    ".": "./src/mvservernxt/v1/wire_pb.js",
+    "./*": "./src/mvservernxt/v1/*.js"
+  },
+  "files": [
+    "src/"
+  ],
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.12.0"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^2.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scalecode-solutions/mvnxt-protos.git",
+    "directory": "gen/ts"
+  },
+  "license": "UNLICENSED",
+  "private": false
+}

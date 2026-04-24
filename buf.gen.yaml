@@ -1,0 +1,52 @@
+version: v2
+
+# Managed mode: buf stamps the right language-specific package options onto
+# every generated file. We override go_package_prefix + java_package_prefix
+# so everything lives under predictable paths.
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/scalecode-solutions/mvnxt-protos/gen/go
+    - file_option: java_package_prefix
+      value: app.mvchat.mvnxt
+    - file_option: java_multiple_files
+      value: true
+
+plugins:
+  # Go — server dependency (github.com/scalecode-solutions/mvnxt-protos/gen/go).
+  - remote: buf.build/protocolbuffers/go
+    out: gen/go
+    opt:
+      - paths=source_relative
+
+  # TypeScript — web + React Native clients.
+  # bufbuild/es is the modern replacement for protoc-gen-ts / protobuf-js.
+  # Emits ESM + CJS with .d.ts; works with bundlers and Node.
+  - remote: buf.build/bufbuild/es
+    out: gen/ts/src
+    opt:
+      - target=ts
+      - import_extension=none
+
+  # Swift — iOS + macOS clients (Apple's official SwiftProtobuf).
+  - remote: buf.build/apple/swift
+    out: gen/swift/Sources/MvnxtProtos
+    opt:
+      - Visibility=Public
+
+  # Java — generates classes that Kotlin consumers use directly.
+  - remote: buf.build/protocolbuffers/java
+    out: gen/kotlin/src/main/java
+
+  # Kotlin — DSL wrappers + extensions on top of the Java classes above.
+  - remote: buf.build/protocolbuffers/kotlin
+    out: gen/kotlin/src/main/kotlin
+
+  # Python — admin scripts, load testing, data tooling.
+  - remote: buf.build/protocolbuffers/python
+    out: gen/python/src
+
+  # Dart — Flutter clients (optional; currently hypothetical).
+  - remote: buf.build/protocolbuffers/dart
+    out: gen/dart/lib/src

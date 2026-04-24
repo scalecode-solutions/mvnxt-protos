@@ -1,0 +1,40 @@
+// System-level protocol messages: app-layer heartbeat + server-authored
+// notices. Present from day one so the wire envelope oneofs aren't empty
+// but also because both are real foundational features.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+// Ping is a client-to-server application-layer heartbeat, distinct from the
+// WebSocket protocol-level ping frame. A WebSocket ping proves the transport
+// (TCP + WS frames) is alive; Ping proves the dispatcher loop and handlers
+// are also responsive. Clients may use round-trip latency to adjust timeouts.
+message Ping {
+  // Optional client-side timestamp in ms-since-epoch. Echoed back in Pong so
+  // the client can compute round-trip latency without tracking local state.
+  int64 sent_at_ms = 1;
+}
+
+// Pong is the reply to Ping, returned as Ack.payload.
+message Pong {
+  // Echoed from Ping.sent_at_ms.
+  int64 sent_at_ms = 1;
+
+  // Server-side receive time in ms-since-epoch.
+  int64 received_at_ms = 2;
+}
+
+// SystemNotice is a server-authored announcement pushed to clients as
+// Event.payload. Use cases: scheduled maintenance warnings, degraded-mode
+// notifications, admin broadcasts.
+message SystemNotice {
+  enum Severity {
+    SEVERITY_UNSPECIFIED = 0;
+    SEVERITY_INFO = 1;
+    SEVERITY_WARNING = 2;
+    SEVERITY_CRITICAL = 3;
+  }
+
+  Severity severity = 1;
+  string message = 2;
+}

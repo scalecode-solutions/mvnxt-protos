@@ -1,0 +1,98 @@
+// Hello is the first command a client sends after connecting. Advertises
+// client identity and capabilities, and receives server identity + supported
+// capabilities in the Ack. Optional — skipping Hello and going straight to
+// Authenticate/Login/Register works fine — but sending it gives the server
+// useful telemetry and enables feature-gated behavior on both sides.
+//
+// Hello is an UNAUTHENTICATED command. It sits alongside Register / Login /
+// Refresh / Authenticate in the pre-auth command set.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+// Hello is the pre-auth handshake.
+message Hello {
+  ClientInfo         client       = 1;
+  // device_id is a stable identifier per client install (UUIDv4 recommended).
+  // Used by push notifications, presence tracking, and per-device session
+  // lifecycle. Opaque to the server except for equality.
+  string             device_id    = 2;
+  Locale             locale       = 3;
+  ClientCapabilities capabilities = 4;
+}
+
+// ClientInfo identifies the connecting client for telemetry and audit.
+// None of these fields authorize anything — auth happens via Login/Register/
+// Authenticate — but they shape which features the server offers.
+message ClientInfo {
+  // Human-readable application name, e.g. "Clingy", "WebChat", "Admin CLI".
+  string app_name = 1;
+
+  // Semver version of the client app, e.g. "2.0.0".
+  string app_version = 2;
+
+  // Store/CI build identifier, e.g. "4217", "2026.04.24-abc123".
+  string build_number = 3;
+
+  // Platform enum. Avoids stringly-typed platform checks.
+  Platform platform = 4;
+}
+
+// Platform enumerates the broad runtime environment. Expand with
+// PLATFORM_* values (never renumber) as new platforms land.
+enum Platform {
+  PLATFORM_UNSPECIFIED = 0;
+  PLATFORM_IOS         = 1;
+  PLATFORM_ANDROID     = 2;
+  PLATFORM_WEB         = 3;
+  PLATFORM_MACOS       = 4;
+  PLATFORM_WINDOWS     = 5;
+  PLATFORM_LINUX       = 6;
+  // PLATFORM_CLI covers scripts, admin tools, load-testers, integration
+  // harnesses — anything that isn't an end-user application.
+  PLATFORM_CLI         = 7;
+}
+
+// Locale carries user-preferred language and timezone. Server uses these
+// for server-side rendering of notifications, timestamps, translations,
+// and per-user timezone-sensitive features.
+message Locale {
+  // IETF BCP 47 language tag, e.g. "en-US", "pt-BR", "zh-Hant-TW".
+  string language = 1;
+
+  // IANA timezone identifier, e.g. "America/Chicago", "Europe/Berlin".
+  string timezone = 2;
+}
+
+// ClientCapabilities advertises which server features the client can
+// consume. Capability identifiers are URI-style namespaced strings; the
+// client AND server each silently ignore unknowns, so the capability set
+// can grow over time without breaking older clients or servers.
+//
+// Format: cap://mvnxt/<domain>/<feature>/<version>
+// Examples:
+//   cap://mvnxt/chat/typing/v1          — typing indicator support
+//   cap://mvnxt/chat/reactions/v2       — emoji reactions with user index
+//   cap://mvnxt/pulse/posts/v1          — pulse feed consumer
+//   cap://mvnxt/push/stealth/v1         — honors stealth-mode notifications
+//   cap://mvnxt/media/chunked/v1        — chunked upload protocol
+//   cap://mvnxt/calls/webrtc/v1         — WebRTC signaling receiver
+message ClientCapabilities {
+  repeated string supports = 1;
+}
+
+// HelloResponse is the Ack payload for Hello.
+message HelloResponse {
+  // Server build info, for client diagnostics and error reports.
+  string server_version  = 1;  // semver, e.g. "0.1.0"
+  string server_commit   = 2;  // git short sha
+  string protocol_version = 3; // "v1" — pinned to the wire.proto package major
+
+  // Capabilities the server supports. Clients use this to gate UI — e.g.
+  // hide a "reactions" button if cap://mvnxt/chat/reactions/v2 is missing.
+  repeated string server_capabilities = 4;
+
+  // Server-assigned session identifier. Opaque to the client. Useful when
+  // correlating server-side logs with client-side error reports.
+  string session_id = 5;
+}

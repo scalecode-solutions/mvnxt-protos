@@ -1,0 +1,138 @@
+// Wire envelope: Command/Event split.
+// - Client sends ClientEnvelope (a command). Server replies with Ack or Err.
+// - Server pushes ServerEnvelope (wrapping Event) from event-log subscribers.
+//
+// See docs/v2/02-schema-first-wire-protocol.md and
+//     docs/v2/03-event-log-internal-fabric.md.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+import "mvservernxt/v1/common.proto";
+import "mvservernxt/v1/hello.proto";
+import "mvservernxt/v1/identity.proto";
+import "mvservernxt/v1/system.proto";
+
+// ClientEnvelope is a command message from client to server.
+// Every command receives exactly one Ack or Err, correlated by idempotency_key.
+//
+// Idempotency (see docs/v2/09-idempotency-keys.md): clients generate a fresh
+// UUID on first send and reuse it on network-blip retries. The server caches
+// the response for ~60s to return cached results on retries without
+// re-executing the operation.
+message ClientEnvelope {
+  // Client-generated UUID. Required. Reused on retry.
+  string idempotency_key = 1;
+
+  // Exactly one payload must be set. Domain-specific command types
+  // are added to the oneof as each domain lands.
+  //
+  // Convention: field numbers 10+ are reserved for domain commands so that
+  // 1-9 can be used for envelope-level metadata without colliding.
+  oneof payload {
+    // System
+    Ping  ping  = 10;
+    Hello hello = 11;
+
+    // Identity
+    Register     register     = 20;
+    Authenticate authenticate = 21;
+    Login        login        = 22;
+    Refresh      refresh      = 23;
+    Logout       logout       = 24;
+
+    // Other domains land in their reserved ranges:
+    //   30-39  chat
+    //   40-49  pulse
+    //   50-59  tangle
+    //   60-69  calls
+    //   70-79  presence
+    //   80-89  media
+  }
+}
+
+// ServerEnvelope is any message from server to client.
+// Three distinct kinds:
+//   - Ack:   your command succeeded
+//   - Err:   your command failed
+//   - Event: push from an event-log subscriber
+message ServerEnvelope {
+  oneof payload {
+    Ack   ack   = 1;
+    Err   err   = 2;
+    Event event = 3;
+  }
+}
+
+// Ack is returned for a successful command.
+message Ack {
+  // Correlates to ClientEnvelope.idempotency_key.
+  string idempotency_key = 1;
+
+  // HTTP-style status code (200 OK, 201 Created, 202 Accepted, 204 NoContent, ...).
+  int32 code = 2;
+
+  // Optional response payload. Oneof matches the command shape.
+  oneof payload {
+    // System
+    Pong          pong  = 10;
+    HelloResponse hello = 11;
+
+    // Identity (Authenticate and Logout return empty Ack, no payload)
+    RegisterResponse register = 20;
+    LoginResponse    login    = 22;
+    RefreshResponse  refresh  = 23;
+  }
+}
+
+// Err is returned for a failed command.
+message Err {
+  // Correlates to ClientEnvelope.idempotency_key.
+  string idempotency_key = 1;
+
+  // HTTP-style status code (400, 401, 403, 404, 409, 410, 429, 500, ...).
+  int32 code = 2;
+
+  // Human-readable message. Not for machine parsing.
+  string message = 3;
+
+  // Machine-readable reason code. Stable across releases.
+  // Examples: "validation_failed", "token_reuse_detected", "forbidden",
+  //           "rate_limited", "not_found".
+  string reason = 4;
+}
+
+// Event is a push notification from a server-side event-log subscriber.
+// Clients track a per-stream cursor (composed sync token, doc 04) so they
+// can resume after reconnect without replaying everything.
+message Event {
+  // Position in the global event log.
+  int64 seq = 1;
+
+  // Stream name: "identity", "chat", "pulse", "tangle", "presence", ...
+  // Drives per-stream cursors in the composed sync token.
+  string stream = 2;
+
+  // When the event was written to the log.
+  google.protobuf.Timestamp timestamp = 3;
+
+  // Who caused the event, if applicable.
+  UUID actor_id = 4;
+
+  // Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
+  UUID aggregate_id = 5;
+
+  // Kind-specific payload.
+  oneof payload {
+    // System
+    SystemNotice system_notice = 10;
+
+    // Identity
+    UserRegistered             user_registered              = 20;
+    UserLoggedIn               user_logged_in               = 22;
+    TokenRefreshed             token_refreshed              = 23;
+    UserLoggedOut              user_logged_out              = 24;
+    RefreshTokenReuseDetected  refresh_token_reuse_detected = 25;
+  }
+}

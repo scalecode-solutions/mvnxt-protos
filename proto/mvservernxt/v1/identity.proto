@@ -1,0 +1,104 @@
+// Identity domain: account registration, login, token refresh, logout.
+// See internal/identity/ for the service implementation.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// ============================================================================
+// Commands (sent by client via ClientEnvelope.payload)
+// ============================================================================
+
+// Register creates a new user account and auto-logs-the-new-user in.
+// Returns AuthTokens on success so the client can skip a separate Login.
+message Register {
+  string username     = 1;  // Case-preserved for display; uniqueness check is case-insensitive.
+  string password     = 2;  // Plaintext on the wire; hashed server-side with argon2id.
+  string display_name = 3;  // Optional. Defaults to username.
+}
+
+// Authenticate binds an existing WebSocket session to a prior-issued access
+// token. Used on reconnect to avoid forcing a fresh password login.
+message Authenticate {
+  string access_token = 1;
+}
+
+// Login exchanges username + password for an AuthTokens pair and binds the
+// session to the authenticated user.
+message Login {
+  string username = 1;
+  string password = 2;
+}
+
+// Refresh exchanges a valid refresh token for a fresh AuthTokens pair. The
+// presented refresh token is rotated (invalidated) and replaced. Reusing a
+// rotated refresh token revokes the entire token family (reuse detection).
+message Refresh {
+  string refresh_token = 1;
+}
+
+// Logout revokes the current session's tokens. Requires an authenticated
+// session (prior Login or Authenticate). If all_devices is true, every
+// active refresh-token family for this user is revoked.
+message Logout {
+  bool all_devices = 1;
+}
+
+// ============================================================================
+// Ack payloads (returned via Ack.payload)
+// ============================================================================
+
+// AuthTokens is the credential bundle issued by Login, Register, and Refresh.
+message AuthTokens {
+  string                    access_token          = 1;
+  string                    refresh_token         = 2;
+  google.protobuf.Timestamp access_expires_at     = 3;
+  google.protobuf.Timestamp refresh_expires_at    = 4;
+  string                    user_id               = 5;
+  string                    username              = 6;
+}
+
+message RegisterResponse { AuthTokens tokens = 1; }
+message LoginResponse    { AuthTokens tokens = 1; }
+message RefreshResponse  { AuthTokens tokens = 1; }
+// Authenticate and Logout return empty Ack (code=200 only).
+
+// ============================================================================
+// Events (published to the event log via Log.AppendTx)
+// ============================================================================
+
+message UserRegistered {
+  string                    user_id       = 1;
+  string                    username      = 2;
+  google.protobuf.Timestamp registered_at = 3;
+}
+
+message UserLoggedIn {
+  string                    user_id      = 1;
+  string                    jti          = 2;  // Access-token JTI for this login.
+  google.protobuf.Timestamp logged_in_at = 3;
+}
+
+message TokenRefreshed {
+  string                    user_id       = 1;
+  string                    family_id     = 2;
+  string                    new_jti       = 3;
+  google.protobuf.Timestamp refreshed_at  = 4;
+}
+
+message UserLoggedOut {
+  string                    user_id        = 1;
+  string                    jti            = 2;  // Access-token JTI that was revoked.
+  bool                      all_devices    = 3;
+  google.protobuf.Timestamp logged_out_at  = 4;
+}
+
+// RefreshTokenReuseDetected fires when a caller presents a previously-rotated
+// refresh token. The entire family is revoked; operators should treat this
+// as a potential credential leak signal.
+message RefreshTokenReuseDetected {
+  string                    user_id      = 1;
+  string                    family_id    = 2;
+  google.protobuf.Timestamp detected_at  = 3;
+}

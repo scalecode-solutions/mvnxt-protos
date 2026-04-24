@@ -1,0 +1,13 @@
+name: mvnxt_protos
+description: Generated Dart bindings for the mvServerNXT wire protocol.
+version: 0.1.0
+homepage: https://github.com/scalecode-solutions/mvnxt-protos
+repository: https://github.com/scalecode-solutions/mvnxt-protos
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  protobuf: ^3.1.0
+  fixnum: ^1.1.0

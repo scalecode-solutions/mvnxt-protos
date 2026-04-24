@@ -1,0 +1,31 @@
+# Python packaging for the generated mvServerNXT protobuf bindings.
+#
+# Install from git:
+#   pip install "mvnxt-protos @ git+https://github.com/scalecode-solutions/mvnxt-protos.git#subdirectory=gen/python"
+# Or from a local clone:
+#   pip install -e /path/to/mvnxt-protos/gen/python
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mvnxt-protos"
+version = "0.1.0"
+description = "Generated Python bindings for the mvServerNXT wire protocol."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "protobuf>=5.28.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/scalecode-solutions/mvnxt-protos"
+Repository = "https://github.com/scalecode-solutions/mvnxt-protos.git"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["mvservernxt*"]

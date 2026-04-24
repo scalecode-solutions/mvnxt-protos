@@ -1,0 +1,12 @@
+// Common types shared across the wire protocol.
+// See docs/v2/02-schema-first-wire-protocol.md for design rationale.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+// UUID wraps a 16-byte binary UUID.
+// We use binary (not string) to halve the wire size; clients marshal/unmarshal
+// via their native UUID type. Server uses google/uuid.
+message UUID {
+  bytes value = 1;
+}
