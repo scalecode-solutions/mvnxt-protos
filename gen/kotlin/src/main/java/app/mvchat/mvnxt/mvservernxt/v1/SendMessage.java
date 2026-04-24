@@ -41,6 +41,8 @@ private static final long serialVersionUID = 0L;
     body_ = "";
     replyToId_ = "";
     clientMessageId_ = "";
+    attachmentSha256S_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -249,6 +251,87 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int ATTACHMENT_SHA256S_FIELD_NUMBER = 5;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList attachmentSha256S_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @return A list containing the attachmentSha256s.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getAttachmentSha256SList() {
+    return attachmentSha256S_;
+  }
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @return The count of attachmentSha256s.
+   */
+  public int getAttachmentSha256SCount() {
+    return attachmentSha256S_.size();
+  }
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @param index The index of the element to return.
+   * @return The attachmentSha256s at the given index.
+   */
+  public java.lang.String getAttachmentSha256S(int index) {
+    return attachmentSha256S_.get(index);
+  }
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the attachmentSha256s at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getAttachmentSha256SBytes(int index) {
+    return attachmentSha256S_.getByteString(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -275,6 +358,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 4, clientMessageId_);
     }
+    for (int i = 0; i < attachmentSha256S_.size(); i++) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 5, attachmentSha256S_.getRaw(i));
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -295,6 +381,14 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(4, clientMessageId_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < attachmentSha256S_.size(); i++) {
+        dataSize += computeStringSizeNoTag(attachmentSha256S_.getRaw(i));
+      }
+      size += dataSize;
+      size += 1 * getAttachmentSha256SList().size();
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -319,6 +413,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getReplyToId())) return false;
     if (!getClientMessageId()
         .equals(other.getClientMessageId())) return false;
+    if (!getAttachmentSha256SList()
+        .equals(other.getAttachmentSha256SList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -338,6 +434,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getReplyToId().hashCode();
     hash = (37 * hash) + CLIENT_MESSAGE_ID_FIELD_NUMBER;
     hash = (53 * hash) + getClientMessageId().hashCode();
+    if (getAttachmentSha256SCount() > 0) {
+      hash = (37 * hash) + ATTACHMENT_SHA256S_FIELD_NUMBER;
+      hash = (53 * hash) + getAttachmentSha256SList().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -482,6 +582,8 @@ private static final long serialVersionUID = 0L;
       body_ = "";
       replyToId_ = "";
       clientMessageId_ = "";
+      attachmentSha256S_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
       return this;
     }
 
@@ -527,6 +629,10 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000008) != 0)) {
         result.clientMessageId_ = clientMessageId_;
       }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        attachmentSha256S_.makeImmutable();
+        result.attachmentSha256S_ = attachmentSha256S_;
+      }
     }
 
     @java.lang.Override
@@ -559,6 +665,16 @@ private static final long serialVersionUID = 0L;
       if (!other.getClientMessageId().isEmpty()) {
         clientMessageId_ = other.clientMessageId_;
         bitField0_ |= 0x00000008;
+        onChanged();
+      }
+      if (!other.attachmentSha256S_.isEmpty()) {
+        if (attachmentSha256S_.isEmpty()) {
+          attachmentSha256S_ = other.attachmentSha256S_;
+          bitField0_ |= 0x00000010;
+        } else {
+          ensureAttachmentSha256SIsMutable();
+          attachmentSha256S_.addAll(other.attachmentSha256S_);
+        }
         onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -607,6 +723,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000008;
               break;
             } // case 34
+            case 42: {
+              ensureAttachmentSha256SIsMutable();
+              attachmentSha256S_.add(input.readStringRequireUtf8());
+              break;
+            } // case 42
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -988,6 +1109,216 @@ private static final long serialVersionUID = 0L;
       checkByteStringIsUtf8(value);
       clientMessageId_ = value;
       bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringArrayList attachmentSha256S_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    private void ensureAttachmentSha256SIsMutable() {
+      if (!attachmentSha256S_.isModifiable()) {
+        attachmentSha256S_ = new com.google.protobuf.LazyStringArrayList(attachmentSha256S_);
+      }
+      bitField0_ |= 0x00000010;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @return A list containing the attachmentSha256s.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAttachmentSha256SList() {
+      attachmentSha256S_.makeImmutable();
+      return attachmentSha256S_;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @return The count of attachmentSha256s.
+     */
+    public int getAttachmentSha256SCount() {
+      return attachmentSha256S_.size();
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param index The index of the element to return.
+     * @return The attachmentSha256s at the given index.
+     */
+    public java.lang.String getAttachmentSha256S(int index) {
+      return attachmentSha256S_.get(index);
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the attachmentSha256s at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getAttachmentSha256SBytes(int index) {
+      return attachmentSha256S_.getByteString(index);
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param index The index to set the value at.
+     * @param value The attachmentSha256s to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAttachmentSha256S(
+        int index, java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureAttachmentSha256SIsMutable();
+      attachmentSha256S_.set(index, value);
+      bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param value The attachmentSha256s to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAttachmentSha256S(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureAttachmentSha256SIsMutable();
+      attachmentSha256S_.add(value);
+      bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param values The attachmentSha256s to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllAttachmentSha256S(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureAttachmentSha256SIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, attachmentSha256S_);
+      bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAttachmentSha256S() {
+      attachmentSha256S_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000010);;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * </pre>
+     *
+     * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+     * @param value The bytes of the attachmentSha256s to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAttachmentSha256SBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      ensureAttachmentSha256SIsMutable();
+      attachmentSha256S_.add(value);
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }

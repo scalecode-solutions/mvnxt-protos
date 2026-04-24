@@ -39,6 +39,7 @@ private static final long serialVersionUID = 0L;
     body_ = "";
     replyToId_ = "";
     clientMessageId_ = "";
+    attachments_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -339,6 +340,77 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int ATTACHMENTS_FIELD_NUMBER = 9;
+  @SuppressWarnings("serial")
+  private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> attachments_;
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> getAttachmentsList() {
+    return attachments_;
+  }
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> 
+      getAttachmentsOrBuilderList() {
+    return attachments_;
+  }
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  @java.lang.Override
+  public int getAttachmentsCount() {
+    return attachments_.size();
+  }
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.Attachment getAttachments(int index) {
+    return attachments_.get(index);
+  }
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
+      int index) {
+    return attachments_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -377,6 +449,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 8, clientMessageId_);
     }
+    for (int i = 0; i < attachments_.size(); i++) {
+      output.writeMessage(9, attachments_.get(i));
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -412,6 +487,15 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(8, clientMessageId_);
     }
+
+        {
+          final int count = attachments_.size();
+          for (int i = 0; i < count; i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSizeNoTag(attachments_.get(i));
+          }
+          size += 1 * count;
+        }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -446,6 +530,8 @@ private static final long serialVersionUID = 0L;
     }
     if (!getClientMessageId()
         .equals(other.getClientMessageId())) return false;
+    if (!getAttachmentsList()
+        .equals(other.getAttachmentsList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -476,6 +562,10 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + CLIENT_MESSAGE_ID_FIELD_NUMBER;
     hash = (53 * hash) + getClientMessageId().hashCode();
+    if (getAttachmentsCount() > 0) {
+      hash = (37 * hash) + ATTACHMENTS_FIELD_NUMBER;
+      hash = (53 * hash) + getAttachmentsList().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -612,6 +702,7 @@ private static final long serialVersionUID = 0L;
       if (com.google.protobuf.GeneratedMessage
               .alwaysUseFieldBuilders) {
         internalGetCreatedAtFieldBuilder();
+        internalGetAttachmentsFieldBuilder();
       }
     }
     @java.lang.Override
@@ -630,6 +721,13 @@ private static final long serialVersionUID = 0L;
         createdAtBuilder_ = null;
       }
       clientMessageId_ = "";
+      if (attachmentsBuilder_ == null) {
+        attachments_ = java.util.Collections.emptyList();
+      } else {
+        attachments_ = null;
+        attachmentsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000100);
       return this;
     }
 
@@ -656,9 +754,22 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public app.mvchat.mvnxt.mvservernxt.v1.MessageSent buildPartial() {
       app.mvchat.mvnxt.mvservernxt.v1.MessageSent result = new app.mvchat.mvnxt.mvservernxt.v1.MessageSent(this);
+      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
+    }
+
+    private void buildPartialRepeatedFields(app.mvchat.mvnxt.mvservernxt.v1.MessageSent result) {
+      if (attachmentsBuilder_ == null) {
+        if (((bitField0_ & 0x00000100) != 0)) {
+          attachments_ = java.util.Collections.unmodifiableList(attachments_);
+          bitField0_ = (bitField0_ & ~0x00000100);
+        }
+        result.attachments_ = attachments_;
+      } else {
+        result.attachments_ = attachmentsBuilder_.build();
+      }
     }
 
     private void buildPartial0(app.mvchat.mvnxt.mvservernxt.v1.MessageSent result) {
@@ -742,6 +853,32 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000080;
         onChanged();
       }
+      if (attachmentsBuilder_ == null) {
+        if (!other.attachments_.isEmpty()) {
+          if (attachments_.isEmpty()) {
+            attachments_ = other.attachments_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+          } else {
+            ensureAttachmentsIsMutable();
+            attachments_.addAll(other.attachments_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.attachments_.isEmpty()) {
+          if (attachmentsBuilder_.isEmpty()) {
+            attachmentsBuilder_.dispose();
+            attachmentsBuilder_ = null;
+            attachments_ = other.attachments_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+            attachmentsBuilder_ = 
+              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                 internalGetAttachmentsFieldBuilder() : null;
+          } else {
+            attachmentsBuilder_.addAllMessages(other.attachments_);
+          }
+        }
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -810,6 +947,19 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000080;
               break;
             } // case 66
+            case 74: {
+              app.mvchat.mvnxt.mvservernxt.v1.Attachment m =
+                  input.readMessage(
+                      app.mvchat.mvnxt.mvservernxt.v1.Attachment.parser(),
+                      extensionRegistry);
+              if (attachmentsBuilder_ == null) {
+                ensureAttachmentsIsMutable();
+                attachments_.add(m);
+              } else {
+                attachmentsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 74
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1430,6 +1580,354 @@ private static final long serialVersionUID = 0L;
       bitField0_ |= 0x00000080;
       onChanged();
       return this;
+    }
+
+    private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> attachments_ =
+      java.util.Collections.emptyList();
+    private void ensureAttachmentsIsMutable() {
+      if (!((bitField0_ & 0x00000100) != 0)) {
+        attachments_ = new java.util.ArrayList<app.mvchat.mvnxt.mvservernxt.v1.Attachment>(attachments_);
+        bitField0_ |= 0x00000100;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Attachment, app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder, app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> attachmentsBuilder_;
+
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> getAttachmentsList() {
+      if (attachmentsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(attachments_);
+      } else {
+        return attachmentsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public int getAttachmentsCount() {
+      if (attachmentsBuilder_ == null) {
+        return attachments_.size();
+      } else {
+        return attachmentsBuilder_.getCount();
+      }
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Attachment getAttachments(int index) {
+      if (attachmentsBuilder_ == null) {
+        return attachments_.get(index);
+      } else {
+        return attachmentsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder setAttachments(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Attachment value) {
+      if (attachmentsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAttachmentsIsMutable();
+        attachments_.set(index, value);
+        onChanged();
+      } else {
+        attachmentsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder setAttachments(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder builderForValue) {
+      if (attachmentsBuilder_ == null) {
+        ensureAttachmentsIsMutable();
+        attachments_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        attachmentsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder addAttachments(app.mvchat.mvnxt.mvservernxt.v1.Attachment value) {
+      if (attachmentsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAttachmentsIsMutable();
+        attachments_.add(value);
+        onChanged();
+      } else {
+        attachmentsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder addAttachments(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Attachment value) {
+      if (attachmentsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureAttachmentsIsMutable();
+        attachments_.add(index, value);
+        onChanged();
+      } else {
+        attachmentsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder addAttachments(
+        app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder builderForValue) {
+      if (attachmentsBuilder_ == null) {
+        ensureAttachmentsIsMutable();
+        attachments_.add(builderForValue.build());
+        onChanged();
+      } else {
+        attachmentsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder addAttachments(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder builderForValue) {
+      if (attachmentsBuilder_ == null) {
+        ensureAttachmentsIsMutable();
+        attachments_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        attachmentsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder addAllAttachments(
+        java.lang.Iterable<? extends app.mvchat.mvnxt.mvservernxt.v1.Attachment> values) {
+      if (attachmentsBuilder_ == null) {
+        ensureAttachmentsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, attachments_);
+        onChanged();
+      } else {
+        attachmentsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder clearAttachments() {
+      if (attachmentsBuilder_ == null) {
+        attachments_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+      } else {
+        attachmentsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public Builder removeAttachments(int index) {
+      if (attachmentsBuilder_ == null) {
+        ensureAttachmentsIsMutable();
+        attachments_.remove(index);
+        onChanged();
+      } else {
+        attachmentsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder getAttachmentsBuilder(
+        int index) {
+      return internalGetAttachmentsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
+        int index) {
+      if (attachmentsBuilder_ == null) {
+        return attachments_.get(index);  } else {
+        return attachmentsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> 
+         getAttachmentsOrBuilderList() {
+      if (attachmentsBuilder_ != null) {
+        return attachmentsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(attachments_);
+      }
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder addAttachmentsBuilder() {
+      return internalGetAttachmentsFieldBuilder().addBuilder(
+          app.mvchat.mvnxt.mvservernxt.v1.Attachment.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder addAttachmentsBuilder(
+        int index) {
+      return internalGetAttachmentsFieldBuilder().addBuilder(
+          index, app.mvchat.mvnxt.mvservernxt.v1.Attachment.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Server-populated attachment metadata (same shape as
+     * Message.attachments). Echoed on the broadcast so recipients
+     * don't have to fetch the message to see attachments.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder> 
+         getAttachmentsBuilderList() {
+      return internalGetAttachmentsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Attachment, app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder, app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> 
+        internalGetAttachmentsFieldBuilder() {
+      if (attachmentsBuilder_ == null) {
+        attachmentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.Attachment, app.mvchat.mvnxt.mvservernxt.v1.Attachment.Builder, app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder>(
+                attachments_,
+                ((bitField0_ & 0x00000100) != 0),
+                getParentForChildren(),
+                isClean());
+        attachments_ = null;
+      }
+      return attachmentsBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.MessageSent)

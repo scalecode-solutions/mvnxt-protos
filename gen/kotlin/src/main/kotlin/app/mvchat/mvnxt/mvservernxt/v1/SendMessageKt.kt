@@ -137,7 +137,154 @@ public object SendMessageKt {
     public fun clearClientMessageId() {
       _builder.clearClientMessageId()
     }
-  }
+
+    /**
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
+     */
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class AttachmentSha256SProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @return A list containing the attachmentSha256s.
+     */
+    public val attachmentSha256S: com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+      get() = com.google.protobuf.kotlin.DslList(
+        _builder.attachmentSha256SList
+      )
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @param value The attachmentSha256s to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAttachmentSha256S")
+    public fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.add(value: kotlin.String) {
+      _builder.addAttachmentSha256S(value)
+    }
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @param value The attachmentSha256s to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAttachmentSha256S")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.plusAssign(value: kotlin.String) {
+      add(value)
+    }
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @param values The attachmentSha256s to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAllAttachmentSha256S")
+    public fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.addAll(values: kotlin.collections.Iterable<kotlin.String>) {
+      _builder.addAllAttachmentSha256S(values)
+    }
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @param values The attachmentSha256s to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAllAttachmentSha256S")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.plusAssign(values: kotlin.collections.Iterable<kotlin.String>) {
+      addAll(values)
+    }
+    /**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     * @param index The index to set the value at.
+     * @param value The attachmentSha256s to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setAttachmentSha256S")
+    public operator fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.set(index: kotlin.Int, value: kotlin.String) {
+      _builder.setAttachmentSha256S(index, value)
+    }/**
+     * ```
+     * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+     * already exist in media_blobs (upload via HTTP first, get the
+     * sha256 back, then reference it here). Unknown / malformed sha256s
+     * fail the whole Send with a validation error — no partial attach.
+     *
+     * The server records one media_references row per attachment in
+     * the same transaction as the message insert, so attachments and
+     * messages commit atomically.
+     * ```
+     *
+     * `repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];`
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setAttachmentSha256S")
+    public fun com.google.protobuf.kotlin.DslList<kotlin.String, AttachmentSha256SProxy>.clear() {
+      _builder.clearAttachmentSha256S()
+    }}
 }
 @kotlin.jvm.JvmSynthetic
 public inline fun app.mvchat.mvnxt.mvservernxt.v1.SendMessage.copy(block: `app.mvchat.mvnxt.mvservernxt.v1`.SendMessageKt.Dsl.() -> kotlin.Unit): app.mvchat.mvnxt.mvservernxt.v1.SendMessage =

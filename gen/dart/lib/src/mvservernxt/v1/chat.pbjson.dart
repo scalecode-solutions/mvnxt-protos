@@ -70,6 +70,21 @@ final $typed_data.Uint8List reactionDescriptor = $convert.base64Decode(
     'lkEjkKCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVh'
     'dGVkQXQ=');
 
+@$core.Deprecated('Use attachmentDescriptor instead')
+const Attachment$json = {
+  '1': 'Attachment',
+  '2': [
+    {'1': 'sha256', '3': 1, '4': 1, '5': 9, '10': 'sha256'},
+    {'1': 'mime_type', '3': 2, '4': 1, '5': 9, '10': 'mimeType'},
+    {'1': 'size_bytes', '3': 3, '4': 1, '5': 3, '10': 'sizeBytes'},
+  ],
+};
+
+/// Descriptor for `Attachment`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List attachmentDescriptor = $convert.base64Decode(
+    'CgpBdHRhY2htZW50EhYKBnNoYTI1NhgBIAEoCVIGc2hhMjU2EhsKCW1pbWVfdHlwZRgCIAEoCV'
+    'IIbWltZVR5cGUSHQoKc2l6ZV9ieXRlcxgDIAEoA1IJc2l6ZUJ5dGVz');
+
 @$core.Deprecated('Use conversationDescriptor instead')
 const Conversation$json = {
   '1': 'Conversation',
@@ -186,6 +201,14 @@ const Message$json = {
       '10': 'pinnedAt'
     },
     {'1': 'pinned_by', '3': 16, '4': 1, '5': 9, '10': 'pinnedBy'},
+    {
+      '1': 'attachments',
+      '3': 17,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Attachment',
+      '10': 'attachments'
+    },
   ],
 };
 
@@ -203,7 +226,8 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'gLMhgubXZzZXJ2ZXJueHQudjEuUmVhY3Rpb25SCXJlYWN0aW9ucxI5CgpleHBpcmVzX2F0GA4g'
     'ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlc0F0EjcKCXBpbm5lZF9hdB'
     'gPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCHBpbm5lZEF0EhsKCXBpbm5lZF9i'
-    'eRgQIAEoCVIIcGlubmVkQnk=');
+    'eRgQIAEoCVIIcGlubmVkQnkSPAoLYXR0YWNobWVudHMYESADKAsyGi5tdnNlcnZlcm54dC52MS'
+    '5BdHRhY2htZW50UgthdHRhY2htZW50cw==');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -277,6 +301,13 @@ const SendMessage$json = {
     {'1': 'body', '3': 2, '4': 1, '5': 9, '10': 'body'},
     {'1': 'reply_to_id', '3': 3, '4': 1, '5': 9, '10': 'replyToId'},
     {'1': 'client_message_id', '3': 4, '4': 1, '5': 9, '10': 'clientMessageId'},
+    {
+      '1': 'attachment_sha256s',
+      '3': 5,
+      '4': 3,
+      '5': 9,
+      '10': 'attachmentSha256s'
+    },
   ],
 };
 
@@ -284,7 +315,8 @@ const SendMessage$json = {
 final $typed_data.Uint8List sendMessageDescriptor = $convert.base64Decode(
     'CgtTZW5kTWVzc2FnZRInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdGlvbklkEh'
     'IKBGJvZHkYAiABKAlSBGJvZHkSHgoLcmVwbHlfdG9faWQYAyABKAlSCXJlcGx5VG9JZBIqChFj'
-    'bGllbnRfbWVzc2FnZV9pZBgEIAEoCVIPY2xpZW50TWVzc2FnZUlk');
+    'bGllbnRfbWVzc2FnZV9pZBgEIAEoCVIPY2xpZW50TWVzc2FnZUlkEi0KEmF0dGFjaG1lbnRfc2'
+    'hhMjU2cxgFIAMoCVIRYXR0YWNobWVudFNoYTI1NnM=');
 
 @$core.Deprecated('Use listConversationsDescriptor instead')
 const ListConversations$json = {
@@ -748,6 +780,14 @@ const MessageSent$json = {
       '10': 'createdAt'
     },
     {'1': 'client_message_id', '3': 8, '4': 1, '5': 9, '10': 'clientMessageId'},
+    {
+      '1': 'attachments',
+      '3': 9,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Attachment',
+      '10': 'attachments'
+    },
   ],
 };
 
@@ -758,7 +798,8 @@ final $typed_data.Uint8List messageSentDescriptor = $convert.base64Decode(
     'ZXJfaWQYBCABKAlSCHNlbmRlcklkEhIKBGJvZHkYBSABKAlSBGJvZHkSHgoLcmVwbHlfdG9faW'
     'QYBiABKAlSCXJlcGx5VG9JZBI5CgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVm'
     'LlRpbWVzdGFtcFIJY3JlYXRlZEF0EioKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJUg9jbGllbn'
-    'RNZXNzYWdlSWQ=');
+    'RNZXNzYWdlSWQSPAoLYXR0YWNobWVudHMYCSADKAsyGi5tdnNlcnZlcm54dC52MS5BdHRhY2ht'
+    'ZW50UgthdHRhY2htZW50cw==');
 
 @$core.Deprecated('Use readReceiptUpdatedDescriptor instead')
 const ReadReceiptUpdated$json = {
