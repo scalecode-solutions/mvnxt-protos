@@ -1030,6 +1030,15 @@ const Event$json = {
       '9': 0,
       '10': 'ownPresenceChanged'
     },
+    {
+      '1': 'blob_thumbnail_ready',
+      '3': 150,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.BlobThumbnailReady',
+      '9': 0,
+      '10': 'blobThumbnailReady'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -1093,4 +1102,6 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'ZXJ2ZXJueHQudjEuVXNlclVuYmxvY2tlZEgAUg11c2VyVW5ibG9ja2VkEkwKEHByZXNlbmNlX2'
     'NoYW5nZWQYbiABKAsyHy5tdnNlcnZlcm54dC52MS5QcmVzZW5jZUNoYW5nZWRIAFIPcHJlc2Vu'
     'Y2VDaGFuZ2VkElYKFG93bl9wcmVzZW5jZV9jaGFuZ2VkGG8gASgLMiIubXZzZXJ2ZXJueHQudj'
-    'EuT3duUHJlc2VuY2VDaGFuZ2VkSABSEm93blByZXNlbmNlQ2hhbmdlZEIJCgdwYXlsb2Fk');
+    'EuT3duUHJlc2VuY2VDaGFuZ2VkSABSEm93blByZXNlbmNlQ2hhbmdlZBJXChRibG9iX3RodW1i'
+    'bmFpbF9yZWFkeRiWASABKAsyIi5tdnNlcnZlcm54dC52MS5CbG9iVGh1bWJuYWlsUmVhZHlIAF'
+    'ISYmxvYlRodW1ibmFpbFJlYWR5QgkKB3BheWxvYWQ=');

@@ -1041,6 +1041,16 @@ public struct Mvservernxt_V1_Event: @unchecked Sendable {
     set {_uniqueStorage()._payload = .ownPresenceChanged(newValue)}
   }
 
+  /// Media (range 150-159). Slice-1: only BlobThumbnailReady.
+  /// Future: BlobOrphanSwept, BlobAccessDenied, etc.
+  public var blobThumbnailReady: Mvservernxt_V1_BlobThumbnailReady {
+    get {
+      if case .blobThumbnailReady(let v)? = _storage._payload {return v}
+      return Mvservernxt_V1_BlobThumbnailReady()
+    }
+    set {_uniqueStorage()._payload = .blobThumbnailReady(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Kind-specific payload.
@@ -1087,6 +1097,9 @@ public struct Mvservernxt_V1_Event: @unchecked Sendable {
     /// self-loopback for multi-device sync.
     case presenceChanged(Mvservernxt_V1_PresenceChanged)
     case ownPresenceChanged(Mvservernxt_V1_OwnPresenceChanged)
+    /// Media (range 150-159). Slice-1: only BlobThumbnailReady.
+    /// Future: BlobOrphanSwept, BlobAccessDenied, etc.
+    case blobThumbnailReady(Mvservernxt_V1_BlobThumbnailReady)
 
   }
 
@@ -2263,7 +2276,7 @@ extension Mvservernxt_V1_Err: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
 extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0\u{3}message_unsent\0\u{3}message_reaction_added\0\u{3}message_reaction_removed\0\u{3}typing_changed\0\u{3}disappearing_messages_changed\0\u{3}message_expired\0\u{3}message_pinned\0\u{3}message_unpinned\0\u{3}conversation_nickname_changed\0\u{3}conversation_metadata_changed\0\u{3}delivery_receipt_updated\0\u{3}member_role_changed\0\u{4}2contact_added\0\u{3}contact_removed\0\u{3}user_blocked\0\u{3}user_unblocked\0\u{4}\u{7}presence_changed\0\u{3}own_presence_changed\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0\u{3}message_unsent\0\u{3}message_reaction_added\0\u{3}message_reaction_removed\0\u{3}typing_changed\0\u{3}disappearing_messages_changed\0\u{3}message_expired\0\u{3}message_pinned\0\u{3}message_unpinned\0\u{3}conversation_nickname_changed\0\u{3}conversation_metadata_changed\0\u{3}delivery_receipt_updated\0\u{3}member_role_changed\0\u{4}2contact_added\0\u{3}contact_removed\0\u{3}user_blocked\0\u{3}user_unblocked\0\u{4}\u{7}presence_changed\0\u{3}own_presence_changed\0\u{4}'blob_thumbnail_ready\0")
 
   fileprivate class _StorageClass {
     var _seq: Int64 = 0
@@ -2766,6 +2779,19 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
             _storage._payload = .ownPresenceChanged(v)
           }
         }()
+        case 150: try {
+          var v: Mvservernxt_V1_BlobThumbnailReady?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .blobThumbnailReady(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .blobThumbnailReady(v)
+          }
+        }()
         default: break
         }
       }
@@ -2933,6 +2959,10 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       case .ownPresenceChanged?: try {
         guard case .ownPresenceChanged(let v)? = _storage._payload else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
+      }()
+      case .blobThumbnailReady?: try {
+        guard case .blobThumbnailReady(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 150)
       }()
       case nil: break
       }

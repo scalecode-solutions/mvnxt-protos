@@ -714,5 +714,35 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder getOwnPresenceChangedOrBuilder();
 
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   * @return Whether the blobThumbnailReady field is set.
+   */
+  boolean hasBlobThumbnailReady();
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   * @return The blobThumbnailReady.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady getBlobThumbnailReady();
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder getBlobThumbnailReadyOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

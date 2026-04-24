@@ -14,6 +14,7 @@ import "mvservernxt/v1/common.proto";
 import "mvservernxt/v1/contacts.proto";
 import "mvservernxt/v1/hello.proto";
 import "mvservernxt/v1/identity.proto";
+import "mvservernxt/v1/media.proto";
 import "mvservernxt/v1/presence.proto";
 import "mvservernxt/v1/system.proto";
 
@@ -234,5 +235,9 @@ message Event {
     // self-loopback for multi-device sync.
     PresenceChanged            presence_changed             = 110;
     OwnPresenceChanged         own_presence_changed         = 111;
+
+    // Media (range 150-159). Slice-1: only BlobThumbnailReady.
+    // Future: BlobOrphanSwept, BlobAccessDenied, etc.
+    BlobThumbnailReady         blob_thumbnail_ready         = 150;
   }
 }

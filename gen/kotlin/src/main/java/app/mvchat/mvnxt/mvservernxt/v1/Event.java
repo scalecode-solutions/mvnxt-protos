@@ -97,6 +97,7 @@ private static final long serialVersionUID = 0L;
     USER_UNBLOCKED(103),
     PRESENCE_CHANGED(110),
     OWN_PRESENCE_CHANGED(111),
+    BLOB_THUMBNAIL_READY(150),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -149,6 +150,7 @@ private static final long serialVersionUID = 0L;
         case 103: return USER_UNBLOCKED;
         case 110: return PRESENCE_CHANGED;
         case 111: return OWN_PRESENCE_CHANGED;
+        case 150: return BLOB_THUMBNAIL_READY;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -1493,6 +1495,52 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
   }
 
+  public static final int BLOB_THUMBNAIL_READY_FIELD_NUMBER = 150;
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   * @return Whether the blobThumbnailReady field is set.
+   */
+  @java.lang.Override
+  public boolean hasBlobThumbnailReady() {
+    return payloadCase_ == 150;
+  }
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   * @return The blobThumbnailReady.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady getBlobThumbnailReady() {
+    if (payloadCase_ == 150) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+   * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder getBlobThumbnailReadyOrBuilder() {
+    if (payloadCase_ == 150) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1626,6 +1674,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 111) {
       output.writeMessage(111, (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_);
+    }
+    if (payloadCase_ == 150) {
+      output.writeMessage(150, (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1794,6 +1845,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 111) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(111, (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_);
+    }
+    if (payloadCase_ == 150) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(150, (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -1971,6 +2026,10 @@ private static final long serialVersionUID = 0L;
         if (!getOwnPresenceChanged()
             .equals(other.getOwnPresenceChanged())) return false;
         break;
+      case 150:
+        if (!getBlobThumbnailReady()
+            .equals(other.getBlobThumbnailReady())) return false;
+        break;
       case 0:
       default:
     }
@@ -2142,6 +2201,10 @@ private static final long serialVersionUID = 0L;
       case 111:
         hash = (37 * hash) + OWN_PRESENCE_CHANGED_FIELD_NUMBER;
         hash = (53 * hash) + getOwnPresenceChanged().hashCode();
+        break;
+      case 150:
+        hash = (37 * hash) + BLOB_THUMBNAIL_READY_FIELD_NUMBER;
+        hash = (53 * hash) + getBlobThumbnailReady().hashCode();
         break;
       case 0:
       default:
@@ -2414,6 +2477,9 @@ private static final long serialVersionUID = 0L;
       if (ownPresenceChangedBuilder_ != null) {
         ownPresenceChangedBuilder_.clear();
       }
+      if (blobThumbnailReadyBuilder_ != null) {
+        blobThumbnailReadyBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -2626,6 +2692,10 @@ private static final long serialVersionUID = 0L;
           ownPresenceChangedBuilder_ != null) {
         result.payload_ = ownPresenceChangedBuilder_.build();
       }
+      if (payloadCase_ == 150 &&
+          blobThumbnailReadyBuilder_ != null) {
+        result.payload_ = blobThumbnailReadyBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -2796,6 +2866,10 @@ private static final long serialVersionUID = 0L;
         }
         case OWN_PRESENCE_CHANGED: {
           mergeOwnPresenceChanged(other.getOwnPresenceChanged());
+          break;
+        }
+        case BLOB_THUMBNAIL_READY: {
+          mergeBlobThumbnailReady(other.getBlobThumbnailReady());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -3104,6 +3178,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 111;
               break;
             } // case 890
+            case 1202: {
+              input.readMessage(
+                  internalGetBlobThumbnailReadyFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 150;
+              break;
+            } // case 1202
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -8915,6 +8996,193 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 111;
       onChanged();
       return ownPresenceChangedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.Builder, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder> blobThumbnailReadyBuilder_;
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     * @return Whether the blobThumbnailReady field is set.
+     */
+    @java.lang.Override
+    public boolean hasBlobThumbnailReady() {
+      return payloadCase_ == 150;
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     * @return The blobThumbnailReady.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady getBlobThumbnailReady() {
+      if (blobThumbnailReadyBuilder_ == null) {
+        if (payloadCase_ == 150) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 150) {
+          return blobThumbnailReadyBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    public Builder setBlobThumbnailReady(app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady value) {
+      if (blobThumbnailReadyBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        blobThumbnailReadyBuilder_.setMessage(value);
+      }
+      payloadCase_ = 150;
+      return this;
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    public Builder setBlobThumbnailReady(
+        app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.Builder builderForValue) {
+      if (blobThumbnailReadyBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        blobThumbnailReadyBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 150;
+      return this;
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    public Builder mergeBlobThumbnailReady(app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady value) {
+      if (blobThumbnailReadyBuilder_ == null) {
+        if (payloadCase_ == 150 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 150) {
+          blobThumbnailReadyBuilder_.mergeFrom(value);
+        } else {
+          blobThumbnailReadyBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 150;
+      return this;
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    public Builder clearBlobThumbnailReady() {
+      if (blobThumbnailReadyBuilder_ == null) {
+        if (payloadCase_ == 150) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 150) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        blobThumbnailReadyBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.Builder getBlobThumbnailReadyBuilder() {
+      return internalGetBlobThumbnailReadyFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder getBlobThumbnailReadyOrBuilder() {
+      if ((payloadCase_ == 150) && (blobThumbnailReadyBuilder_ != null)) {
+        return blobThumbnailReadyBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 150) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.Builder, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder> 
+        internalGetBlobThumbnailReadyFieldBuilder() {
+      if (blobThumbnailReadyBuilder_ == null) {
+        if (!(payloadCase_ == 150)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.getDefaultInstance();
+        }
+        blobThumbnailReadyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady.Builder, app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReadyOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 150;
+      onChanged();
+      return blobThumbnailReadyBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Event)

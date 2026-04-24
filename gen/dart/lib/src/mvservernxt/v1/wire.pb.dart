@@ -22,6 +22,7 @@ import 'common.pb.dart' as $7;
 import 'contacts.pb.dart' as $4;
 import 'hello.pb.dart' as $1;
 import 'identity.pb.dart' as $2;
+import 'media.pb.dart' as $8;
 import 'presence.pb.dart' as $5;
 import 'system.pb.dart' as $0;
 
@@ -1578,6 +1579,7 @@ enum Event_Payload {
   userUnblocked,
   presenceChanged,
   ownPresenceChanged,
+  blobThumbnailReady,
   notSet
 }
 
@@ -1626,6 +1628,7 @@ class Event extends $pb.GeneratedMessage {
     $4.UserUnblocked? userUnblocked,
     $5.PresenceChanged? presenceChanged,
     $5.OwnPresenceChanged? ownPresenceChanged,
+    $8.BlobThumbnailReady? blobThumbnailReady,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1680,6 +1683,8 @@ class Event extends $pb.GeneratedMessage {
     if (presenceChanged != null) result.presenceChanged = presenceChanged;
     if (ownPresenceChanged != null)
       result.ownPresenceChanged = ownPresenceChanged;
+    if (blobThumbnailReady != null)
+      result.blobThumbnailReady = blobThumbnailReady;
     return result;
   }
 
@@ -1728,6 +1733,7 @@ class Event extends $pb.GeneratedMessage {
     103: Event_Payload.userUnblocked,
     110: Event_Payload.presenceChanged,
     111: Event_Payload.ownPresenceChanged,
+    150: Event_Payload.blobThumbnailReady,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1769,7 +1775,8 @@ class Event extends $pb.GeneratedMessage {
       102,
       103,
       110,
-      111
+      111,
+      150
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
@@ -1861,6 +1868,9 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$5.OwnPresenceChanged>(
         111, _omitFieldNames ? '' : 'ownPresenceChanged',
         subBuilder: $5.OwnPresenceChanged.create)
+    ..aOM<$8.BlobThumbnailReady>(
+        150, _omitFieldNames ? '' : 'blobThumbnailReady',
+        subBuilder: $8.BlobThumbnailReady.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1916,6 +1926,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(103)
   @$pb.TagNumber(110)
   @$pb.TagNumber(111)
+  @$pb.TagNumber(150)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1952,6 +1963,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(103)
   @$pb.TagNumber(110)
   @$pb.TagNumber(111)
+  @$pb.TagNumber(150)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -2417,6 +2429,19 @@ class Event extends $pb.GeneratedMessage {
   void clearOwnPresenceChanged() => $_clearField(111);
   @$pb.TagNumber(111)
   $5.OwnPresenceChanged ensureOwnPresenceChanged() => $_ensure(39);
+
+  /// Media (range 150-159). Slice-1: only BlobThumbnailReady.
+  /// Future: BlobOrphanSwept, BlobAccessDenied, etc.
+  @$pb.TagNumber(150)
+  $8.BlobThumbnailReady get blobThumbnailReady => $_getN(40);
+  @$pb.TagNumber(150)
+  set blobThumbnailReady($8.BlobThumbnailReady value) => $_setField(150, value);
+  @$pb.TagNumber(150)
+  $core.bool hasBlobThumbnailReady() => $_has(40);
+  @$pb.TagNumber(150)
+  void clearBlobThumbnailReady() => $_clearField(150);
+  @$pb.TagNumber(150)
+  $8.BlobThumbnailReady ensureBlobThumbnailReady() => $_ensure(40);
 }
 
 const $core.bool _omitFieldNames =
