@@ -15,13 +15,14 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart'
-    as $5;
+    as $6;
 
 import 'chat.pb.dart' as $3;
-import 'common.pb.dart' as $6;
+import 'common.pb.dart' as $7;
 import 'contacts.pb.dart' as $4;
 import 'hello.pb.dart' as $1;
 import 'identity.pb.dart' as $2;
+import 'presence.pb.dart' as $5;
 import 'system.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
@@ -63,6 +64,10 @@ enum ClientEnvelope_Payload {
   searchUsers,
   blockUser,
   unblockUser,
+  subscribeToPresence,
+  unsubscribeFromPresence,
+  setActivityState,
+  setVisibility,
   notSet
 }
 
@@ -112,6 +117,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $4.SearchUsers? searchUsers,
     $4.BlockUser? blockUser,
     $4.UnblockUser? unblockUser,
+    $5.SubscribeToPresence? subscribeToPresence,
+    $5.UnsubscribeFromPresence? unsubscribeFromPresence,
+    $5.SetActivityState? setActivityState,
+    $5.SetVisibility? setVisibility,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -157,6 +166,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (searchUsers != null) result.searchUsers = searchUsers;
     if (blockUser != null) result.blockUser = blockUser;
     if (unblockUser != null) result.unblockUser = unblockUser;
+    if (subscribeToPresence != null)
+      result.subscribeToPresence = subscribeToPresence;
+    if (unsubscribeFromPresence != null)
+      result.unsubscribeFromPresence = unsubscribeFromPresence;
+    if (setActivityState != null) result.setActivityState = setActivityState;
+    if (setVisibility != null) result.setVisibility = setVisibility;
     return result;
   }
 
@@ -207,6 +222,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     103: ClientEnvelope_Payload.searchUsers,
     104: ClientEnvelope_Payload.blockUser,
     105: ClientEnvelope_Payload.unblockUser,
+    110: ClientEnvelope_Payload.subscribeToPresence,
+    111: ClientEnvelope_Payload.unsubscribeFromPresence,
+    112: ClientEnvelope_Payload.setActivityState,
+    113: ClientEnvelope_Payload.setVisibility,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -249,7 +268,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       102,
       103,
       104,
-      105
+      105,
+      110,
+      111,
+      112,
+      113
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -330,6 +353,16 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $4.BlockUser.create)
     ..aOM<$4.UnblockUser>(105, _omitFieldNames ? '' : 'unblockUser',
         subBuilder: $4.UnblockUser.create)
+    ..aOM<$5.SubscribeToPresence>(
+        110, _omitFieldNames ? '' : 'subscribeToPresence',
+        subBuilder: $5.SubscribeToPresence.create)
+    ..aOM<$5.UnsubscribeFromPresence>(
+        111, _omitFieldNames ? '' : 'unsubscribeFromPresence',
+        subBuilder: $5.UnsubscribeFromPresence.create)
+    ..aOM<$5.SetActivityState>(112, _omitFieldNames ? '' : 'setActivityState',
+        subBuilder: $5.SetActivityState.create)
+    ..aOM<$5.SetVisibility>(113, _omitFieldNames ? '' : 'setVisibility',
+        subBuilder: $5.SetVisibility.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -387,6 +420,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(103)
   @$pb.TagNumber(104)
   @$pb.TagNumber(105)
+  @$pb.TagNumber(110)
+  @$pb.TagNumber(111)
+  @$pb.TagNumber(112)
+  @$pb.TagNumber(113)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -425,6 +462,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(103)
   @$pb.TagNumber(104)
   @$pb.TagNumber(105)
+  @$pb.TagNumber(110)
+  @$pb.TagNumber(111)
+  @$pb.TagNumber(112)
+  @$pb.TagNumber(113)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -844,6 +885,53 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearUnblockUser() => $_clearField(105);
   @$pb.TagNumber(105)
   $4.UnblockUser ensureUnblockUser() => $_ensure(36);
+
+  /// Presence (range 110-119)
+  @$pb.TagNumber(110)
+  $5.SubscribeToPresence get subscribeToPresence => $_getN(37);
+  @$pb.TagNumber(110)
+  set subscribeToPresence($5.SubscribeToPresence value) =>
+      $_setField(110, value);
+  @$pb.TagNumber(110)
+  $core.bool hasSubscribeToPresence() => $_has(37);
+  @$pb.TagNumber(110)
+  void clearSubscribeToPresence() => $_clearField(110);
+  @$pb.TagNumber(110)
+  $5.SubscribeToPresence ensureSubscribeToPresence() => $_ensure(37);
+
+  @$pb.TagNumber(111)
+  $5.UnsubscribeFromPresence get unsubscribeFromPresence => $_getN(38);
+  @$pb.TagNumber(111)
+  set unsubscribeFromPresence($5.UnsubscribeFromPresence value) =>
+      $_setField(111, value);
+  @$pb.TagNumber(111)
+  $core.bool hasUnsubscribeFromPresence() => $_has(38);
+  @$pb.TagNumber(111)
+  void clearUnsubscribeFromPresence() => $_clearField(111);
+  @$pb.TagNumber(111)
+  $5.UnsubscribeFromPresence ensureUnsubscribeFromPresence() => $_ensure(38);
+
+  @$pb.TagNumber(112)
+  $5.SetActivityState get setActivityState => $_getN(39);
+  @$pb.TagNumber(112)
+  set setActivityState($5.SetActivityState value) => $_setField(112, value);
+  @$pb.TagNumber(112)
+  $core.bool hasSetActivityState() => $_has(39);
+  @$pb.TagNumber(112)
+  void clearSetActivityState() => $_clearField(112);
+  @$pb.TagNumber(112)
+  $5.SetActivityState ensureSetActivityState() => $_ensure(39);
+
+  @$pb.TagNumber(113)
+  $5.SetVisibility get setVisibility => $_getN(40);
+  @$pb.TagNumber(113)
+  set setVisibility($5.SetVisibility value) => $_setField(113, value);
+  @$pb.TagNumber(113)
+  $core.bool hasSetVisibility() => $_has(40);
+  @$pb.TagNumber(113)
+  void clearSetVisibility() => $_clearField(113);
+  @$pb.TagNumber(113)
+  $5.SetVisibility ensureSetVisibility() => $_ensure(40);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -968,6 +1056,7 @@ enum Ack_Payload {
   editMessage,
   listContacts,
   searchUsers,
+  subscribeToPresence,
   notSet
 }
 
@@ -988,6 +1077,7 @@ class Ack extends $pb.GeneratedMessage {
     $3.EditMessageResponse? editMessage,
     $4.ListContactsResponse? listContacts,
     $4.SearchUsersResponse? searchUsers,
+    $5.SubscribeToPresenceResponse? subscribeToPresence,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -1005,6 +1095,8 @@ class Ack extends $pb.GeneratedMessage {
     if (editMessage != null) result.editMessage = editMessage;
     if (listContacts != null) result.listContacts = listContacts;
     if (searchUsers != null) result.searchUsers = searchUsers;
+    if (subscribeToPresence != null)
+      result.subscribeToPresence = subscribeToPresence;
     return result;
   }
 
@@ -1030,13 +1122,14 @@ class Ack extends $pb.GeneratedMessage {
     38: Ack_Payload.editMessage,
     102: Ack_Payload.listContacts,
     103: Ack_Payload.searchUsers,
+    110: Ack_Payload.subscribeToPresence,
     0: Ack_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Ack',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38, 102, 103])
+    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38, 102, 103, 110])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aI(2, _omitFieldNames ? '' : 'code')
     ..aOM<$0.Pong>(10, _omitFieldNames ? '' : 'pong',
@@ -1065,6 +1158,9 @@ class Ack extends $pb.GeneratedMessage {
         subBuilder: $4.ListContactsResponse.create)
     ..aOM<$4.SearchUsersResponse>(103, _omitFieldNames ? '' : 'searchUsers',
         subBuilder: $4.SearchUsersResponse.create)
+    ..aOM<$5.SubscribeToPresenceResponse>(
+        110, _omitFieldNames ? '' : 'subscribeToPresence',
+        subBuilder: $5.SubscribeToPresenceResponse.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1097,6 +1193,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
+  @$pb.TagNumber(110)
   Ack_Payload whichPayload() => _Ack_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(11)
@@ -1110,6 +1207,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
+  @$pb.TagNumber(110)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Correlates to ClientEnvelope.idempotency_key.
@@ -1272,6 +1370,20 @@ class Ack extends $pb.GeneratedMessage {
   void clearSearchUsers() => $_clearField(103);
   @$pb.TagNumber(103)
   $4.SearchUsersResponse ensureSearchUsers() => $_ensure(13);
+
+  /// Presence (UnsubscribeFromPresence, SetActivityState,
+  /// SetVisibility return empty Ack with no payload)
+  @$pb.TagNumber(110)
+  $5.SubscribeToPresenceResponse get subscribeToPresence => $_getN(14);
+  @$pb.TagNumber(110)
+  set subscribeToPresence($5.SubscribeToPresenceResponse value) =>
+      $_setField(110, value);
+  @$pb.TagNumber(110)
+  $core.bool hasSubscribeToPresence() => $_has(14);
+  @$pb.TagNumber(110)
+  void clearSubscribeToPresence() => $_clearField(110);
+  @$pb.TagNumber(110)
+  $5.SubscribeToPresenceResponse ensureSubscribeToPresence() => $_ensure(14);
 }
 
 /// Err is returned for a failed command.
@@ -1403,6 +1515,8 @@ enum Event_Payload {
   contactRemoved,
   userBlocked,
   userUnblocked,
+  presenceChanged,
+  ownPresenceChanged,
   notSet
 }
 
@@ -1413,9 +1527,9 @@ class Event extends $pb.GeneratedMessage {
   factory Event({
     $fixnum.Int64? seq,
     $core.String? stream,
-    $5.Timestamp? timestamp,
-    $6.UUID? actorId,
-    $6.UUID? aggregateId,
+    $6.Timestamp? timestamp,
+    $7.UUID? actorId,
+    $7.UUID? aggregateId,
     $0.SystemNotice? systemNotice,
     $2.UserRegistered? userRegistered,
     $2.UserLoggedIn? userLoggedIn,
@@ -1448,6 +1562,8 @@ class Event extends $pb.GeneratedMessage {
     $4.ContactRemoved? contactRemoved,
     $4.UserBlocked? userBlocked,
     $4.UserUnblocked? userUnblocked,
+    $5.PresenceChanged? presenceChanged,
+    $5.OwnPresenceChanged? ownPresenceChanged,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1498,6 +1614,9 @@ class Event extends $pb.GeneratedMessage {
     if (contactRemoved != null) result.contactRemoved = contactRemoved;
     if (userBlocked != null) result.userBlocked = userBlocked;
     if (userUnblocked != null) result.userUnblocked = userUnblocked;
+    if (presenceChanged != null) result.presenceChanged = presenceChanged;
+    if (ownPresenceChanged != null)
+      result.ownPresenceChanged = ownPresenceChanged;
     return result;
   }
 
@@ -1543,6 +1662,8 @@ class Event extends $pb.GeneratedMessage {
     101: Event_Payload.contactRemoved,
     102: Event_Payload.userBlocked,
     103: Event_Payload.userUnblocked,
+    110: Event_Payload.presenceChanged,
+    111: Event_Payload.ownPresenceChanged,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1581,16 +1702,18 @@ class Event extends $pb.GeneratedMessage {
       100,
       101,
       102,
-      103
+      103,
+      110,
+      111
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
-    ..aOM<$5.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
-        subBuilder: $5.Timestamp.create)
-    ..aOM<$6.UUID>(4, _omitFieldNames ? '' : 'actorId',
-        subBuilder: $6.UUID.create)
-    ..aOM<$6.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
-        subBuilder: $6.UUID.create)
+    ..aOM<$6.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
+        subBuilder: $6.Timestamp.create)
+    ..aOM<$7.UUID>(4, _omitFieldNames ? '' : 'actorId',
+        subBuilder: $7.UUID.create)
+    ..aOM<$7.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
+        subBuilder: $7.UUID.create)
     ..aOM<$0.SystemNotice>(10, _omitFieldNames ? '' : 'systemNotice',
         subBuilder: $0.SystemNotice.create)
     ..aOM<$2.UserRegistered>(20, _omitFieldNames ? '' : 'userRegistered',
@@ -1666,6 +1789,11 @@ class Event extends $pb.GeneratedMessage {
         subBuilder: $4.UserBlocked.create)
     ..aOM<$4.UserUnblocked>(103, _omitFieldNames ? '' : 'userUnblocked',
         subBuilder: $4.UserUnblocked.create)
+    ..aOM<$5.PresenceChanged>(110, _omitFieldNames ? '' : 'presenceChanged',
+        subBuilder: $5.PresenceChanged.create)
+    ..aOM<$5.OwnPresenceChanged>(
+        111, _omitFieldNames ? '' : 'ownPresenceChanged',
+        subBuilder: $5.OwnPresenceChanged.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1718,6 +1846,8 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
+  @$pb.TagNumber(110)
+  @$pb.TagNumber(111)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1751,6 +1881,8 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
+  @$pb.TagNumber(110)
+  @$pb.TagNumber(111)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1776,39 +1908,39 @@ class Event extends $pb.GeneratedMessage {
 
   /// When the event was written to the log.
   @$pb.TagNumber(3)
-  $5.Timestamp get timestamp => $_getN(2);
+  $6.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($5.Timestamp value) => $_setField(3, value);
+  set timestamp($6.Timestamp value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
   void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
-  $5.Timestamp ensureTimestamp() => $_ensure(2);
+  $6.Timestamp ensureTimestamp() => $_ensure(2);
 
   /// Who caused the event, if applicable.
   @$pb.TagNumber(4)
-  $6.UUID get actorId => $_getN(3);
+  $7.UUID get actorId => $_getN(3);
   @$pb.TagNumber(4)
-  set actorId($6.UUID value) => $_setField(4, value);
+  set actorId($7.UUID value) => $_setField(4, value);
   @$pb.TagNumber(4)
   $core.bool hasActorId() => $_has(3);
   @$pb.TagNumber(4)
   void clearActorId() => $_clearField(4);
   @$pb.TagNumber(4)
-  $6.UUID ensureActorId() => $_ensure(3);
+  $7.UUID ensureActorId() => $_ensure(3);
 
   /// Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
   @$pb.TagNumber(5)
-  $6.UUID get aggregateId => $_getN(4);
+  $7.UUID get aggregateId => $_getN(4);
   @$pb.TagNumber(5)
-  set aggregateId($6.UUID value) => $_setField(5, value);
+  set aggregateId($7.UUID value) => $_setField(5, value);
   @$pb.TagNumber(5)
   $core.bool hasAggregateId() => $_has(4);
   @$pb.TagNumber(5)
   void clearAggregateId() => $_clearField(5);
   @$pb.TagNumber(5)
-  $6.UUID ensureAggregateId() => $_ensure(4);
+  $7.UUID ensureAggregateId() => $_ensure(4);
 
   /// System
   @$pb.TagNumber(10)
@@ -2180,6 +2312,31 @@ class Event extends $pb.GeneratedMessage {
   void clearUserUnblocked() => $_clearField(103);
   @$pb.TagNumber(103)
   $4.UserUnblocked ensureUserUnblocked() => $_ensure(36);
+
+  /// Presence (range 110-119). Only two kinds — PresenceChanged is
+  /// the public, masked projection; OwnPresenceChanged is the full
+  /// self-loopback for multi-device sync.
+  @$pb.TagNumber(110)
+  $5.PresenceChanged get presenceChanged => $_getN(37);
+  @$pb.TagNumber(110)
+  set presenceChanged($5.PresenceChanged value) => $_setField(110, value);
+  @$pb.TagNumber(110)
+  $core.bool hasPresenceChanged() => $_has(37);
+  @$pb.TagNumber(110)
+  void clearPresenceChanged() => $_clearField(110);
+  @$pb.TagNumber(110)
+  $5.PresenceChanged ensurePresenceChanged() => $_ensure(37);
+
+  @$pb.TagNumber(111)
+  $5.OwnPresenceChanged get ownPresenceChanged => $_getN(38);
+  @$pb.TagNumber(111)
+  set ownPresenceChanged($5.OwnPresenceChanged value) => $_setField(111, value);
+  @$pb.TagNumber(111)
+  $core.bool hasOwnPresenceChanged() => $_has(38);
+  @$pb.TagNumber(111)
+  void clearOwnPresenceChanged() => $_clearField(111);
+  @$pb.TagNumber(111)
+  $5.OwnPresenceChanged ensureOwnPresenceChanged() => $_ensure(38);
 }
 
 const $core.bool _omitFieldNames =

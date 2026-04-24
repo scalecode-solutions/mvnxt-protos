@@ -624,5 +624,77 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.UnblockUserOrBuilder getUnblockUserOrBuilder();
 
+  /**
+   * <pre>
+   * Presence (range 110-119)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return Whether the subscribeToPresence field is set.
+   */
+  boolean hasSubscribeToPresence();
+  /**
+   * <pre>
+   * Presence (range 110-119)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return The subscribeToPresence.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresence getSubscribeToPresence();
+  /**
+   * <pre>
+   * Presence (range 110-119)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceOrBuilder getSubscribeToPresenceOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];</code>
+   * @return Whether the unsubscribeFromPresence field is set.
+   */
+  boolean hasUnsubscribeFromPresence();
+  /**
+   * <code>.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];</code>
+   * @return The unsubscribeFromPresence.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnsubscribeFromPresence getUnsubscribeFromPresence();
+  /**
+   * <code>.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnsubscribeFromPresenceOrBuilder getUnsubscribeFromPresenceOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];</code>
+   * @return Whether the setActivityState field is set.
+   */
+  boolean hasSetActivityState();
+  /**
+   * <code>.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];</code>
+   * @return The setActivityState.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetActivityState getSetActivityState();
+  /**
+   * <code>.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetActivityStateOrBuilder getSetActivityStateOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];</code>
+   * @return Whether the setVisibility field is set.
+   */
+  boolean hasSetVisibility();
+  /**
+   * <code>.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];</code>
+   * @return The setVisibility.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetVisibility getSetVisibility();
+  /**
+   * <code>.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetVisibilityOrBuilder getSetVisibilityOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

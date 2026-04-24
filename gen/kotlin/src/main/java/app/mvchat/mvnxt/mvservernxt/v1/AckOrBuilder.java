@@ -277,5 +277,35 @@ public interface AckOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder getSearchUsersOrBuilder();
 
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return Whether the subscribeToPresence field is set.
+   */
+  boolean hasSubscribeToPresence();
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return The subscribeToPresence.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse getSubscribeToPresence();
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder getSubscribeToPresenceOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase getPayloadCase();
 }

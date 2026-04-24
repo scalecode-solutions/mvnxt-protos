@@ -344,6 +344,42 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'unblockUser'
     },
+    {
+      '1': 'subscribe_to_presence',
+      '3': 110,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SubscribeToPresence',
+      '9': 0,
+      '10': 'subscribeToPresence'
+    },
+    {
+      '1': 'unsubscribe_from_presence',
+      '3': 111,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.UnsubscribeFromPresence',
+      '9': 0,
+      '10': 'unsubscribeFromPresence'
+    },
+    {
+      '1': 'set_activity_state',
+      '3': 112,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SetActivityState',
+      '9': 0,
+      '10': 'setActivityState'
+    },
+    {
+      '1': 'set_visibility',
+      '3': 113,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SetVisibility',
+      '9': 0,
+      '10': 'setVisibility'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -398,8 +434,14 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'RDb250YWN0c0gAUgxsaXN0Q29udGFjdHMSQAoMc2VhcmNoX3VzZXJzGGcgASgLMhsubXZzZXJ2'
     'ZXJueHQudjEuU2VhcmNoVXNlcnNIAFILc2VhcmNoVXNlcnMSOgoKYmxvY2tfdXNlchhoIAEoCz'
     'IZLm12c2VydmVybnh0LnYxLkJsb2NrVXNlckgAUglibG9ja1VzZXISQAoMdW5ibG9ja191c2Vy'
-    'GGkgASgLMhsubXZzZXJ2ZXJueHQudjEuVW5ibG9ja1VzZXJIAFILdW5ibG9ja1VzZXJCCQoHcG'
-    'F5bG9hZA==');
+    'GGkgASgLMhsubXZzZXJ2ZXJueHQudjEuVW5ibG9ja1VzZXJIAFILdW5ibG9ja1VzZXISWQoVc3'
+    'Vic2NyaWJlX3RvX3ByZXNlbmNlGG4gASgLMiMubXZzZXJ2ZXJueHQudjEuU3Vic2NyaWJlVG9Q'
+    'cmVzZW5jZUgAUhNzdWJzY3JpYmVUb1ByZXNlbmNlEmUKGXVuc3Vic2NyaWJlX2Zyb21fcHJlc2'
+    'VuY2UYbyABKAsyJy5tdnNlcnZlcm54dC52MS5VbnN1YnNjcmliZUZyb21QcmVzZW5jZUgAUhd1'
+    'bnN1YnNjcmliZUZyb21QcmVzZW5jZRJQChJzZXRfYWN0aXZpdHlfc3RhdGUYcCABKAsyIC5tdn'
+    'NlcnZlcm54dC52MS5TZXRBY3Rpdml0eVN0YXRlSABSEHNldEFjdGl2aXR5U3RhdGUSRgoOc2V0'
+    'X3Zpc2liaWxpdHkYcSABKAsyHS5tdnNlcnZlcm54dC52MS5TZXRWaXNpYmlsaXR5SABSDXNldF'
+    'Zpc2liaWxpdHlCCQoHcGF5bG9hZA==');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -558,6 +600,15 @@ const Ack$json = {
       '9': 0,
       '10': 'searchUsers'
     },
+    {
+      '1': 'subscribe_to_presence',
+      '3': 110,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SubscribeToPresenceResponse',
+      '9': 0,
+      '10': 'subscribeToPresence'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -582,7 +633,9 @@ final $typed_data.Uint8List ackDescriptor = $convert.base64Decode(
     'RpdE1lc3NhZ2VSZXNwb25zZUgAUgtlZGl0TWVzc2FnZRJLCg1saXN0X2NvbnRhY3RzGGYgASgL'
     'MiQubXZzZXJ2ZXJueHQudjEuTGlzdENvbnRhY3RzUmVzcG9uc2VIAFIMbGlzdENvbnRhY3RzEk'
     'gKDHNlYXJjaF91c2VycxhnIAEoCzIjLm12c2VydmVybnh0LnYxLlNlYXJjaFVzZXJzUmVzcG9u'
-    'c2VIAFILc2VhcmNoVXNlcnNCCQoHcGF5bG9hZA==');
+    'c2VIAFILc2VhcmNoVXNlcnMSYQoVc3Vic2NyaWJlX3RvX3ByZXNlbmNlGG4gASgLMisubXZzZX'
+    'J2ZXJueHQudjEuU3Vic2NyaWJlVG9QcmVzZW5jZVJlc3BvbnNlSABSE3N1YnNjcmliZVRvUHJl'
+    'c2VuY2VCCQoHcGF5bG9hZA==');
 
 @$core.Deprecated('Use errDescriptor instead')
 const Err$json = {
@@ -919,6 +972,24 @@ const Event$json = {
       '9': 0,
       '10': 'userUnblocked'
     },
+    {
+      '1': 'presence_changed',
+      '3': 110,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.PresenceChanged',
+      '9': 0,
+      '10': 'presenceChanged'
+    },
+    {
+      '1': 'own_presence_changed',
+      '3': 111,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.OwnPresenceChanged',
+      '9': 0,
+      '10': 'ownPresenceChanged'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -978,4 +1049,7 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'ZXJueHQudjEuQ29udGFjdFJlbW92ZWRIAFIOY29udGFjdFJlbW92ZWQSQAoMdXNlcl9ibG9ja2'
     'VkGGYgASgLMhsubXZzZXJ2ZXJueHQudjEuVXNlckJsb2NrZWRIAFILdXNlckJsb2NrZWQSRgoO'
     'dXNlcl91bmJsb2NrZWQYZyABKAsyHS5tdnNlcnZlcm54dC52MS5Vc2VyVW5ibG9ja2VkSABSDX'
-    'VzZXJVbmJsb2NrZWRCCQoHcGF5bG9hZA==');
+    'VzZXJVbmJsb2NrZWQSTAoQcHJlc2VuY2VfY2hhbmdlZBhuIAEoCzIfLm12c2VydmVybnh0LnYx'
+    'LlByZXNlbmNlQ2hhbmdlZEgAUg9wcmVzZW5jZUNoYW5nZWQSVgoUb3duX3ByZXNlbmNlX2NoYW'
+    '5nZWQYbyABKAsyIi5tdnNlcnZlcm54dC52MS5Pd25QcmVzZW5jZUNoYW5nZWRIAFISb3duUHJl'
+    'c2VuY2VDaGFuZ2VkQgkKB3BheWxvYWQ=');

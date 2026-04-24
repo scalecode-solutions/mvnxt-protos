@@ -14,6 +14,7 @@ import "mvservernxt/v1/common.proto";
 import "mvservernxt/v1/contacts.proto";
 import "mvservernxt/v1/hello.proto";
 import "mvservernxt/v1/identity.proto";
+import "mvservernxt/v1/presence.proto";
 import "mvservernxt/v1/system.proto";
 
 // ClientEnvelope is a command message from client to server.
@@ -79,9 +80,13 @@ message ClientEnvelope {
     BlockUser               block_user                 = 104;
     UnblockUser             unblock_user               = 105;
 
-    // Other domains land in their reserved ranges (chat 30-50 above,
-    // contacts 100-109 above). Still to be claimed:
-    //   110-119 presence
+    // Presence (range 110-119)
+    SubscribeToPresence     subscribe_to_presence      = 110;
+    UnsubscribeFromPresence unsubscribe_from_presence  = 111;
+    SetActivityState        set_activity_state         = 112;
+    SetVisibility           set_visibility             = 113;
+
+    // Other domains land in their reserved ranges. Still to be claimed:
     //   120-129 pulse
     //   130-139 tangle
     //   140-149 calls
@@ -134,6 +139,10 @@ message Ack {
     // return empty Ack with no payload)
     ListContactsResponse       list_contacts       = 102;
     SearchUsersResponse        search_users        = 103;
+
+    // Presence (UnsubscribeFromPresence, SetActivityState,
+    // SetVisibility return empty Ack with no payload)
+    SubscribeToPresenceResponse subscribe_to_presence = 110;
   }
 }
 
@@ -215,5 +224,11 @@ message Event {
     ContactRemoved             contact_removed              = 101;
     UserBlocked                user_blocked                 = 102;
     UserUnblocked              user_unblocked               = 103;
+
+    // Presence (range 110-119). Only two kinds — PresenceChanged is
+    // the public, masked projection; OwnPresenceChanged is the full
+    // self-loopback for multi-device sync.
+    PresenceChanged            presence_changed             = 110;
+    OwnPresenceChanged         own_presence_changed         = 111;
   }
 }

@@ -94,6 +94,8 @@ private static final long serialVersionUID = 0L;
     CONTACT_REMOVED(101),
     USER_BLOCKED(102),
     USER_UNBLOCKED(103),
+    PRESENCE_CHANGED(110),
+    OWN_PRESENCE_CHANGED(111),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -143,6 +145,8 @@ private static final long serialVersionUID = 0L;
         case 101: return CONTACT_REMOVED;
         case 102: return USER_BLOCKED;
         case 103: return USER_UNBLOCKED;
+        case 110: return PRESENCE_CHANGED;
+        case 111: return OWN_PRESENCE_CHANGED;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -1376,6 +1380,86 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked.getDefaultInstance();
   }
 
+  public static final int PRESENCE_CHANGED_FIELD_NUMBER = 110;
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   * @return Whether the presenceChanged field is set.
+   */
+  @java.lang.Override
+  public boolean hasPresenceChanged() {
+    return payloadCase_ == 110;
+  }
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   * @return The presenceChanged.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged getPresenceChanged() {
+    if (payloadCase_ == 110) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder getPresenceChangedOrBuilder() {
+    if (payloadCase_ == 110) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+  }
+
+  public static final int OWN_PRESENCE_CHANGED_FIELD_NUMBER = 111;
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   * @return Whether the ownPresenceChanged field is set.
+   */
+  @java.lang.Override
+  public boolean hasOwnPresenceChanged() {
+    return payloadCase_ == 111;
+  }
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   * @return The ownPresenceChanged.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged getOwnPresenceChanged() {
+    if (payloadCase_ == 111) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder getOwnPresenceChangedOrBuilder() {
+    if (payloadCase_ == 111) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1500,6 +1584,12 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 103) {
       output.writeMessage(103, (app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked) payload_);
+    }
+    if (payloadCase_ == 110) {
+      output.writeMessage(110, (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_);
+    }
+    if (payloadCase_ == 111) {
+      output.writeMessage(111, (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1656,6 +1746,14 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 103) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(103, (app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked) payload_);
+    }
+    if (payloadCase_ == 110) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(110, (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_);
+    }
+    if (payloadCase_ == 111) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(111, (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -1821,6 +1919,14 @@ private static final long serialVersionUID = 0L;
         if (!getUserUnblocked()
             .equals(other.getUserUnblocked())) return false;
         break;
+      case 110:
+        if (!getPresenceChanged()
+            .equals(other.getPresenceChanged())) return false;
+        break;
+      case 111:
+        if (!getOwnPresenceChanged()
+            .equals(other.getOwnPresenceChanged())) return false;
+        break;
       case 0:
       default:
     }
@@ -1980,6 +2086,14 @@ private static final long serialVersionUID = 0L;
       case 103:
         hash = (37 * hash) + USER_UNBLOCKED_FIELD_NUMBER;
         hash = (53 * hash) + getUserUnblocked().hashCode();
+        break;
+      case 110:
+        hash = (37 * hash) + PRESENCE_CHANGED_FIELD_NUMBER;
+        hash = (53 * hash) + getPresenceChanged().hashCode();
+        break;
+      case 111:
+        hash = (37 * hash) + OWN_PRESENCE_CHANGED_FIELD_NUMBER;
+        hash = (53 * hash) + getOwnPresenceChanged().hashCode();
         break;
       case 0:
       default:
@@ -2243,6 +2357,12 @@ private static final long serialVersionUID = 0L;
       if (userUnblockedBuilder_ != null) {
         userUnblockedBuilder_.clear();
       }
+      if (presenceChangedBuilder_ != null) {
+        presenceChangedBuilder_.clear();
+      }
+      if (ownPresenceChangedBuilder_ != null) {
+        ownPresenceChangedBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -2443,6 +2563,14 @@ private static final long serialVersionUID = 0L;
           userUnblockedBuilder_ != null) {
         result.payload_ = userUnblockedBuilder_.build();
       }
+      if (payloadCase_ == 110 &&
+          presenceChangedBuilder_ != null) {
+        result.payload_ = presenceChangedBuilder_.build();
+      }
+      if (payloadCase_ == 111 &&
+          ownPresenceChangedBuilder_ != null) {
+        result.payload_ = ownPresenceChangedBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -2601,6 +2729,14 @@ private static final long serialVersionUID = 0L;
         }
         case USER_UNBLOCKED: {
           mergeUserUnblocked(other.getUserUnblocked());
+          break;
+        }
+        case PRESENCE_CHANGED: {
+          mergePresenceChanged(other.getPresenceChanged());
+          break;
+        }
+        case OWN_PRESENCE_CHANGED: {
+          mergeOwnPresenceChanged(other.getOwnPresenceChanged());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -2888,6 +3024,20 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 103;
               break;
             } // case 826
+            case 882: {
+              input.readMessage(
+                  internalGetPresenceChangedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 110;
+              break;
+            } // case 882
+            case 890: {
+              input.readMessage(
+                  internalGetOwnPresenceChangedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 111;
+              break;
+            } // case 890
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -8219,6 +8369,344 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 103;
       onChanged();
       return userUnblockedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder> presenceChangedBuilder_;
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     * @return Whether the presenceChanged field is set.
+     */
+    @java.lang.Override
+    public boolean hasPresenceChanged() {
+      return payloadCase_ == 110;
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     * @return The presenceChanged.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged getPresenceChanged() {
+      if (presenceChangedBuilder_ == null) {
+        if (payloadCase_ == 110) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 110) {
+          return presenceChangedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    public Builder setPresenceChanged(app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged value) {
+      if (presenceChangedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        presenceChangedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    public Builder setPresenceChanged(
+        app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.Builder builderForValue) {
+      if (presenceChangedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        presenceChangedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    public Builder mergePresenceChanged(app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged value) {
+      if (presenceChangedBuilder_ == null) {
+        if (payloadCase_ == 110 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 110) {
+          presenceChangedBuilder_.mergeFrom(value);
+        } else {
+          presenceChangedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    public Builder clearPresenceChanged() {
+      if (presenceChangedBuilder_ == null) {
+        if (payloadCase_ == 110) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 110) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        presenceChangedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.Builder getPresenceChangedBuilder() {
+      return internalGetPresenceChangedFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder getPresenceChangedOrBuilder() {
+      if ((payloadCase_ == 110) && (presenceChangedBuilder_ != null)) {
+        return presenceChangedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 110) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder> 
+        internalGetPresenceChangedFieldBuilder() {
+      if (presenceChangedBuilder_ == null) {
+        if (!(payloadCase_ == 110)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.getDefaultInstance();
+        }
+        presenceChangedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 110;
+      onChanged();
+      return presenceChangedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder> ownPresenceChangedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     * @return Whether the ownPresenceChanged field is set.
+     */
+    @java.lang.Override
+    public boolean hasOwnPresenceChanged() {
+      return payloadCase_ == 111;
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     * @return The ownPresenceChanged.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged getOwnPresenceChanged() {
+      if (ownPresenceChangedBuilder_ == null) {
+        if (payloadCase_ == 111) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 111) {
+          return ownPresenceChangedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    public Builder setOwnPresenceChanged(app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged value) {
+      if (ownPresenceChangedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        ownPresenceChangedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 111;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    public Builder setOwnPresenceChanged(
+        app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.Builder builderForValue) {
+      if (ownPresenceChangedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        ownPresenceChangedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 111;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    public Builder mergeOwnPresenceChanged(app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged value) {
+      if (ownPresenceChangedBuilder_ == null) {
+        if (payloadCase_ == 111 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 111) {
+          ownPresenceChangedBuilder_.mergeFrom(value);
+        } else {
+          ownPresenceChangedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 111;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    public Builder clearOwnPresenceChanged() {
+      if (ownPresenceChangedBuilder_ == null) {
+        if (payloadCase_ == 111) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 111) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        ownPresenceChangedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.Builder getOwnPresenceChangedBuilder() {
+      return internalGetOwnPresenceChangedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder getOwnPresenceChangedOrBuilder() {
+      if ((payloadCase_ == 111) && (ownPresenceChangedBuilder_ != null)) {
+        return ownPresenceChangedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 111) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder> 
+        internalGetOwnPresenceChangedFieldBuilder() {
+      if (ownPresenceChangedBuilder_ == null) {
+        if (!(payloadCase_ == 111)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.getDefaultInstance();
+        }
+        ownPresenceChangedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 111;
+      onChanged();
+      return ownPresenceChangedBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Event)
