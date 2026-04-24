@@ -30,6 +30,46 @@ final $typed_data.Uint8List conversationTypeDescriptor = $convert.base64Decode(
     'ChBDb252ZXJzYXRpb25UeXBlEiEKHUNPTlZFUlNBVElPTl9UWVBFX1VOU1BFQ0lGSUVEEAASGA'
     'oUQ09OVkVSU0FUSU9OX1RZUEVfRE0QARIbChdDT05WRVJTQVRJT05fVFlQRV9HUk9VUBAC');
 
+@$core.Deprecated('Use deletionKindDescriptor instead')
+const DeletionKind$json = {
+  '1': 'DeletionKind',
+  '2': [
+    {'1': 'DELETION_KIND_UNSPECIFIED', '2': 0},
+    {'1': 'DELETION_KIND_FOR_EVERYONE', '2': 1},
+    {'1': 'DELETION_KIND_UNSENT', '2': 2},
+    {'1': 'DELETION_KIND_EXPIRED', '2': 3},
+  ],
+};
+
+/// Descriptor for `DeletionKind`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List deletionKindDescriptor = $convert.base64Decode(
+    'CgxEZWxldGlvbktpbmQSHQoZREVMRVRJT05fS0lORF9VTlNQRUNJRklFRBAAEh4KGkRFTEVUSU'
+    '9OX0tJTkRfRk9SX0VWRVJZT05FEAESGAoUREVMRVRJT05fS0lORF9VTlNFTlQQAhIZChVERUxF'
+    'VElPTl9LSU5EX0VYUElSRUQQAw==');
+
+@$core.Deprecated('Use reactionDescriptor instead')
+const Reaction$json = {
+  '1': 'Reaction',
+  '2': [
+    {'1': 'emoji', '3': 1, '4': 1, '5': 9, '10': 'emoji'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {
+      '1': 'created_at',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'createdAt'
+    },
+  ],
+};
+
+/// Descriptor for `Reaction`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List reactionDescriptor = $convert.base64Decode(
+    'CghSZWFjdGlvbhIUCgVlbW9qaRgBIAEoCVIFZW1vamkSFwoHdXNlcl9pZBgCIAEoCVIGdXNlck'
+    'lkEjkKCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVh'
+    'dGVkQXQ=');
+
 @$core.Deprecated('Use conversationDescriptor instead')
 const Conversation$json = {
   '1': 'Conversation',
@@ -55,6 +95,13 @@ const Conversation$json = {
     },
     {'1': 'member_ids', '3': 6, '4': 3, '5': 9, '10': 'memberIds'},
     {'1': 'last_message_seq', '3': 7, '4': 1, '5': 3, '10': 'lastMessageSeq'},
+    {
+      '1': 'disappearing_seconds',
+      '3': 8,
+      '4': 1,
+      '5': 5,
+      '10': 'disappearingSeconds'
+    },
   ],
 };
 
@@ -64,7 +111,8 @@ final $typed_data.Uint8List conversationDescriptor = $convert.base64Decode(
     '54dC52MS5Db252ZXJzYXRpb25UeXBlUgR0eXBlEhQKBXRpdGxlGAMgASgJUgV0aXRsZRIdCgpj'
     'cmVhdGVkX2J5GAQgASgJUgljcmVhdGVkQnkSOQoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS'
     '5wcm90b2J1Zi5UaW1lc3RhbXBSCWNyZWF0ZWRBdBIdCgptZW1iZXJfaWRzGAYgAygJUgltZW1i'
-    'ZXJJZHMSKAoQbGFzdF9tZXNzYWdlX3NlcRgHIAEoA1IObGFzdE1lc3NhZ2VTZXE=');
+    'ZXJJZHMSKAoQbGFzdF9tZXNzYWdlX3NlcRgHIAEoA1IObGFzdE1lc3NhZ2VTZXESMQoUZGlzYX'
+    'BwZWFyaW5nX3NlY29uZHMYCCABKAVSE2Rpc2FwcGVhcmluZ1NlY29uZHM=');
 
 @$core.Deprecated('Use messageDescriptor instead')
 const Message$json = {
@@ -102,6 +150,30 @@ const Message$json = {
       '10': 'deletedAt'
     },
     {'1': 'deleted_by', '3': 11, '4': 1, '5': 9, '10': 'deletedBy'},
+    {
+      '1': 'deletion_kind',
+      '3': 12,
+      '4': 1,
+      '5': 14,
+      '6': '.mvservernxt.v1.DeletionKind',
+      '10': 'deletionKind'
+    },
+    {
+      '1': 'reactions',
+      '3': 13,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Reaction',
+      '10': 'reactions'
+    },
+    {
+      '1': 'expires_at',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'expiresAt'
+    },
   ],
 };
 
@@ -114,7 +186,10 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'QXQSKgoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAlSD2NsaWVudE1lc3NhZ2VJZBI3CgllZGl0ZW'
     'RfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghlZGl0ZWRBdBI5CgpkZWxl'
     'dGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZGVsZXRlZEF0Eh0KCm'
-    'RlbGV0ZWRfYnkYCyABKAlSCWRlbGV0ZWRCeQ==');
+    'RlbGV0ZWRfYnkYCyABKAlSCWRlbGV0ZWRCeRJBCg1kZWxldGlvbl9raW5kGAwgASgOMhwubXZz'
+    'ZXJ2ZXJueHQudjEuRGVsZXRpb25LaW5kUgxkZWxldGlvbktpbmQSNgoJcmVhY3Rpb25zGA0gAy'
+    'gLMhgubXZzZXJ2ZXJueHQudjEuUmVhY3Rpb25SCXJlYWN0aW9ucxI5CgpleHBpcmVzX2F0GA4g'
+    'ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlc0F0');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -265,6 +340,81 @@ final $typed_data.Uint8List deleteMessageForEveryoneDescriptor =
     $convert.base64Decode(
         'ChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZU'
         'lk');
+
+@$core.Deprecated('Use unsendMessageDescriptor instead')
+const UnsendMessage$json = {
+  '1': 'UnsendMessage',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+  ],
+};
+
+/// Descriptor for `UnsendMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List unsendMessageDescriptor = $convert.base64Decode(
+    'Cg1VbnNlbmRNZXNzYWdlEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZA==');
+
+@$core.Deprecated('Use addReactionDescriptor instead')
+const AddReaction$json = {
+  '1': 'AddReaction',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'emoji', '3': 2, '4': 1, '5': 9, '10': 'emoji'},
+  ],
+};
+
+/// Descriptor for `AddReaction`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addReactionDescriptor = $convert.base64Decode(
+    'CgtBZGRSZWFjdGlvbhIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSFAoFZW1vamkYAi'
+    'ABKAlSBWVtb2pp');
+
+@$core.Deprecated('Use removeReactionDescriptor instead')
+const RemoveReaction$json = {
+  '1': 'RemoveReaction',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'emoji', '3': 2, '4': 1, '5': 9, '10': 'emoji'},
+  ],
+};
+
+/// Descriptor for `RemoveReaction`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List removeReactionDescriptor = $convert.base64Decode(
+    'Cg5SZW1vdmVSZWFjdGlvbhIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSFAoFZW1vam'
+    'kYAiABKAlSBWVtb2pp');
+
+@$core.Deprecated('Use sendTypingDescriptor instead')
+const SendTyping$json = {
+  '1': 'SendTyping',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'is_typing', '3': 2, '4': 1, '5': 8, '10': 'isTyping'},
+  ],
+};
+
+/// Descriptor for `SendTyping`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List sendTypingDescriptor = $convert.base64Decode(
+    'CgpTZW5kVHlwaW5nEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udmVyc2F0aW9uSWQSGw'
+    'oJaXNfdHlwaW5nGAIgASgIUghpc1R5cGluZw==');
+
+@$core.Deprecated('Use setDisappearingMessagesDescriptor instead')
+const SetDisappearingMessages$json = {
+  '1': 'SetDisappearingMessages',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {
+      '1': 'disappearing_seconds',
+      '3': 2,
+      '4': 1,
+      '5': 5,
+      '10': 'disappearingSeconds'
+    },
+  ],
+};
+
+/// Descriptor for `SetDisappearingMessages`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List setDisappearingMessagesDescriptor = $convert.base64Decode(
+    'ChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbn'
+    'ZlcnNhdGlvbklkEjEKFGRpc2FwcGVhcmluZ19zZWNvbmRzGAIgASgFUhNkaXNhcHBlYXJpbmdT'
+    'ZWNvbmRz');
 
 @$core.Deprecated('Use markReadDescriptor instead')
 const MarkRead$json = {
@@ -619,3 +769,158 @@ final $typed_data.Uint8List messageDeletedForEveryoneDescriptor = $convert.base6
     'VJZBInCg9jb252ZXJzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEh0KCmRlbGV0ZWRf'
     'YnkYAyABKAlSCWRlbGV0ZWRCeRI5CgpkZWxldGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYn'
     'VmLlRpbWVzdGFtcFIJZGVsZXRlZEF0');
+
+@$core.Deprecated('Use messageUnsentDescriptor instead')
+const MessageUnsent$json = {
+  '1': 'MessageUnsent',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'unsent_by', '3': 3, '4': 1, '5': 9, '10': 'unsentBy'},
+    {
+      '1': 'unsent_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'unsentAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageUnsent`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageUnsentDescriptor = $convert.base64Decode(
+    'Cg1NZXNzYWdlVW5zZW50Eh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZBInCg9jb252ZX'
+    'JzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEhsKCXVuc2VudF9ieRgDIAEoCVIIdW5z'
+    'ZW50QnkSNwoJdW5zZW50X2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIdW'
+    '5zZW50QXQ=');
+
+@$core.Deprecated('Use messageReactionAddedDescriptor instead')
+const MessageReactionAdded$json = {
+  '1': 'MessageReactionAdded',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 3, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'emoji', '3': 4, '4': 1, '5': 9, '10': 'emoji'},
+    {
+      '1': 'created_at',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'createdAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageReactionAdded`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageReactionAddedDescriptor = $convert.base64Decode(
+    'ChRNZXNzYWdlUmVhY3Rpb25BZGRlZBIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSJw'
+    'oPY29udmVyc2F0aW9uX2lkGAIgASgJUg5jb252ZXJzYXRpb25JZBIXCgd1c2VyX2lkGAMgASgJ'
+    'UgZ1c2VySWQSFAoFZW1vamkYBCABKAlSBWVtb2ppEjkKCmNyZWF0ZWRfYXQYBSABKAsyGi5nb2'
+    '9nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVkQXQ=');
+
+@$core.Deprecated('Use messageReactionRemovedDescriptor instead')
+const MessageReactionRemoved$json = {
+  '1': 'MessageReactionRemoved',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 3, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'emoji', '3': 4, '4': 1, '5': 9, '10': 'emoji'},
+    {
+      '1': 'removed_at',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'removedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageReactionRemoved`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageReactionRemovedDescriptor = $convert.base64Decode(
+    'ChZNZXNzYWdlUmVhY3Rpb25SZW1vdmVkEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZB'
+    'InCg9jb252ZXJzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEhcKB3VzZXJfaWQYAyAB'
+    'KAlSBnVzZXJJZBIUCgVlbW9qaRgEIAEoCVIFZW1vamkSOQoKcmVtb3ZlZF9hdBgFIAEoCzIaLm'
+    'dvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXJlbW92ZWRBdA==');
+
+@$core.Deprecated('Use typingChangedDescriptor instead')
+const TypingChanged$json = {
+  '1': 'TypingChanged',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'is_typing', '3': 3, '4': 1, '5': 8, '10': 'isTyping'},
+    {
+      '1': 'at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'at'
+    },
+  ],
+};
+
+/// Descriptor for `TypingChanged`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List typingChangedDescriptor = $convert.base64Decode(
+    'Cg1UeXBpbmdDaGFuZ2VkEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udmVyc2F0aW9uSW'
+    'QSFwoHdXNlcl9pZBgCIAEoCVIGdXNlcklkEhsKCWlzX3R5cGluZxgDIAEoCFIIaXNUeXBpbmcS'
+    'KgoCYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgJhdA==');
+
+@$core.Deprecated('Use disappearingMessagesChangedDescriptor instead')
+const DisappearingMessagesChanged$json = {
+  '1': 'DisappearingMessagesChanged',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {
+      '1': 'disappearing_seconds',
+      '3': 2,
+      '4': 1,
+      '5': 5,
+      '10': 'disappearingSeconds'
+    },
+    {'1': 'changed_by', '3': 3, '4': 1, '5': 9, '10': 'changedBy'},
+    {
+      '1': 'changed_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'changedAt'
+    },
+  ],
+};
+
+/// Descriptor for `DisappearingMessagesChanged`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List disappearingMessagesChangedDescriptor = $convert.base64Decode(
+    'ChtEaXNhcHBlYXJpbmdNZXNzYWdlc0NoYW5nZWQSJwoPY29udmVyc2F0aW9uX2lkGAEgASgJUg'
+    '5jb252ZXJzYXRpb25JZBIxChRkaXNhcHBlYXJpbmdfc2Vjb25kcxgCIAEoBVITZGlzYXBwZWFy'
+    'aW5nU2Vjb25kcxIdCgpjaGFuZ2VkX2J5GAMgASgJUgljaGFuZ2VkQnkSOQoKY2hhbmdlZF9hdB'
+    'gEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNoYW5nZWRBdA==');
+
+@$core.Deprecated('Use messageExpiredDescriptor instead')
+const MessageExpired$json = {
+  '1': 'MessageExpired',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {
+      '1': 'expired_at',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'expiredAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageExpired`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageExpiredDescriptor = $convert.base64Decode(
+    'Cg5NZXNzYWdlRXhwaXJlZBIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSJwoPY29udm'
+    'Vyc2F0aW9uX2lkGAIgASgJUg5jb252ZXJzYXRpb25JZBI5CgpleHBpcmVkX2F0GAMgASgLMhou'
+    'Z29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlZEF0');

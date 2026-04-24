@@ -59,6 +59,11 @@ message ClientEnvelope {
     EditMessage             edit_message               = 38;
     DeleteMessage           delete_message             = 39;
     DeleteMessageForEveryone delete_message_for_everyone = 40;
+    UnsendMessage           unsend_message             = 41;
+    AddReaction             add_reaction               = 42;
+    RemoveReaction          remove_reaction            = 43;
+    SendTyping              send_typing                = 44;
+    SetDisappearingMessages set_disappearing_messages  = 45;
 
     // Other domains land in their reserved ranges:
     //   50-59  pulse
@@ -173,5 +178,11 @@ message Event {
     MessageEdited              message_edited               = 36;
     MessageHidden              message_hidden               = 37;
     MessageDeletedForEveryone  message_deleted_for_everyone = 38;
+    MessageUnsent              message_unsent               = 39;
+    MessageReactionAdded       message_reaction_added       = 40;
+    MessageReactionRemoved     message_reaction_removed     = 41;
+    TypingChanged              typing_changed               = 42;
+    DisappearingMessagesChanged disappearing_messages_changed = 43;
+    MessageExpired             message_expired              = 44;
   }
 }

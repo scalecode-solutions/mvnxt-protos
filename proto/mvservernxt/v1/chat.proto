@@ -28,6 +28,35 @@ enum ConversationType {
   CONVERSATION_TYPE_GROUP       = 2;  // 2+ members, named, mutable membership.
 }
 
+// DeletionKind discriminates the flavor of a soft-deleted message.
+// All three kinds set Message.deleted_at; the row is preserved in
+// every case (nothing is physically removed). Clients render
+// differently based on kind.
+//
+// FOR_EVERYONE: anytime sender-initiated delete. Clients show a
+//   "deleted message" placeholder in-place.
+// UNSENT:       time-limited sender-initiated undo (v1: 5-minute
+//   window). Clients remove the message entirely — as if it never
+//   happened.
+// EXPIRED:      disappearing-message TTL hit. Equivalent to UNSENT
+//   client-side (content is gone) but the source is the server's
+//   scheduler rather than a sender action.
+enum DeletionKind {
+  DELETION_KIND_UNSPECIFIED  = 0;
+  DELETION_KIND_FOR_EVERYONE = 1;
+  DELETION_KIND_UNSENT       = 2;
+  DELETION_KIND_EXPIRED      = 3;
+}
+
+// Reaction is one emoji reaction from one user on one message.
+// Servers return a full list on Message.reactions; clients aggregate
+// by emoji for display.
+message Reaction {
+  string                    emoji      = 1;
+  string                    user_id    = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
 // Conversation is the client-facing view of a conversation row +
 // participant set. Returned by CreateConversation / ListConversations.
 message Conversation {
@@ -47,6 +76,13 @@ message Conversation {
   // the highwater of conversation activity. Used by ListConversations
   // to sort without an extra query.
   int64                     last_message_seq = 7;
+
+  // Disappearing-message TTL for messages sent into this conversation.
+  // 0 = disappearing messages disabled. When non-zero, a new message's
+  // expires_at is set to created_at + disappearing_seconds and the
+  // server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+  // the TTL is up.
+  int32                     disappearing_seconds = 8;
 }
 
 // Message is the client-facing view of one message row.
@@ -87,15 +123,29 @@ message Message {
   // original sender only.
   google.protobuf.Timestamp edited_at         = 9;
 
-  // When the message was soft-deleted "for everyone". Null = not
-  // deleted. Clients observing a non-null value MUST render a "deleted"
-  // placeholder rather than body (which the server redacts to "").
+  // When the message was soft-deleted. Null = not deleted. The flavor
+  // of the delete — for-everyone / unsent / expired — is on
+  // deletion_kind. All three preserve the DB row; clients render per
+  // kind.
   google.protobuf.Timestamp deleted_at        = 10;
 
   // Who issued the delete (user_id string). Typically the sender
   // (self-delete); admin moderation lands later. Empty when deleted_at
-  // is null.
+  // is null or the delete was server-initiated (EXPIRED).
   string                    deleted_by        = 11;
+
+  // Discriminates the soft-delete flavor when deleted_at is non-null.
+  // UNSPECIFIED when deleted_at is null.
+  DeletionKind              deletion_kind     = 12;
+
+  // Reactions from every user on this message. Unordered; clients
+  // aggregate by emoji.
+  repeated Reaction         reactions         = 13;
+
+  // When the message will disappear if disappearing-messages is active
+  // in the conversation. Null = no expiry. Set at send time from the
+  // conversation's disappearing_seconds policy.
+  google.protobuf.Timestamp expires_at        = 14;
 }
 
 // ============================================================================
@@ -245,6 +295,67 @@ message DeleteMessageForEveryone {
   string message_id = 1;
 }
 
+// UnsendMessage is the time-limited "undo" variant of delete. Within 5
+// minutes of send, the sender can call UnsendMessage to wipe the
+// message from everyone's UI as if it was never sent. Past that window
+// the call is rejected — use DeleteMessageForEveryone (which leaves a
+// visible placeholder) instead.
+//
+// Server-side this is a soft delete (nothing is removed from the DB):
+// messages.deleted_at, deleted_by, and deletion_kind=UNSENT are set.
+// Client rendering is what differs — UNSENT disappears from the UI
+// entirely rather than leaving the "deleted message" placeholder.
+//
+// Caller MUST be the original sender.
+message UnsendMessage {
+  string message_id = 1;
+}
+
+// AddReaction adds an emoji reaction from the caller to a message. A
+// single user can react with the same emoji only once (idempotent:
+// re-adding the same emoji Acks cleanly without re-emitting). One
+// user can stack multiple distinct emoji on one message.
+//
+// Caller MUST be an active member of the message's conversation.
+// Cannot react to a soft-deleted message.
+message AddReaction {
+  string message_id = 1;
+  string emoji      = 2;
+}
+
+// RemoveReaction undoes an AddReaction for (caller, message, emoji).
+// Idempotent: removing a non-existent reaction Acks cleanly without
+// emitting.
+message RemoveReaction {
+  string message_id = 1;
+  string emoji      = 2;
+}
+
+// SendTyping is a transient signal that the caller is composing a
+// message in a conversation. Fans out a TypingChanged event to other
+// active members. UNLIKE persistent chat operations, typing does NOT
+// append to the event log — missed typing signals are irrelevant, and
+// logging every keystroke would swamp the log with ambient noise.
+//
+// Clients SHOULD debounce — send SendTyping no more than every 3-5
+// seconds for a given conversation, and send is_typing=false on
+// composition stop or message sent.
+message SendTyping {
+  string conversation_id = 1;
+  bool   is_typing       = 2;  // false = "stopped typing"
+}
+
+// SetDisappearingMessages adjusts the per-conversation TTL for future
+// messages. 0 disables. Caller MUST be an active member (role-based
+// admin checks land later).
+//
+// Existing messages' expires_at values are not retroactively changed;
+// only messages sent after the policy change take the new TTL.
+message SetDisappearingMessages {
+  string conversation_id      = 1;
+  int32  disappearing_seconds = 2;
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
@@ -379,4 +490,70 @@ message MessageDeletedForEveryone {
   string                    conversation_id = 2;
   string                    deleted_by      = 3;  // Usually the original sender
   google.protobuf.Timestamp deleted_at      = 4;
+}
+
+// MessageUnsent fires for each successful UnsendMessage. Fans out to
+// every active member. Clients remove the message from their UI
+// entirely (no placeholder — that's the distinction from
+// MessageDeletedForEveryone).
+message MessageUnsent {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    unsent_by       = 3;  // Always the original sender
+  google.protobuf.Timestamp unsent_at       = 4;
+}
+
+// MessageReactionAdded fires for each successful AddReaction. Fans out
+// to every active member. Clients update their reaction aggregate for
+// the target message.
+message MessageReactionAdded {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    user_id         = 3;
+  string                    emoji           = 4;
+  google.protobuf.Timestamp created_at      = 5;
+}
+
+// MessageReactionRemoved fires for each successful RemoveReaction.
+message MessageReactionRemoved {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    user_id         = 3;
+  string                    emoji           = 4;
+  google.protobuf.Timestamp removed_at      = 5;
+}
+
+// TypingChanged fires for each SendTyping. UNLIKE every other chat
+// event, this is delivered via direct hub broadcast, NOT through the
+// event log — typing is ambient and ephemeral, so missed signals are
+// fine and logging would swamp retention storage.
+//
+// Delivered from stream="ambient" (doc 04); clients that persist a
+// sync cursor should NOT advance it from these events.
+message TypingChanged {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;
+  bool                      is_typing       = 3;
+  google.protobuf.Timestamp at              = 4;
+}
+
+// DisappearingMessagesChanged fires for each successful
+// SetDisappearingMessages. Fans out to every active member so UI can
+// display the new policy (typically "disappearing messages turned
+// on/off" system message).
+message DisappearingMessagesChanged {
+  string                    conversation_id      = 1;
+  int32                     disappearing_seconds = 2;  // 0 = disabled
+  string                    changed_by           = 3;
+  google.protobuf.Timestamp changed_at           = 4;
+}
+
+// MessageExpired fires when the scheduler's expiry worker soft-deletes
+// a disappearing message (the TTL elapsed). Equivalent client-side to
+// MessageUnsent — the message disappears from UI — but the trigger is
+// server-initiated, not a sender action.
+message MessageExpired {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  google.protobuf.Timestamp expired_at      = 3;
 }

@@ -23,6 +23,89 @@ export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'chat.pbenum.dart';
 
+/// Reaction is one emoji reaction from one user on one message.
+/// Servers return a full list on Message.reactions; clients aggregate
+/// by emoji for display.
+class Reaction extends $pb.GeneratedMessage {
+  factory Reaction({
+    $core.String? emoji,
+    $core.String? userId,
+    $0.Timestamp? createdAt,
+  }) {
+    final result = create();
+    if (emoji != null) result.emoji = emoji;
+    if (userId != null) result.userId = userId;
+    if (createdAt != null) result.createdAt = createdAt;
+    return result;
+  }
+
+  Reaction._();
+
+  factory Reaction.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Reaction.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Reaction',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'emoji')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Reaction clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Reaction copyWith(void Function(Reaction) updates) =>
+      super.copyWith((message) => updates(message as Reaction)) as Reaction;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Reaction create() => Reaction._();
+  @$core.override
+  Reaction createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static Reaction getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Reaction>(create);
+  static Reaction? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get emoji => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set emoji($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasEmoji() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmoji() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $0.Timestamp get createdAt => $_getN(2);
+  @$pb.TagNumber(3)
+  set createdAt($0.Timestamp value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasCreatedAt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCreatedAt() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $0.Timestamp ensureCreatedAt() => $_ensure(2);
+}
+
 /// Conversation is the client-facing view of a conversation row +
 /// participant set. Returned by CreateConversation / ListConversations.
 class Conversation extends $pb.GeneratedMessage {
@@ -34,6 +117,7 @@ class Conversation extends $pb.GeneratedMessage {
     $0.Timestamp? createdAt,
     $core.Iterable<$core.String>? memberIds,
     $fixnum.Int64? lastMessageSeq,
+    $core.int? disappearingSeconds,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -43,6 +127,8 @@ class Conversation extends $pb.GeneratedMessage {
     if (createdAt != null) result.createdAt = createdAt;
     if (memberIds != null) result.memberIds.addAll(memberIds);
     if (lastMessageSeq != null) result.lastMessageSeq = lastMessageSeq;
+    if (disappearingSeconds != null)
+      result.disappearingSeconds = disappearingSeconds;
     return result;
   }
 
@@ -68,6 +154,7 @@ class Conversation extends $pb.GeneratedMessage {
         subBuilder: $0.Timestamp.create)
     ..pPS(6, _omitFieldNames ? '' : 'memberIds')
     ..aInt64(7, _omitFieldNames ? '' : 'lastMessageSeq')
+    ..aI(8, _omitFieldNames ? '' : 'disappearingSeconds')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -154,6 +241,20 @@ class Conversation extends $pb.GeneratedMessage {
   $core.bool hasLastMessageSeq() => $_has(6);
   @$pb.TagNumber(7)
   void clearLastMessageSeq() => $_clearField(7);
+
+  /// Disappearing-message TTL for messages sent into this conversation.
+  /// 0 = disappearing messages disabled. When non-zero, a new message's
+  /// expires_at is set to created_at + disappearing_seconds and the
+  /// server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+  /// the TTL is up.
+  @$pb.TagNumber(8)
+  $core.int get disappearingSeconds => $_getIZ(7);
+  @$pb.TagNumber(8)
+  set disappearingSeconds($core.int value) => $_setSignedInt32(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasDisappearingSeconds() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearDisappearingSeconds() => $_clearField(8);
 }
 
 /// Message is the client-facing view of one message row.
@@ -179,6 +280,9 @@ class Message extends $pb.GeneratedMessage {
     $0.Timestamp? editedAt,
     $0.Timestamp? deletedAt,
     $core.String? deletedBy,
+    DeletionKind? deletionKind,
+    $core.Iterable<Reaction>? reactions,
+    $0.Timestamp? expiresAt,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -192,6 +296,9 @@ class Message extends $pb.GeneratedMessage {
     if (editedAt != null) result.editedAt = editedAt;
     if (deletedAt != null) result.deletedAt = deletedAt;
     if (deletedBy != null) result.deletedBy = deletedBy;
+    if (deletionKind != null) result.deletionKind = deletionKind;
+    if (reactions != null) result.reactions.addAll(reactions);
+    if (expiresAt != null) result.expiresAt = expiresAt;
     return result;
   }
 
@@ -222,6 +329,12 @@ class Message extends $pb.GeneratedMessage {
     ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'deletedAt',
         subBuilder: $0.Timestamp.create)
     ..aOS(11, _omitFieldNames ? '' : 'deletedBy')
+    ..aE<DeletionKind>(12, _omitFieldNames ? '' : 'deletionKind',
+        enumValues: DeletionKind.values)
+    ..pPM<Reaction>(13, _omitFieldNames ? '' : 'reactions',
+        subBuilder: Reaction.create)
+    ..aOM<$0.Timestamp>(14, _omitFieldNames ? '' : 'expiresAt',
+        subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -340,9 +453,10 @@ class Message extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $0.Timestamp ensureEditedAt() => $_ensure(8);
 
-  /// When the message was soft-deleted "for everyone". Null = not
-  /// deleted. Clients observing a non-null value MUST render a "deleted"
-  /// placeholder rather than body (which the server redacts to "").
+  /// When the message was soft-deleted. Null = not deleted. The flavor
+  /// of the delete — for-everyone / unsent / expired — is on
+  /// deletion_kind. All three preserve the DB row; clients render per
+  /// kind.
   @$pb.TagNumber(10)
   $0.Timestamp get deletedAt => $_getN(9);
   @$pb.TagNumber(10)
@@ -356,7 +470,7 @@ class Message extends $pb.GeneratedMessage {
 
   /// Who issued the delete (user_id string). Typically the sender
   /// (self-delete); admin moderation lands later. Empty when deleted_at
-  /// is null.
+  /// is null or the delete was server-initiated (EXPIRED).
   @$pb.TagNumber(11)
   $core.String get deletedBy => $_getSZ(10);
   @$pb.TagNumber(11)
@@ -365,6 +479,36 @@ class Message extends $pb.GeneratedMessage {
   $core.bool hasDeletedBy() => $_has(10);
   @$pb.TagNumber(11)
   void clearDeletedBy() => $_clearField(11);
+
+  /// Discriminates the soft-delete flavor when deleted_at is non-null.
+  /// UNSPECIFIED when deleted_at is null.
+  @$pb.TagNumber(12)
+  DeletionKind get deletionKind => $_getN(11);
+  @$pb.TagNumber(12)
+  set deletionKind(DeletionKind value) => $_setField(12, value);
+  @$pb.TagNumber(12)
+  $core.bool hasDeletionKind() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearDeletionKind() => $_clearField(12);
+
+  /// Reactions from every user on this message. Unordered; clients
+  /// aggregate by emoji.
+  @$pb.TagNumber(13)
+  $pb.PbList<Reaction> get reactions => $_getList(12);
+
+  /// When the message will disappear if disappearing-messages is active
+  /// in the conversation. Null = no expiry. Set at send time from the
+  /// conversation's disappearing_seconds policy.
+  @$pb.TagNumber(14)
+  $0.Timestamp get expiresAt => $_getN(13);
+  @$pb.TagNumber(14)
+  set expiresAt($0.Timestamp value) => $_setField(14, value);
+  @$pb.TagNumber(14)
+  $core.bool hasExpiresAt() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearExpiresAt() => $_clearField(14);
+  @$pb.TagNumber(14)
+  $0.Timestamp ensureExpiresAt() => $_ensure(13);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -1122,6 +1266,362 @@ class DeleteMessageForEveryone extends $pb.GeneratedMessage {
   $core.bool hasMessageId() => $_has(0);
   @$pb.TagNumber(1)
   void clearMessageId() => $_clearField(1);
+}
+
+/// UnsendMessage is the time-limited "undo" variant of delete. Within 5
+/// minutes of send, the sender can call UnsendMessage to wipe the
+/// message from everyone's UI as if it was never sent. Past that window
+/// the call is rejected — use DeleteMessageForEveryone (which leaves a
+/// visible placeholder) instead.
+///
+/// Server-side this is a soft delete (nothing is removed from the DB):
+/// messages.deleted_at, deleted_by, and deletion_kind=UNSENT are set.
+/// Client rendering is what differs — UNSENT disappears from the UI
+/// entirely rather than leaving the "deleted message" placeholder.
+///
+/// Caller MUST be the original sender.
+class UnsendMessage extends $pb.GeneratedMessage {
+  factory UnsendMessage({
+    $core.String? messageId,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    return result;
+  }
+
+  UnsendMessage._();
+
+  factory UnsendMessage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory UnsendMessage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'UnsendMessage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UnsendMessage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UnsendMessage copyWith(void Function(UnsendMessage) updates) =>
+      super.copyWith((message) => updates(message as UnsendMessage))
+          as UnsendMessage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UnsendMessage create() => UnsendMessage._();
+  @$core.override
+  UnsendMessage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static UnsendMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UnsendMessage>(create);
+  static UnsendMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+}
+
+/// AddReaction adds an emoji reaction from the caller to a message. A
+/// single user can react with the same emoji only once (idempotent:
+/// re-adding the same emoji Acks cleanly without re-emitting). One
+/// user can stack multiple distinct emoji on one message.
+///
+/// Caller MUST be an active member of the message's conversation.
+/// Cannot react to a soft-deleted message.
+class AddReaction extends $pb.GeneratedMessage {
+  factory AddReaction({
+    $core.String? messageId,
+    $core.String? emoji,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (emoji != null) result.emoji = emoji;
+    return result;
+  }
+
+  AddReaction._();
+
+  factory AddReaction.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AddReaction.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AddReaction',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'emoji')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AddReaction clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AddReaction copyWith(void Function(AddReaction) updates) =>
+      super.copyWith((message) => updates(message as AddReaction))
+          as AddReaction;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddReaction create() => AddReaction._();
+  @$core.override
+  AddReaction createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AddReaction getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AddReaction>(create);
+  static AddReaction? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get emoji => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set emoji($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasEmoji() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmoji() => $_clearField(2);
+}
+
+/// RemoveReaction undoes an AddReaction for (caller, message, emoji).
+/// Idempotent: removing a non-existent reaction Acks cleanly without
+/// emitting.
+class RemoveReaction extends $pb.GeneratedMessage {
+  factory RemoveReaction({
+    $core.String? messageId,
+    $core.String? emoji,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (emoji != null) result.emoji = emoji;
+    return result;
+  }
+
+  RemoveReaction._();
+
+  factory RemoveReaction.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory RemoveReaction.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'RemoveReaction',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'emoji')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  RemoveReaction clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  RemoveReaction copyWith(void Function(RemoveReaction) updates) =>
+      super.copyWith((message) => updates(message as RemoveReaction))
+          as RemoveReaction;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static RemoveReaction create() => RemoveReaction._();
+  @$core.override
+  RemoveReaction createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static RemoveReaction getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<RemoveReaction>(create);
+  static RemoveReaction? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get emoji => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set emoji($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasEmoji() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmoji() => $_clearField(2);
+}
+
+/// SendTyping is a transient signal that the caller is composing a
+/// message in a conversation. Fans out a TypingChanged event to other
+/// active members. UNLIKE persistent chat operations, typing does NOT
+/// append to the event log — missed typing signals are irrelevant, and
+/// logging every keystroke would swamp the log with ambient noise.
+///
+/// Clients SHOULD debounce — send SendTyping no more than every 3-5
+/// seconds for a given conversation, and send is_typing=false on
+/// composition stop or message sent.
+class SendTyping extends $pb.GeneratedMessage {
+  factory SendTyping({
+    $core.String? conversationId,
+    $core.bool? isTyping,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (isTyping != null) result.isTyping = isTyping;
+    return result;
+  }
+
+  SendTyping._();
+
+  factory SendTyping.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory SendTyping.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'SendTyping',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOB(2, _omitFieldNames ? '' : 'isTyping')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SendTyping clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SendTyping copyWith(void Function(SendTyping) updates) =>
+      super.copyWith((message) => updates(message as SendTyping)) as SendTyping;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SendTyping create() => SendTyping._();
+  @$core.override
+  SendTyping createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static SendTyping getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SendTyping>(create);
+  static SendTyping? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get isTyping => $_getBF(1);
+  @$pb.TagNumber(2)
+  set isTyping($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasIsTyping() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearIsTyping() => $_clearField(2);
+}
+
+/// SetDisappearingMessages adjusts the per-conversation TTL for future
+/// messages. 0 disables. Caller MUST be an active member (role-based
+/// admin checks land later).
+///
+/// Existing messages' expires_at values are not retroactively changed;
+/// only messages sent after the policy change take the new TTL.
+class SetDisappearingMessages extends $pb.GeneratedMessage {
+  factory SetDisappearingMessages({
+    $core.String? conversationId,
+    $core.int? disappearingSeconds,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (disappearingSeconds != null)
+      result.disappearingSeconds = disappearingSeconds;
+    return result;
+  }
+
+  SetDisappearingMessages._();
+
+  factory SetDisappearingMessages.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory SetDisappearingMessages.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'SetDisappearingMessages',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aI(2, _omitFieldNames ? '' : 'disappearingSeconds')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SetDisappearingMessages clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SetDisappearingMessages copyWith(
+          void Function(SetDisappearingMessages) updates) =>
+      super.copyWith((message) => updates(message as SetDisappearingMessages))
+          as SetDisappearingMessages;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SetDisappearingMessages create() => SetDisappearingMessages._();
+  @$core.override
+  SetDisappearingMessages createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static SetDisappearingMessages getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SetDisappearingMessages>(create);
+  static SetDisappearingMessages? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get disappearingSeconds => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set disappearingSeconds($core.int value) => $_setSignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasDisappearingSeconds() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDisappearingSeconds() => $_clearField(2);
 }
 
 /// MarkRead advances the caller's last_read_seq on a conversation.
@@ -2400,6 +2900,604 @@ class MessageDeletedForEveryone extends $pb.GeneratedMessage {
   void clearDeletedAt() => $_clearField(4);
   @$pb.TagNumber(4)
   $0.Timestamp ensureDeletedAt() => $_ensure(3);
+}
+
+/// MessageUnsent fires for each successful UnsendMessage. Fans out to
+/// every active member. Clients remove the message from their UI
+/// entirely (no placeholder — that's the distinction from
+/// MessageDeletedForEveryone).
+class MessageUnsent extends $pb.GeneratedMessage {
+  factory MessageUnsent({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? unsentBy,
+    $0.Timestamp? unsentAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (unsentBy != null) result.unsentBy = unsentBy;
+    if (unsentAt != null) result.unsentAt = unsentAt;
+    return result;
+  }
+
+  MessageUnsent._();
+
+  factory MessageUnsent.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageUnsent.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageUnsent',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'unsentBy')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'unsentAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageUnsent clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageUnsent copyWith(void Function(MessageUnsent) updates) =>
+      super.copyWith((message) => updates(message as MessageUnsent))
+          as MessageUnsent;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageUnsent create() => MessageUnsent._();
+  @$core.override
+  MessageUnsent createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageUnsent getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageUnsent>(create);
+  static MessageUnsent? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get unsentBy => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set unsentBy($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasUnsentBy() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUnsentBy() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get unsentAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set unsentAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasUnsentAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUnsentAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureUnsentAt() => $_ensure(3);
+}
+
+/// MessageReactionAdded fires for each successful AddReaction. Fans out
+/// to every active member. Clients update their reaction aggregate for
+/// the target message.
+class MessageReactionAdded extends $pb.GeneratedMessage {
+  factory MessageReactionAdded({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? userId,
+    $core.String? emoji,
+    $0.Timestamp? createdAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (emoji != null) result.emoji = emoji;
+    if (createdAt != null) result.createdAt = createdAt;
+    return result;
+  }
+
+  MessageReactionAdded._();
+
+  factory MessageReactionAdded.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageReactionAdded.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageReactionAdded',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'userId')
+    ..aOS(4, _omitFieldNames ? '' : 'emoji')
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageReactionAdded clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageReactionAdded copyWith(void Function(MessageReactionAdded) updates) =>
+      super.copyWith((message) => updates(message as MessageReactionAdded))
+          as MessageReactionAdded;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageReactionAdded create() => MessageReactionAdded._();
+  @$core.override
+  MessageReactionAdded createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageReactionAdded getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageReactionAdded>(create);
+  static MessageReactionAdded? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get userId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set userId($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserId() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get emoji => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set emoji($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasEmoji() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEmoji() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $0.Timestamp get createdAt => $_getN(4);
+  @$pb.TagNumber(5)
+  set createdAt($0.Timestamp value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasCreatedAt() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCreatedAt() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $0.Timestamp ensureCreatedAt() => $_ensure(4);
+}
+
+/// MessageReactionRemoved fires for each successful RemoveReaction.
+class MessageReactionRemoved extends $pb.GeneratedMessage {
+  factory MessageReactionRemoved({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? userId,
+    $core.String? emoji,
+    $0.Timestamp? removedAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (emoji != null) result.emoji = emoji;
+    if (removedAt != null) result.removedAt = removedAt;
+    return result;
+  }
+
+  MessageReactionRemoved._();
+
+  factory MessageReactionRemoved.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageReactionRemoved.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageReactionRemoved',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'userId')
+    ..aOS(4, _omitFieldNames ? '' : 'emoji')
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'removedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageReactionRemoved clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageReactionRemoved copyWith(
+          void Function(MessageReactionRemoved) updates) =>
+      super.copyWith((message) => updates(message as MessageReactionRemoved))
+          as MessageReactionRemoved;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageReactionRemoved create() => MessageReactionRemoved._();
+  @$core.override
+  MessageReactionRemoved createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageReactionRemoved getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageReactionRemoved>(create);
+  static MessageReactionRemoved? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get userId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set userId($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserId() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get emoji => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set emoji($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasEmoji() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEmoji() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $0.Timestamp get removedAt => $_getN(4);
+  @$pb.TagNumber(5)
+  set removedAt($0.Timestamp value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasRemovedAt() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearRemovedAt() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $0.Timestamp ensureRemovedAt() => $_ensure(4);
+}
+
+/// TypingChanged fires for each SendTyping. UNLIKE every other chat
+/// event, this is delivered via direct hub broadcast, NOT through the
+/// event log — typing is ambient and ephemeral, so missed signals are
+/// fine and logging would swamp retention storage.
+///
+/// Delivered from stream="ambient" (doc 04); clients that persist a
+/// sync cursor should NOT advance it from these events.
+class TypingChanged extends $pb.GeneratedMessage {
+  factory TypingChanged({
+    $core.String? conversationId,
+    $core.String? userId,
+    $core.bool? isTyping,
+    $0.Timestamp? at,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (isTyping != null) result.isTyping = isTyping;
+    if (at != null) result.at = at;
+    return result;
+  }
+
+  TypingChanged._();
+
+  factory TypingChanged.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory TypingChanged.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'TypingChanged',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aOB(3, _omitFieldNames ? '' : 'isTyping')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'at',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TypingChanged clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TypingChanged copyWith(void Function(TypingChanged) updates) =>
+      super.copyWith((message) => updates(message as TypingChanged))
+          as TypingChanged;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static TypingChanged create() => TypingChanged._();
+  @$core.override
+  TypingChanged createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static TypingChanged getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TypingChanged>(create);
+  static TypingChanged? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get isTyping => $_getBF(2);
+  @$pb.TagNumber(3)
+  set isTyping($core.bool value) => $_setBool(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasIsTyping() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearIsTyping() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get at => $_getN(3);
+  @$pb.TagNumber(4)
+  set at($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureAt() => $_ensure(3);
+}
+
+/// DisappearingMessagesChanged fires for each successful
+/// SetDisappearingMessages. Fans out to every active member so UI can
+/// display the new policy (typically "disappearing messages turned
+/// on/off" system message).
+class DisappearingMessagesChanged extends $pb.GeneratedMessage {
+  factory DisappearingMessagesChanged({
+    $core.String? conversationId,
+    $core.int? disappearingSeconds,
+    $core.String? changedBy,
+    $0.Timestamp? changedAt,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (disappearingSeconds != null)
+      result.disappearingSeconds = disappearingSeconds;
+    if (changedBy != null) result.changedBy = changedBy;
+    if (changedAt != null) result.changedAt = changedAt;
+    return result;
+  }
+
+  DisappearingMessagesChanged._();
+
+  factory DisappearingMessagesChanged.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DisappearingMessagesChanged.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DisappearingMessagesChanged',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aI(2, _omitFieldNames ? '' : 'disappearingSeconds')
+    ..aOS(3, _omitFieldNames ? '' : 'changedBy')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'changedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DisappearingMessagesChanged clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DisappearingMessagesChanged copyWith(
+          void Function(DisappearingMessagesChanged) updates) =>
+      super.copyWith(
+              (message) => updates(message as DisappearingMessagesChanged))
+          as DisappearingMessagesChanged;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DisappearingMessagesChanged create() =>
+      DisappearingMessagesChanged._();
+  @$core.override
+  DisappearingMessagesChanged createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DisappearingMessagesChanged getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DisappearingMessagesChanged>(create);
+  static DisappearingMessagesChanged? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get disappearingSeconds => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set disappearingSeconds($core.int value) => $_setSignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasDisappearingSeconds() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDisappearingSeconds() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get changedBy => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set changedBy($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasChangedBy() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearChangedBy() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get changedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set changedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasChangedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearChangedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureChangedAt() => $_ensure(3);
+}
+
+/// MessageExpired fires when the scheduler's expiry worker soft-deletes
+/// a disappearing message (the TTL elapsed). Equivalent client-side to
+/// MessageUnsent — the message disappears from UI — but the trigger is
+/// server-initiated, not a sender action.
+class MessageExpired extends $pb.GeneratedMessage {
+  factory MessageExpired({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $0.Timestamp? expiredAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (expiredAt != null) result.expiredAt = expiredAt;
+    return result;
+  }
+
+  MessageExpired._();
+
+  factory MessageExpired.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageExpired.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageExpired',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'expiredAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageExpired clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageExpired copyWith(void Function(MessageExpired) updates) =>
+      super.copyWith((message) => updates(message as MessageExpired))
+          as MessageExpired;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageExpired create() => MessageExpired._();
+  @$core.override
+  MessageExpired createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageExpired getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageExpired>(create);
+  static MessageExpired? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $0.Timestamp get expiredAt => $_getN(2);
+  @$pb.TagNumber(3)
+  set expiredAt($0.Timestamp value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasExpiredAt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearExpiredAt() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $0.Timestamp ensureExpiredAt() => $_ensure(2);
 }
 
 const $core.bool _omitFieldNames =

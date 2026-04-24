@@ -585,6 +585,126 @@ public object ClientEnvelopeKt {
     public fun hasDeleteMessageForEveryone(): kotlin.Boolean {
       return _builder.hasDeleteMessageForEveryone()
     }
+
+    /**
+     * `.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];`
+     */
+    public var unsendMessage: app.mvchat.mvnxt.mvservernxt.v1.UnsendMessage
+      @kotlin.jvm.JvmName("getUnsendMessage")
+        get() = _builder.unsendMessage
+      @kotlin.jvm.JvmName("setUnsendMessage")
+        set(value) {
+        _builder.unsendMessage = value
+      }
+    /**
+     * `.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];`
+     */
+    public fun clearUnsendMessage() {
+      _builder.clearUnsendMessage()
+    }
+    /**
+     * `.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];`
+     * @return Whether the unsendMessage field is set.
+     */
+    public fun hasUnsendMessage(): kotlin.Boolean {
+      return _builder.hasUnsendMessage()
+    }
+
+    /**
+     * `.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];`
+     */
+    public var addReaction: app.mvchat.mvnxt.mvservernxt.v1.AddReaction
+      @kotlin.jvm.JvmName("getAddReaction")
+        get() = _builder.addReaction
+      @kotlin.jvm.JvmName("setAddReaction")
+        set(value) {
+        _builder.addReaction = value
+      }
+    /**
+     * `.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];`
+     */
+    public fun clearAddReaction() {
+      _builder.clearAddReaction()
+    }
+    /**
+     * `.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];`
+     * @return Whether the addReaction field is set.
+     */
+    public fun hasAddReaction(): kotlin.Boolean {
+      return _builder.hasAddReaction()
+    }
+
+    /**
+     * `.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];`
+     */
+    public var removeReaction: app.mvchat.mvnxt.mvservernxt.v1.RemoveReaction
+      @kotlin.jvm.JvmName("getRemoveReaction")
+        get() = _builder.removeReaction
+      @kotlin.jvm.JvmName("setRemoveReaction")
+        set(value) {
+        _builder.removeReaction = value
+      }
+    /**
+     * `.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];`
+     */
+    public fun clearRemoveReaction() {
+      _builder.clearRemoveReaction()
+    }
+    /**
+     * `.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];`
+     * @return Whether the removeReaction field is set.
+     */
+    public fun hasRemoveReaction(): kotlin.Boolean {
+      return _builder.hasRemoveReaction()
+    }
+
+    /**
+     * `.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];`
+     */
+    public var sendTyping: app.mvchat.mvnxt.mvservernxt.v1.SendTyping
+      @kotlin.jvm.JvmName("getSendTyping")
+        get() = _builder.sendTyping
+      @kotlin.jvm.JvmName("setSendTyping")
+        set(value) {
+        _builder.sendTyping = value
+      }
+    /**
+     * `.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];`
+     */
+    public fun clearSendTyping() {
+      _builder.clearSendTyping()
+    }
+    /**
+     * `.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];`
+     * @return Whether the sendTyping field is set.
+     */
+    public fun hasSendTyping(): kotlin.Boolean {
+      return _builder.hasSendTyping()
+    }
+
+    /**
+     * `.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];`
+     */
+    public var setDisappearingMessages: app.mvchat.mvnxt.mvservernxt.v1.SetDisappearingMessages
+      @kotlin.jvm.JvmName("getSetDisappearingMessages")
+        get() = _builder.setDisappearingMessages
+      @kotlin.jvm.JvmName("setSetDisappearingMessages")
+        set(value) {
+        _builder.setDisappearingMessages = value
+      }
+    /**
+     * `.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];`
+     */
+    public fun clearSetDisappearingMessages() {
+      _builder.clearSetDisappearingMessages()
+    }
+    /**
+     * `.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];`
+     * @return Whether the setDisappearingMessages field is set.
+     */
+    public fun hasSetDisappearingMessages(): kotlin.Boolean {
+      return _builder.hasSetDisappearingMessages()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -657,4 +777,19 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.deleteMessage
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.deleteMessageForEveryoneOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone?
   get() = if (hasDeleteMessageForEveryone()) getDeleteMessageForEveryone() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.unsendMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.UnsendMessage?
+  get() = if (hasUnsendMessage()) getUnsendMessage() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.addReactionOrNull: app.mvchat.mvnxt.mvservernxt.v1.AddReaction?
+  get() = if (hasAddReaction()) getAddReaction() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.removeReactionOrNull: app.mvchat.mvnxt.mvservernxt.v1.RemoveReaction?
+  get() = if (hasRemoveReaction()) getRemoveReaction() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.sendTypingOrNull: app.mvchat.mvnxt.mvservernxt.v1.SendTyping?
+  get() = if (hasSendTyping()) getSendTyping() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setDisappearingMessagesOrNull: app.mvchat.mvnxt.mvservernxt.v1.SetDisappearingMessages?
+  get() = if (hasSetDisappearingMessages()) getSetDisappearingMessages() else null
 

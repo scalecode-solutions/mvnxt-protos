@@ -291,9 +291,10 @@ public object MessageKt {
 
     /**
      * ```
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * ```
      *
      * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
@@ -307,9 +308,10 @@ public object MessageKt {
       }
     /**
      * ```
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * ```
      *
      * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
@@ -319,9 +321,10 @@ public object MessageKt {
     }
     /**
      * ```
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * ```
      *
      * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
@@ -338,7 +341,7 @@ public object MessageKt {
      * ```
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * ```
      *
      * `string deleted_by = 11 [json_name = "deletedBy"];`
@@ -354,7 +357,7 @@ public object MessageKt {
      * ```
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * ```
      *
      * `string deleted_by = 11 [json_name = "deletedBy"];`
@@ -362,6 +365,191 @@ public object MessageKt {
     public fun clearDeletedBy() {
       _builder.clearDeletedBy()
     }
+
+    /**
+     * ```
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * ```
+     *
+     * `.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];`
+     */
+    public var deletionKind: app.mvchat.mvnxt.mvservernxt.v1.DeletionKind
+      @kotlin.jvm.JvmName("getDeletionKind")
+        get() = _builder.deletionKind
+      @kotlin.jvm.JvmName("setDeletionKind")
+        set(value) {
+        _builder.deletionKind = value
+      }
+    public var deletionKindValue: kotlin.Int
+      @kotlin.jvm.JvmName("getDeletionKindValue")
+        get() = _builder.deletionKindValue
+      @kotlin.jvm.JvmName("setDeletionKindValue")
+        set(value) {
+        _builder.deletionKindValue = value
+      }
+    /**
+     * ```
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * ```
+     *
+     * `.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];`
+     */
+    public fun clearDeletionKind() {
+      _builder.clearDeletionKind()
+    }
+
+    /**
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
+     */
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class ReactionsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     */
+     public val reactions: com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>
+      @kotlin.jvm.JvmSynthetic
+  get() = com.google.protobuf.kotlin.DslList(
+        _builder.reactionsList
+      )
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     * @param value The reactions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addReactions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.add(value: app.mvchat.mvnxt.mvservernxt.v1.Reaction) {
+      _builder.addReactions(value)
+    }
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     * @param value The reactions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignReactions")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.plusAssign(value: app.mvchat.mvnxt.mvservernxt.v1.Reaction) {
+      add(value)
+    }
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     * @param values The reactions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAllReactions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.addAll(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Reaction>) {
+      _builder.addAllReactions(values)
+    }
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     * @param values The reactions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAllReactions")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.plusAssign(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Reaction>) {
+      addAll(values)
+    }
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     * @param index The index to set the value at.
+     * @param value The reactions to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setReactions")
+    public operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.set(index: kotlin.Int, value: app.mvchat.mvnxt.mvservernxt.v1.Reaction) {
+      _builder.setReactions(index, value)
+    }
+    /**
+     * ```
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];`
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("clearReactions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Reaction, ReactionsProxy>.clear() {
+      _builder.clearReactions()
+    }
+
+    /**
+     * ```
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * ```
+     *
+     * `.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];`
+     */
+    public var expiresAt: com.google.protobuf.Timestamp
+      @kotlin.jvm.JvmName("getExpiresAt")
+        get() = _builder.expiresAt
+      @kotlin.jvm.JvmName("setExpiresAt")
+        set(value) {
+        _builder.expiresAt = value
+      }
+    /**
+     * ```
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * ```
+     *
+     * `.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];`
+     */
+    public fun clearExpiresAt() {
+      _builder.clearExpiresAt()
+    }
+    /**
+     * ```
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * ```
+     *
+     * `.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];`
+     * @return Whether the expiresAt field is set.
+     */
+    public fun hasExpiresAt(): kotlin.Boolean {
+      return _builder.hasExpiresAt()
+    }
+
+    public val MessageKt.Dsl.expiresAtOrNull: com.google.protobuf.Timestamp?
+      get() = _builder.expiresAtOrNull
   }
 }
 @kotlin.jvm.JvmSynthetic
@@ -376,4 +564,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.editedAtOrNull: com.
 
 public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.deletedAtOrNull: com.google.protobuf.Timestamp?
   get() = if (hasDeletedAt()) getDeletedAt() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.expiresAtOrNull: com.google.protobuf.Timestamp?
+  get() = if (hasExpiresAt()) getExpiresAt() else null
 

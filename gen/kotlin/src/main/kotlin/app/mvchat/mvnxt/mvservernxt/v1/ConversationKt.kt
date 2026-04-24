@@ -297,6 +297,39 @@ public object ConversationKt {
     public fun clearLastMessageSeq() {
       _builder.clearLastMessageSeq()
     }
+
+    /**
+     * ```
+     * Disappearing-message TTL for messages sent into this conversation.
+     * 0 = disappearing messages disabled. When non-zero, a new message's
+     * expires_at is set to created_at + disappearing_seconds and the
+     * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+     * the TTL is up.
+     * ```
+     *
+     * `int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];`
+     */
+    public var disappearingSeconds: kotlin.Int
+      @kotlin.jvm.JvmName("getDisappearingSeconds")
+        get() = _builder.disappearingSeconds
+      @kotlin.jvm.JvmName("setDisappearingSeconds")
+        set(value) {
+        _builder.disappearingSeconds = value
+      }
+    /**
+     * ```
+     * Disappearing-message TTL for messages sent into this conversation.
+     * 0 = disappearing messages disabled. When non-zero, a new message's
+     * expires_at is set to created_at + disappearing_seconds and the
+     * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+     * the TTL is up.
+     * ```
+     *
+     * `int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];`
+     */
+    public fun clearDisappearingSeconds() {
+      _builder.clearDisappearingSeconds()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

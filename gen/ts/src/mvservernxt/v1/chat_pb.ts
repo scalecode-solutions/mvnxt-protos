@@ -24,7 +24,38 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/chat.proto.
  */
 export const file_mvservernxt_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSLLAQoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSLgoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEgoKbWVtYmVyX2lkcxgGIAMoCRIYChBsYXN0X21lc3NhZ2Vfc2VxGAcgASgDIq8CCgdNZXNzYWdlEgoKAmlkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRILCgNzZXEYAyABKAMSEQoJc2VuZGVyX2lkGAQgASgJEgwKBGJvZHkYBSABKAkSEwoLcmVwbHlfdG9faWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGQoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAkSLQoJZWRpdGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgpkZWxldGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgpkZWxldGVkX2J5GAsgASgJImcKEkNyZWF0ZUNvbnZlcnNhdGlvbhIuCgR0eXBlGAEgASgOMiAubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uVHlwZRISCgptZW1iZXJfaWRzGAIgAygJEg0KBXRpdGxlGAMgASgJIjUKCUFkZE1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSI4CgxSZW1vdmVNZW1iZXISFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiLAoRTGVhdmVDb252ZXJzYXRpb24SFwoPY29udmVyc2F0aW9uX2lkGAEgASgJImQKC1NlbmRNZXNzYWdlEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIMCgRib2R5GAIgASgJEhMKC3JlcGx5X3RvX2lkGAMgASgJEhkKEWNsaWVudF9tZXNzYWdlX2lkGAQgASgJIiIKEUxpc3RDb252ZXJzYXRpb25zEg0KBWxpbWl0GAEgASgFIlwKC0dldE1lc3NhZ2VzEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIRCglzaW5jZV9zZXEYAiABKAMSDQoFbGltaXQYAyABKAUSEgoKYmVmb3JlX3NlcRgEIAEoAyIvCgtFZGl0TWVzc2FnZRISCgptZXNzYWdlX2lkGAEgASgJEgwKBGJvZHkYAiABKAkiIwoNRGVsZXRlTWVzc2FnZRISCgptZXNzYWdlX2lkGAEgASgJIi4KGERlbGV0ZU1lc3NhZ2VGb3JFdmVyeW9uZRISCgptZXNzYWdlX2lkGAEgASgJIjoKCE1hcmtSZWFkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIVCg1sYXN0X3JlYWRfc2VxGAIgASgDIlAKGkNyZWF0ZUNvbnZlcnNhdGlvblJlc3BvbnNlEjIKDGNvbnZlcnNhdGlvbhgBIAEoCzIcLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvbiI/ChNTZW5kTWVzc2FnZVJlc3BvbnNlEigKB21lc3NhZ2UYASABKAsyFy5tdnNlcnZlcm54dC52MS5NZXNzYWdlIlAKGUxpc3RDb252ZXJzYXRpb25zUmVzcG9uc2USMwoNY29udmVyc2F0aW9ucxgBIAMoCzIcLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvbiJSChNHZXRNZXNzYWdlc1Jlc3BvbnNlEikKCG1lc3NhZ2VzGAEgAygLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZRIQCghoYXNfbW9yZRgCIAEoCCI/ChNFZGl0TWVzc2FnZVJlc3BvbnNlEigKB21lc3NhZ2UYASABKAsyFy5tdnNlcnZlcm54dC52MS5NZXNzYWdlIsUBChNDb252ZXJzYXRpb25DcmVhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIuCgR0eXBlGAIgASgOMiAubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uVHlwZRINCgV0aXRsZRgDIAEoCRISCgpjcmVhdGVkX2J5GAQgASgJEhIKCm1lbWJlcl9pZHMYBSADKAkSLgoKY3JlYXRlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidwoLTWVtYmVyQWRkZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIYWRkZWRfYnkYAyABKAkSLAoIYWRkZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn0KDU1lbWJlclJlbW92ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEgoKcmVtb3ZlZF9ieRgDIAEoCRIuCgpyZW1vdmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJjCgpNZW1iZXJMZWZ0EhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEisKB2xlZnRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIsgBCgtNZXNzYWdlU2VudBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRILCgNzZXEYAyABKAMSEQoJc2VuZGVyX2lkGAQgASgJEgwKBGJvZHkYBSABKAkSEwoLcmVwbHlfdG9faWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGQoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAkihQEKElJlYWRSZWNlaXB0VXBkYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIVCg1sYXN0X3JlYWRfc2VxGAMgASgDEi4KCnVwZGF0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wInkKDU1lc3NhZ2VFZGl0ZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSDAoEYm9keRgDIAEoCRItCgllZGl0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wInwKDU1lc3NhZ2VIaWRkZW4SEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRItCgloaWRkZW5fYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIowBChlNZXNzYWdlRGVsZXRlZEZvckV2ZXJ5b25lEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhIKCmRlbGV0ZWRfYnkYAyABKAkSLgoKZGVsZXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAqbAoQQ29udmVyc2F0aW9uVHlwZRIhCh1DT05WRVJTQVRJT05fVFlQRV9VTlNQRUNJRklFRBAAEhgKFENPTlZFUlNBVElPTl9UWVBFX0RNEAESGwoXQ09OVkVSU0FUSU9OX1RZUEVfR1JPVVAQAkLWAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUIJQ2hhdFByb3RvUAFaT2dpdGh1Yi5jb20vc2NhbGVjb2RlLXNvbHV0aW9ucy9tdm54dC1wcm90b3MvZ2VuL2dvL212c2VydmVybnh0L3YxO212c2VydmVybnh0djGiAgNNWFiqAg5NdnNlcnZlcm54dC5WMcoCDk12c2VydmVybnh0XFYx4gIaTXZzZXJ2ZXJueHRcVjFcR1BCTWV0YWRhdGHqAg9NdnNlcnZlcm54dDo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
+  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSJaCghSZWFjdGlvbhINCgVlbW9qaRgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEi4KCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIukBCgxDb252ZXJzYXRpb24SCgoCaWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgptZW1iZXJfaWRzGAYgAygJEhgKEGxhc3RfbWVzc2FnZV9zZXEYByABKAMSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYCCABKAUiwQMKB01lc3NhZ2USCgoCaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRItCgllZGl0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmRlbGV0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmRlbGV0ZWRfYnkYCyABKAkSMwoNZGVsZXRpb25fa2luZBgMIAEoDjIcLm12c2VydmVybnh0LnYxLkRlbGV0aW9uS2luZBIrCglyZWFjdGlvbnMYDSADKAsyGC5tdnNlcnZlcm54dC52MS5SZWFjdGlvbhIuCgpleHBpcmVzX2F0GA4gASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJnChJDcmVhdGVDb252ZXJzYXRpb24SLgoEdHlwZRgBIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSEgoKbWVtYmVyX2lkcxgCIAMoCRINCgV0aXRsZRgDIAEoCSI1CglBZGRNZW1iZXISFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiOAoMUmVtb3ZlTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIiwKEUxlYXZlQ29udmVyc2F0aW9uEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCSJkCgtTZW5kTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDAoEYm9keRgCIAEoCRITCgtyZXBseV90b19pZBgDIAEoCRIZChFjbGllbnRfbWVzc2FnZV9pZBgEIAEoCSIiChFMaXN0Q29udmVyc2F0aW9ucxINCgVsaW1pdBgBIAEoBSJcCgtHZXRNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEQoJc2luY2Vfc2VxGAIgASgDEg0KBWxpbWl0GAMgASgFEhIKCmJlZm9yZV9zZXEYBCABKAMiLwoLRWRpdE1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCRIMCgRib2R5GAIgASgJIiMKDURlbGV0ZU1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCSIuChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCSIjCg1VbnNlbmRNZXNzYWdlEhIKCm1lc3NhZ2VfaWQYASABKAkiMAoLQWRkUmVhY3Rpb24SEgoKbWVzc2FnZV9pZBgBIAEoCRINCgVlbW9qaRgCIAEoCSIzCg5SZW1vdmVSZWFjdGlvbhISCgptZXNzYWdlX2lkGAEgASgJEg0KBWVtb2ppGAIgASgJIjgKClNlbmRUeXBpbmcSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCWlzX3R5cGluZxgCIAEoCCJQChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUiOgoITWFya1JlYWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhUKDWxhc3RfcmVhZF9zZXEYAiABKAMiUAoaQ3JlYXRlQ29udmVyc2F0aW9uUmVzcG9uc2USMgoMY29udmVyc2F0aW9uGAEgASgLMhwubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uIj8KE1NlbmRNZXNzYWdlUmVzcG9uc2USKAoHbWVzc2FnZRgBIAEoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2UiUAoZTGlzdENvbnZlcnNhdGlvbnNSZXNwb25zZRIzCg1jb252ZXJzYXRpb25zGAEgAygLMhwubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uIlIKE0dldE1lc3NhZ2VzUmVzcG9uc2USKQoIbWVzc2FnZXMYASADKAsyFy5tdnNlcnZlcm54dC52MS5NZXNzYWdlEhAKCGhhc19tb3JlGAIgASgIIj8KE0VkaXRNZXNzYWdlUmVzcG9uc2USKAoHbWVzc2FnZRgBIAEoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2UixQEKE0NvbnZlcnNhdGlvbkNyZWF0ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSEgoKbWVtYmVyX2lkcxgFIAMoCRIuCgpjcmVhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ3CgtNZW1iZXJBZGRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIQCghhZGRlZF9ieRgDIAEoCRIsCghhZGRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifQoNTWVtYmVyUmVtb3ZlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRISCgpyZW1vdmVkX2J5GAMgASgJEi4KCnJlbW92ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wImMKCk1lbWJlckxlZnQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSKwoHbGVmdF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiyAEKC01lc3NhZ2VTZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCSKFAQoSUmVhZFJlY2VpcHRVcGRhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhUKDWxhc3RfcmVhZF9zZXEYAyABKAMSLgoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAieQoNTWVzc2FnZUVkaXRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIMCgRib2R5GAMgASgJEi0KCWVkaXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifAoNTWVzc2FnZUhpZGRlbhISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEi0KCWhpZGRlbl9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAijAEKGU1lc3NhZ2VEZWxldGVkRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEgoKZGVsZXRlZF9ieRgDIAEoCRIuCgpkZWxldGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ+Cg1NZXNzYWdlVW5zZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhEKCXVuc2VudF9ieRgDIAEoCRItCgl1bnNlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpMBChRNZXNzYWdlUmVhY3Rpb25BZGRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEg0KBWVtb2ppGAQgASgJEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpUBChZNZXNzYWdlUmVhY3Rpb25SZW1vdmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSDQoFZW1vamkYBCABKAkSLgoKcmVtb3ZlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidAoNVHlwaW5nQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIRCglpc190eXBpbmcYAyABKAgSJgoCYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpgBChtEaXNhcHBlYXJpbmdNZXNzYWdlc0NoYW5nZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhwKFGRpc2FwcGVhcmluZ19zZWNvbmRzGAIgASgFEhIKCmNoYW5nZWRfYnkYAyABKAkSLgoKY2hhbmdlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAibQoOTWVzc2FnZUV4cGlyZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSLgoKZXhwaXJlZF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAqbAoQQ29udmVyc2F0aW9uVHlwZRIhCh1DT05WRVJTQVRJT05fVFlQRV9VTlNQRUNJRklFRBAAEhgKFENPTlZFUlNBVElPTl9UWVBFX0RNEAESGwoXQ09OVkVSU0FUSU9OX1RZUEVfR1JPVVAQAiqCAQoMRGVsZXRpb25LaW5kEh0KGURFTEVUSU9OX0tJTkRfVU5TUEVDSUZJRUQQABIeChpERUxFVElPTl9LSU5EX0ZPUl9FVkVSWU9ORRABEhgKFERFTEVUSU9OX0tJTkRfVU5TRU5UEAISGQoVREVMRVRJT05fS0lORF9FWFBJUkVEEANC1gEKH2FwcC5tdmNoYXQubXZueHQubXZzZXJ2ZXJueHQudjFCCUNoYXRQcm90b1ABWk9naXRodWIuY29tL3NjYWxlY29kZS1zb2x1dGlvbnMvbXZueHQtcHJvdG9zL2dlbi9nby9tdnNlcnZlcm54dC92MTttdnNlcnZlcm54dHYxogIDTVhYqgIOTXZzZXJ2ZXJueHQuVjHKAg5NdnNlcnZlcm54dFxWMeICGk12c2VydmVybnh0XFYxXEdQQk1ldGFkYXRh6gIPTXZzZXJ2ZXJueHQ6OlYxYgZwcm90bzM", [file_google_protobuf_timestamp]);
+
+/**
+ * Reaction is one emoji reaction from one user on one message.
+ * Servers return a full list on Message.reactions; clients aggregate
+ * by emoji for display.
+ *
+ * @generated from message mvservernxt.v1.Reaction
+ */
+export type Reaction = Message$1<"mvservernxt.v1.Reaction"> & {
+  /**
+   * @generated from field: string emoji = 1;
+   */
+  emoji: string;
+
+  /**
+   * @generated from field: string user_id = 2;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
+   */
+  createdAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.Reaction.
+ * Use `create(ReactionSchema)` to create a new message.
+ */
+export const ReactionSchema: GenMessage<Reaction> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 0);
 
 /**
  * Conversation is the client-facing view of a conversation row +
@@ -82,6 +113,17 @@ export type Conversation = Message$1<"mvservernxt.v1.Conversation"> & {
    * @generated from field: int64 last_message_seq = 7;
    */
   lastMessageSeq: bigint;
+
+  /**
+   * Disappearing-message TTL for messages sent into this conversation.
+   * 0 = disappearing messages disabled. When non-zero, a new message's
+   * expires_at is set to created_at + disappearing_seconds and the
+   * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+   * the TTL is up.
+   *
+   * @generated from field: int32 disappearing_seconds = 8;
+   */
+  disappearingSeconds: number;
 };
 
 /**
@@ -89,7 +131,7 @@ export type Conversation = Message$1<"mvservernxt.v1.Conversation"> & {
  * Use `create(ConversationSchema)` to create a new message.
  */
 export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 0);
+  messageDesc(file_mvservernxt_v1_chat, 1);
 
 /**
  * Message is the client-facing view of one message row.
@@ -174,9 +216,10 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
   editedAt?: Timestamp | undefined;
 
   /**
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    *
    * @generated from field: google.protobuf.Timestamp deleted_at = 10;
    */
@@ -185,11 +228,36 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
   /**
    * Who issued the delete (user_id string). Typically the sender
    * (self-delete); admin moderation lands later. Empty when deleted_at
-   * is null.
+   * is null or the delete was server-initiated (EXPIRED).
    *
    * @generated from field: string deleted_by = 11;
    */
   deletedBy: string;
+
+  /**
+   * Discriminates the soft-delete flavor when deleted_at is non-null.
+   * UNSPECIFIED when deleted_at is null.
+   *
+   * @generated from field: mvservernxt.v1.DeletionKind deletion_kind = 12;
+   */
+  deletionKind: DeletionKind;
+
+  /**
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   *
+   * @generated from field: repeated mvservernxt.v1.Reaction reactions = 13;
+   */
+  reactions: Reaction[];
+
+  /**
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   *
+   * @generated from field: google.protobuf.Timestamp expires_at = 14;
+   */
+  expiresAt?: Timestamp | undefined;
 };
 
 /**
@@ -197,7 +265,7 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 1);
+  messageDesc(file_mvservernxt_v1_chat, 2);
 
 /**
  * CreateConversation makes a new conversation and auto-adds the creator
@@ -246,7 +314,7 @@ export type CreateConversation = Message$1<"mvservernxt.v1.CreateConversation"> 
  * Use `create(CreateConversationSchema)` to create a new message.
  */
 export const CreateConversationSchema: GenMessage<CreateConversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 2);
+  messageDesc(file_mvservernxt_v1_chat, 3);
 
 /**
  * AddMember adds a user to an existing GROUP. DMs are fixed at creation
@@ -275,7 +343,7 @@ export type AddMember = Message$1<"mvservernxt.v1.AddMember"> & {
  * Use `create(AddMemberSchema)` to create a new message.
  */
 export const AddMemberSchema: GenMessage<AddMember> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 3);
+  messageDesc(file_mvservernxt_v1_chat, 4);
 
 /**
  * RemoveMember removes a user from a GROUP. Caller must be a member.
@@ -300,7 +368,7 @@ export type RemoveMember = Message$1<"mvservernxt.v1.RemoveMember"> & {
  * Use `create(RemoveMemberSchema)` to create a new message.
  */
 export const RemoveMemberSchema: GenMessage<RemoveMember> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 4);
+  messageDesc(file_mvservernxt_v1_chat, 5);
 
 /**
  * LeaveConversation removes the caller from a conversation. No-op if
@@ -321,7 +389,7 @@ export type LeaveConversation = Message$1<"mvservernxt.v1.LeaveConversation"> & 
  * Use `create(LeaveConversationSchema)` to create a new message.
  */
 export const LeaveConversationSchema: GenMessage<LeaveConversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 5);
+  messageDesc(file_mvservernxt_v1_chat, 6);
 
 /**
  * SendMessage posts a new message. Assigns a per-conversation monotonic
@@ -372,7 +440,7 @@ export type SendMessage = Message$1<"mvservernxt.v1.SendMessage"> & {
  * Use `create(SendMessageSchema)` to create a new message.
  */
 export const SendMessageSchema: GenMessage<SendMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 6);
+  messageDesc(file_mvservernxt_v1_chat, 7);
 
 /**
  * ListConversations returns the caller's active conversations. Slice 1
@@ -396,7 +464,7 @@ export type ListConversations = Message$1<"mvservernxt.v1.ListConversations"> & 
  * Use `create(ListConversationsSchema)` to create a new message.
  */
 export const ListConversationsSchema: GenMessage<ListConversations> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 7);
+  messageDesc(file_mvservernxt_v1_chat, 8);
 
 /**
  * GetMessages pulls a window of messages from one conversation.
@@ -448,7 +516,7 @@ export type GetMessages = Message$1<"mvservernxt.v1.GetMessages"> & {
  * Use `create(GetMessagesSchema)` to create a new message.
  */
 export const GetMessagesSchema: GenMessage<GetMessages> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 8);
+  messageDesc(file_mvservernxt_v1_chat, 9);
 
 /**
  * EditMessage updates the body of a previously-sent message. Caller
@@ -479,7 +547,7 @@ export type EditMessage = Message$1<"mvservernxt.v1.EditMessage"> & {
  * Use `create(EditMessageSchema)` to create a new message.
  */
 export const EditMessageSchema: GenMessage<EditMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 9);
+  messageDesc(file_mvservernxt_v1_chat, 10);
 
 /**
  * DeleteMessage performs "delete for me" — hides the message from the
@@ -505,7 +573,7 @@ export type DeleteMessage = Message$1<"mvservernxt.v1.DeleteMessage"> & {
  * Use `create(DeleteMessageSchema)` to create a new message.
  */
 export const DeleteMessageSchema: GenMessage<DeleteMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 10);
+  messageDesc(file_mvservernxt_v1_chat, 11);
 
 /**
  * DeleteMessageForEveryone performs a server-wide soft delete. Caller
@@ -531,7 +599,156 @@ export type DeleteMessageForEveryone = Message$1<"mvservernxt.v1.DeleteMessageFo
  * Use `create(DeleteMessageForEveryoneSchema)` to create a new message.
  */
 export const DeleteMessageForEveryoneSchema: GenMessage<DeleteMessageForEveryone> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 11);
+  messageDesc(file_mvservernxt_v1_chat, 12);
+
+/**
+ * UnsendMessage is the time-limited "undo" variant of delete. Within 5
+ * minutes of send, the sender can call UnsendMessage to wipe the
+ * message from everyone's UI as if it was never sent. Past that window
+ * the call is rejected — use DeleteMessageForEveryone (which leaves a
+ * visible placeholder) instead.
+ *
+ * Server-side this is a soft delete (nothing is removed from the DB):
+ * messages.deleted_at, deleted_by, and deletion_kind=UNSENT are set.
+ * Client rendering is what differs — UNSENT disappears from the UI
+ * entirely rather than leaving the "deleted message" placeholder.
+ *
+ * Caller MUST be the original sender.
+ *
+ * @generated from message mvservernxt.v1.UnsendMessage
+ */
+export type UnsendMessage = Message$1<"mvservernxt.v1.UnsendMessage"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+};
+
+/**
+ * Describes the message mvservernxt.v1.UnsendMessage.
+ * Use `create(UnsendMessageSchema)` to create a new message.
+ */
+export const UnsendMessageSchema: GenMessage<UnsendMessage> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 13);
+
+/**
+ * AddReaction adds an emoji reaction from the caller to a message. A
+ * single user can react with the same emoji only once (idempotent:
+ * re-adding the same emoji Acks cleanly without re-emitting). One
+ * user can stack multiple distinct emoji on one message.
+ *
+ * Caller MUST be an active member of the message's conversation.
+ * Cannot react to a soft-deleted message.
+ *
+ * @generated from message mvservernxt.v1.AddReaction
+ */
+export type AddReaction = Message$1<"mvservernxt.v1.AddReaction"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string emoji = 2;
+   */
+  emoji: string;
+};
+
+/**
+ * Describes the message mvservernxt.v1.AddReaction.
+ * Use `create(AddReactionSchema)` to create a new message.
+ */
+export const AddReactionSchema: GenMessage<AddReaction> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 14);
+
+/**
+ * RemoveReaction undoes an AddReaction for (caller, message, emoji).
+ * Idempotent: removing a non-existent reaction Acks cleanly without
+ * emitting.
+ *
+ * @generated from message mvservernxt.v1.RemoveReaction
+ */
+export type RemoveReaction = Message$1<"mvservernxt.v1.RemoveReaction"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string emoji = 2;
+   */
+  emoji: string;
+};
+
+/**
+ * Describes the message mvservernxt.v1.RemoveReaction.
+ * Use `create(RemoveReactionSchema)` to create a new message.
+ */
+export const RemoveReactionSchema: GenMessage<RemoveReaction> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 15);
+
+/**
+ * SendTyping is a transient signal that the caller is composing a
+ * message in a conversation. Fans out a TypingChanged event to other
+ * active members. UNLIKE persistent chat operations, typing does NOT
+ * append to the event log — missed typing signals are irrelevant, and
+ * logging every keystroke would swamp the log with ambient noise.
+ *
+ * Clients SHOULD debounce — send SendTyping no more than every 3-5
+ * seconds for a given conversation, and send is_typing=false on
+ * composition stop or message sent.
+ *
+ * @generated from message mvservernxt.v1.SendTyping
+ */
+export type SendTyping = Message$1<"mvservernxt.v1.SendTyping"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * false = "stopped typing"
+   *
+   * @generated from field: bool is_typing = 2;
+   */
+  isTyping: boolean;
+};
+
+/**
+ * Describes the message mvservernxt.v1.SendTyping.
+ * Use `create(SendTypingSchema)` to create a new message.
+ */
+export const SendTypingSchema: GenMessage<SendTyping> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 16);
+
+/**
+ * SetDisappearingMessages adjusts the per-conversation TTL for future
+ * messages. 0 disables. Caller MUST be an active member (role-based
+ * admin checks land later).
+ *
+ * Existing messages' expires_at values are not retroactively changed;
+ * only messages sent after the policy change take the new TTL.
+ *
+ * @generated from message mvservernxt.v1.SetDisappearingMessages
+ */
+export type SetDisappearingMessages = Message$1<"mvservernxt.v1.SetDisappearingMessages"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: int32 disappearing_seconds = 2;
+   */
+  disappearingSeconds: number;
+};
+
+/**
+ * Describes the message mvservernxt.v1.SetDisappearingMessages.
+ * Use `create(SetDisappearingMessagesSchema)` to create a new message.
+ */
+export const SetDisappearingMessagesSchema: GenMessage<SetDisappearingMessages> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 17);
 
 /**
  * MarkRead advances the caller's last_read_seq on a conversation.
@@ -566,7 +783,7 @@ export type MarkRead = Message$1<"mvservernxt.v1.MarkRead"> & {
  * Use `create(MarkReadSchema)` to create a new message.
  */
 export const MarkReadSchema: GenMessage<MarkRead> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 12);
+  messageDesc(file_mvservernxt_v1_chat, 18);
 
 /**
  * @generated from message mvservernxt.v1.CreateConversationResponse
@@ -583,7 +800,7 @@ export type CreateConversationResponse = Message$1<"mvservernxt.v1.CreateConvers
  * Use `create(CreateConversationResponseSchema)` to create a new message.
  */
 export const CreateConversationResponseSchema: GenMessage<CreateConversationResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 13);
+  messageDesc(file_mvservernxt_v1_chat, 19);
 
 /**
  * @generated from message mvservernxt.v1.SendMessageResponse
@@ -600,7 +817,7 @@ export type SendMessageResponse = Message$1<"mvservernxt.v1.SendMessageResponse"
  * Use `create(SendMessageResponseSchema)` to create a new message.
  */
 export const SendMessageResponseSchema: GenMessage<SendMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 14);
+  messageDesc(file_mvservernxt_v1_chat, 20);
 
 /**
  * @generated from message mvservernxt.v1.ListConversationsResponse
@@ -617,7 +834,7 @@ export type ListConversationsResponse = Message$1<"mvservernxt.v1.ListConversati
  * Use `create(ListConversationsResponseSchema)` to create a new message.
  */
 export const ListConversationsResponseSchema: GenMessage<ListConversationsResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 15);
+  messageDesc(file_mvservernxt_v1_chat, 21);
 
 /**
  * @generated from message mvservernxt.v1.GetMessagesResponse
@@ -642,7 +859,7 @@ export type GetMessagesResponse = Message$1<"mvservernxt.v1.GetMessagesResponse"
  * Use `create(GetMessagesResponseSchema)` to create a new message.
  */
 export const GetMessagesResponseSchema: GenMessage<GetMessagesResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 16);
+  messageDesc(file_mvservernxt_v1_chat, 22);
 
 /**
  * @generated from message mvservernxt.v1.EditMessageResponse
@@ -659,7 +876,7 @@ export type EditMessageResponse = Message$1<"mvservernxt.v1.EditMessageResponse"
  * Use `create(EditMessageResponseSchema)` to create a new message.
  */
 export const EditMessageResponseSchema: GenMessage<EditMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 17);
+  messageDesc(file_mvservernxt_v1_chat, 23);
 
 /**
  * ConversationCreated fires once per CreateConversation.
@@ -704,7 +921,7 @@ export type ConversationCreated = Message$1<"mvservernxt.v1.ConversationCreated"
  * Use `create(ConversationCreatedSchema)` to create a new message.
  */
 export const ConversationCreatedSchema: GenMessage<ConversationCreated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 18);
+  messageDesc(file_mvservernxt_v1_chat, 24);
 
 /**
  * MemberAdded fires for each AddMember call. Fans out to every member
@@ -739,7 +956,7 @@ export type MemberAdded = Message$1<"mvservernxt.v1.MemberAdded"> & {
  * Use `create(MemberAddedSchema)` to create a new message.
  */
 export const MemberAddedSchema: GenMessage<MemberAdded> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 19);
+  messageDesc(file_mvservernxt_v1_chat, 25);
 
 /**
  * MemberRemoved fires for each RemoveMember call.
@@ -773,7 +990,7 @@ export type MemberRemoved = Message$1<"mvservernxt.v1.MemberRemoved"> & {
  * Use `create(MemberRemovedSchema)` to create a new message.
  */
 export const MemberRemovedSchema: GenMessage<MemberRemoved> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 20);
+  messageDesc(file_mvservernxt_v1_chat, 26);
 
 /**
  * MemberLeft fires for each LeaveConversation call.
@@ -802,7 +1019,7 @@ export type MemberLeft = Message$1<"mvservernxt.v1.MemberLeft"> & {
  * Use `create(MemberLeftSchema)` to create a new message.
  */
 export const MemberLeftSchema: GenMessage<MemberLeft> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 21);
+  messageDesc(file_mvservernxt_v1_chat, 27);
 
 /**
  * MessageSent fires for each SendMessage call. Fans out to every
@@ -859,7 +1076,7 @@ export type MessageSent = Message$1<"mvservernxt.v1.MessageSent"> & {
  * Use `create(MessageSentSchema)` to create a new message.
  */
 export const MessageSentSchema: GenMessage<MessageSent> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 22);
+  messageDesc(file_mvservernxt_v1_chat, 28);
 
 /**
  * ReadReceiptUpdated fires for each MarkRead that actually advances the
@@ -895,7 +1112,7 @@ export type ReadReceiptUpdated = Message$1<"mvservernxt.v1.ReadReceiptUpdated"> 
  * Use `create(ReadReceiptUpdatedSchema)` to create a new message.
  */
 export const ReadReceiptUpdatedSchema: GenMessage<ReadReceiptUpdated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 23);
+  messageDesc(file_mvservernxt_v1_chat, 29);
 
 /**
  * MessageEdited fires for each successful EditMessage. Fans out to
@@ -932,7 +1149,7 @@ export type MessageEdited = Message$1<"mvservernxt.v1.MessageEdited"> & {
  * Use `create(MessageEditedSchema)` to create a new message.
  */
 export const MessageEditedSchema: GenMessage<MessageEdited> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 24);
+  messageDesc(file_mvservernxt_v1_chat, 30);
 
 /**
  * MessageHidden fires for each successful DeleteMessage ("delete for
@@ -971,7 +1188,7 @@ export type MessageHidden = Message$1<"mvservernxt.v1.MessageHidden"> & {
  * Use `create(MessageHiddenSchema)` to create a new message.
  */
 export const MessageHiddenSchema: GenMessage<MessageHidden> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 25);
+  messageDesc(file_mvservernxt_v1_chat, 31);
 
 /**
  * MessageDeletedForEveryone fires for each successful
@@ -1011,7 +1228,237 @@ export type MessageDeletedForEveryone = Message$1<"mvservernxt.v1.MessageDeleted
  * Use `create(MessageDeletedForEveryoneSchema)` to create a new message.
  */
 export const MessageDeletedForEveryoneSchema: GenMessage<MessageDeletedForEveryone> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 26);
+  messageDesc(file_mvservernxt_v1_chat, 32);
+
+/**
+ * MessageUnsent fires for each successful UnsendMessage. Fans out to
+ * every active member. Clients remove the message from their UI
+ * entirely (no placeholder — that's the distinction from
+ * MessageDeletedForEveryone).
+ *
+ * @generated from message mvservernxt.v1.MessageUnsent
+ */
+export type MessageUnsent = Message$1<"mvservernxt.v1.MessageUnsent"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId: string;
+
+  /**
+   * Always the original sender
+   *
+   * @generated from field: string unsent_by = 3;
+   */
+  unsentBy: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp unsent_at = 4;
+   */
+  unsentAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.MessageUnsent.
+ * Use `create(MessageUnsentSchema)` to create a new message.
+ */
+export const MessageUnsentSchema: GenMessage<MessageUnsent> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 33);
+
+/**
+ * MessageReactionAdded fires for each successful AddReaction. Fans out
+ * to every active member. Clients update their reaction aggregate for
+ * the target message.
+ *
+ * @generated from message mvservernxt.v1.MessageReactionAdded
+ */
+export type MessageReactionAdded = Message$1<"mvservernxt.v1.MessageReactionAdded"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: string user_id = 3;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string emoji = 4;
+   */
+  emoji: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 5;
+   */
+  createdAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.MessageReactionAdded.
+ * Use `create(MessageReactionAddedSchema)` to create a new message.
+ */
+export const MessageReactionAddedSchema: GenMessage<MessageReactionAdded> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 34);
+
+/**
+ * MessageReactionRemoved fires for each successful RemoveReaction.
+ *
+ * @generated from message mvservernxt.v1.MessageReactionRemoved
+ */
+export type MessageReactionRemoved = Message$1<"mvservernxt.v1.MessageReactionRemoved"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: string user_id = 3;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string emoji = 4;
+   */
+  emoji: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp removed_at = 5;
+   */
+  removedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.MessageReactionRemoved.
+ * Use `create(MessageReactionRemovedSchema)` to create a new message.
+ */
+export const MessageReactionRemovedSchema: GenMessage<MessageReactionRemoved> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 35);
+
+/**
+ * TypingChanged fires for each SendTyping. UNLIKE every other chat
+ * event, this is delivered via direct hub broadcast, NOT through the
+ * event log — typing is ambient and ephemeral, so missed signals are
+ * fine and logging would swamp retention storage.
+ *
+ * Delivered from stream="ambient" (doc 04); clients that persist a
+ * sync cursor should NOT advance it from these events.
+ *
+ * @generated from message mvservernxt.v1.TypingChanged
+ */
+export type TypingChanged = Message$1<"mvservernxt.v1.TypingChanged"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: string user_id = 2;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: bool is_typing = 3;
+   */
+  isTyping: boolean;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp at = 4;
+   */
+  at?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.TypingChanged.
+ * Use `create(TypingChangedSchema)` to create a new message.
+ */
+export const TypingChangedSchema: GenMessage<TypingChanged> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 36);
+
+/**
+ * DisappearingMessagesChanged fires for each successful
+ * SetDisappearingMessages. Fans out to every active member so UI can
+ * display the new policy (typically "disappearing messages turned
+ * on/off" system message).
+ *
+ * @generated from message mvservernxt.v1.DisappearingMessagesChanged
+ */
+export type DisappearingMessagesChanged = Message$1<"mvservernxt.v1.DisappearingMessagesChanged"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * 0 = disabled
+   *
+   * @generated from field: int32 disappearing_seconds = 2;
+   */
+  disappearingSeconds: number;
+
+  /**
+   * @generated from field: string changed_by = 3;
+   */
+  changedBy: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp changed_at = 4;
+   */
+  changedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.DisappearingMessagesChanged.
+ * Use `create(DisappearingMessagesChangedSchema)` to create a new message.
+ */
+export const DisappearingMessagesChangedSchema: GenMessage<DisappearingMessagesChanged> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 37);
+
+/**
+ * MessageExpired fires when the scheduler's expiry worker soft-deletes
+ * a disappearing message (the TTL elapsed). Equivalent client-side to
+ * MessageUnsent — the message disappears from UI — but the trigger is
+ * server-initiated, not a sender action.
+ *
+ * @generated from message mvservernxt.v1.MessageExpired
+ */
+export type MessageExpired = Message$1<"mvservernxt.v1.MessageExpired"> & {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId: string;
+
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expired_at = 3;
+   */
+  expiredAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.MessageExpired.
+ * Use `create(MessageExpiredSchema)` to create a new message.
+ */
+export const MessageExpiredSchema: GenMessage<MessageExpired> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 38);
 
 /**
  * ConversationType distinguishes the two conversation flavors shipping
@@ -1046,4 +1493,49 @@ export enum ConversationType {
  */
 export const ConversationTypeSchema: GenEnum<ConversationType> = /*@__PURE__*/
   enumDesc(file_mvservernxt_v1_chat, 0);
+
+/**
+ * DeletionKind discriminates the flavor of a soft-deleted message.
+ * All three kinds set Message.deleted_at; the row is preserved in
+ * every case (nothing is physically removed). Clients render
+ * differently based on kind.
+ *
+ * FOR_EVERYONE: anytime sender-initiated delete. Clients show a
+ *   "deleted message" placeholder in-place.
+ * UNSENT:       time-limited sender-initiated undo (v1: 5-minute
+ *   window). Clients remove the message entirely — as if it never
+ *   happened.
+ * EXPIRED:      disappearing-message TTL hit. Equivalent to UNSENT
+ *   client-side (content is gone) but the source is the server's
+ *   scheduler rather than a sender action.
+ *
+ * @generated from enum mvservernxt.v1.DeletionKind
+ */
+export enum DeletionKind {
+  /**
+   * @generated from enum value: DELETION_KIND_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: DELETION_KIND_FOR_EVERYONE = 1;
+   */
+  FOR_EVERYONE = 1,
+
+  /**
+   * @generated from enum value: DELETION_KIND_UNSENT = 2;
+   */
+  UNSENT = 2,
+
+  /**
+   * @generated from enum value: DELETION_KIND_EXPIRED = 3;
+   */
+  EXPIRED = 3,
+}
+
+/**
+ * Describes the enum mvservernxt.v1.DeletionKind.
+ */
+export const DeletionKindSchema: GenEnum<DeletionKind> = /*@__PURE__*/
+  enumDesc(file_mvservernxt_v1_chat, 1);
 

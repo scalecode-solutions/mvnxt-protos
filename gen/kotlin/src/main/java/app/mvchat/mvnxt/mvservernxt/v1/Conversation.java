@@ -321,6 +321,25 @@ private static final long serialVersionUID = 0L;
     return lastMessageSeq_;
   }
 
+  public static final int DISAPPEARING_SECONDS_FIELD_NUMBER = 8;
+  private int disappearingSeconds_ = 0;
+  /**
+   * <pre>
+   * Disappearing-message TTL for messages sent into this conversation.
+   * 0 = disappearing messages disabled. When non-zero, a new message's
+   * expires_at is set to created_at + disappearing_seconds and the
+   * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+   * the TTL is up.
+   * </pre>
+   *
+   * <code>int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];</code>
+   * @return The disappearingSeconds.
+   */
+  @java.lang.Override
+  public int getDisappearingSeconds() {
+    return disappearingSeconds_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -355,6 +374,9 @@ private static final long serialVersionUID = 0L;
     }
     if (lastMessageSeq_ != 0L) {
       output.writeInt64(7, lastMessageSeq_);
+    }
+    if (disappearingSeconds_ != 0) {
+      output.writeInt32(8, disappearingSeconds_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -394,6 +416,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(7, lastMessageSeq_);
     }
+    if (disappearingSeconds_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(8, disappearingSeconds_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -425,6 +451,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getMemberIdsList())) return false;
     if (getLastMessageSeq()
         != other.getLastMessageSeq()) return false;
+    if (getDisappearingSeconds()
+        != other.getDisappearingSeconds()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -455,6 +483,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + LAST_MESSAGE_SEQ_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getLastMessageSeq());
+    hash = (37 * hash) + DISAPPEARING_SECONDS_FIELD_NUMBER;
+    hash = (53 * hash) + getDisappearingSeconds();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -609,6 +639,7 @@ private static final long serialVersionUID = 0L;
       memberIds_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
       lastMessageSeq_ = 0L;
+      disappearingSeconds_ = 0;
       return this;
     }
 
@@ -668,6 +699,9 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000040) != 0)) {
         result.lastMessageSeq_ = lastMessageSeq_;
       }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.disappearingSeconds_ = disappearingSeconds_;
+      }
       result.bitField0_ |= to_bitField0_;
     }
 
@@ -716,6 +750,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getLastMessageSeq() != 0L) {
         setLastMessageSeq(other.getLastMessageSeq());
+      }
+      if (other.getDisappearingSeconds() != 0) {
+        setDisappearingSeconds(other.getDisappearingSeconds());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -780,6 +817,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000040;
               break;
             } // case 56
+            case 64: {
+              disappearingSeconds_ = input.readInt32();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 64
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1454,6 +1496,62 @@ private static final long serialVersionUID = 0L;
     public Builder clearLastMessageSeq() {
       bitField0_ = (bitField0_ & ~0x00000040);
       lastMessageSeq_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int disappearingSeconds_ ;
+    /**
+     * <pre>
+     * Disappearing-message TTL for messages sent into this conversation.
+     * 0 = disappearing messages disabled. When non-zero, a new message's
+     * expires_at is set to created_at + disappearing_seconds and the
+     * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+     * the TTL is up.
+     * </pre>
+     *
+     * <code>int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];</code>
+     * @return The disappearingSeconds.
+     */
+    @java.lang.Override
+    public int getDisappearingSeconds() {
+      return disappearingSeconds_;
+    }
+    /**
+     * <pre>
+     * Disappearing-message TTL for messages sent into this conversation.
+     * 0 = disappearing messages disabled. When non-zero, a new message's
+     * expires_at is set to created_at + disappearing_seconds and the
+     * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+     * the TTL is up.
+     * </pre>
+     *
+     * <code>int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];</code>
+     * @param value The disappearingSeconds to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDisappearingSeconds(int value) {
+
+      disappearingSeconds_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Disappearing-message TTL for messages sent into this conversation.
+     * 0 = disappearing messages disabled. When non-zero, a new message's
+     * expires_at is set to created_at + disappearing_seconds and the
+     * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+     * the TTL is up.
+     * </pre>
+     *
+     * <code>int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDisappearingSeconds() {
+      bitField0_ = (bitField0_ & ~0x00000080);
+      disappearingSeconds_ = 0;
       onChanged();
       return this;
     }

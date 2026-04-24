@@ -414,5 +414,95 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryoneOrBuilder getMessageDeletedForEveryoneOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   * @return Whether the messageUnsent field is set.
+   */
+  boolean hasMessageUnsent();
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   * @return The messageUnsent.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent getMessageUnsent();
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder getMessageUnsentOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   * @return Whether the messageReactionAdded field is set.
+   */
+  boolean hasMessageReactionAdded();
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   * @return The messageReactionAdded.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded getMessageReactionAdded();
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder getMessageReactionAddedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   * @return Whether the messageReactionRemoved field is set.
+   */
+  boolean hasMessageReactionRemoved();
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   * @return The messageReactionRemoved.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved getMessageReactionRemoved();
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder getMessageReactionRemovedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   * @return Whether the typingChanged field is set.
+   */
+  boolean hasTypingChanged();
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   * @return The typingChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.TypingChanged getTypingChanged();
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder getTypingChangedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   * @return Whether the disappearingMessagesChanged field is set.
+   */
+  boolean hasDisappearingMessagesChanged();
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   * @return The disappearingMessagesChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged getDisappearingMessagesChanged();
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder getDisappearingMessagesChangedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   * @return Whether the messageExpired field is set.
+   */
+  boolean hasMessageExpired();
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   * @return The messageExpired.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageExpired getMessageExpired();
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder getMessageExpiredOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

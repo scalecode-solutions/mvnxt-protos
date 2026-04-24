@@ -647,6 +647,150 @@ public object EventKt {
     public fun hasMessageDeletedForEveryone(): kotlin.Boolean {
       return _builder.hasMessageDeletedForEveryone()
     }
+
+    /**
+     * `.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];`
+     */
+    public var messageUnsent: app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent
+      @kotlin.jvm.JvmName("getMessageUnsent")
+        get() = _builder.messageUnsent
+      @kotlin.jvm.JvmName("setMessageUnsent")
+        set(value) {
+        _builder.messageUnsent = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];`
+     */
+    public fun clearMessageUnsent() {
+      _builder.clearMessageUnsent()
+    }
+    /**
+     * `.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];`
+     * @return Whether the messageUnsent field is set.
+     */
+    public fun hasMessageUnsent(): kotlin.Boolean {
+      return _builder.hasMessageUnsent()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];`
+     */
+    public var messageReactionAdded: app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded
+      @kotlin.jvm.JvmName("getMessageReactionAdded")
+        get() = _builder.messageReactionAdded
+      @kotlin.jvm.JvmName("setMessageReactionAdded")
+        set(value) {
+        _builder.messageReactionAdded = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];`
+     */
+    public fun clearMessageReactionAdded() {
+      _builder.clearMessageReactionAdded()
+    }
+    /**
+     * `.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];`
+     * @return Whether the messageReactionAdded field is set.
+     */
+    public fun hasMessageReactionAdded(): kotlin.Boolean {
+      return _builder.hasMessageReactionAdded()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];`
+     */
+    public var messageReactionRemoved: app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved
+      @kotlin.jvm.JvmName("getMessageReactionRemoved")
+        get() = _builder.messageReactionRemoved
+      @kotlin.jvm.JvmName("setMessageReactionRemoved")
+        set(value) {
+        _builder.messageReactionRemoved = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];`
+     */
+    public fun clearMessageReactionRemoved() {
+      _builder.clearMessageReactionRemoved()
+    }
+    /**
+     * `.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];`
+     * @return Whether the messageReactionRemoved field is set.
+     */
+    public fun hasMessageReactionRemoved(): kotlin.Boolean {
+      return _builder.hasMessageReactionRemoved()
+    }
+
+    /**
+     * `.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];`
+     */
+    public var typingChanged: app.mvchat.mvnxt.mvservernxt.v1.TypingChanged
+      @kotlin.jvm.JvmName("getTypingChanged")
+        get() = _builder.typingChanged
+      @kotlin.jvm.JvmName("setTypingChanged")
+        set(value) {
+        _builder.typingChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];`
+     */
+    public fun clearTypingChanged() {
+      _builder.clearTypingChanged()
+    }
+    /**
+     * `.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];`
+     * @return Whether the typingChanged field is set.
+     */
+    public fun hasTypingChanged(): kotlin.Boolean {
+      return _builder.hasTypingChanged()
+    }
+
+    /**
+     * `.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];`
+     */
+    public var disappearingMessagesChanged: app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged
+      @kotlin.jvm.JvmName("getDisappearingMessagesChanged")
+        get() = _builder.disappearingMessagesChanged
+      @kotlin.jvm.JvmName("setDisappearingMessagesChanged")
+        set(value) {
+        _builder.disappearingMessagesChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];`
+     */
+    public fun clearDisappearingMessagesChanged() {
+      _builder.clearDisappearingMessagesChanged()
+    }
+    /**
+     * `.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];`
+     * @return Whether the disappearingMessagesChanged field is set.
+     */
+    public fun hasDisappearingMessagesChanged(): kotlin.Boolean {
+      return _builder.hasDisappearingMessagesChanged()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];`
+     */
+    public var messageExpired: app.mvchat.mvnxt.mvservernxt.v1.MessageExpired
+      @kotlin.jvm.JvmName("getMessageExpired")
+        get() = _builder.messageExpired
+      @kotlin.jvm.JvmName("setMessageExpired")
+        set(value) {
+        _builder.messageExpired = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];`
+     */
+    public fun clearMessageExpired() {
+      _builder.clearMessageExpired()
+    }
+    /**
+     * `.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];`
+     * @return Whether the messageExpired field is set.
+     */
+    public fun hasMessageExpired(): kotlin.Boolean {
+      return _builder.hasMessageExpired()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -719,4 +863,22 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageHiddenOrNull: a
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageDeletedForEveryoneOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone?
   get() = if (hasMessageDeletedForEveryone()) getMessageDeletedForEveryone() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageUnsentOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent?
+  get() = if (hasMessageUnsent()) getMessageUnsent() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageReactionAddedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded?
+  get() = if (hasMessageReactionAdded()) getMessageReactionAdded() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageReactionRemovedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved?
+  get() = if (hasMessageReactionRemoved()) getMessageReactionRemoved() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.typingChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.TypingChanged?
+  get() = if (hasTypingChanged()) getTypingChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.disappearingMessagesChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged?
+  get() = if (hasDisappearingMessagesChanged()) getDisappearingMessagesChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageExpiredOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageExpired?
+  get() = if (hasMessageExpired()) getMessageExpired() else null
 
