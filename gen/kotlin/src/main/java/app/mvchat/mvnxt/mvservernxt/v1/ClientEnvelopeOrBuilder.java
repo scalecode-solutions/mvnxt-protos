@@ -447,5 +447,65 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.SetDisappearingMessagesOrBuilder getSetDisappearingMessagesOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.PinMessage pin_message = 46 [json_name = "pinMessage"];</code>
+   * @return Whether the pinMessage field is set.
+   */
+  boolean hasPinMessage();
+  /**
+   * <code>.mvservernxt.v1.PinMessage pin_message = 46 [json_name = "pinMessage"];</code>
+   * @return The pinMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PinMessage getPinMessage();
+  /**
+   * <code>.mvservernxt.v1.PinMessage pin_message = 46 [json_name = "pinMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PinMessageOrBuilder getPinMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UnpinMessage unpin_message = 47 [json_name = "unpinMessage"];</code>
+   * @return Whether the unpinMessage field is set.
+   */
+  boolean hasUnpinMessage();
+  /**
+   * <code>.mvservernxt.v1.UnpinMessage unpin_message = 47 [json_name = "unpinMessage"];</code>
+   * @return The unpinMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnpinMessage getUnpinMessage();
+  /**
+   * <code>.mvservernxt.v1.UnpinMessage unpin_message = 47 [json_name = "unpinMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnpinMessageOrBuilder getUnpinMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SetConversationNickname set_conversation_nickname = 48 [json_name = "setConversationNickname"];</code>
+   * @return Whether the setConversationNickname field is set.
+   */
+  boolean hasSetConversationNickname();
+  /**
+   * <code>.mvservernxt.v1.SetConversationNickname set_conversation_nickname = 48 [json_name = "setConversationNickname"];</code>
+   * @return The setConversationNickname.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetConversationNickname getSetConversationNickname();
+  /**
+   * <code>.mvservernxt.v1.SetConversationNickname set_conversation_nickname = 48 [json_name = "setConversationNickname"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetConversationNicknameOrBuilder getSetConversationNicknameOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UpdateConversationMetadata update_conversation_metadata = 49 [json_name = "updateConversationMetadata"];</code>
+   * @return Whether the updateConversationMetadata field is set.
+   */
+  boolean hasUpdateConversationMetadata();
+  /**
+   * <code>.mvservernxt.v1.UpdateConversationMetadata update_conversation_metadata = 49 [json_name = "updateConversationMetadata"];</code>
+   * @return The updateConversationMetadata.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadata getUpdateConversationMetadata();
+  /**
+   * <code>.mvservernxt.v1.UpdateConversationMetadata update_conversation_metadata = 49 [json_name = "updateConversationMetadata"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadataOrBuilder getUpdateConversationMetadataOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

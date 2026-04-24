@@ -791,6 +791,102 @@ public object EventKt {
     public fun hasMessageExpired(): kotlin.Boolean {
       return _builder.hasMessageExpired()
     }
+
+    /**
+     * `.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];`
+     */
+    public var messagePinned: app.mvchat.mvnxt.mvservernxt.v1.MessagePinned
+      @kotlin.jvm.JvmName("getMessagePinned")
+        get() = _builder.messagePinned
+      @kotlin.jvm.JvmName("setMessagePinned")
+        set(value) {
+        _builder.messagePinned = value
+      }
+    /**
+     * `.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];`
+     */
+    public fun clearMessagePinned() {
+      _builder.clearMessagePinned()
+    }
+    /**
+     * `.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];`
+     * @return Whether the messagePinned field is set.
+     */
+    public fun hasMessagePinned(): kotlin.Boolean {
+      return _builder.hasMessagePinned()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];`
+     */
+    public var messageUnpinned: app.mvchat.mvnxt.mvservernxt.v1.MessageUnpinned
+      @kotlin.jvm.JvmName("getMessageUnpinned")
+        get() = _builder.messageUnpinned
+      @kotlin.jvm.JvmName("setMessageUnpinned")
+        set(value) {
+        _builder.messageUnpinned = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];`
+     */
+    public fun clearMessageUnpinned() {
+      _builder.clearMessageUnpinned()
+    }
+    /**
+     * `.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];`
+     * @return Whether the messageUnpinned field is set.
+     */
+    public fun hasMessageUnpinned(): kotlin.Boolean {
+      return _builder.hasMessageUnpinned()
+    }
+
+    /**
+     * `.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];`
+     */
+    public var conversationNicknameChanged: app.mvchat.mvnxt.mvservernxt.v1.ConversationNicknameChanged
+      @kotlin.jvm.JvmName("getConversationNicknameChanged")
+        get() = _builder.conversationNicknameChanged
+      @kotlin.jvm.JvmName("setConversationNicknameChanged")
+        set(value) {
+        _builder.conversationNicknameChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];`
+     */
+    public fun clearConversationNicknameChanged() {
+      _builder.clearConversationNicknameChanged()
+    }
+    /**
+     * `.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];`
+     * @return Whether the conversationNicknameChanged field is set.
+     */
+    public fun hasConversationNicknameChanged(): kotlin.Boolean {
+      return _builder.hasConversationNicknameChanged()
+    }
+
+    /**
+     * `.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];`
+     */
+    public var conversationMetadataChanged: app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged
+      @kotlin.jvm.JvmName("getConversationMetadataChanged")
+        get() = _builder.conversationMetadataChanged
+      @kotlin.jvm.JvmName("setConversationMetadataChanged")
+        set(value) {
+        _builder.conversationMetadataChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];`
+     */
+    public fun clearConversationMetadataChanged() {
+      _builder.clearConversationMetadataChanged()
+    }
+    /**
+     * `.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];`
+     * @return Whether the conversationMetadataChanged field is set.
+     */
+    public fun hasConversationMetadataChanged(): kotlin.Boolean {
+      return _builder.hasConversationMetadataChanged()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -881,4 +977,16 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.disappearingMessagesCh
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageExpiredOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageExpired?
   get() = if (hasMessageExpired()) getMessageExpired() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messagePinnedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessagePinned?
+  get() = if (hasMessagePinned()) getMessagePinned() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageUnpinnedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageUnpinned?
+  get() = if (hasMessageUnpinned()) getMessageUnpinned() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationNicknameChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ConversationNicknameChanged?
+  get() = if (hasConversationNicknameChanged()) getConversationNicknameChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationMetadataChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged?
+  get() = if (hasConversationMetadataChanged()) getConversationMetadataChanged() else null
 

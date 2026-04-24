@@ -102,6 +102,8 @@ const Conversation$json = {
       '5': 5,
       '10': 'disappearingSeconds'
     },
+    {'1': 'description', '3': 9, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'theme', '3': 10, '4': 1, '5': 9, '10': 'theme'},
   ],
 };
 
@@ -112,7 +114,8 @@ final $typed_data.Uint8List conversationDescriptor = $convert.base64Decode(
     'cmVhdGVkX2J5GAQgASgJUgljcmVhdGVkQnkSOQoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS'
     '5wcm90b2J1Zi5UaW1lc3RhbXBSCWNyZWF0ZWRBdBIdCgptZW1iZXJfaWRzGAYgAygJUgltZW1i'
     'ZXJJZHMSKAoQbGFzdF9tZXNzYWdlX3NlcRgHIAEoA1IObGFzdE1lc3NhZ2VTZXESMQoUZGlzYX'
-    'BwZWFyaW5nX3NlY29uZHMYCCABKAVSE2Rpc2FwcGVhcmluZ1NlY29uZHM=');
+    'BwZWFyaW5nX3NlY29uZHMYCCABKAVSE2Rpc2FwcGVhcmluZ1NlY29uZHMSIAoLZGVzY3JpcHRp'
+    'b24YCSABKAlSC2Rlc2NyaXB0aW9uEhQKBXRoZW1lGAogASgJUgV0aGVtZQ==');
 
 @$core.Deprecated('Use messageDescriptor instead')
 const Message$json = {
@@ -174,6 +177,15 @@ const Message$json = {
       '6': '.google.protobuf.Timestamp',
       '10': 'expiresAt'
     },
+    {
+      '1': 'pinned_at',
+      '3': 15,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'pinnedAt'
+    },
+    {'1': 'pinned_by', '3': 16, '4': 1, '5': 9, '10': 'pinnedBy'},
   ],
 };
 
@@ -189,7 +201,9 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'RlbGV0ZWRfYnkYCyABKAlSCWRlbGV0ZWRCeRJBCg1kZWxldGlvbl9raW5kGAwgASgOMhwubXZz'
     'ZXJ2ZXJueHQudjEuRGVsZXRpb25LaW5kUgxkZWxldGlvbktpbmQSNgoJcmVhY3Rpb25zGA0gAy'
     'gLMhgubXZzZXJ2ZXJueHQudjEuUmVhY3Rpb25SCXJlYWN0aW9ucxI5CgpleHBpcmVzX2F0GA4g'
-    'ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlc0F0');
+    'ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlc0F0EjcKCXBpbm5lZF9hdB'
+    'gPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCHBpbm5lZEF0EhsKCXBpbm5lZF9i'
+    'eRgQIAEoCVIIcGlubmVkQnk=');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -415,6 +429,81 @@ final $typed_data.Uint8List setDisappearingMessagesDescriptor = $convert.base64D
     'ChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbn'
     'ZlcnNhdGlvbklkEjEKFGRpc2FwcGVhcmluZ19zZWNvbmRzGAIgASgFUhNkaXNhcHBlYXJpbmdT'
     'ZWNvbmRz');
+
+@$core.Deprecated('Use pinMessageDescriptor instead')
+const PinMessage$json = {
+  '1': 'PinMessage',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'message_id', '3': 2, '4': 1, '5': 9, '10': 'messageId'},
+  ],
+};
+
+/// Descriptor for `PinMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pinMessageDescriptor = $convert.base64Decode(
+    'CgpQaW5NZXNzYWdlEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udmVyc2F0aW9uSWQSHQ'
+    'oKbWVzc2FnZV9pZBgCIAEoCVIJbWVzc2FnZUlk');
+
+@$core.Deprecated('Use unpinMessageDescriptor instead')
+const UnpinMessage$json = {
+  '1': 'UnpinMessage',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'message_id', '3': 2, '4': 1, '5': 9, '10': 'messageId'},
+  ],
+};
+
+/// Descriptor for `UnpinMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List unpinMessageDescriptor = $convert.base64Decode(
+    'CgxVbnBpbk1lc3NhZ2USJwoPY29udmVyc2F0aW9uX2lkGAEgASgJUg5jb252ZXJzYXRpb25JZB'
+    'IdCgptZXNzYWdlX2lkGAIgASgJUgltZXNzYWdlSWQ=');
+
+@$core.Deprecated('Use setConversationNicknameDescriptor instead')
+const SetConversationNickname$json = {
+  '1': 'SetConversationNickname',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'nickname', '3': 3, '4': 1, '5': 9, '10': 'nickname'},
+  ],
+};
+
+/// Descriptor for `SetConversationNickname`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List setConversationNicknameDescriptor = $convert.base64Decode(
+    'ChdTZXRDb252ZXJzYXRpb25OaWNrbmFtZRInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbn'
+    'ZlcnNhdGlvbklkEhcKB3VzZXJfaWQYAiABKAlSBnVzZXJJZBIaCghuaWNrbmFtZRgDIAEoCVII'
+    'bmlja25hbWU=');
+
+@$core.Deprecated('Use updateConversationMetadataDescriptor instead')
+const UpdateConversationMetadata$json = {
+  '1': 'UpdateConversationMetadata',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'title', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'title', '17': true},
+    {
+      '1': 'description',
+      '3': 3,
+      '4': 1,
+      '5': 9,
+      '9': 1,
+      '10': 'description',
+      '17': true
+    },
+    {'1': 'theme', '3': 4, '4': 1, '5': 9, '9': 2, '10': 'theme', '17': true},
+  ],
+  '8': [
+    {'1': '_title'},
+    {'1': '_description'},
+    {'1': '_theme'},
+  ],
+};
+
+/// Descriptor for `UpdateConversationMetadata`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateConversationMetadataDescriptor = $convert.base64Decode(
+    'ChpVcGRhdGVDb252ZXJzYXRpb25NZXRhZGF0YRInCg9jb252ZXJzYXRpb25faWQYASABKAlSDm'
+    'NvbnZlcnNhdGlvbklkEhkKBXRpdGxlGAIgASgJSABSBXRpdGxliAEBEiUKC2Rlc2NyaXB0aW9u'
+    'GAMgASgJSAFSC2Rlc2NyaXB0aW9uiAEBEhkKBXRoZW1lGAQgASgJSAJSBXRoZW1liAEBQggKBl'
+    '90aXRsZUIOCgxfZGVzY3JpcHRpb25CCAoGX3RoZW1l');
 
 @$core.Deprecated('Use markReadDescriptor instead')
 const MarkRead$json = {
@@ -924,3 +1013,121 @@ final $typed_data.Uint8List messageExpiredDescriptor = $convert.base64Decode(
     'Cg5NZXNzYWdlRXhwaXJlZBIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSJwoPY29udm'
     'Vyc2F0aW9uX2lkGAIgASgJUg5jb252ZXJzYXRpb25JZBI5CgpleHBpcmVkX2F0GAMgASgLMhou'
     'Z29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlZEF0');
+
+@$core.Deprecated('Use messagePinnedDescriptor instead')
+const MessagePinned$json = {
+  '1': 'MessagePinned',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'pinned_by', '3': 3, '4': 1, '5': 9, '10': 'pinnedBy'},
+    {
+      '1': 'pinned_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'pinnedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessagePinned`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messagePinnedDescriptor = $convert.base64Decode(
+    'Cg1NZXNzYWdlUGlubmVkEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZBInCg9jb252ZX'
+    'JzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEhsKCXBpbm5lZF9ieRgDIAEoCVIIcGlu'
+    'bmVkQnkSNwoJcGlubmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIcG'
+    'lubmVkQXQ=');
+
+@$core.Deprecated('Use messageUnpinnedDescriptor instead')
+const MessageUnpinned$json = {
+  '1': 'MessageUnpinned',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'unpinned_by', '3': 3, '4': 1, '5': 9, '10': 'unpinnedBy'},
+    {
+      '1': 'unpinned_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'unpinnedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageUnpinned`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageUnpinnedDescriptor = $convert.base64Decode(
+    'Cg9NZXNzYWdlVW5waW5uZWQSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZUlkEicKD2Nvbn'
+    'ZlcnNhdGlvbl9pZBgCIAEoCVIOY29udmVyc2F0aW9uSWQSHwoLdW5waW5uZWRfYnkYAyABKAlS'
+    'CnVucGlubmVkQnkSOwoLdW5waW5uZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZX'
+    'N0YW1wUgp1bnBpbm5lZEF0');
+
+@$core.Deprecated('Use conversationNicknameChangedDescriptor instead')
+const ConversationNicknameChanged$json = {
+  '1': 'ConversationNicknameChanged',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'nickname', '3': 3, '4': 1, '5': 9, '10': 'nickname'},
+    {'1': 'changed_by', '3': 4, '4': 1, '5': 9, '10': 'changedBy'},
+    {
+      '1': 'changed_at',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'changedAt'
+    },
+  ],
+};
+
+/// Descriptor for `ConversationNicknameChanged`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conversationNicknameChangedDescriptor = $convert.base64Decode(
+    'ChtDb252ZXJzYXRpb25OaWNrbmFtZUNoYW5nZWQSJwoPY29udmVyc2F0aW9uX2lkGAEgASgJUg'
+    '5jb252ZXJzYXRpb25JZBIXCgd1c2VyX2lkGAIgASgJUgZ1c2VySWQSGgoIbmlja25hbWUYAyAB'
+    'KAlSCG5pY2tuYW1lEh0KCmNoYW5nZWRfYnkYBCABKAlSCWNoYW5nZWRCeRI5CgpjaGFuZ2VkX2'
+    'F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJY2hhbmdlZEF0');
+
+@$core.Deprecated('Use conversationMetadataChangedDescriptor instead')
+const ConversationMetadataChanged$json = {
+  '1': 'ConversationMetadataChanged',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'title', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'title', '17': true},
+    {
+      '1': 'description',
+      '3': 3,
+      '4': 1,
+      '5': 9,
+      '9': 1,
+      '10': 'description',
+      '17': true
+    },
+    {'1': 'theme', '3': 4, '4': 1, '5': 9, '9': 2, '10': 'theme', '17': true},
+    {'1': 'changed_by', '3': 5, '4': 1, '5': 9, '10': 'changedBy'},
+    {
+      '1': 'changed_at',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'changedAt'
+    },
+  ],
+  '8': [
+    {'1': '_title'},
+    {'1': '_description'},
+    {'1': '_theme'},
+  ],
+};
+
+/// Descriptor for `ConversationMetadataChanged`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conversationMetadataChangedDescriptor = $convert.base64Decode(
+    'ChtDb252ZXJzYXRpb25NZXRhZGF0YUNoYW5nZWQSJwoPY29udmVyc2F0aW9uX2lkGAEgASgJUg'
+    '5jb252ZXJzYXRpb25JZBIZCgV0aXRsZRgCIAEoCUgAUgV0aXRsZYgBARIlCgtkZXNjcmlwdGlv'
+    'bhgDIAEoCUgBUgtkZXNjcmlwdGlvbogBARIZCgV0aGVtZRgEIAEoCUgCUgV0aGVtZYgBARIdCg'
+    'pjaGFuZ2VkX2J5GAUgASgJUgljaGFuZ2VkQnkSOQoKY2hhbmdlZF9hdBgGIAEoCzIaLmdvb2ds'
+    'ZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNoYW5nZWRBdEIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW'
+    '9uQggKBl90aGVtZQ==');

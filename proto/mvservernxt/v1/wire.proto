@@ -64,6 +64,10 @@ message ClientEnvelope {
     RemoveReaction          remove_reaction            = 43;
     SendTyping              send_typing                = 44;
     SetDisappearingMessages set_disappearing_messages  = 45;
+    PinMessage              pin_message                = 46;
+    UnpinMessage            unpin_message              = 47;
+    SetConversationNickname set_conversation_nickname  = 48;
+    UpdateConversationMetadata update_conversation_metadata = 49;
 
     // Other domains land in their reserved ranges:
     //   50-59  pulse
@@ -184,5 +188,9 @@ message Event {
     TypingChanged              typing_changed               = 42;
     DisappearingMessagesChanged disappearing_messages_changed = 43;
     MessageExpired             message_expired              = 44;
+    MessagePinned              message_pinned               = 45;
+    MessageUnpinned            message_unpinned             = 46;
+    ConversationNicknameChanged conversation_nickname_changed = 47;
+    ConversationMetadataChanged conversation_metadata_changed = 48;
   }
 }

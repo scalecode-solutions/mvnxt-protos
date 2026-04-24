@@ -504,5 +504,65 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder getMessageExpiredOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];</code>
+   * @return Whether the messagePinned field is set.
+   */
+  boolean hasMessagePinned();
+  /**
+   * <code>.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];</code>
+   * @return The messagePinned.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessagePinned getMessagePinned();
+  /**
+   * <code>.mvservernxt.v1.MessagePinned message_pinned = 45 [json_name = "messagePinned"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessagePinnedOrBuilder getMessagePinnedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];</code>
+   * @return Whether the messageUnpinned field is set.
+   */
+  boolean hasMessageUnpinned();
+  /**
+   * <code>.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];</code>
+   * @return The messageUnpinned.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageUnpinned getMessageUnpinned();
+  /**
+   * <code>.mvservernxt.v1.MessageUnpinned message_unpinned = 46 [json_name = "messageUnpinned"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageUnpinnedOrBuilder getMessageUnpinnedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];</code>
+   * @return Whether the conversationNicknameChanged field is set.
+   */
+  boolean hasConversationNicknameChanged();
+  /**
+   * <code>.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];</code>
+   * @return The conversationNicknameChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationNicknameChanged getConversationNicknameChanged();
+  /**
+   * <code>.mvservernxt.v1.ConversationNicknameChanged conversation_nickname_changed = 47 [json_name = "conversationNicknameChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationNicknameChangedOrBuilder getConversationNicknameChangedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];</code>
+   * @return Whether the conversationMetadataChanged field is set.
+   */
+  boolean hasConversationMetadataChanged();
+  /**
+   * <code>.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];</code>
+   * @return The conversationMetadataChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged getConversationMetadataChanged();
+  /**
+   * <code>.mvservernxt.v1.ConversationMetadataChanged conversation_metadata_changed = 48 [json_name = "conversationMetadataChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChangedOrBuilder getConversationMetadataChangedOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

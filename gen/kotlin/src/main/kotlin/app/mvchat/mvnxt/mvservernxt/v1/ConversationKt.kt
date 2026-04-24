@@ -330,6 +330,62 @@ public object ConversationKt {
     public fun clearDisappearingSeconds() {
       _builder.clearDisappearingSeconds()
     }
+
+    /**
+     * ```
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * ```
+     *
+     * `string description = 9 [json_name = "description"];`
+     */
+    public var description: kotlin.String
+      @kotlin.jvm.JvmName("getDescription")
+        get() = _builder.description
+      @kotlin.jvm.JvmName("setDescription")
+        set(value) {
+        _builder.description = value
+      }
+    /**
+     * ```
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * ```
+     *
+     * `string description = 9 [json_name = "description"];`
+     */
+    public fun clearDescription() {
+      _builder.clearDescription()
+    }
+
+    /**
+     * ```
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * ```
+     *
+     * `string theme = 10 [json_name = "theme"];`
+     */
+    public var theme: kotlin.String
+      @kotlin.jvm.JvmName("getTheme")
+        get() = _builder.theme
+      @kotlin.jvm.JvmName("setTheme")
+        set(value) {
+        _builder.theme = value
+      }
+    /**
+     * ```
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * ```
+     *
+     * `string theme = 10 [json_name = "theme"];`
+     */
+    public fun clearTheme() {
+      _builder.clearTheme()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

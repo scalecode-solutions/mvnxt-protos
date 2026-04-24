@@ -168,4 +168,50 @@ public interface ConversationOrBuilder extends
    * @return The disappearingSeconds.
    */
   int getDisappearingSeconds();
+
+  /**
+   * <pre>
+   * Group description (free-form text shown beneath the title in UI).
+   * Empty for DMs and for groups that never set one. Max 500 chars.
+   * </pre>
+   *
+   * <code>string description = 9 [json_name = "description"];</code>
+   * @return The description.
+   */
+  java.lang.String getDescription();
+  /**
+   * <pre>
+   * Group description (free-form text shown beneath the title in UI).
+   * Empty for DMs and for groups that never set one. Max 500 chars.
+   * </pre>
+   *
+   * <code>string description = 9 [json_name = "description"];</code>
+   * @return The bytes for description.
+   */
+  com.google.protobuf.ByteString
+      getDescriptionBytes();
+
+  /**
+   * <pre>
+   * Visual theme identifier — opaque to the server, interpreted by
+   * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+   * default. Max 64 chars.
+   * </pre>
+   *
+   * <code>string theme = 10 [json_name = "theme"];</code>
+   * @return The theme.
+   */
+  java.lang.String getTheme();
+  /**
+   * <pre>
+   * Visual theme identifier — opaque to the server, interpreted by
+   * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+   * default. Max 64 chars.
+   * </pre>
+   *
+   * <code>string theme = 10 [json_name = "theme"];</code>
+   * @return The bytes for theme.
+   */
+  com.google.protobuf.ByteString
+      getThemeBytes();
 }

@@ -243,8 +243,15 @@ type Conversation struct {
 	// server's scheduler soft-deletes it with deletion_kind=EXPIRED when
 	// the TTL is up.
 	DisappearingSeconds int32 `protobuf:"varint,8,opt,name=disappearing_seconds,json=disappearingSeconds,proto3" json:"disappearing_seconds,omitempty"`
-	unknownFields       protoimpl.UnknownFields
-	sizeCache           protoimpl.SizeCache
+	// Group description (free-form text shown beneath the title in UI).
+	// Empty for DMs and for groups that never set one. Max 500 chars.
+	Description string `protobuf:"bytes,9,opt,name=description,proto3" json:"description,omitempty"`
+	// Visual theme identifier — opaque to the server, interpreted by
+	// clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+	// default. Max 64 chars.
+	Theme         string `protobuf:"bytes,10,opt,name=theme,proto3" json:"theme,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Conversation) Reset() {
@@ -333,6 +340,20 @@ func (x *Conversation) GetDisappearingSeconds() int32 {
 	return 0
 }
 
+func (x *Conversation) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Conversation) GetTheme() string {
+	if x != nil {
+		return x.Theme
+	}
+	return ""
+}
+
 // Message is the client-facing view of one message row.
 //
 // Soft-delete model (slice 2): messages are NEVER physically removed.
@@ -385,7 +406,13 @@ type Message struct {
 	// When the message will disappear if disappearing-messages is active
 	// in the conversation. Null = no expiry. Set at send time from the
 	// conversation's disappearing_seconds policy.
-	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	ExpiresAt *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	// When the message was pinned in its conversation. Null = not
+	// pinned. Multiple messages can be pinned per conversation; the
+	// server doesn't cap the set size beyond general abuse protections.
+	PinnedAt *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=pinned_at,json=pinnedAt,proto3" json:"pinned_at,omitempty"`
+	// Who pinned it (user_id string). Empty when pinned_at is null.
+	PinnedBy      string `protobuf:"bytes,16,opt,name=pinned_by,json=pinnedBy,proto3" json:"pinned_by,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -516,6 +543,20 @@ func (x *Message) GetExpiresAt() *timestamppb.Timestamp {
 		return x.ExpiresAt
 	}
 	return nil
+}
+
+func (x *Message) GetPinnedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.PinnedAt
+	}
+	return nil
+}
+
+func (x *Message) GetPinnedBy() string {
+	if x != nil {
+		return x.PinnedBy
+	}
+	return ""
 }
 
 // CreateConversation makes a new conversation and auto-adds the creator
@@ -1425,6 +1466,277 @@ func (x *SetDisappearingMessages) GetDisappearingSeconds() int32 {
 	return 0
 }
 
+// PinMessage pins a message so it surfaces at the top of the
+// conversation view. Caller MUST be an active member. Any active
+// member can pin or unpin — role-based admin checks land later.
+//
+// Idempotent: pinning an already-pinned message Acks cleanly without
+// re-emitting MessagePinned. Pinning a soft-deleted message is
+// rejected (CodeGone).
+//
+// Multiple messages can be pinned per conversation. v2 does not
+// currently cap the set size; attackers are bounded by the reaction
+// rate limiter shape (a future slice may add a per-conversation pin
+// cap if product signal warrants).
+type PinMessage struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	MessageId      string                 `protobuf:"bytes,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *PinMessage) Reset() {
+	*x = PinMessage{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PinMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PinMessage) ProtoMessage() {}
+
+func (x *PinMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PinMessage.ProtoReflect.Descriptor instead.
+func (*PinMessage) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *PinMessage) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *PinMessage) GetMessageId() string {
+	if x != nil {
+		return x.MessageId
+	}
+	return ""
+}
+
+// UnpinMessage removes a pin. Caller MUST be an active member.
+// Idempotent: unpinning a message that isn't pinned Acks cleanly
+// without re-emitting MessageUnpinned.
+type UnpinMessage struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	MessageId      string                 `protobuf:"bytes,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UnpinMessage) Reset() {
+	*x = UnpinMessage{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnpinMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnpinMessage) ProtoMessage() {}
+
+func (x *UnpinMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnpinMessage.ProtoReflect.Descriptor instead.
+func (*UnpinMessage) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *UnpinMessage) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *UnpinMessage) GetMessageId() string {
+	if x != nil {
+		return x.MessageId
+	}
+	return ""
+}
+
+// SetConversationNickname sets a display nickname for one member
+// within one conversation. The nickname is VISIBLE to all members —
+// this is conversation-scoped labeling, not a per-viewer preference.
+//
+// Caller MUST be an active member of the conversation. In v2 any
+// member can set any member's nickname (including their own); admin
+// gating lands when the admin domain does.
+//
+// Empty nickname clears the override — clients fall back to the
+// target user's global display_name. Max 64 chars.
+type SetConversationNickname struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // Target; may be the caller themselves
+	Nickname       string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SetConversationNickname) Reset() {
+	*x = SetConversationNickname{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetConversationNickname) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetConversationNickname) ProtoMessage() {}
+
+func (x *SetConversationNickname) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetConversationNickname.ProtoReflect.Descriptor instead.
+func (*SetConversationNickname) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *SetConversationNickname) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *SetConversationNickname) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *SetConversationNickname) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+// UpdateConversationMetadata edits one or more of title / description /
+// theme in a single call. Uses proto3 optional presence so clients can
+// express "don't change this field" by leaving it unset vs "clear this
+// field" by setting it to "".
+//
+// Caller MUST be an active member. Title edits are rejected on DMs
+// (DMs derive their display from members). Description and theme
+// apply to both DMs and groups.
+type UpdateConversationMetadata struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// Group title. Unset = leave unchanged. Set to non-empty = update.
+	// Set to empty = rejected (groups must have a title). Rejected
+	// outright on DMs.
+	Title *string `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	// Description. Unset = leave unchanged. Empty set = clear. Max 500.
+	Description *string `protobuf:"bytes,3,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	// Theme identifier. Unset = leave unchanged. Empty set = reset to
+	// client default. Max 64 chars.
+	Theme         *string `protobuf:"bytes,4,opt,name=theme,proto3,oneof" json:"theme,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateConversationMetadata) Reset() {
+	*x = UpdateConversationMetadata{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateConversationMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateConversationMetadata) ProtoMessage() {}
+
+func (x *UpdateConversationMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateConversationMetadata.ProtoReflect.Descriptor instead.
+func (*UpdateConversationMetadata) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UpdateConversationMetadata) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *UpdateConversationMetadata) GetTitle() string {
+	if x != nil && x.Title != nil {
+		return *x.Title
+	}
+	return ""
+}
+
+func (x *UpdateConversationMetadata) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *UpdateConversationMetadata) GetTheme() string {
+	if x != nil && x.Theme != nil {
+		return *x.Theme
+	}
+	return ""
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
@@ -1447,7 +1759,7 @@ type MarkRead struct {
 
 func (x *MarkRead) Reset() {
 	*x = MarkRead{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[18]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1459,7 +1771,7 @@ func (x *MarkRead) String() string {
 func (*MarkRead) ProtoMessage() {}
 
 func (x *MarkRead) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[18]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1472,7 +1784,7 @@ func (x *MarkRead) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarkRead.ProtoReflect.Descriptor instead.
 func (*MarkRead) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{18}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *MarkRead) GetConversationId() string {
@@ -1498,7 +1810,7 @@ type CreateConversationResponse struct {
 
 func (x *CreateConversationResponse) Reset() {
 	*x = CreateConversationResponse{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[19]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1510,7 +1822,7 @@ func (x *CreateConversationResponse) String() string {
 func (*CreateConversationResponse) ProtoMessage() {}
 
 func (x *CreateConversationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[19]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1523,7 +1835,7 @@ func (x *CreateConversationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateConversationResponse.ProtoReflect.Descriptor instead.
 func (*CreateConversationResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{19}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *CreateConversationResponse) GetConversation() *Conversation {
@@ -1542,7 +1854,7 @@ type SendMessageResponse struct {
 
 func (x *SendMessageResponse) Reset() {
 	*x = SendMessageResponse{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[20]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1554,7 +1866,7 @@ func (x *SendMessageResponse) String() string {
 func (*SendMessageResponse) ProtoMessage() {}
 
 func (x *SendMessageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[20]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1567,7 +1879,7 @@ func (x *SendMessageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendMessageResponse.ProtoReflect.Descriptor instead.
 func (*SendMessageResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{20}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *SendMessageResponse) GetMessage() *Message {
@@ -1586,7 +1898,7 @@ type ListConversationsResponse struct {
 
 func (x *ListConversationsResponse) Reset() {
 	*x = ListConversationsResponse{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[21]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1598,7 +1910,7 @@ func (x *ListConversationsResponse) String() string {
 func (*ListConversationsResponse) ProtoMessage() {}
 
 func (x *ListConversationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[21]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1611,7 +1923,7 @@ func (x *ListConversationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListConversationsResponse.ProtoReflect.Descriptor instead.
 func (*ListConversationsResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{21}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *ListConversationsResponse) GetConversations() []*Conversation {
@@ -1633,7 +1945,7 @@ type GetMessagesResponse struct {
 
 func (x *GetMessagesResponse) Reset() {
 	*x = GetMessagesResponse{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[22]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1645,7 +1957,7 @@ func (x *GetMessagesResponse) String() string {
 func (*GetMessagesResponse) ProtoMessage() {}
 
 func (x *GetMessagesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[22]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1658,7 +1970,7 @@ func (x *GetMessagesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMessagesResponse.ProtoReflect.Descriptor instead.
 func (*GetMessagesResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{22}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetMessagesResponse) GetMessages() []*Message {
@@ -1684,7 +1996,7 @@ type EditMessageResponse struct {
 
 func (x *EditMessageResponse) Reset() {
 	*x = EditMessageResponse{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[23]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1696,7 +2008,7 @@ func (x *EditMessageResponse) String() string {
 func (*EditMessageResponse) ProtoMessage() {}
 
 func (x *EditMessageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[23]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1709,7 +2021,7 @@ func (x *EditMessageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EditMessageResponse.ProtoReflect.Descriptor instead.
 func (*EditMessageResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{23}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *EditMessageResponse) GetMessage() *Message {
@@ -1735,7 +2047,7 @@ type ConversationCreated struct {
 
 func (x *ConversationCreated) Reset() {
 	*x = ConversationCreated{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[24]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1747,7 +2059,7 @@ func (x *ConversationCreated) String() string {
 func (*ConversationCreated) ProtoMessage() {}
 
 func (x *ConversationCreated) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[24]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1760,7 +2072,7 @@ func (x *ConversationCreated) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConversationCreated.ProtoReflect.Descriptor instead.
 func (*ConversationCreated) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{24}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *ConversationCreated) GetConversationId() string {
@@ -1819,7 +2131,7 @@ type MemberAdded struct {
 
 func (x *MemberAdded) Reset() {
 	*x = MemberAdded{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[25]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1831,7 +2143,7 @@ func (x *MemberAdded) String() string {
 func (*MemberAdded) ProtoMessage() {}
 
 func (x *MemberAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[25]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1844,7 +2156,7 @@ func (x *MemberAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MemberAdded.ProtoReflect.Descriptor instead.
 func (*MemberAdded) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{25}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *MemberAdded) GetConversationId() string {
@@ -1888,7 +2200,7 @@ type MemberRemoved struct {
 
 func (x *MemberRemoved) Reset() {
 	*x = MemberRemoved{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[26]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1900,7 +2212,7 @@ func (x *MemberRemoved) String() string {
 func (*MemberRemoved) ProtoMessage() {}
 
 func (x *MemberRemoved) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[26]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1913,7 +2225,7 @@ func (x *MemberRemoved) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MemberRemoved.ProtoReflect.Descriptor instead.
 func (*MemberRemoved) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{26}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *MemberRemoved) GetConversationId() string {
@@ -1956,7 +2268,7 @@ type MemberLeft struct {
 
 func (x *MemberLeft) Reset() {
 	*x = MemberLeft{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[27]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1968,7 +2280,7 @@ func (x *MemberLeft) String() string {
 func (*MemberLeft) ProtoMessage() {}
 
 func (x *MemberLeft) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[27]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1981,7 +2293,7 @@ func (x *MemberLeft) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MemberLeft.ProtoReflect.Descriptor instead.
 func (*MemberLeft) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{27}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *MemberLeft) GetConversationId() string {
@@ -2024,7 +2336,7 @@ type MessageSent struct {
 
 func (x *MessageSent) Reset() {
 	*x = MessageSent{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[28]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2036,7 +2348,7 @@ func (x *MessageSent) String() string {
 func (*MessageSent) ProtoMessage() {}
 
 func (x *MessageSent) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[28]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2049,7 +2361,7 @@ func (x *MessageSent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageSent.ProtoReflect.Descriptor instead.
 func (*MessageSent) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{28}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *MessageSent) GetMessageId() string {
@@ -2123,7 +2435,7 @@ type ReadReceiptUpdated struct {
 
 func (x *ReadReceiptUpdated) Reset() {
 	*x = ReadReceiptUpdated{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[29]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2135,7 +2447,7 @@ func (x *ReadReceiptUpdated) String() string {
 func (*ReadReceiptUpdated) ProtoMessage() {}
 
 func (x *ReadReceiptUpdated) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[29]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2148,7 +2460,7 @@ func (x *ReadReceiptUpdated) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReadReceiptUpdated.ProtoReflect.Descriptor instead.
 func (*ReadReceiptUpdated) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{29}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *ReadReceiptUpdated) GetConversationId() string {
@@ -2193,7 +2505,7 @@ type MessageEdited struct {
 
 func (x *MessageEdited) Reset() {
 	*x = MessageEdited{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[30]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2205,7 +2517,7 @@ func (x *MessageEdited) String() string {
 func (*MessageEdited) ProtoMessage() {}
 
 func (x *MessageEdited) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[30]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2218,7 +2530,7 @@ func (x *MessageEdited) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageEdited.ProtoReflect.Descriptor instead.
 func (*MessageEdited) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{30}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *MessageEdited) GetMessageId() string {
@@ -2265,7 +2577,7 @@ type MessageHidden struct {
 
 func (x *MessageHidden) Reset() {
 	*x = MessageHidden{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[31]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2277,7 +2589,7 @@ func (x *MessageHidden) String() string {
 func (*MessageHidden) ProtoMessage() {}
 
 func (x *MessageHidden) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[31]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2290,7 +2602,7 @@ func (x *MessageHidden) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageHidden.ProtoReflect.Descriptor instead.
 func (*MessageHidden) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{31}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *MessageHidden) GetMessageId() string {
@@ -2338,7 +2650,7 @@ type MessageDeletedForEveryone struct {
 
 func (x *MessageDeletedForEveryone) Reset() {
 	*x = MessageDeletedForEveryone{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[32]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2350,7 +2662,7 @@ func (x *MessageDeletedForEveryone) String() string {
 func (*MessageDeletedForEveryone) ProtoMessage() {}
 
 func (x *MessageDeletedForEveryone) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[32]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2363,7 +2675,7 @@ func (x *MessageDeletedForEveryone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageDeletedForEveryone.ProtoReflect.Descriptor instead.
 func (*MessageDeletedForEveryone) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{32}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *MessageDeletedForEveryone) GetMessageId() string {
@@ -2410,7 +2722,7 @@ type MessageUnsent struct {
 
 func (x *MessageUnsent) Reset() {
 	*x = MessageUnsent{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[33]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2422,7 +2734,7 @@ func (x *MessageUnsent) String() string {
 func (*MessageUnsent) ProtoMessage() {}
 
 func (x *MessageUnsent) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[33]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2435,7 +2747,7 @@ func (x *MessageUnsent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageUnsent.ProtoReflect.Descriptor instead.
 func (*MessageUnsent) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{33}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *MessageUnsent) GetMessageId() string {
@@ -2482,7 +2794,7 @@ type MessageReactionAdded struct {
 
 func (x *MessageReactionAdded) Reset() {
 	*x = MessageReactionAdded{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[34]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2494,7 +2806,7 @@ func (x *MessageReactionAdded) String() string {
 func (*MessageReactionAdded) ProtoMessage() {}
 
 func (x *MessageReactionAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[34]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2507,7 +2819,7 @@ func (x *MessageReactionAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageReactionAdded.ProtoReflect.Descriptor instead.
 func (*MessageReactionAdded) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{34}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *MessageReactionAdded) GetMessageId() string {
@@ -2559,7 +2871,7 @@ type MessageReactionRemoved struct {
 
 func (x *MessageReactionRemoved) Reset() {
 	*x = MessageReactionRemoved{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[35]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2571,7 +2883,7 @@ func (x *MessageReactionRemoved) String() string {
 func (*MessageReactionRemoved) ProtoMessage() {}
 
 func (x *MessageReactionRemoved) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[35]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2584,7 +2896,7 @@ func (x *MessageReactionRemoved) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageReactionRemoved.ProtoReflect.Descriptor instead.
 func (*MessageReactionRemoved) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{35}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *MessageReactionRemoved) GetMessageId() string {
@@ -2641,7 +2953,7 @@ type TypingChanged struct {
 
 func (x *TypingChanged) Reset() {
 	*x = TypingChanged{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[36]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2653,7 +2965,7 @@ func (x *TypingChanged) String() string {
 func (*TypingChanged) ProtoMessage() {}
 
 func (x *TypingChanged) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[36]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2666,7 +2978,7 @@ func (x *TypingChanged) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TypingChanged.ProtoReflect.Descriptor instead.
 func (*TypingChanged) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{36}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *TypingChanged) GetConversationId() string {
@@ -2713,7 +3025,7 @@ type DisappearingMessagesChanged struct {
 
 func (x *DisappearingMessagesChanged) Reset() {
 	*x = DisappearingMessagesChanged{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[37]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2725,7 +3037,7 @@ func (x *DisappearingMessagesChanged) String() string {
 func (*DisappearingMessagesChanged) ProtoMessage() {}
 
 func (x *DisappearingMessagesChanged) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[37]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2738,7 +3050,7 @@ func (x *DisappearingMessagesChanged) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DisappearingMessagesChanged.ProtoReflect.Descriptor instead.
 func (*DisappearingMessagesChanged) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{37}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *DisappearingMessagesChanged) GetConversationId() string {
@@ -2784,7 +3096,7 @@ type MessageExpired struct {
 
 func (x *MessageExpired) Reset() {
 	*x = MessageExpired{}
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[38]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2796,7 +3108,7 @@ func (x *MessageExpired) String() string {
 func (*MessageExpired) ProtoMessage() {}
 
 func (x *MessageExpired) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_chat_proto_msgTypes[38]
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2809,7 +3121,7 @@ func (x *MessageExpired) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageExpired.ProtoReflect.Descriptor instead.
 func (*MessageExpired) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{38}
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *MessageExpired) GetMessageId() string {
@@ -2833,6 +3145,312 @@ func (x *MessageExpired) GetExpiredAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// MessagePinned fires for each successful PinMessage. Fans out to
+// every active member so cached views flag the pin.
+type MessagePinned struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	MessageId      string                 `protobuf:"bytes,1,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	PinnedBy       string                 `protobuf:"bytes,3,opt,name=pinned_by,json=pinnedBy,proto3" json:"pinned_by,omitempty"`
+	PinnedAt       *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=pinned_at,json=pinnedAt,proto3" json:"pinned_at,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *MessagePinned) Reset() {
+	*x = MessagePinned{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MessagePinned) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MessagePinned) ProtoMessage() {}
+
+func (x *MessagePinned) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MessagePinned.ProtoReflect.Descriptor instead.
+func (*MessagePinned) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *MessagePinned) GetMessageId() string {
+	if x != nil {
+		return x.MessageId
+	}
+	return ""
+}
+
+func (x *MessagePinned) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *MessagePinned) GetPinnedBy() string {
+	if x != nil {
+		return x.PinnedBy
+	}
+	return ""
+}
+
+func (x *MessagePinned) GetPinnedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.PinnedAt
+	}
+	return nil
+}
+
+// MessageUnpinned fires for each successful UnpinMessage.
+type MessageUnpinned struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	MessageId      string                 `protobuf:"bytes,1,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	UnpinnedBy     string                 `protobuf:"bytes,3,opt,name=unpinned_by,json=unpinnedBy,proto3" json:"unpinned_by,omitempty"`
+	UnpinnedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=unpinned_at,json=unpinnedAt,proto3" json:"unpinned_at,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *MessageUnpinned) Reset() {
+	*x = MessageUnpinned{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MessageUnpinned) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MessageUnpinned) ProtoMessage() {}
+
+func (x *MessageUnpinned) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MessageUnpinned.ProtoReflect.Descriptor instead.
+func (*MessageUnpinned) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *MessageUnpinned) GetMessageId() string {
+	if x != nil {
+		return x.MessageId
+	}
+	return ""
+}
+
+func (x *MessageUnpinned) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *MessageUnpinned) GetUnpinnedBy() string {
+	if x != nil {
+		return x.UnpinnedBy
+	}
+	return ""
+}
+
+func (x *MessageUnpinned) GetUnpinnedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UnpinnedAt
+	}
+	return nil
+}
+
+// ConversationNicknameChanged fires for each successful
+// SetConversationNickname. Carries the new nickname verbatim (empty
+// = cleared); clients update their per-conv display map.
+type ConversationNicknameChanged struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // Who the nickname applies to
+	Nickname       string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`           // Empty = cleared
+	ChangedBy      string                 `protobuf:"bytes,4,opt,name=changed_by,json=changedBy,proto3" json:"changed_by,omitempty"`
+	ChangedAt      *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=changed_at,json=changedAt,proto3" json:"changed_at,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ConversationNicknameChanged) Reset() {
+	*x = ConversationNicknameChanged{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConversationNicknameChanged) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConversationNicknameChanged) ProtoMessage() {}
+
+func (x *ConversationNicknameChanged) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConversationNicknameChanged.ProtoReflect.Descriptor instead.
+func (*ConversationNicknameChanged) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *ConversationNicknameChanged) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *ConversationNicknameChanged) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ConversationNicknameChanged) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *ConversationNicknameChanged) GetChangedBy() string {
+	if x != nil {
+		return x.ChangedBy
+	}
+	return ""
+}
+
+func (x *ConversationNicknameChanged) GetChangedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ChangedAt
+	}
+	return nil
+}
+
+// ConversationMetadataChanged fires for each successful
+// UpdateConversationMetadata. Only the fields the handler actually
+// applied are set on the event — clients merge into their local
+// conversation state rather than overwriting unchanged fields.
+type ConversationMetadataChanged struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	Title          *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	Description    *string                `protobuf:"bytes,3,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	Theme          *string                `protobuf:"bytes,4,opt,name=theme,proto3,oneof" json:"theme,omitempty"`
+	ChangedBy      string                 `protobuf:"bytes,5,opt,name=changed_by,json=changedBy,proto3" json:"changed_by,omitempty"`
+	ChangedAt      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=changed_at,json=changedAt,proto3" json:"changed_at,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ConversationMetadataChanged) Reset() {
+	*x = ConversationMetadataChanged{}
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConversationMetadataChanged) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConversationMetadataChanged) ProtoMessage() {}
+
+func (x *ConversationMetadataChanged) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_chat_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConversationMetadataChanged.ProtoReflect.Descriptor instead.
+func (*ConversationMetadataChanged) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_chat_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *ConversationMetadataChanged) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *ConversationMetadataChanged) GetTitle() string {
+	if x != nil && x.Title != nil {
+		return *x.Title
+	}
+	return ""
+}
+
+func (x *ConversationMetadataChanged) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *ConversationMetadataChanged) GetTheme() string {
+	if x != nil && x.Theme != nil {
+		return *x.Theme
+	}
+	return ""
+}
+
+func (x *ConversationMetadataChanged) GetChangedBy() string {
+	if x != nil {
+		return x.ChangedBy
+	}
+	return ""
+}
+
+func (x *ConversationMetadataChanged) GetChangedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ChangedAt
+	}
+	return nil
+}
+
 var File_mvservernxt_v1_chat_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_chat_proto_rawDesc = "" +
@@ -2842,7 +3460,7 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\x05emoji\x18\x01 \x01(\tR\x05emoji\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x129\n" +
 	"\n" +
-	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xc0\x02\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xf8\x02\n" +
 	"\fConversation\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x124\n" +
 	"\x04type\x18\x02 \x01(\x0e2 .mvservernxt.v1.ConversationTypeR\x04type\x12\x14\n" +
@@ -2854,7 +3472,10 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\n" +
 	"member_ids\x18\x06 \x03(\tR\tmemberIds\x12(\n" +
 	"\x10last_message_seq\x18\a \x01(\x03R\x0elastMessageSeq\x121\n" +
-	"\x14disappearing_seconds\x18\b \x01(\x05R\x13disappearingSeconds\"\xd5\x04\n" +
+	"\x14disappearing_seconds\x18\b \x01(\x05R\x13disappearingSeconds\x12 \n" +
+	"\vdescription\x18\t \x01(\tR\vdescription\x12\x14\n" +
+	"\x05theme\x18\n" +
+	" \x01(\tR\x05theme\"\xab\x05\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12'\n" +
 	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x12\x10\n" +
@@ -2874,7 +3495,9 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\rdeletion_kind\x18\f \x01(\x0e2\x1c.mvservernxt.v1.DeletionKindR\fdeletionKind\x126\n" +
 	"\treactions\x18\r \x03(\v2\x18.mvservernxt.v1.ReactionR\treactions\x129\n" +
 	"\n" +
-	"expires_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\x7f\n" +
+	"expires_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x127\n" +
+	"\tpinned_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampR\bpinnedAt\x12\x1b\n" +
+	"\tpinned_by\x18\x10 \x01(\tR\bpinnedBy\"\x7f\n" +
 	"\x12CreateConversation\x124\n" +
 	"\x04type\x18\x01 \x01(\x0e2 .mvservernxt.v1.ConversationTypeR\x04type\x12\x1d\n" +
 	"\n" +
@@ -2928,7 +3551,28 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"\tis_typing\x18\x02 \x01(\bR\bisTyping\"u\n" +
 	"\x17SetDisappearingMessages\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x121\n" +
-	"\x14disappearing_seconds\x18\x02 \x01(\x05R\x13disappearingSeconds\"W\n" +
+	"\x14disappearing_seconds\x18\x02 \x01(\x05R\x13disappearingSeconds\"T\n" +
+	"\n" +
+	"PinMessage\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x1d\n" +
+	"\n" +
+	"message_id\x18\x02 \x01(\tR\tmessageId\"V\n" +
+	"\fUnpinMessage\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x1d\n" +
+	"\n" +
+	"message_id\x18\x02 \x01(\tR\tmessageId\"w\n" +
+	"\x17SetConversationNickname\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\"\xc6\x01\n" +
+	"\x1aUpdateConversationMetadata\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x19\n" +
+	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\x03 \x01(\tH\x01R\vdescription\x88\x01\x01\x12\x19\n" +
+	"\x05theme\x18\x04 \x01(\tH\x02R\x05theme\x88\x01\x01B\b\n" +
+	"\x06_titleB\x0e\n" +
+	"\f_descriptionB\b\n" +
+	"\x06_theme\"W\n" +
 	"\bMarkRead\x12'\n" +
 	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\"\n" +
 	"\rlast_read_seq\x18\x02 \x01(\x03R\vlastReadSeq\"^\n" +
@@ -3046,7 +3690,41 @@ const file_mvservernxt_v1_chat_proto_rawDesc = "" +
 	"message_id\x18\x01 \x01(\tR\tmessageId\x12'\n" +
 	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x129\n" +
 	"\n" +
-	"expired_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiredAt*l\n" +
+	"expired_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiredAt\"\xad\x01\n" +
+	"\rMessagePinned\x12\x1d\n" +
+	"\n" +
+	"message_id\x18\x01 \x01(\tR\tmessageId\x12'\n" +
+	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x12\x1b\n" +
+	"\tpinned_by\x18\x03 \x01(\tR\bpinnedBy\x127\n" +
+	"\tpinned_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\bpinnedAt\"\xb7\x01\n" +
+	"\x0fMessageUnpinned\x12\x1d\n" +
+	"\n" +
+	"message_id\x18\x01 \x01(\tR\tmessageId\x12'\n" +
+	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x12\x1f\n" +
+	"\vunpinned_by\x18\x03 \x01(\tR\n" +
+	"unpinnedBy\x12;\n" +
+	"\vunpinned_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"unpinnedAt\"\xd5\x01\n" +
+	"\x1bConversationNicknameChanged\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\x12\x1d\n" +
+	"\n" +
+	"changed_by\x18\x04 \x01(\tR\tchangedBy\x129\n" +
+	"\n" +
+	"changed_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tchangedAt\"\xa1\x02\n" +
+	"\x1bConversationMetadataChanged\x12'\n" +
+	"\x0fconversation_id\x18\x01 \x01(\tR\x0econversationId\x12\x19\n" +
+	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\x03 \x01(\tH\x01R\vdescription\x88\x01\x01\x12\x19\n" +
+	"\x05theme\x18\x04 \x01(\tH\x02R\x05theme\x88\x01\x01\x12\x1d\n" +
+	"\n" +
+	"changed_by\x18\x05 \x01(\tR\tchangedBy\x129\n" +
+	"\n" +
+	"changed_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tchangedAtB\b\n" +
+	"\x06_titleB\x0e\n" +
+	"\f_descriptionB\b\n" +
+	"\x06_theme*l\n" +
 	"\x10ConversationType\x12!\n" +
 	"\x1dCONVERSATION_TYPE_UNSPECIFIED\x10\x00\x12\x18\n" +
 	"\x14CONVERSATION_TYPE_DM\x10\x01\x12\x1b\n" +
@@ -3071,7 +3749,7 @@ func file_mvservernxt_v1_chat_proto_rawDescGZIP() []byte {
 }
 
 var file_mvservernxt_v1_chat_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_mvservernxt_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_mvservernxt_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 47)
 var file_mvservernxt_v1_chat_proto_goTypes = []any{
 	(ConversationType)(0),               // 0: mvservernxt.v1.ConversationType
 	(DeletionKind)(0),                   // 1: mvservernxt.v1.DeletionKind
@@ -3093,66 +3771,79 @@ var file_mvservernxt_v1_chat_proto_goTypes = []any{
 	(*RemoveReaction)(nil),              // 17: mvservernxt.v1.RemoveReaction
 	(*SendTyping)(nil),                  // 18: mvservernxt.v1.SendTyping
 	(*SetDisappearingMessages)(nil),     // 19: mvservernxt.v1.SetDisappearingMessages
-	(*MarkRead)(nil),                    // 20: mvservernxt.v1.MarkRead
-	(*CreateConversationResponse)(nil),  // 21: mvservernxt.v1.CreateConversationResponse
-	(*SendMessageResponse)(nil),         // 22: mvservernxt.v1.SendMessageResponse
-	(*ListConversationsResponse)(nil),   // 23: mvservernxt.v1.ListConversationsResponse
-	(*GetMessagesResponse)(nil),         // 24: mvservernxt.v1.GetMessagesResponse
-	(*EditMessageResponse)(nil),         // 25: mvservernxt.v1.EditMessageResponse
-	(*ConversationCreated)(nil),         // 26: mvservernxt.v1.ConversationCreated
-	(*MemberAdded)(nil),                 // 27: mvservernxt.v1.MemberAdded
-	(*MemberRemoved)(nil),               // 28: mvservernxt.v1.MemberRemoved
-	(*MemberLeft)(nil),                  // 29: mvservernxt.v1.MemberLeft
-	(*MessageSent)(nil),                 // 30: mvservernxt.v1.MessageSent
-	(*ReadReceiptUpdated)(nil),          // 31: mvservernxt.v1.ReadReceiptUpdated
-	(*MessageEdited)(nil),               // 32: mvservernxt.v1.MessageEdited
-	(*MessageHidden)(nil),               // 33: mvservernxt.v1.MessageHidden
-	(*MessageDeletedForEveryone)(nil),   // 34: mvservernxt.v1.MessageDeletedForEveryone
-	(*MessageUnsent)(nil),               // 35: mvservernxt.v1.MessageUnsent
-	(*MessageReactionAdded)(nil),        // 36: mvservernxt.v1.MessageReactionAdded
-	(*MessageReactionRemoved)(nil),      // 37: mvservernxt.v1.MessageReactionRemoved
-	(*TypingChanged)(nil),               // 38: mvservernxt.v1.TypingChanged
-	(*DisappearingMessagesChanged)(nil), // 39: mvservernxt.v1.DisappearingMessagesChanged
-	(*MessageExpired)(nil),              // 40: mvservernxt.v1.MessageExpired
-	(*timestamppb.Timestamp)(nil),       // 41: google.protobuf.Timestamp
+	(*PinMessage)(nil),                  // 20: mvservernxt.v1.PinMessage
+	(*UnpinMessage)(nil),                // 21: mvservernxt.v1.UnpinMessage
+	(*SetConversationNickname)(nil),     // 22: mvservernxt.v1.SetConversationNickname
+	(*UpdateConversationMetadata)(nil),  // 23: mvservernxt.v1.UpdateConversationMetadata
+	(*MarkRead)(nil),                    // 24: mvservernxt.v1.MarkRead
+	(*CreateConversationResponse)(nil),  // 25: mvservernxt.v1.CreateConversationResponse
+	(*SendMessageResponse)(nil),         // 26: mvservernxt.v1.SendMessageResponse
+	(*ListConversationsResponse)(nil),   // 27: mvservernxt.v1.ListConversationsResponse
+	(*GetMessagesResponse)(nil),         // 28: mvservernxt.v1.GetMessagesResponse
+	(*EditMessageResponse)(nil),         // 29: mvservernxt.v1.EditMessageResponse
+	(*ConversationCreated)(nil),         // 30: mvservernxt.v1.ConversationCreated
+	(*MemberAdded)(nil),                 // 31: mvservernxt.v1.MemberAdded
+	(*MemberRemoved)(nil),               // 32: mvservernxt.v1.MemberRemoved
+	(*MemberLeft)(nil),                  // 33: mvservernxt.v1.MemberLeft
+	(*MessageSent)(nil),                 // 34: mvservernxt.v1.MessageSent
+	(*ReadReceiptUpdated)(nil),          // 35: mvservernxt.v1.ReadReceiptUpdated
+	(*MessageEdited)(nil),               // 36: mvservernxt.v1.MessageEdited
+	(*MessageHidden)(nil),               // 37: mvservernxt.v1.MessageHidden
+	(*MessageDeletedForEveryone)(nil),   // 38: mvservernxt.v1.MessageDeletedForEveryone
+	(*MessageUnsent)(nil),               // 39: mvservernxt.v1.MessageUnsent
+	(*MessageReactionAdded)(nil),        // 40: mvservernxt.v1.MessageReactionAdded
+	(*MessageReactionRemoved)(nil),      // 41: mvservernxt.v1.MessageReactionRemoved
+	(*TypingChanged)(nil),               // 42: mvservernxt.v1.TypingChanged
+	(*DisappearingMessagesChanged)(nil), // 43: mvservernxt.v1.DisappearingMessagesChanged
+	(*MessageExpired)(nil),              // 44: mvservernxt.v1.MessageExpired
+	(*MessagePinned)(nil),               // 45: mvservernxt.v1.MessagePinned
+	(*MessageUnpinned)(nil),             // 46: mvservernxt.v1.MessageUnpinned
+	(*ConversationNicknameChanged)(nil), // 47: mvservernxt.v1.ConversationNicknameChanged
+	(*ConversationMetadataChanged)(nil), // 48: mvservernxt.v1.ConversationMetadataChanged
+	(*timestamppb.Timestamp)(nil),       // 49: google.protobuf.Timestamp
 }
 var file_mvservernxt_v1_chat_proto_depIdxs = []int32{
-	41, // 0: mvservernxt.v1.Reaction.created_at:type_name -> google.protobuf.Timestamp
+	49, // 0: mvservernxt.v1.Reaction.created_at:type_name -> google.protobuf.Timestamp
 	0,  // 1: mvservernxt.v1.Conversation.type:type_name -> mvservernxt.v1.ConversationType
-	41, // 2: mvservernxt.v1.Conversation.created_at:type_name -> google.protobuf.Timestamp
-	41, // 3: mvservernxt.v1.Message.created_at:type_name -> google.protobuf.Timestamp
-	41, // 4: mvservernxt.v1.Message.edited_at:type_name -> google.protobuf.Timestamp
-	41, // 5: mvservernxt.v1.Message.deleted_at:type_name -> google.protobuf.Timestamp
+	49, // 2: mvservernxt.v1.Conversation.created_at:type_name -> google.protobuf.Timestamp
+	49, // 3: mvservernxt.v1.Message.created_at:type_name -> google.protobuf.Timestamp
+	49, // 4: mvservernxt.v1.Message.edited_at:type_name -> google.protobuf.Timestamp
+	49, // 5: mvservernxt.v1.Message.deleted_at:type_name -> google.protobuf.Timestamp
 	1,  // 6: mvservernxt.v1.Message.deletion_kind:type_name -> mvservernxt.v1.DeletionKind
 	2,  // 7: mvservernxt.v1.Message.reactions:type_name -> mvservernxt.v1.Reaction
-	41, // 8: mvservernxt.v1.Message.expires_at:type_name -> google.protobuf.Timestamp
-	0,  // 9: mvservernxt.v1.CreateConversation.type:type_name -> mvservernxt.v1.ConversationType
-	3,  // 10: mvservernxt.v1.CreateConversationResponse.conversation:type_name -> mvservernxt.v1.Conversation
-	4,  // 11: mvservernxt.v1.SendMessageResponse.message:type_name -> mvservernxt.v1.Message
-	3,  // 12: mvservernxt.v1.ListConversationsResponse.conversations:type_name -> mvservernxt.v1.Conversation
-	4,  // 13: mvservernxt.v1.GetMessagesResponse.messages:type_name -> mvservernxt.v1.Message
-	4,  // 14: mvservernxt.v1.EditMessageResponse.message:type_name -> mvservernxt.v1.Message
-	0,  // 15: mvservernxt.v1.ConversationCreated.type:type_name -> mvservernxt.v1.ConversationType
-	41, // 16: mvservernxt.v1.ConversationCreated.created_at:type_name -> google.protobuf.Timestamp
-	41, // 17: mvservernxt.v1.MemberAdded.added_at:type_name -> google.protobuf.Timestamp
-	41, // 18: mvservernxt.v1.MemberRemoved.removed_at:type_name -> google.protobuf.Timestamp
-	41, // 19: mvservernxt.v1.MemberLeft.left_at:type_name -> google.protobuf.Timestamp
-	41, // 20: mvservernxt.v1.MessageSent.created_at:type_name -> google.protobuf.Timestamp
-	41, // 21: mvservernxt.v1.ReadReceiptUpdated.updated_at:type_name -> google.protobuf.Timestamp
-	41, // 22: mvservernxt.v1.MessageEdited.edited_at:type_name -> google.protobuf.Timestamp
-	41, // 23: mvservernxt.v1.MessageHidden.hidden_at:type_name -> google.protobuf.Timestamp
-	41, // 24: mvservernxt.v1.MessageDeletedForEveryone.deleted_at:type_name -> google.protobuf.Timestamp
-	41, // 25: mvservernxt.v1.MessageUnsent.unsent_at:type_name -> google.protobuf.Timestamp
-	41, // 26: mvservernxt.v1.MessageReactionAdded.created_at:type_name -> google.protobuf.Timestamp
-	41, // 27: mvservernxt.v1.MessageReactionRemoved.removed_at:type_name -> google.protobuf.Timestamp
-	41, // 28: mvservernxt.v1.TypingChanged.at:type_name -> google.protobuf.Timestamp
-	41, // 29: mvservernxt.v1.DisappearingMessagesChanged.changed_at:type_name -> google.protobuf.Timestamp
-	41, // 30: mvservernxt.v1.MessageExpired.expired_at:type_name -> google.protobuf.Timestamp
-	31, // [31:31] is the sub-list for method output_type
-	31, // [31:31] is the sub-list for method input_type
-	31, // [31:31] is the sub-list for extension type_name
-	31, // [31:31] is the sub-list for extension extendee
-	0,  // [0:31] is the sub-list for field type_name
+	49, // 8: mvservernxt.v1.Message.expires_at:type_name -> google.protobuf.Timestamp
+	49, // 9: mvservernxt.v1.Message.pinned_at:type_name -> google.protobuf.Timestamp
+	0,  // 10: mvservernxt.v1.CreateConversation.type:type_name -> mvservernxt.v1.ConversationType
+	3,  // 11: mvservernxt.v1.CreateConversationResponse.conversation:type_name -> mvservernxt.v1.Conversation
+	4,  // 12: mvservernxt.v1.SendMessageResponse.message:type_name -> mvservernxt.v1.Message
+	3,  // 13: mvservernxt.v1.ListConversationsResponse.conversations:type_name -> mvservernxt.v1.Conversation
+	4,  // 14: mvservernxt.v1.GetMessagesResponse.messages:type_name -> mvservernxt.v1.Message
+	4,  // 15: mvservernxt.v1.EditMessageResponse.message:type_name -> mvservernxt.v1.Message
+	0,  // 16: mvservernxt.v1.ConversationCreated.type:type_name -> mvservernxt.v1.ConversationType
+	49, // 17: mvservernxt.v1.ConversationCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 18: mvservernxt.v1.MemberAdded.added_at:type_name -> google.protobuf.Timestamp
+	49, // 19: mvservernxt.v1.MemberRemoved.removed_at:type_name -> google.protobuf.Timestamp
+	49, // 20: mvservernxt.v1.MemberLeft.left_at:type_name -> google.protobuf.Timestamp
+	49, // 21: mvservernxt.v1.MessageSent.created_at:type_name -> google.protobuf.Timestamp
+	49, // 22: mvservernxt.v1.ReadReceiptUpdated.updated_at:type_name -> google.protobuf.Timestamp
+	49, // 23: mvservernxt.v1.MessageEdited.edited_at:type_name -> google.protobuf.Timestamp
+	49, // 24: mvservernxt.v1.MessageHidden.hidden_at:type_name -> google.protobuf.Timestamp
+	49, // 25: mvservernxt.v1.MessageDeletedForEveryone.deleted_at:type_name -> google.protobuf.Timestamp
+	49, // 26: mvservernxt.v1.MessageUnsent.unsent_at:type_name -> google.protobuf.Timestamp
+	49, // 27: mvservernxt.v1.MessageReactionAdded.created_at:type_name -> google.protobuf.Timestamp
+	49, // 28: mvservernxt.v1.MessageReactionRemoved.removed_at:type_name -> google.protobuf.Timestamp
+	49, // 29: mvservernxt.v1.TypingChanged.at:type_name -> google.protobuf.Timestamp
+	49, // 30: mvservernxt.v1.DisappearingMessagesChanged.changed_at:type_name -> google.protobuf.Timestamp
+	49, // 31: mvservernxt.v1.MessageExpired.expired_at:type_name -> google.protobuf.Timestamp
+	49, // 32: mvservernxt.v1.MessagePinned.pinned_at:type_name -> google.protobuf.Timestamp
+	49, // 33: mvservernxt.v1.MessageUnpinned.unpinned_at:type_name -> google.protobuf.Timestamp
+	49, // 34: mvservernxt.v1.ConversationNicknameChanged.changed_at:type_name -> google.protobuf.Timestamp
+	49, // 35: mvservernxt.v1.ConversationMetadataChanged.changed_at:type_name -> google.protobuf.Timestamp
+	36, // [36:36] is the sub-list for method output_type
+	36, // [36:36] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_chat_proto_init() }
@@ -3160,13 +3851,15 @@ func file_mvservernxt_v1_chat_proto_init() {
 	if File_mvservernxt_v1_chat_proto != nil {
 		return
 	}
+	file_mvservernxt_v1_chat_proto_msgTypes[21].OneofWrappers = []any{}
+	file_mvservernxt_v1_chat_proto_msgTypes[46].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mvservernxt_v1_chat_proto_rawDesc), len(file_mvservernxt_v1_chat_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   39,
+			NumMessages:   47,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

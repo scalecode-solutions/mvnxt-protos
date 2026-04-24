@@ -550,6 +550,76 @@ public object MessageKt {
 
     public val MessageKt.Dsl.expiresAtOrNull: com.google.protobuf.Timestamp?
       get() = _builder.expiresAtOrNull
+
+    /**
+     * ```
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * ```
+     *
+     * `.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];`
+     */
+    public var pinnedAt: com.google.protobuf.Timestamp
+      @kotlin.jvm.JvmName("getPinnedAt")
+        get() = _builder.pinnedAt
+      @kotlin.jvm.JvmName("setPinnedAt")
+        set(value) {
+        _builder.pinnedAt = value
+      }
+    /**
+     * ```
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * ```
+     *
+     * `.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];`
+     */
+    public fun clearPinnedAt() {
+      _builder.clearPinnedAt()
+    }
+    /**
+     * ```
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * ```
+     *
+     * `.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];`
+     * @return Whether the pinnedAt field is set.
+     */
+    public fun hasPinnedAt(): kotlin.Boolean {
+      return _builder.hasPinnedAt()
+    }
+
+    public val MessageKt.Dsl.pinnedAtOrNull: com.google.protobuf.Timestamp?
+      get() = _builder.pinnedAtOrNull
+
+    /**
+     * ```
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * ```
+     *
+     * `string pinned_by = 16 [json_name = "pinnedBy"];`
+     */
+    public var pinnedBy: kotlin.String
+      @kotlin.jvm.JvmName("getPinnedBy")
+        get() = _builder.pinnedBy
+      @kotlin.jvm.JvmName("setPinnedBy")
+        set(value) {
+        _builder.pinnedBy = value
+      }
+    /**
+     * ```
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * ```
+     *
+     * `string pinned_by = 16 [json_name = "pinnedBy"];`
+     */
+    public fun clearPinnedBy() {
+      _builder.clearPinnedBy()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic
@@ -567,4 +637,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.deletedAtOrNull: com
 
 public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.expiresAtOrNull: com.google.protobuf.Timestamp?
   get() = if (hasExpiresAt()) getExpiresAt() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.pinnedAtOrNull: com.google.protobuf.Timestamp?
+  get() = if (hasPinnedAt()) getPinnedAt() else null
 
