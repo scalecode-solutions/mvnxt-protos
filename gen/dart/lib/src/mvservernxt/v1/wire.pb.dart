@@ -15,15 +15,16 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart'
-    as $6;
+    as $7;
 
 import 'chat.pb.dart' as $3;
-import 'common.pb.dart' as $7;
+import 'common.pb.dart' as $8;
 import 'contacts.pb.dart' as $4;
 import 'hello.pb.dart' as $1;
 import 'identity.pb.dart' as $2;
-import 'media.pb.dart' as $8;
+import 'media.pb.dart' as $9;
 import 'presence.pb.dart' as $5;
+import 'sync.pb.dart' as $6;
 import 'system.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
@@ -72,6 +73,7 @@ enum ClientEnvelope_Payload {
   unsubscribeFromPresence,
   setActivityState,
   setVisibility,
+  getSync,
   notSet
 }
 
@@ -128,6 +130,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $5.UnsubscribeFromPresence? unsubscribeFromPresence,
     $5.SetActivityState? setActivityState,
     $5.SetVisibility? setVisibility,
+    $6.GetSync? getSync,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -182,6 +185,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       result.unsubscribeFromPresence = unsubscribeFromPresence;
     if (setActivityState != null) result.setActivityState = setActivityState;
     if (setVisibility != null) result.setVisibility = setVisibility;
+    if (getSync != null) result.getSync = getSync;
     return result;
   }
 
@@ -239,6 +243,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     111: ClientEnvelope_Payload.unsubscribeFromPresence,
     112: ClientEnvelope_Payload.setActivityState,
     113: ClientEnvelope_Payload.setVisibility,
+    200: ClientEnvelope_Payload.getSync,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -288,7 +293,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       110,
       111,
       112,
-      113
+      113,
+      200
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -385,6 +391,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $5.SetActivityState.create)
     ..aOM<$5.SetVisibility>(113, _omitFieldNames ? '' : 'setVisibility',
         subBuilder: $5.SetVisibility.create)
+    ..aOM<$6.GetSync>(200, _omitFieldNames ? '' : 'getSync',
+        subBuilder: $6.GetSync.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -449,6 +457,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(111)
   @$pb.TagNumber(112)
   @$pb.TagNumber(113)
+  @$pb.TagNumber(200)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -494,6 +503,7 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(111)
   @$pb.TagNumber(112)
   @$pb.TagNumber(113)
+  @$pb.TagNumber(200)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -993,6 +1003,18 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearSetVisibility() => $_clearField(113);
   @$pb.TagNumber(113)
   $5.SetVisibility ensureSetVisibility() => $_ensure(43);
+
+  /// Sync (range 200-209). Composed-sync-token catch-up.
+  @$pb.TagNumber(200)
+  $6.GetSync get getSync => $_getN(44);
+  @$pb.TagNumber(200)
+  set getSync($6.GetSync value) => $_setField(200, value);
+  @$pb.TagNumber(200)
+  $core.bool hasGetSync() => $_has(44);
+  @$pb.TagNumber(200)
+  void clearGetSync() => $_clearField(200);
+  @$pb.TagNumber(200)
+  $6.GetSync ensureGetSync() => $_ensure(44);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -1118,6 +1140,7 @@ enum Ack_Payload {
   listContacts,
   searchUsers,
   subscribeToPresence,
+  getSync,
   notSet
 }
 
@@ -1139,6 +1162,7 @@ class Ack extends $pb.GeneratedMessage {
     $4.ListContactsResponse? listContacts,
     $4.SearchUsersResponse? searchUsers,
     $5.SubscribeToPresenceResponse? subscribeToPresence,
+    SyncResponse? getSync,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -1158,6 +1182,7 @@ class Ack extends $pb.GeneratedMessage {
     if (searchUsers != null) result.searchUsers = searchUsers;
     if (subscribeToPresence != null)
       result.subscribeToPresence = subscribeToPresence;
+    if (getSync != null) result.getSync = getSync;
     return result;
   }
 
@@ -1184,13 +1209,14 @@ class Ack extends $pb.GeneratedMessage {
     102: Ack_Payload.listContacts,
     103: Ack_Payload.searchUsers,
     110: Ack_Payload.subscribeToPresence,
+    200: Ack_Payload.getSync,
     0: Ack_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Ack',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38, 102, 103, 110])
+    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38, 102, 103, 110, 200])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aI(2, _omitFieldNames ? '' : 'code')
     ..aOM<$0.Pong>(10, _omitFieldNames ? '' : 'pong',
@@ -1222,6 +1248,8 @@ class Ack extends $pb.GeneratedMessage {
     ..aOM<$5.SubscribeToPresenceResponse>(
         110, _omitFieldNames ? '' : 'subscribeToPresence',
         subBuilder: $5.SubscribeToPresenceResponse.create)
+    ..aOM<SyncResponse>(200, _omitFieldNames ? '' : 'getSync',
+        subBuilder: SyncResponse.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1255,6 +1283,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
   @$pb.TagNumber(110)
+  @$pb.TagNumber(200)
   Ack_Payload whichPayload() => _Ack_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(11)
@@ -1269,6 +1298,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(102)
   @$pb.TagNumber(103)
   @$pb.TagNumber(110)
+  @$pb.TagNumber(200)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Correlates to ClientEnvelope.idempotency_key.
@@ -1445,6 +1475,18 @@ class Ack extends $pb.GeneratedMessage {
   void clearSubscribeToPresence() => $_clearField(110);
   @$pb.TagNumber(110)
   $5.SubscribeToPresenceResponse ensureSubscribeToPresence() => $_ensure(14);
+
+  /// Sync
+  @$pb.TagNumber(200)
+  SyncResponse get getSync => $_getN(15);
+  @$pb.TagNumber(200)
+  set getSync(SyncResponse value) => $_setField(200, value);
+  @$pb.TagNumber(200)
+  $core.bool hasGetSync() => $_has(15);
+  @$pb.TagNumber(200)
+  void clearGetSync() => $_clearField(200);
+  @$pb.TagNumber(200)
+  SyncResponse ensureGetSync() => $_ensure(15);
 }
 
 /// Err is returned for a failed command.
@@ -1543,6 +1585,108 @@ class Err extends $pb.GeneratedMessage {
   void clearReason() => $_clearField(4);
 }
 
+/// SyncResponse carries up to `limit` events PER stream that the
+/// caller is authorized to see (audience-filtered). Each stream's
+/// events are ordered by seq ASC. `next` is the advanced opaque
+/// token; `too_long` flags that at least one stream hit the limit
+/// and the client should re-call promptly to drain the remaining
+/// backlog.
+///
+/// Defined here rather than in sync.proto because the type
+/// references Event, which would cycle through wire.proto.
+class SyncResponse extends $pb.GeneratedMessage {
+  factory SyncResponse({
+    $core.String? next,
+    $core.bool? tooLong,
+    $core.Iterable<Event>? chat,
+    $core.Iterable<Event>? identity,
+    $core.Iterable<Event>? contacts,
+    $core.Iterable<Event>? media,
+  }) {
+    final result = create();
+    if (next != null) result.next = next;
+    if (tooLong != null) result.tooLong = tooLong;
+    if (chat != null) result.chat.addAll(chat);
+    if (identity != null) result.identity.addAll(identity);
+    if (contacts != null) result.contacts.addAll(contacts);
+    if (media != null) result.media.addAll(media);
+    return result;
+  }
+
+  SyncResponse._();
+
+  factory SyncResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory SyncResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'SyncResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'next')
+    ..aOB(2, _omitFieldNames ? '' : 'tooLong')
+    ..pPM<Event>(10, _omitFieldNames ? '' : 'chat', subBuilder: Event.create)
+    ..pPM<Event>(11, _omitFieldNames ? '' : 'identity',
+        subBuilder: Event.create)
+    ..pPM<Event>(12, _omitFieldNames ? '' : 'contacts',
+        subBuilder: Event.create)
+    ..pPM<Event>(13, _omitFieldNames ? '' : 'media', subBuilder: Event.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SyncResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SyncResponse copyWith(void Function(SyncResponse) updates) =>
+      super.copyWith((message) => updates(message as SyncResponse))
+          as SyncResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SyncResponse create() => SyncResponse._();
+  @$core.override
+  SyncResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static SyncResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SyncResponse>(create);
+  static SyncResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get next => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set next($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasNext() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNext() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get tooLong => $_getBF(1);
+  @$pb.TagNumber(2)
+  set tooLong($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTooLong() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTooLong() => $_clearField(2);
+
+  /// Per-stream event slices.
+  @$pb.TagNumber(10)
+  $pb.PbList<Event> get chat => $_getList(2);
+
+  @$pb.TagNumber(11)
+  $pb.PbList<Event> get identity => $_getList(3);
+
+  @$pb.TagNumber(12)
+  $pb.PbList<Event> get contacts => $_getList(4);
+
+  @$pb.TagNumber(13)
+  $pb.PbList<Event> get media => $_getList(5);
+}
+
 enum Event_Payload {
   systemNotice,
   userRegistered,
@@ -1590,9 +1734,9 @@ class Event extends $pb.GeneratedMessage {
   factory Event({
     $fixnum.Int64? seq,
     $core.String? stream,
-    $6.Timestamp? timestamp,
-    $7.UUID? actorId,
-    $7.UUID? aggregateId,
+    $7.Timestamp? timestamp,
+    $8.UUID? actorId,
+    $8.UUID? aggregateId,
     $0.SystemNotice? systemNotice,
     $2.UserRegistered? userRegistered,
     $2.UserLoggedIn? userLoggedIn,
@@ -1628,7 +1772,7 @@ class Event extends $pb.GeneratedMessage {
     $4.UserUnblocked? userUnblocked,
     $5.PresenceChanged? presenceChanged,
     $5.OwnPresenceChanged? ownPresenceChanged,
-    $8.BlobThumbnailReady? blobThumbnailReady,
+    $9.BlobThumbnailReady? blobThumbnailReady,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1780,12 +1924,12 @@ class Event extends $pb.GeneratedMessage {
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
-    ..aOM<$6.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
-        subBuilder: $6.Timestamp.create)
-    ..aOM<$7.UUID>(4, _omitFieldNames ? '' : 'actorId',
-        subBuilder: $7.UUID.create)
-    ..aOM<$7.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
-        subBuilder: $7.UUID.create)
+    ..aOM<$7.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
+        subBuilder: $7.Timestamp.create)
+    ..aOM<$8.UUID>(4, _omitFieldNames ? '' : 'actorId',
+        subBuilder: $8.UUID.create)
+    ..aOM<$8.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
+        subBuilder: $8.UUID.create)
     ..aOM<$0.SystemNotice>(10, _omitFieldNames ? '' : 'systemNotice',
         subBuilder: $0.SystemNotice.create)
     ..aOM<$2.UserRegistered>(20, _omitFieldNames ? '' : 'userRegistered',
@@ -1868,9 +2012,9 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$5.OwnPresenceChanged>(
         111, _omitFieldNames ? '' : 'ownPresenceChanged',
         subBuilder: $5.OwnPresenceChanged.create)
-    ..aOM<$8.BlobThumbnailReady>(
+    ..aOM<$9.BlobThumbnailReady>(
         150, _omitFieldNames ? '' : 'blobThumbnailReady',
-        subBuilder: $8.BlobThumbnailReady.create)
+        subBuilder: $9.BlobThumbnailReady.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1989,39 +2133,39 @@ class Event extends $pb.GeneratedMessage {
 
   /// When the event was written to the log.
   @$pb.TagNumber(3)
-  $6.Timestamp get timestamp => $_getN(2);
+  $7.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($6.Timestamp value) => $_setField(3, value);
+  set timestamp($7.Timestamp value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
   void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
-  $6.Timestamp ensureTimestamp() => $_ensure(2);
+  $7.Timestamp ensureTimestamp() => $_ensure(2);
 
   /// Who caused the event, if applicable.
   @$pb.TagNumber(4)
-  $7.UUID get actorId => $_getN(3);
+  $8.UUID get actorId => $_getN(3);
   @$pb.TagNumber(4)
-  set actorId($7.UUID value) => $_setField(4, value);
+  set actorId($8.UUID value) => $_setField(4, value);
   @$pb.TagNumber(4)
   $core.bool hasActorId() => $_has(3);
   @$pb.TagNumber(4)
   void clearActorId() => $_clearField(4);
   @$pb.TagNumber(4)
-  $7.UUID ensureActorId() => $_ensure(3);
+  $8.UUID ensureActorId() => $_ensure(3);
 
   /// Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
   @$pb.TagNumber(5)
-  $7.UUID get aggregateId => $_getN(4);
+  $8.UUID get aggregateId => $_getN(4);
   @$pb.TagNumber(5)
-  set aggregateId($7.UUID value) => $_setField(5, value);
+  set aggregateId($8.UUID value) => $_setField(5, value);
   @$pb.TagNumber(5)
   $core.bool hasAggregateId() => $_has(4);
   @$pb.TagNumber(5)
   void clearAggregateId() => $_clearField(5);
   @$pb.TagNumber(5)
-  $7.UUID ensureAggregateId() => $_ensure(4);
+  $8.UUID ensureAggregateId() => $_ensure(4);
 
   /// System
   @$pb.TagNumber(10)
@@ -2433,15 +2577,15 @@ class Event extends $pb.GeneratedMessage {
   /// Media (range 150-159). Slice-1: only BlobThumbnailReady.
   /// Future: BlobOrphanSwept, BlobAccessDenied, etc.
   @$pb.TagNumber(150)
-  $8.BlobThumbnailReady get blobThumbnailReady => $_getN(40);
+  $9.BlobThumbnailReady get blobThumbnailReady => $_getN(40);
   @$pb.TagNumber(150)
-  set blobThumbnailReady($8.BlobThumbnailReady value) => $_setField(150, value);
+  set blobThumbnailReady($9.BlobThumbnailReady value) => $_setField(150, value);
   @$pb.TagNumber(150)
   $core.bool hasBlobThumbnailReady() => $_has(40);
   @$pb.TagNumber(150)
   void clearBlobThumbnailReady() => $_clearField(150);
   @$pb.TagNumber(150)
-  $8.BlobThumbnailReady ensureBlobThumbnailReady() => $_ensure(40);
+  $9.BlobThumbnailReady ensureBlobThumbnailReady() => $_ensure(40);
 }
 
 const $core.bool _omitFieldNames =

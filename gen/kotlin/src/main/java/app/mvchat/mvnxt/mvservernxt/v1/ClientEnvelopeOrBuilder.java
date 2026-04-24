@@ -741,5 +741,32 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.SetVisibilityOrBuilder getSetVisibilityOrBuilder();
 
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   * @return Whether the getSync field is set.
+   */
+  boolean hasGetSync();
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   * @return The getSync.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GetSync getGetSync();
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder getGetSyncOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

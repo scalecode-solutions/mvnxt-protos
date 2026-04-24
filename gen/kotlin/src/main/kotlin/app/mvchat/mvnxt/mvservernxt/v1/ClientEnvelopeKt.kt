@@ -1161,6 +1161,42 @@ public object ClientEnvelopeKt {
     public fun hasSetVisibility(): kotlin.Boolean {
       return _builder.hasSetVisibility()
     }
+
+    /**
+     * ```
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * ```
+     *
+     * `.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];`
+     */
+    public var getSync: app.mvchat.mvnxt.mvservernxt.v1.GetSync
+      @kotlin.jvm.JvmName("getGetSync")
+        get() = _builder.getSync
+      @kotlin.jvm.JvmName("setGetSync")
+        set(value) {
+        _builder.getSync = value
+      }
+    /**
+     * ```
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * ```
+     *
+     * `.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];`
+     */
+    public fun clearGetSync() {
+      _builder.clearGetSync()
+    }
+    /**
+     * ```
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * ```
+     *
+     * `.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];`
+     * @return Whether the getSync field is set.
+     */
+    public fun hasGetSync(): kotlin.Boolean {
+      return _builder.hasGetSync()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -1302,4 +1338,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setActivitySt
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setVisibilityOrNull: app.mvchat.mvnxt.mvservernxt.v1.SetVisibility?
   get() = if (hasSetVisibility()) getSetVisibility() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.getSyncOrNull: app.mvchat.mvnxt.mvservernxt.v1.GetSync?
+  get() = if (hasGetSync()) getGetSync() else null
 

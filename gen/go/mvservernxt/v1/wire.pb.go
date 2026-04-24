@@ -91,6 +91,7 @@ type ClientEnvelope struct {
 	//	*ClientEnvelope_UnsubscribeFromPresence
 	//	*ClientEnvelope_SetActivityState
 	//	*ClientEnvelope_SetVisibility
+	//	*ClientEnvelope_GetSync
 	Payload       isClientEnvelope_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -527,6 +528,15 @@ func (x *ClientEnvelope) GetSetVisibility() *SetVisibility {
 	return nil
 }
 
+func (x *ClientEnvelope) GetGetSync() *GetSync {
+	if x != nil {
+		if x, ok := x.Payload.(*ClientEnvelope_GetSync); ok {
+			return x.GetSync
+		}
+	}
+	return nil
+}
+
 type isClientEnvelope_Payload interface {
 	isClientEnvelope_Payload()
 }
@@ -710,6 +720,11 @@ type ClientEnvelope_SetVisibility struct {
 	SetVisibility *SetVisibility `protobuf:"bytes,113,opt,name=set_visibility,json=setVisibility,proto3,oneof"`
 }
 
+type ClientEnvelope_GetSync struct {
+	// Sync (range 200-209). Composed-sync-token catch-up.
+	GetSync *GetSync `protobuf:"bytes,200,opt,name=get_sync,json=getSync,proto3,oneof"`
+}
+
 func (*ClientEnvelope_Ping) isClientEnvelope_Payload() {}
 
 func (*ClientEnvelope_Hello) isClientEnvelope_Payload() {}
@@ -795,6 +810,8 @@ func (*ClientEnvelope_UnsubscribeFromPresence) isClientEnvelope_Payload() {}
 func (*ClientEnvelope_SetActivityState) isClientEnvelope_Payload() {}
 
 func (*ClientEnvelope_SetVisibility) isClientEnvelope_Payload() {}
+
+func (*ClientEnvelope_GetSync) isClientEnvelope_Payload() {}
 
 // ServerEnvelope is any message from server to client.
 // Three distinct kinds:
@@ -923,6 +940,7 @@ type Ack struct {
 	//	*Ack_ListContacts
 	//	*Ack_SearchUsers
 	//	*Ack_SubscribeToPresence
+	//	*Ack_GetSync
 	Payload       isAck_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1096,6 +1114,15 @@ func (x *Ack) GetSubscribeToPresence() *SubscribeToPresenceResponse {
 	return nil
 }
 
+func (x *Ack) GetGetSync() *SyncResponse {
+	if x != nil {
+		if x, ok := x.Payload.(*Ack_GetSync); ok {
+			return x.GetSync
+		}
+	}
+	return nil
+}
+
 type isAck_Payload interface {
 	isAck_Payload()
 }
@@ -1161,6 +1188,11 @@ type Ack_SubscribeToPresence struct {
 	SubscribeToPresence *SubscribeToPresenceResponse `protobuf:"bytes,110,opt,name=subscribe_to_presence,json=subscribeToPresence,proto3,oneof"`
 }
 
+type Ack_GetSync struct {
+	// Sync
+	GetSync *SyncResponse `protobuf:"bytes,200,opt,name=get_sync,json=getSync,proto3,oneof"`
+}
+
 func (*Ack_Pong) isAck_Payload() {}
 
 func (*Ack_Hello) isAck_Payload() {}
@@ -1186,6 +1218,8 @@ func (*Ack_ListContacts) isAck_Payload() {}
 func (*Ack_SearchUsers) isAck_Payload() {}
 
 func (*Ack_SubscribeToPresence) isAck_Payload() {}
+
+func (*Ack_GetSync) isAck_Payload() {}
 
 // Err is returned for a failed command.
 type Err struct {
@@ -1263,6 +1297,100 @@ func (x *Err) GetReason() string {
 	return ""
 }
 
+// SyncResponse carries up to `limit` events PER stream that the
+// caller is authorized to see (audience-filtered). Each stream's
+// events are ordered by seq ASC. `next` is the advanced opaque
+// token; `too_long` flags that at least one stream hit the limit
+// and the client should re-call promptly to drain the remaining
+// backlog.
+//
+// Defined here rather than in sync.proto because the type
+// references Event, which would cycle through wire.proto.
+type SyncResponse struct {
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	Next    string                 `protobuf:"bytes,1,opt,name=next,proto3" json:"next,omitempty"`
+	TooLong bool                   `protobuf:"varint,2,opt,name=too_long,json=tooLong,proto3" json:"too_long,omitempty"`
+	// Per-stream event slices.
+	Chat          []*Event `protobuf:"bytes,10,rep,name=chat,proto3" json:"chat,omitempty"`
+	Identity      []*Event `protobuf:"bytes,11,rep,name=identity,proto3" json:"identity,omitempty"`
+	Contacts      []*Event `protobuf:"bytes,12,rep,name=contacts,proto3" json:"contacts,omitempty"`
+	Media         []*Event `protobuf:"bytes,13,rep,name=media,proto3" json:"media,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncResponse) Reset() {
+	*x = SyncResponse{}
+	mi := &file_mvservernxt_v1_wire_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncResponse) ProtoMessage() {}
+
+func (x *SyncResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_wire_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncResponse.ProtoReflect.Descriptor instead.
+func (*SyncResponse) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_wire_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SyncResponse) GetNext() string {
+	if x != nil {
+		return x.Next
+	}
+	return ""
+}
+
+func (x *SyncResponse) GetTooLong() bool {
+	if x != nil {
+		return x.TooLong
+	}
+	return false
+}
+
+func (x *SyncResponse) GetChat() []*Event {
+	if x != nil {
+		return x.Chat
+	}
+	return nil
+}
+
+func (x *SyncResponse) GetIdentity() []*Event {
+	if x != nil {
+		return x.Identity
+	}
+	return nil
+}
+
+func (x *SyncResponse) GetContacts() []*Event {
+	if x != nil {
+		return x.Contacts
+	}
+	return nil
+}
+
+func (x *SyncResponse) GetMedia() []*Event {
+	if x != nil {
+		return x.Media
+	}
+	return nil
+}
+
 // Event is a push notification from a server-side event-log subscriber.
 // Clients track a per-stream cursor (composed sync token, doc 04) so they
 // can resume after reconnect without replaying everything.
@@ -1326,7 +1454,7 @@ type Event struct {
 
 func (x *Event) Reset() {
 	*x = Event{}
-	mi := &file_mvservernxt_v1_wire_proto_msgTypes[4]
+	mi := &file_mvservernxt_v1_wire_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1338,7 +1466,7 @@ func (x *Event) String() string {
 func (*Event) ProtoMessage() {}
 
 func (x *Event) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_wire_proto_msgTypes[4]
+	mi := &file_mvservernxt_v1_wire_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1351,7 +1479,7 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Event.ProtoReflect.Descriptor instead.
 func (*Event) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_wire_proto_rawDescGZIP(), []int{4}
+	return file_mvservernxt_v1_wire_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Event) GetSeq() int64 {
@@ -1953,7 +2081,7 @@ var File_mvservernxt_v1_wire_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\n" +
-	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19mvservernxt/v1/chat.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1dmvservernxt/v1/contacts.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1amvservernxt/v1/media.proto\x1a\x1dmvservernxt/v1/presence.proto\x1a\x1bmvservernxt/v1/system.proto\"\xf3\x18\n" +
+	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19mvservernxt/v1/chat.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1dmvservernxt/v1/contacts.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1amvservernxt/v1/media.proto\x1a\x1dmvservernxt/v1/presence.proto\x1a\x19mvservernxt/v1/sync.proto\x1a\x1bmvservernxt/v1/system.proto\"\xaa\x19\n" +
 	"\x0eClientEnvelope\x12'\n" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12*\n" +
 	"\x04ping\x18\n" +
@@ -2004,13 +2132,14 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\x15subscribe_to_presence\x18n \x01(\v2#.mvservernxt.v1.SubscribeToPresenceH\x00R\x13subscribeToPresence\x12e\n" +
 	"\x19unsubscribe_from_presence\x18o \x01(\v2'.mvservernxt.v1.UnsubscribeFromPresenceH\x00R\x17unsubscribeFromPresence\x12P\n" +
 	"\x12set_activity_state\x18p \x01(\v2 .mvservernxt.v1.SetActivityStateH\x00R\x10setActivityState\x12F\n" +
-	"\x0eset_visibility\x18q \x01(\v2\x1d.mvservernxt.v1.SetVisibilityH\x00R\rsetVisibilityB\t\n" +
+	"\x0eset_visibility\x18q \x01(\v2\x1d.mvservernxt.v1.SetVisibilityH\x00R\rsetVisibility\x125\n" +
+	"\bget_sync\x18\xc8\x01 \x01(\v2\x17.mvservernxt.v1.GetSyncH\x00R\agetSyncB\t\n" +
 	"\apayload\"\x9c\x01\n" +
 	"\x0eServerEnvelope\x12'\n" +
 	"\x03ack\x18\x01 \x01(\v2\x13.mvservernxt.v1.AckH\x00R\x03ack\x12'\n" +
 	"\x03err\x18\x02 \x01(\v2\x13.mvservernxt.v1.ErrH\x00R\x03err\x12-\n" +
 	"\x05event\x18\x03 \x01(\v2\x15.mvservernxt.v1.EventH\x00R\x05eventB\t\n" +
-	"\apayload\"\xf7\a\n" +
+	"\apayload\"\xb3\b\n" +
 	"\x03Ack\x12'\n" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12*\n" +
@@ -2027,13 +2156,22 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\fedit_message\x18& \x01(\v2#.mvservernxt.v1.EditMessageResponseH\x00R\veditMessage\x12K\n" +
 	"\rlist_contacts\x18f \x01(\v2$.mvservernxt.v1.ListContactsResponseH\x00R\flistContacts\x12H\n" +
 	"\fsearch_users\x18g \x01(\v2#.mvservernxt.v1.SearchUsersResponseH\x00R\vsearchUsers\x12a\n" +
-	"\x15subscribe_to_presence\x18n \x01(\v2+.mvservernxt.v1.SubscribeToPresenceResponseH\x00R\x13subscribeToPresenceB\t\n" +
+	"\x15subscribe_to_presence\x18n \x01(\v2+.mvservernxt.v1.SubscribeToPresenceResponseH\x00R\x13subscribeToPresence\x12:\n" +
+	"\bget_sync\x18\xc8\x01 \x01(\v2\x1c.mvservernxt.v1.SyncResponseH\x00R\agetSyncB\t\n" +
 	"\apayload\"t\n" +
 	"\x03Err\x12'\n" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x03 \x01(\tR\amessage\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xfa\x18\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xfb\x01\n" +
+	"\fSyncResponse\x12\x12\n" +
+	"\x04next\x18\x01 \x01(\tR\x04next\x12\x19\n" +
+	"\btoo_long\x18\x02 \x01(\bR\atooLong\x12)\n" +
+	"\x04chat\x18\n" +
+	" \x03(\v2\x15.mvservernxt.v1.EventR\x04chat\x121\n" +
+	"\bidentity\x18\v \x03(\v2\x15.mvservernxt.v1.EventR\bidentity\x121\n" +
+	"\bcontacts\x18\f \x03(\v2\x15.mvservernxt.v1.EventR\bcontacts\x12+\n" +
+	"\x05media\x18\r \x03(\v2\x15.mvservernxt.v1.EventR\x05media\"\xfa\x18\n" +
 	"\x05Event\x12\x10\n" +
 	"\x03seq\x18\x01 \x01(\x03R\x03seq\x12\x16\n" +
 	"\x06stream\x18\x02 \x01(\tR\x06stream\x128\n" +
@@ -2093,212 +2231,220 @@ func file_mvservernxt_v1_wire_proto_rawDescGZIP() []byte {
 	return file_mvservernxt_v1_wire_proto_rawDescData
 }
 
-var file_mvservernxt_v1_wire_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_mvservernxt_v1_wire_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_mvservernxt_v1_wire_proto_goTypes = []any{
 	(*ClientEnvelope)(nil),              // 0: mvservernxt.v1.ClientEnvelope
 	(*ServerEnvelope)(nil),              // 1: mvservernxt.v1.ServerEnvelope
 	(*Ack)(nil),                         // 2: mvservernxt.v1.Ack
 	(*Err)(nil),                         // 3: mvservernxt.v1.Err
-	(*Event)(nil),                       // 4: mvservernxt.v1.Event
-	(*Ping)(nil),                        // 5: mvservernxt.v1.Ping
-	(*Hello)(nil),                       // 6: mvservernxt.v1.Hello
-	(*Register)(nil),                    // 7: mvservernxt.v1.Register
-	(*Authenticate)(nil),                // 8: mvservernxt.v1.Authenticate
-	(*Login)(nil),                       // 9: mvservernxt.v1.Login
-	(*Refresh)(nil),                     // 10: mvservernxt.v1.Refresh
-	(*Logout)(nil),                      // 11: mvservernxt.v1.Logout
-	(*VerifyEmail)(nil),                 // 12: mvservernxt.v1.VerifyEmail
-	(*ResendVerificationEmail)(nil),     // 13: mvservernxt.v1.ResendVerificationEmail
-	(*CreateConversation)(nil),          // 14: mvservernxt.v1.CreateConversation
-	(*AddMember)(nil),                   // 15: mvservernxt.v1.AddMember
-	(*RemoveMember)(nil),                // 16: mvservernxt.v1.RemoveMember
-	(*LeaveConversation)(nil),           // 17: mvservernxt.v1.LeaveConversation
-	(*SendMessage)(nil),                 // 18: mvservernxt.v1.SendMessage
-	(*ListConversations)(nil),           // 19: mvservernxt.v1.ListConversations
-	(*GetMessages)(nil),                 // 20: mvservernxt.v1.GetMessages
-	(*MarkRead)(nil),                    // 21: mvservernxt.v1.MarkRead
-	(*EditMessage)(nil),                 // 22: mvservernxt.v1.EditMessage
-	(*DeleteMessage)(nil),               // 23: mvservernxt.v1.DeleteMessage
-	(*DeleteMessageForEveryone)(nil),    // 24: mvservernxt.v1.DeleteMessageForEveryone
-	(*UnsendMessage)(nil),               // 25: mvservernxt.v1.UnsendMessage
-	(*AddReaction)(nil),                 // 26: mvservernxt.v1.AddReaction
-	(*RemoveReaction)(nil),              // 27: mvservernxt.v1.RemoveReaction
-	(*SendTyping)(nil),                  // 28: mvservernxt.v1.SendTyping
-	(*SetDisappearingMessages)(nil),     // 29: mvservernxt.v1.SetDisappearingMessages
-	(*PinMessage)(nil),                  // 30: mvservernxt.v1.PinMessage
-	(*UnpinMessage)(nil),                // 31: mvservernxt.v1.UnpinMessage
-	(*SetConversationNickname)(nil),     // 32: mvservernxt.v1.SetConversationNickname
-	(*UpdateConversationMetadata)(nil),  // 33: mvservernxt.v1.UpdateConversationMetadata
-	(*MarkDelivered)(nil),               // 34: mvservernxt.v1.MarkDelivered
-	(*PromoteMember)(nil),               // 35: mvservernxt.v1.PromoteMember
-	(*DemoteMember)(nil),                // 36: mvservernxt.v1.DemoteMember
-	(*TransferOwnership)(nil),           // 37: mvservernxt.v1.TransferOwnership
-	(*AddContact)(nil),                  // 38: mvservernxt.v1.AddContact
-	(*RemoveContact)(nil),               // 39: mvservernxt.v1.RemoveContact
-	(*ListContacts)(nil),                // 40: mvservernxt.v1.ListContacts
-	(*SearchUsers)(nil),                 // 41: mvservernxt.v1.SearchUsers
-	(*BlockUser)(nil),                   // 42: mvservernxt.v1.BlockUser
-	(*UnblockUser)(nil),                 // 43: mvservernxt.v1.UnblockUser
-	(*SubscribeToPresence)(nil),         // 44: mvservernxt.v1.SubscribeToPresence
-	(*UnsubscribeFromPresence)(nil),     // 45: mvservernxt.v1.UnsubscribeFromPresence
-	(*SetActivityState)(nil),            // 46: mvservernxt.v1.SetActivityState
-	(*SetVisibility)(nil),               // 47: mvservernxt.v1.SetVisibility
-	(*Pong)(nil),                        // 48: mvservernxt.v1.Pong
-	(*HelloResponse)(nil),               // 49: mvservernxt.v1.HelloResponse
-	(*RegisterResponse)(nil),            // 50: mvservernxt.v1.RegisterResponse
-	(*LoginResponse)(nil),               // 51: mvservernxt.v1.LoginResponse
-	(*RefreshResponse)(nil),             // 52: mvservernxt.v1.RefreshResponse
-	(*CreateConversationResponse)(nil),  // 53: mvservernxt.v1.CreateConversationResponse
-	(*SendMessageResponse)(nil),         // 54: mvservernxt.v1.SendMessageResponse
-	(*ListConversationsResponse)(nil),   // 55: mvservernxt.v1.ListConversationsResponse
-	(*GetMessagesResponse)(nil),         // 56: mvservernxt.v1.GetMessagesResponse
-	(*EditMessageResponse)(nil),         // 57: mvservernxt.v1.EditMessageResponse
-	(*ListContactsResponse)(nil),        // 58: mvservernxt.v1.ListContactsResponse
-	(*SearchUsersResponse)(nil),         // 59: mvservernxt.v1.SearchUsersResponse
-	(*SubscribeToPresenceResponse)(nil), // 60: mvservernxt.v1.SubscribeToPresenceResponse
-	(*timestamppb.Timestamp)(nil),       // 61: google.protobuf.Timestamp
-	(*UUID)(nil),                        // 62: mvservernxt.v1.UUID
-	(*SystemNotice)(nil),                // 63: mvservernxt.v1.SystemNotice
-	(*UserRegistered)(nil),              // 64: mvservernxt.v1.UserRegistered
-	(*UserLoggedIn)(nil),                // 65: mvservernxt.v1.UserLoggedIn
-	(*TokenRefreshed)(nil),              // 66: mvservernxt.v1.TokenRefreshed
-	(*UserLoggedOut)(nil),               // 67: mvservernxt.v1.UserLoggedOut
-	(*RefreshTokenReuseDetected)(nil),   // 68: mvservernxt.v1.RefreshTokenReuseDetected
-	(*EmailVerified)(nil),               // 69: mvservernxt.v1.EmailVerified
-	(*VerificationEmailSent)(nil),       // 70: mvservernxt.v1.VerificationEmailSent
-	(*ConversationCreated)(nil),         // 71: mvservernxt.v1.ConversationCreated
-	(*MemberAdded)(nil),                 // 72: mvservernxt.v1.MemberAdded
-	(*MemberRemoved)(nil),               // 73: mvservernxt.v1.MemberRemoved
-	(*MemberLeft)(nil),                  // 74: mvservernxt.v1.MemberLeft
-	(*MessageSent)(nil),                 // 75: mvservernxt.v1.MessageSent
-	(*ReadReceiptUpdated)(nil),          // 76: mvservernxt.v1.ReadReceiptUpdated
-	(*MessageEdited)(nil),               // 77: mvservernxt.v1.MessageEdited
-	(*MessageHidden)(nil),               // 78: mvservernxt.v1.MessageHidden
-	(*MessageDeletedForEveryone)(nil),   // 79: mvservernxt.v1.MessageDeletedForEveryone
-	(*MessageUnsent)(nil),               // 80: mvservernxt.v1.MessageUnsent
-	(*MessageReactionAdded)(nil),        // 81: mvservernxt.v1.MessageReactionAdded
-	(*MessageReactionRemoved)(nil),      // 82: mvservernxt.v1.MessageReactionRemoved
-	(*TypingChanged)(nil),               // 83: mvservernxt.v1.TypingChanged
-	(*DisappearingMessagesChanged)(nil), // 84: mvservernxt.v1.DisappearingMessagesChanged
-	(*MessageExpired)(nil),              // 85: mvservernxt.v1.MessageExpired
-	(*MessagePinned)(nil),               // 86: mvservernxt.v1.MessagePinned
-	(*MessageUnpinned)(nil),             // 87: mvservernxt.v1.MessageUnpinned
-	(*ConversationNicknameChanged)(nil), // 88: mvservernxt.v1.ConversationNicknameChanged
-	(*ConversationMetadataChanged)(nil), // 89: mvservernxt.v1.ConversationMetadataChanged
-	(*DeliveryReceiptUpdated)(nil),      // 90: mvservernxt.v1.DeliveryReceiptUpdated
-	(*MemberRoleChanged)(nil),           // 91: mvservernxt.v1.MemberRoleChanged
-	(*ContactAdded)(nil),                // 92: mvservernxt.v1.ContactAdded
-	(*ContactRemoved)(nil),              // 93: mvservernxt.v1.ContactRemoved
-	(*UserBlocked)(nil),                 // 94: mvservernxt.v1.UserBlocked
-	(*UserUnblocked)(nil),               // 95: mvservernxt.v1.UserUnblocked
-	(*PresenceChanged)(nil),             // 96: mvservernxt.v1.PresenceChanged
-	(*OwnPresenceChanged)(nil),          // 97: mvservernxt.v1.OwnPresenceChanged
-	(*BlobThumbnailReady)(nil),          // 98: mvservernxt.v1.BlobThumbnailReady
+	(*SyncResponse)(nil),                // 4: mvservernxt.v1.SyncResponse
+	(*Event)(nil),                       // 5: mvservernxt.v1.Event
+	(*Ping)(nil),                        // 6: mvservernxt.v1.Ping
+	(*Hello)(nil),                       // 7: mvservernxt.v1.Hello
+	(*Register)(nil),                    // 8: mvservernxt.v1.Register
+	(*Authenticate)(nil),                // 9: mvservernxt.v1.Authenticate
+	(*Login)(nil),                       // 10: mvservernxt.v1.Login
+	(*Refresh)(nil),                     // 11: mvservernxt.v1.Refresh
+	(*Logout)(nil),                      // 12: mvservernxt.v1.Logout
+	(*VerifyEmail)(nil),                 // 13: mvservernxt.v1.VerifyEmail
+	(*ResendVerificationEmail)(nil),     // 14: mvservernxt.v1.ResendVerificationEmail
+	(*CreateConversation)(nil),          // 15: mvservernxt.v1.CreateConversation
+	(*AddMember)(nil),                   // 16: mvservernxt.v1.AddMember
+	(*RemoveMember)(nil),                // 17: mvservernxt.v1.RemoveMember
+	(*LeaveConversation)(nil),           // 18: mvservernxt.v1.LeaveConversation
+	(*SendMessage)(nil),                 // 19: mvservernxt.v1.SendMessage
+	(*ListConversations)(nil),           // 20: mvservernxt.v1.ListConversations
+	(*GetMessages)(nil),                 // 21: mvservernxt.v1.GetMessages
+	(*MarkRead)(nil),                    // 22: mvservernxt.v1.MarkRead
+	(*EditMessage)(nil),                 // 23: mvservernxt.v1.EditMessage
+	(*DeleteMessage)(nil),               // 24: mvservernxt.v1.DeleteMessage
+	(*DeleteMessageForEveryone)(nil),    // 25: mvservernxt.v1.DeleteMessageForEveryone
+	(*UnsendMessage)(nil),               // 26: mvservernxt.v1.UnsendMessage
+	(*AddReaction)(nil),                 // 27: mvservernxt.v1.AddReaction
+	(*RemoveReaction)(nil),              // 28: mvservernxt.v1.RemoveReaction
+	(*SendTyping)(nil),                  // 29: mvservernxt.v1.SendTyping
+	(*SetDisappearingMessages)(nil),     // 30: mvservernxt.v1.SetDisappearingMessages
+	(*PinMessage)(nil),                  // 31: mvservernxt.v1.PinMessage
+	(*UnpinMessage)(nil),                // 32: mvservernxt.v1.UnpinMessage
+	(*SetConversationNickname)(nil),     // 33: mvservernxt.v1.SetConversationNickname
+	(*UpdateConversationMetadata)(nil),  // 34: mvservernxt.v1.UpdateConversationMetadata
+	(*MarkDelivered)(nil),               // 35: mvservernxt.v1.MarkDelivered
+	(*PromoteMember)(nil),               // 36: mvservernxt.v1.PromoteMember
+	(*DemoteMember)(nil),                // 37: mvservernxt.v1.DemoteMember
+	(*TransferOwnership)(nil),           // 38: mvservernxt.v1.TransferOwnership
+	(*AddContact)(nil),                  // 39: mvservernxt.v1.AddContact
+	(*RemoveContact)(nil),               // 40: mvservernxt.v1.RemoveContact
+	(*ListContacts)(nil),                // 41: mvservernxt.v1.ListContacts
+	(*SearchUsers)(nil),                 // 42: mvservernxt.v1.SearchUsers
+	(*BlockUser)(nil),                   // 43: mvservernxt.v1.BlockUser
+	(*UnblockUser)(nil),                 // 44: mvservernxt.v1.UnblockUser
+	(*SubscribeToPresence)(nil),         // 45: mvservernxt.v1.SubscribeToPresence
+	(*UnsubscribeFromPresence)(nil),     // 46: mvservernxt.v1.UnsubscribeFromPresence
+	(*SetActivityState)(nil),            // 47: mvservernxt.v1.SetActivityState
+	(*SetVisibility)(nil),               // 48: mvservernxt.v1.SetVisibility
+	(*GetSync)(nil),                     // 49: mvservernxt.v1.GetSync
+	(*Pong)(nil),                        // 50: mvservernxt.v1.Pong
+	(*HelloResponse)(nil),               // 51: mvservernxt.v1.HelloResponse
+	(*RegisterResponse)(nil),            // 52: mvservernxt.v1.RegisterResponse
+	(*LoginResponse)(nil),               // 53: mvservernxt.v1.LoginResponse
+	(*RefreshResponse)(nil),             // 54: mvservernxt.v1.RefreshResponse
+	(*CreateConversationResponse)(nil),  // 55: mvservernxt.v1.CreateConversationResponse
+	(*SendMessageResponse)(nil),         // 56: mvservernxt.v1.SendMessageResponse
+	(*ListConversationsResponse)(nil),   // 57: mvservernxt.v1.ListConversationsResponse
+	(*GetMessagesResponse)(nil),         // 58: mvservernxt.v1.GetMessagesResponse
+	(*EditMessageResponse)(nil),         // 59: mvservernxt.v1.EditMessageResponse
+	(*ListContactsResponse)(nil),        // 60: mvservernxt.v1.ListContactsResponse
+	(*SearchUsersResponse)(nil),         // 61: mvservernxt.v1.SearchUsersResponse
+	(*SubscribeToPresenceResponse)(nil), // 62: mvservernxt.v1.SubscribeToPresenceResponse
+	(*timestamppb.Timestamp)(nil),       // 63: google.protobuf.Timestamp
+	(*UUID)(nil),                        // 64: mvservernxt.v1.UUID
+	(*SystemNotice)(nil),                // 65: mvservernxt.v1.SystemNotice
+	(*UserRegistered)(nil),              // 66: mvservernxt.v1.UserRegistered
+	(*UserLoggedIn)(nil),                // 67: mvservernxt.v1.UserLoggedIn
+	(*TokenRefreshed)(nil),              // 68: mvservernxt.v1.TokenRefreshed
+	(*UserLoggedOut)(nil),               // 69: mvservernxt.v1.UserLoggedOut
+	(*RefreshTokenReuseDetected)(nil),   // 70: mvservernxt.v1.RefreshTokenReuseDetected
+	(*EmailVerified)(nil),               // 71: mvservernxt.v1.EmailVerified
+	(*VerificationEmailSent)(nil),       // 72: mvservernxt.v1.VerificationEmailSent
+	(*ConversationCreated)(nil),         // 73: mvservernxt.v1.ConversationCreated
+	(*MemberAdded)(nil),                 // 74: mvservernxt.v1.MemberAdded
+	(*MemberRemoved)(nil),               // 75: mvservernxt.v1.MemberRemoved
+	(*MemberLeft)(nil),                  // 76: mvservernxt.v1.MemberLeft
+	(*MessageSent)(nil),                 // 77: mvservernxt.v1.MessageSent
+	(*ReadReceiptUpdated)(nil),          // 78: mvservernxt.v1.ReadReceiptUpdated
+	(*MessageEdited)(nil),               // 79: mvservernxt.v1.MessageEdited
+	(*MessageHidden)(nil),               // 80: mvservernxt.v1.MessageHidden
+	(*MessageDeletedForEveryone)(nil),   // 81: mvservernxt.v1.MessageDeletedForEveryone
+	(*MessageUnsent)(nil),               // 82: mvservernxt.v1.MessageUnsent
+	(*MessageReactionAdded)(nil),        // 83: mvservernxt.v1.MessageReactionAdded
+	(*MessageReactionRemoved)(nil),      // 84: mvservernxt.v1.MessageReactionRemoved
+	(*TypingChanged)(nil),               // 85: mvservernxt.v1.TypingChanged
+	(*DisappearingMessagesChanged)(nil), // 86: mvservernxt.v1.DisappearingMessagesChanged
+	(*MessageExpired)(nil),              // 87: mvservernxt.v1.MessageExpired
+	(*MessagePinned)(nil),               // 88: mvservernxt.v1.MessagePinned
+	(*MessageUnpinned)(nil),             // 89: mvservernxt.v1.MessageUnpinned
+	(*ConversationNicknameChanged)(nil), // 90: mvservernxt.v1.ConversationNicknameChanged
+	(*ConversationMetadataChanged)(nil), // 91: mvservernxt.v1.ConversationMetadataChanged
+	(*DeliveryReceiptUpdated)(nil),      // 92: mvservernxt.v1.DeliveryReceiptUpdated
+	(*MemberRoleChanged)(nil),           // 93: mvservernxt.v1.MemberRoleChanged
+	(*ContactAdded)(nil),                // 94: mvservernxt.v1.ContactAdded
+	(*ContactRemoved)(nil),              // 95: mvservernxt.v1.ContactRemoved
+	(*UserBlocked)(nil),                 // 96: mvservernxt.v1.UserBlocked
+	(*UserUnblocked)(nil),               // 97: mvservernxt.v1.UserUnblocked
+	(*PresenceChanged)(nil),             // 98: mvservernxt.v1.PresenceChanged
+	(*OwnPresenceChanged)(nil),          // 99: mvservernxt.v1.OwnPresenceChanged
+	(*BlobThumbnailReady)(nil),          // 100: mvservernxt.v1.BlobThumbnailReady
 }
 var file_mvservernxt_v1_wire_proto_depIdxs = []int32{
-	5,  // 0: mvservernxt.v1.ClientEnvelope.ping:type_name -> mvservernxt.v1.Ping
-	6,  // 1: mvservernxt.v1.ClientEnvelope.hello:type_name -> mvservernxt.v1.Hello
-	7,  // 2: mvservernxt.v1.ClientEnvelope.register:type_name -> mvservernxt.v1.Register
-	8,  // 3: mvservernxt.v1.ClientEnvelope.authenticate:type_name -> mvservernxt.v1.Authenticate
-	9,  // 4: mvservernxt.v1.ClientEnvelope.login:type_name -> mvservernxt.v1.Login
-	10, // 5: mvservernxt.v1.ClientEnvelope.refresh:type_name -> mvservernxt.v1.Refresh
-	11, // 6: mvservernxt.v1.ClientEnvelope.logout:type_name -> mvservernxt.v1.Logout
-	12, // 7: mvservernxt.v1.ClientEnvelope.verify_email:type_name -> mvservernxt.v1.VerifyEmail
-	13, // 8: mvservernxt.v1.ClientEnvelope.resend_verification_email:type_name -> mvservernxt.v1.ResendVerificationEmail
-	14, // 9: mvservernxt.v1.ClientEnvelope.create_conversation:type_name -> mvservernxt.v1.CreateConversation
-	15, // 10: mvservernxt.v1.ClientEnvelope.add_member:type_name -> mvservernxt.v1.AddMember
-	16, // 11: mvservernxt.v1.ClientEnvelope.remove_member:type_name -> mvservernxt.v1.RemoveMember
-	17, // 12: mvservernxt.v1.ClientEnvelope.leave_conversation:type_name -> mvservernxt.v1.LeaveConversation
-	18, // 13: mvservernxt.v1.ClientEnvelope.send_message:type_name -> mvservernxt.v1.SendMessage
-	19, // 14: mvservernxt.v1.ClientEnvelope.list_conversations:type_name -> mvservernxt.v1.ListConversations
-	20, // 15: mvservernxt.v1.ClientEnvelope.get_messages:type_name -> mvservernxt.v1.GetMessages
-	21, // 16: mvservernxt.v1.ClientEnvelope.mark_read:type_name -> mvservernxt.v1.MarkRead
-	22, // 17: mvservernxt.v1.ClientEnvelope.edit_message:type_name -> mvservernxt.v1.EditMessage
-	23, // 18: mvservernxt.v1.ClientEnvelope.delete_message:type_name -> mvservernxt.v1.DeleteMessage
-	24, // 19: mvservernxt.v1.ClientEnvelope.delete_message_for_everyone:type_name -> mvservernxt.v1.DeleteMessageForEveryone
-	25, // 20: mvservernxt.v1.ClientEnvelope.unsend_message:type_name -> mvservernxt.v1.UnsendMessage
-	26, // 21: mvservernxt.v1.ClientEnvelope.add_reaction:type_name -> mvservernxt.v1.AddReaction
-	27, // 22: mvservernxt.v1.ClientEnvelope.remove_reaction:type_name -> mvservernxt.v1.RemoveReaction
-	28, // 23: mvservernxt.v1.ClientEnvelope.send_typing:type_name -> mvservernxt.v1.SendTyping
-	29, // 24: mvservernxt.v1.ClientEnvelope.set_disappearing_messages:type_name -> mvservernxt.v1.SetDisappearingMessages
-	30, // 25: mvservernxt.v1.ClientEnvelope.pin_message:type_name -> mvservernxt.v1.PinMessage
-	31, // 26: mvservernxt.v1.ClientEnvelope.unpin_message:type_name -> mvservernxt.v1.UnpinMessage
-	32, // 27: mvservernxt.v1.ClientEnvelope.set_conversation_nickname:type_name -> mvservernxt.v1.SetConversationNickname
-	33, // 28: mvservernxt.v1.ClientEnvelope.update_conversation_metadata:type_name -> mvservernxt.v1.UpdateConversationMetadata
-	34, // 29: mvservernxt.v1.ClientEnvelope.mark_delivered:type_name -> mvservernxt.v1.MarkDelivered
-	35, // 30: mvservernxt.v1.ClientEnvelope.promote_member:type_name -> mvservernxt.v1.PromoteMember
-	36, // 31: mvservernxt.v1.ClientEnvelope.demote_member:type_name -> mvservernxt.v1.DemoteMember
-	37, // 32: mvservernxt.v1.ClientEnvelope.transfer_ownership:type_name -> mvservernxt.v1.TransferOwnership
-	38, // 33: mvservernxt.v1.ClientEnvelope.add_contact:type_name -> mvservernxt.v1.AddContact
-	39, // 34: mvservernxt.v1.ClientEnvelope.remove_contact:type_name -> mvservernxt.v1.RemoveContact
-	40, // 35: mvservernxt.v1.ClientEnvelope.list_contacts:type_name -> mvservernxt.v1.ListContacts
-	41, // 36: mvservernxt.v1.ClientEnvelope.search_users:type_name -> mvservernxt.v1.SearchUsers
-	42, // 37: mvservernxt.v1.ClientEnvelope.block_user:type_name -> mvservernxt.v1.BlockUser
-	43, // 38: mvservernxt.v1.ClientEnvelope.unblock_user:type_name -> mvservernxt.v1.UnblockUser
-	44, // 39: mvservernxt.v1.ClientEnvelope.subscribe_to_presence:type_name -> mvservernxt.v1.SubscribeToPresence
-	45, // 40: mvservernxt.v1.ClientEnvelope.unsubscribe_from_presence:type_name -> mvservernxt.v1.UnsubscribeFromPresence
-	46, // 41: mvservernxt.v1.ClientEnvelope.set_activity_state:type_name -> mvservernxt.v1.SetActivityState
-	47, // 42: mvservernxt.v1.ClientEnvelope.set_visibility:type_name -> mvservernxt.v1.SetVisibility
-	2,  // 43: mvservernxt.v1.ServerEnvelope.ack:type_name -> mvservernxt.v1.Ack
-	3,  // 44: mvservernxt.v1.ServerEnvelope.err:type_name -> mvservernxt.v1.Err
-	4,  // 45: mvservernxt.v1.ServerEnvelope.event:type_name -> mvservernxt.v1.Event
-	48, // 46: mvservernxt.v1.Ack.pong:type_name -> mvservernxt.v1.Pong
-	49, // 47: mvservernxt.v1.Ack.hello:type_name -> mvservernxt.v1.HelloResponse
-	50, // 48: mvservernxt.v1.Ack.register:type_name -> mvservernxt.v1.RegisterResponse
-	51, // 49: mvservernxt.v1.Ack.login:type_name -> mvservernxt.v1.LoginResponse
-	52, // 50: mvservernxt.v1.Ack.refresh:type_name -> mvservernxt.v1.RefreshResponse
-	53, // 51: mvservernxt.v1.Ack.create_conversation:type_name -> mvservernxt.v1.CreateConversationResponse
-	54, // 52: mvservernxt.v1.Ack.send_message:type_name -> mvservernxt.v1.SendMessageResponse
-	55, // 53: mvservernxt.v1.Ack.list_conversations:type_name -> mvservernxt.v1.ListConversationsResponse
-	56, // 54: mvservernxt.v1.Ack.get_messages:type_name -> mvservernxt.v1.GetMessagesResponse
-	57, // 55: mvservernxt.v1.Ack.edit_message:type_name -> mvservernxt.v1.EditMessageResponse
-	58, // 56: mvservernxt.v1.Ack.list_contacts:type_name -> mvservernxt.v1.ListContactsResponse
-	59, // 57: mvservernxt.v1.Ack.search_users:type_name -> mvservernxt.v1.SearchUsersResponse
-	60, // 58: mvservernxt.v1.Ack.subscribe_to_presence:type_name -> mvservernxt.v1.SubscribeToPresenceResponse
-	61, // 59: mvservernxt.v1.Event.timestamp:type_name -> google.protobuf.Timestamp
-	62, // 60: mvservernxt.v1.Event.actor_id:type_name -> mvservernxt.v1.UUID
-	62, // 61: mvservernxt.v1.Event.aggregate_id:type_name -> mvservernxt.v1.UUID
-	63, // 62: mvservernxt.v1.Event.system_notice:type_name -> mvservernxt.v1.SystemNotice
-	64, // 63: mvservernxt.v1.Event.user_registered:type_name -> mvservernxt.v1.UserRegistered
-	65, // 64: mvservernxt.v1.Event.user_logged_in:type_name -> mvservernxt.v1.UserLoggedIn
-	66, // 65: mvservernxt.v1.Event.token_refreshed:type_name -> mvservernxt.v1.TokenRefreshed
-	67, // 66: mvservernxt.v1.Event.user_logged_out:type_name -> mvservernxt.v1.UserLoggedOut
-	68, // 67: mvservernxt.v1.Event.refresh_token_reuse_detected:type_name -> mvservernxt.v1.RefreshTokenReuseDetected
-	69, // 68: mvservernxt.v1.Event.email_verified:type_name -> mvservernxt.v1.EmailVerified
-	70, // 69: mvservernxt.v1.Event.verification_email_sent:type_name -> mvservernxt.v1.VerificationEmailSent
-	71, // 70: mvservernxt.v1.Event.conversation_created:type_name -> mvservernxt.v1.ConversationCreated
-	72, // 71: mvservernxt.v1.Event.member_added:type_name -> mvservernxt.v1.MemberAdded
-	73, // 72: mvservernxt.v1.Event.member_removed:type_name -> mvservernxt.v1.MemberRemoved
-	74, // 73: mvservernxt.v1.Event.member_left:type_name -> mvservernxt.v1.MemberLeft
-	75, // 74: mvservernxt.v1.Event.message_sent:type_name -> mvservernxt.v1.MessageSent
-	76, // 75: mvservernxt.v1.Event.read_receipt_updated:type_name -> mvservernxt.v1.ReadReceiptUpdated
-	77, // 76: mvservernxt.v1.Event.message_edited:type_name -> mvservernxt.v1.MessageEdited
-	78, // 77: mvservernxt.v1.Event.message_hidden:type_name -> mvservernxt.v1.MessageHidden
-	79, // 78: mvservernxt.v1.Event.message_deleted_for_everyone:type_name -> mvservernxt.v1.MessageDeletedForEveryone
-	80, // 79: mvservernxt.v1.Event.message_unsent:type_name -> mvservernxt.v1.MessageUnsent
-	81, // 80: mvservernxt.v1.Event.message_reaction_added:type_name -> mvservernxt.v1.MessageReactionAdded
-	82, // 81: mvservernxt.v1.Event.message_reaction_removed:type_name -> mvservernxt.v1.MessageReactionRemoved
-	83, // 82: mvservernxt.v1.Event.typing_changed:type_name -> mvservernxt.v1.TypingChanged
-	84, // 83: mvservernxt.v1.Event.disappearing_messages_changed:type_name -> mvservernxt.v1.DisappearingMessagesChanged
-	85, // 84: mvservernxt.v1.Event.message_expired:type_name -> mvservernxt.v1.MessageExpired
-	86, // 85: mvservernxt.v1.Event.message_pinned:type_name -> mvservernxt.v1.MessagePinned
-	87, // 86: mvservernxt.v1.Event.message_unpinned:type_name -> mvservernxt.v1.MessageUnpinned
-	88, // 87: mvservernxt.v1.Event.conversation_nickname_changed:type_name -> mvservernxt.v1.ConversationNicknameChanged
-	89, // 88: mvservernxt.v1.Event.conversation_metadata_changed:type_name -> mvservernxt.v1.ConversationMetadataChanged
-	90, // 89: mvservernxt.v1.Event.delivery_receipt_updated:type_name -> mvservernxt.v1.DeliveryReceiptUpdated
-	91, // 90: mvservernxt.v1.Event.member_role_changed:type_name -> mvservernxt.v1.MemberRoleChanged
-	92, // 91: mvservernxt.v1.Event.contact_added:type_name -> mvservernxt.v1.ContactAdded
-	93, // 92: mvservernxt.v1.Event.contact_removed:type_name -> mvservernxt.v1.ContactRemoved
-	94, // 93: mvservernxt.v1.Event.user_blocked:type_name -> mvservernxt.v1.UserBlocked
-	95, // 94: mvservernxt.v1.Event.user_unblocked:type_name -> mvservernxt.v1.UserUnblocked
-	96, // 95: mvservernxt.v1.Event.presence_changed:type_name -> mvservernxt.v1.PresenceChanged
-	97, // 96: mvservernxt.v1.Event.own_presence_changed:type_name -> mvservernxt.v1.OwnPresenceChanged
-	98, // 97: mvservernxt.v1.Event.blob_thumbnail_ready:type_name -> mvservernxt.v1.BlobThumbnailReady
-	98, // [98:98] is the sub-list for method output_type
-	98, // [98:98] is the sub-list for method input_type
-	98, // [98:98] is the sub-list for extension type_name
-	98, // [98:98] is the sub-list for extension extendee
-	0,  // [0:98] is the sub-list for field type_name
+	6,   // 0: mvservernxt.v1.ClientEnvelope.ping:type_name -> mvservernxt.v1.Ping
+	7,   // 1: mvservernxt.v1.ClientEnvelope.hello:type_name -> mvservernxt.v1.Hello
+	8,   // 2: mvservernxt.v1.ClientEnvelope.register:type_name -> mvservernxt.v1.Register
+	9,   // 3: mvservernxt.v1.ClientEnvelope.authenticate:type_name -> mvservernxt.v1.Authenticate
+	10,  // 4: mvservernxt.v1.ClientEnvelope.login:type_name -> mvservernxt.v1.Login
+	11,  // 5: mvservernxt.v1.ClientEnvelope.refresh:type_name -> mvservernxt.v1.Refresh
+	12,  // 6: mvservernxt.v1.ClientEnvelope.logout:type_name -> mvservernxt.v1.Logout
+	13,  // 7: mvservernxt.v1.ClientEnvelope.verify_email:type_name -> mvservernxt.v1.VerifyEmail
+	14,  // 8: mvservernxt.v1.ClientEnvelope.resend_verification_email:type_name -> mvservernxt.v1.ResendVerificationEmail
+	15,  // 9: mvservernxt.v1.ClientEnvelope.create_conversation:type_name -> mvservernxt.v1.CreateConversation
+	16,  // 10: mvservernxt.v1.ClientEnvelope.add_member:type_name -> mvservernxt.v1.AddMember
+	17,  // 11: mvservernxt.v1.ClientEnvelope.remove_member:type_name -> mvservernxt.v1.RemoveMember
+	18,  // 12: mvservernxt.v1.ClientEnvelope.leave_conversation:type_name -> mvservernxt.v1.LeaveConversation
+	19,  // 13: mvservernxt.v1.ClientEnvelope.send_message:type_name -> mvservernxt.v1.SendMessage
+	20,  // 14: mvservernxt.v1.ClientEnvelope.list_conversations:type_name -> mvservernxt.v1.ListConversations
+	21,  // 15: mvservernxt.v1.ClientEnvelope.get_messages:type_name -> mvservernxt.v1.GetMessages
+	22,  // 16: mvservernxt.v1.ClientEnvelope.mark_read:type_name -> mvservernxt.v1.MarkRead
+	23,  // 17: mvservernxt.v1.ClientEnvelope.edit_message:type_name -> mvservernxt.v1.EditMessage
+	24,  // 18: mvservernxt.v1.ClientEnvelope.delete_message:type_name -> mvservernxt.v1.DeleteMessage
+	25,  // 19: mvservernxt.v1.ClientEnvelope.delete_message_for_everyone:type_name -> mvservernxt.v1.DeleteMessageForEveryone
+	26,  // 20: mvservernxt.v1.ClientEnvelope.unsend_message:type_name -> mvservernxt.v1.UnsendMessage
+	27,  // 21: mvservernxt.v1.ClientEnvelope.add_reaction:type_name -> mvservernxt.v1.AddReaction
+	28,  // 22: mvservernxt.v1.ClientEnvelope.remove_reaction:type_name -> mvservernxt.v1.RemoveReaction
+	29,  // 23: mvservernxt.v1.ClientEnvelope.send_typing:type_name -> mvservernxt.v1.SendTyping
+	30,  // 24: mvservernxt.v1.ClientEnvelope.set_disappearing_messages:type_name -> mvservernxt.v1.SetDisappearingMessages
+	31,  // 25: mvservernxt.v1.ClientEnvelope.pin_message:type_name -> mvservernxt.v1.PinMessage
+	32,  // 26: mvservernxt.v1.ClientEnvelope.unpin_message:type_name -> mvservernxt.v1.UnpinMessage
+	33,  // 27: mvservernxt.v1.ClientEnvelope.set_conversation_nickname:type_name -> mvservernxt.v1.SetConversationNickname
+	34,  // 28: mvservernxt.v1.ClientEnvelope.update_conversation_metadata:type_name -> mvservernxt.v1.UpdateConversationMetadata
+	35,  // 29: mvservernxt.v1.ClientEnvelope.mark_delivered:type_name -> mvservernxt.v1.MarkDelivered
+	36,  // 30: mvservernxt.v1.ClientEnvelope.promote_member:type_name -> mvservernxt.v1.PromoteMember
+	37,  // 31: mvservernxt.v1.ClientEnvelope.demote_member:type_name -> mvservernxt.v1.DemoteMember
+	38,  // 32: mvservernxt.v1.ClientEnvelope.transfer_ownership:type_name -> mvservernxt.v1.TransferOwnership
+	39,  // 33: mvservernxt.v1.ClientEnvelope.add_contact:type_name -> mvservernxt.v1.AddContact
+	40,  // 34: mvservernxt.v1.ClientEnvelope.remove_contact:type_name -> mvservernxt.v1.RemoveContact
+	41,  // 35: mvservernxt.v1.ClientEnvelope.list_contacts:type_name -> mvservernxt.v1.ListContacts
+	42,  // 36: mvservernxt.v1.ClientEnvelope.search_users:type_name -> mvservernxt.v1.SearchUsers
+	43,  // 37: mvservernxt.v1.ClientEnvelope.block_user:type_name -> mvservernxt.v1.BlockUser
+	44,  // 38: mvservernxt.v1.ClientEnvelope.unblock_user:type_name -> mvservernxt.v1.UnblockUser
+	45,  // 39: mvservernxt.v1.ClientEnvelope.subscribe_to_presence:type_name -> mvservernxt.v1.SubscribeToPresence
+	46,  // 40: mvservernxt.v1.ClientEnvelope.unsubscribe_from_presence:type_name -> mvservernxt.v1.UnsubscribeFromPresence
+	47,  // 41: mvservernxt.v1.ClientEnvelope.set_activity_state:type_name -> mvservernxt.v1.SetActivityState
+	48,  // 42: mvservernxt.v1.ClientEnvelope.set_visibility:type_name -> mvservernxt.v1.SetVisibility
+	49,  // 43: mvservernxt.v1.ClientEnvelope.get_sync:type_name -> mvservernxt.v1.GetSync
+	2,   // 44: mvservernxt.v1.ServerEnvelope.ack:type_name -> mvservernxt.v1.Ack
+	3,   // 45: mvservernxt.v1.ServerEnvelope.err:type_name -> mvservernxt.v1.Err
+	5,   // 46: mvservernxt.v1.ServerEnvelope.event:type_name -> mvservernxt.v1.Event
+	50,  // 47: mvservernxt.v1.Ack.pong:type_name -> mvservernxt.v1.Pong
+	51,  // 48: mvservernxt.v1.Ack.hello:type_name -> mvservernxt.v1.HelloResponse
+	52,  // 49: mvservernxt.v1.Ack.register:type_name -> mvservernxt.v1.RegisterResponse
+	53,  // 50: mvservernxt.v1.Ack.login:type_name -> mvservernxt.v1.LoginResponse
+	54,  // 51: mvservernxt.v1.Ack.refresh:type_name -> mvservernxt.v1.RefreshResponse
+	55,  // 52: mvservernxt.v1.Ack.create_conversation:type_name -> mvservernxt.v1.CreateConversationResponse
+	56,  // 53: mvservernxt.v1.Ack.send_message:type_name -> mvservernxt.v1.SendMessageResponse
+	57,  // 54: mvservernxt.v1.Ack.list_conversations:type_name -> mvservernxt.v1.ListConversationsResponse
+	58,  // 55: mvservernxt.v1.Ack.get_messages:type_name -> mvservernxt.v1.GetMessagesResponse
+	59,  // 56: mvservernxt.v1.Ack.edit_message:type_name -> mvservernxt.v1.EditMessageResponse
+	60,  // 57: mvservernxt.v1.Ack.list_contacts:type_name -> mvservernxt.v1.ListContactsResponse
+	61,  // 58: mvservernxt.v1.Ack.search_users:type_name -> mvservernxt.v1.SearchUsersResponse
+	62,  // 59: mvservernxt.v1.Ack.subscribe_to_presence:type_name -> mvservernxt.v1.SubscribeToPresenceResponse
+	4,   // 60: mvservernxt.v1.Ack.get_sync:type_name -> mvservernxt.v1.SyncResponse
+	5,   // 61: mvservernxt.v1.SyncResponse.chat:type_name -> mvservernxt.v1.Event
+	5,   // 62: mvservernxt.v1.SyncResponse.identity:type_name -> mvservernxt.v1.Event
+	5,   // 63: mvservernxt.v1.SyncResponse.contacts:type_name -> mvservernxt.v1.Event
+	5,   // 64: mvservernxt.v1.SyncResponse.media:type_name -> mvservernxt.v1.Event
+	63,  // 65: mvservernxt.v1.Event.timestamp:type_name -> google.protobuf.Timestamp
+	64,  // 66: mvservernxt.v1.Event.actor_id:type_name -> mvservernxt.v1.UUID
+	64,  // 67: mvservernxt.v1.Event.aggregate_id:type_name -> mvservernxt.v1.UUID
+	65,  // 68: mvservernxt.v1.Event.system_notice:type_name -> mvservernxt.v1.SystemNotice
+	66,  // 69: mvservernxt.v1.Event.user_registered:type_name -> mvservernxt.v1.UserRegistered
+	67,  // 70: mvservernxt.v1.Event.user_logged_in:type_name -> mvservernxt.v1.UserLoggedIn
+	68,  // 71: mvservernxt.v1.Event.token_refreshed:type_name -> mvservernxt.v1.TokenRefreshed
+	69,  // 72: mvservernxt.v1.Event.user_logged_out:type_name -> mvservernxt.v1.UserLoggedOut
+	70,  // 73: mvservernxt.v1.Event.refresh_token_reuse_detected:type_name -> mvservernxt.v1.RefreshTokenReuseDetected
+	71,  // 74: mvservernxt.v1.Event.email_verified:type_name -> mvservernxt.v1.EmailVerified
+	72,  // 75: mvservernxt.v1.Event.verification_email_sent:type_name -> mvservernxt.v1.VerificationEmailSent
+	73,  // 76: mvservernxt.v1.Event.conversation_created:type_name -> mvservernxt.v1.ConversationCreated
+	74,  // 77: mvservernxt.v1.Event.member_added:type_name -> mvservernxt.v1.MemberAdded
+	75,  // 78: mvservernxt.v1.Event.member_removed:type_name -> mvservernxt.v1.MemberRemoved
+	76,  // 79: mvservernxt.v1.Event.member_left:type_name -> mvservernxt.v1.MemberLeft
+	77,  // 80: mvservernxt.v1.Event.message_sent:type_name -> mvservernxt.v1.MessageSent
+	78,  // 81: mvservernxt.v1.Event.read_receipt_updated:type_name -> mvservernxt.v1.ReadReceiptUpdated
+	79,  // 82: mvservernxt.v1.Event.message_edited:type_name -> mvservernxt.v1.MessageEdited
+	80,  // 83: mvservernxt.v1.Event.message_hidden:type_name -> mvservernxt.v1.MessageHidden
+	81,  // 84: mvservernxt.v1.Event.message_deleted_for_everyone:type_name -> mvservernxt.v1.MessageDeletedForEveryone
+	82,  // 85: mvservernxt.v1.Event.message_unsent:type_name -> mvservernxt.v1.MessageUnsent
+	83,  // 86: mvservernxt.v1.Event.message_reaction_added:type_name -> mvservernxt.v1.MessageReactionAdded
+	84,  // 87: mvservernxt.v1.Event.message_reaction_removed:type_name -> mvservernxt.v1.MessageReactionRemoved
+	85,  // 88: mvservernxt.v1.Event.typing_changed:type_name -> mvservernxt.v1.TypingChanged
+	86,  // 89: mvservernxt.v1.Event.disappearing_messages_changed:type_name -> mvservernxt.v1.DisappearingMessagesChanged
+	87,  // 90: mvservernxt.v1.Event.message_expired:type_name -> mvservernxt.v1.MessageExpired
+	88,  // 91: mvservernxt.v1.Event.message_pinned:type_name -> mvservernxt.v1.MessagePinned
+	89,  // 92: mvservernxt.v1.Event.message_unpinned:type_name -> mvservernxt.v1.MessageUnpinned
+	90,  // 93: mvservernxt.v1.Event.conversation_nickname_changed:type_name -> mvservernxt.v1.ConversationNicknameChanged
+	91,  // 94: mvservernxt.v1.Event.conversation_metadata_changed:type_name -> mvservernxt.v1.ConversationMetadataChanged
+	92,  // 95: mvservernxt.v1.Event.delivery_receipt_updated:type_name -> mvservernxt.v1.DeliveryReceiptUpdated
+	93,  // 96: mvservernxt.v1.Event.member_role_changed:type_name -> mvservernxt.v1.MemberRoleChanged
+	94,  // 97: mvservernxt.v1.Event.contact_added:type_name -> mvservernxt.v1.ContactAdded
+	95,  // 98: mvservernxt.v1.Event.contact_removed:type_name -> mvservernxt.v1.ContactRemoved
+	96,  // 99: mvservernxt.v1.Event.user_blocked:type_name -> mvservernxt.v1.UserBlocked
+	97,  // 100: mvservernxt.v1.Event.user_unblocked:type_name -> mvservernxt.v1.UserUnblocked
+	98,  // 101: mvservernxt.v1.Event.presence_changed:type_name -> mvservernxt.v1.PresenceChanged
+	99,  // 102: mvservernxt.v1.Event.own_presence_changed:type_name -> mvservernxt.v1.OwnPresenceChanged
+	100, // 103: mvservernxt.v1.Event.blob_thumbnail_ready:type_name -> mvservernxt.v1.BlobThumbnailReady
+	104, // [104:104] is the sub-list for method output_type
+	104, // [104:104] is the sub-list for method input_type
+	104, // [104:104] is the sub-list for extension type_name
+	104, // [104:104] is the sub-list for extension extendee
+	0,   // [0:104] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_wire_proto_init() }
@@ -2313,6 +2459,7 @@ func file_mvservernxt_v1_wire_proto_init() {
 	file_mvservernxt_v1_identity_proto_init()
 	file_mvservernxt_v1_media_proto_init()
 	file_mvservernxt_v1_presence_proto_init()
+	file_mvservernxt_v1_sync_proto_init()
 	file_mvservernxt_v1_system_proto_init()
 	file_mvservernxt_v1_wire_proto_msgTypes[0].OneofWrappers = []any{
 		(*ClientEnvelope_Ping)(nil),
@@ -2358,6 +2505,7 @@ func file_mvservernxt_v1_wire_proto_init() {
 		(*ClientEnvelope_UnsubscribeFromPresence)(nil),
 		(*ClientEnvelope_SetActivityState)(nil),
 		(*ClientEnvelope_SetVisibility)(nil),
+		(*ClientEnvelope_GetSync)(nil),
 	}
 	file_mvservernxt_v1_wire_proto_msgTypes[1].OneofWrappers = []any{
 		(*ServerEnvelope_Ack)(nil),
@@ -2378,8 +2526,9 @@ func file_mvservernxt_v1_wire_proto_init() {
 		(*Ack_ListContacts)(nil),
 		(*Ack_SearchUsers)(nil),
 		(*Ack_SubscribeToPresence)(nil),
+		(*Ack_GetSync)(nil),
 	}
-	file_mvservernxt_v1_wire_proto_msgTypes[4].OneofWrappers = []any{
+	file_mvservernxt_v1_wire_proto_msgTypes[5].OneofWrappers = []any{
 		(*Event_SystemNotice)(nil),
 		(*Event_UserRegistered)(nil),
 		(*Event_UserLoggedIn)(nil),
@@ -2423,7 +2572,7 @@ func file_mvservernxt_v1_wire_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mvservernxt_v1_wire_proto_rawDesc), len(file_mvservernxt_v1_wire_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

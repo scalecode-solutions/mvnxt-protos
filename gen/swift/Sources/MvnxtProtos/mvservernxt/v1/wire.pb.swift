@@ -400,6 +400,15 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     set {payload = .setVisibility(newValue)}
   }
 
+  /// Sync (range 200-209). Composed-sync-token catch-up.
+  public var getSync: Mvservernxt_V1_GetSync {
+    get {
+      if case .getSync(let v)? = payload {return v}
+      return Mvservernxt_V1_GetSync()
+    }
+    set {payload = .getSync(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Exactly one payload must be set. Domain-specific command types
@@ -458,6 +467,8 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     case unsubscribeFromPresence(Mvservernxt_V1_UnsubscribeFromPresence)
     case setActivityState(Mvservernxt_V1_SetActivityState)
     case setVisibility(Mvservernxt_V1_SetVisibility)
+    /// Sync (range 200-209). Composed-sync-token catch-up.
+    case getSync(Mvservernxt_V1_GetSync)
 
   }
 
@@ -640,6 +651,15 @@ public struct Mvservernxt_V1_Ack: Sendable {
     set {payload = .subscribeToPresence(newValue)}
   }
 
+  /// Sync
+  public var getSync: Mvservernxt_V1_SyncResponse {
+    get {
+      if case .getSync(let v)? = payload {return v}
+      return Mvservernxt_V1_SyncResponse()
+    }
+    set {payload = .getSync(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Optional response payload. Oneof matches the command shape.
@@ -666,6 +686,8 @@ public struct Mvservernxt_V1_Ack: Sendable {
     /// Presence (UnsubscribeFromPresence, SetActivityState,
     /// SetVisibility return empty Ack with no payload)
     case subscribeToPresence(Mvservernxt_V1_SubscribeToPresenceResponse)
+    /// Sync
+    case getSync(Mvservernxt_V1_SyncResponse)
 
   }
 
@@ -691,6 +713,40 @@ public struct Mvservernxt_V1_Err: Sendable {
   /// Examples: "validation_failed", "token_reuse_detected", "forbidden",
   ///           "rate_limited", "not_found".
   public var reason: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// SyncResponse carries up to `limit` events PER stream that the
+/// caller is authorized to see (audience-filtered). Each stream's
+/// events are ordered by seq ASC. `next` is the advanced opaque
+/// token; `too_long` flags that at least one stream hit the limit
+/// and the client should re-call promptly to drain the remaining
+/// backlog.
+///
+/// Defined here rather than in sync.proto because the type
+/// references Event, which would cycle through wire.proto.
+public struct Mvservernxt_V1_SyncResponse: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var next: String = String()
+
+  public var tooLong: Bool = false
+
+  /// Per-stream event slices.
+  public var chat: [Mvservernxt_V1_Event] = []
+
+  public var identity: [Mvservernxt_V1_Event] = []
+
+  public var contacts: [Mvservernxt_V1_Event] = []
+
+  /// 14-19 reserved for future streams (presence persistence,
+  /// pulse, tangle, places, calls).
+  public var media: [Mvservernxt_V1_Event] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1114,7 +1170,7 @@ fileprivate let _protobuf_package = "mvservernxt.v1"
 
 extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ClientEnvelope"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0\u{3}edit_message\0\u{3}delete_message\0\u{3}delete_message_for_everyone\0\u{3}unsend_message\0\u{3}add_reaction\0\u{3}remove_reaction\0\u{3}send_typing\0\u{3}set_disappearing_messages\0\u{3}pin_message\0\u{3}unpin_message\0\u{3}set_conversation_nickname\0\u{3}update_conversation_metadata\0\u{3}mark_delivered\0\u{3}promote_member\0\u{3}demote_member\0\u{3}transfer_ownership\0\u{4}/add_contact\0\u{3}remove_contact\0\u{3}list_contacts\0\u{3}search_users\0\u{3}block_user\0\u{3}unblock_user\0\u{4}\u{5}subscribe_to_presence\0\u{3}unsubscribe_from_presence\0\u{3}set_activity_state\0\u{3}set_visibility\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0\u{3}edit_message\0\u{3}delete_message\0\u{3}delete_message_for_everyone\0\u{3}unsend_message\0\u{3}add_reaction\0\u{3}remove_reaction\0\u{3}send_typing\0\u{3}set_disappearing_messages\0\u{3}pin_message\0\u{3}unpin_message\0\u{3}set_conversation_nickname\0\u{3}update_conversation_metadata\0\u{3}mark_delivered\0\u{3}promote_member\0\u{3}demote_member\0\u{3}transfer_ownership\0\u{4}/add_contact\0\u{3}remove_contact\0\u{3}list_contacts\0\u{3}search_users\0\u{3}block_user\0\u{3}unblock_user\0\u{4}\u{5}subscribe_to_presence\0\u{3}unsubscribe_from_presence\0\u{3}set_activity_state\0\u{3}set_visibility\0\u{4}W\u{1}get_sync\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1682,6 +1738,19 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
           self.payload = .setVisibility(v)
         }
       }()
+      case 200: try {
+        var v: Mvservernxt_V1_GetSync?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .getSync(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .getSync(v)
+        }
+      }()
       default: break
       }
     }
@@ -1868,6 +1937,10 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
       guard case .setVisibility(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 113)
     }()
+    case .getSync?: try {
+      guard case .getSync(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 200)
+    }()
     case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -1967,7 +2040,7 @@ extension Mvservernxt_V1_ServerEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Ack"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{1}code\0\u{2}\u{8}pong\0\u{1}hello\0\u{2}\u{9}register\0\u{2}\u{2}login\0\u{1}refresh\0\u{4}\u{7}create_conversation\0\u{4}\u{4}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{4}\u{2}edit_message\0\u{4}@\u{1}list_contacts\0\u{3}search_users\0\u{4}\u{7}subscribe_to_presence\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{1}code\0\u{2}\u{8}pong\0\u{1}hello\0\u{2}\u{9}register\0\u{2}\u{2}login\0\u{1}refresh\0\u{4}\u{7}create_conversation\0\u{4}\u{4}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{4}\u{2}edit_message\0\u{4}@\u{1}list_contacts\0\u{3}search_users\0\u{4}\u{7}subscribe_to_presence\0\u{4}Z\u{1}get_sync\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2146,6 +2219,19 @@ extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
           self.payload = .subscribeToPresence(v)
         }
       }()
+      case 200: try {
+        var v: Mvservernxt_V1_SyncResponse?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .getSync(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .getSync(v)
+        }
+      }()
       default: break
       }
     }
@@ -2215,6 +2301,10 @@ extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       guard case .subscribeToPresence(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
     }()
+    case .getSync?: try {
+      guard case .getSync(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 200)
+    }()
     case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2269,6 +2359,61 @@ extension Mvservernxt_V1_Err: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.code != rhs.code {return false}
     if lhs.message != rhs.message {return false}
     if lhs.reason != rhs.reason {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_SyncResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SyncResponse"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}next\0\u{3}too_long\0\u{2}\u{8}chat\0\u{1}identity\0\u{1}contacts\0\u{1}media\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.next) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.tooLong) }()
+      case 10: try { try decoder.decodeRepeatedMessageField(value: &self.chat) }()
+      case 11: try { try decoder.decodeRepeatedMessageField(value: &self.identity) }()
+      case 12: try { try decoder.decodeRepeatedMessageField(value: &self.contacts) }()
+      case 13: try { try decoder.decodeRepeatedMessageField(value: &self.media) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.next.isEmpty {
+      try visitor.visitSingularStringField(value: self.next, fieldNumber: 1)
+    }
+    if self.tooLong != false {
+      try visitor.visitSingularBoolField(value: self.tooLong, fieldNumber: 2)
+    }
+    if !self.chat.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.chat, fieldNumber: 10)
+    }
+    if !self.identity.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.identity, fieldNumber: 11)
+    }
+    if !self.contacts.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.contacts, fieldNumber: 12)
+    }
+    if !self.media.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.media, fieldNumber: 13)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_SyncResponse, rhs: Mvservernxt_V1_SyncResponse) -> Bool {
+    if lhs.next != rhs.next {return false}
+    if lhs.tooLong != rhs.tooLong {return false}
+    if lhs.chat != rhs.chat {return false}
+    if lhs.identity != rhs.identity {return false}
+    if lhs.contacts != rhs.contacts {return false}
+    if lhs.media != rhs.media {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
