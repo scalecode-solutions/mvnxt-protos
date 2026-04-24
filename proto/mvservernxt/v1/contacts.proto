@@ -1,0 +1,147 @@
+// Contacts: address book + one-way blocks.
+//
+// Address book: asymmetric. Alice adding Bob does not imply Bob
+// added Alice. Each row is owned by the caller.
+//
+// Blocks: one-way on storage, bidirectional in effect at the
+// messaging layer — if A blocks B or B blocks A, either direction
+// of a DM is refused. Groups bypass the block gate (shared
+// membership is explicit). Blocked users NEVER receive a block
+// event — the audience is the blocker's own sessions only.
+//
+// Presence visibility and other block side-effects land in the
+// presence slice, not here.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// ============================================================================
+// Commands
+// ============================================================================
+
+// AddContact adds `user_id` to the caller's address book. Optional
+// alias is the caller's personal nickname for the contact (empty
+// string = use the contact's global display_name).
+//
+// Idempotent: re-adding an existing contact updates the alias in
+// place and emits ContactAdded again. The client treats both cases
+// as success.
+message AddContact {
+  string          user_id = 1;
+  optional string alias   = 2;
+}
+
+// RemoveContact deletes `user_id` from the caller's address book.
+// Idempotent — removing a non-contact Acks silently without emitting.
+message RemoveContact {
+  string user_id = 1;
+}
+
+// ListContacts returns every entry in the caller's address book,
+// ordered by username ASC. No pagination in slice 1 — contact lists
+// are small (<1k typical). Paginate later if needed.
+message ListContacts {}
+
+// SearchUsers does a case-insensitive prefix match against the
+// username column and returns up to `limit` matches (capped server-
+// side at 50). Excludes the caller and deactivated users.
+//
+// This is the "find people to add" entry point — the result is
+// NOT the caller's contacts, it's the global user directory.
+message SearchUsers {
+  string query = 1;
+  int32  limit = 2;  // 0 = server default (20). Clamped to [1, 50].
+}
+
+// BlockUser adds `user_id` to the caller's blocklist. A block hides
+// the blocker from the blocked user's presence and refuses DM sends
+// in either direction (see chat.SendMessage gate). Groups bypass.
+//
+// Idempotent: re-blocking is a silent no-op. Does NOT emit to the
+// blocked user.
+message BlockUser {
+  string user_id = 1;
+}
+
+// UnblockUser removes `user_id` from the caller's blocklist.
+// Idempotent — unblocking a non-blocked user Acks without emitting.
+message UnblockUser {
+  string user_id = 1;
+}
+
+// ============================================================================
+// Ack payloads
+// ============================================================================
+
+// ContactEntry is one row in the caller's address book, joined with
+// the contact's user record for display.
+message ContactEntry {
+  string                    user_id      = 1;
+  string                    username     = 2;
+  string                    display_name = 3;
+  string                    alias        = 4;
+  google.protobuf.Timestamp added_at     = 5;
+}
+
+message ListContactsResponse {
+  repeated ContactEntry contacts = 1;
+}
+
+// UserSummary is the minimal user projection returned by SearchUsers.
+// Email / creation timestamps / verification state are NOT exposed
+// here — this is public directory data, not account data.
+message UserSummary {
+  string user_id      = 1;
+  string username     = 2;
+  string display_name = 3;
+}
+
+message SearchUsersResponse {
+  repeated UserSummary users = 1;
+}
+
+// AddContact, RemoveContact, BlockUser, UnblockUser return an empty
+// Ack (code=200 only).
+
+// ============================================================================
+// Events
+// ============================================================================
+
+// ContactAdded fires for each AddContact, including re-adds (which
+// update the alias). Fans out ONLY to the caller's own sessions for
+// multi-device address-book sync. The contact themselves never
+// receives this event — address books are private.
+message ContactAdded {
+  string                    owner_id     = 1;
+  string                    contact_id   = 2;
+  string                    alias        = 3;
+  google.protobuf.Timestamp added_at     = 4;
+}
+
+// ContactRemoved fires for each RemoveContact that actually removed
+// a row. No-op RemoveContact calls (non-contact) do not emit.
+// Audience: caller's own sessions only.
+message ContactRemoved {
+  string                    owner_id     = 1;
+  string                    contact_id   = 2;
+  google.protobuf.Timestamp removed_at   = 3;
+}
+
+// UserBlocked fires for each BlockUser that actually created a new
+// block row. Idempotent re-blocks do not re-emit. Audience: blocker's
+// own sessions only — NEVER the blocked user.
+message UserBlocked {
+  string                    blocker_id   = 1;
+  string                    blocked_id   = 2;
+  google.protobuf.Timestamp blocked_at   = 3;
+}
+
+// UserUnblocked fires for each UnblockUser that actually removed a
+// block row. Audience: blocker's own sessions only.
+message UserUnblocked {
+  string                    blocker_id   = 1;
+  string                    blocked_id   = 2;
+  google.protobuf.Timestamp unblocked_at = 3;
+}

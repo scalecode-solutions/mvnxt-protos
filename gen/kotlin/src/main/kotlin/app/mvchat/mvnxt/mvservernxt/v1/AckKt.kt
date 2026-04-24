@@ -364,6 +364,69 @@ public object AckKt {
     public fun hasEditMessage(): kotlin.Boolean {
       return _builder.hasEditMessage()
     }
+
+    /**
+     * ```
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];`
+     */
+    public var listContacts: app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse
+      @kotlin.jvm.JvmName("getListContacts")
+        get() = _builder.listContacts
+      @kotlin.jvm.JvmName("setListContacts")
+        set(value) {
+        _builder.listContacts = value
+      }
+    /**
+     * ```
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];`
+     */
+    public fun clearListContacts() {
+      _builder.clearListContacts()
+    }
+    /**
+     * ```
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];`
+     * @return Whether the listContacts field is set.
+     */
+    public fun hasListContacts(): kotlin.Boolean {
+      return _builder.hasListContacts()
+    }
+
+    /**
+     * `.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];`
+     */
+    public var searchUsers: app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse
+      @kotlin.jvm.JvmName("getSearchUsers")
+        get() = _builder.searchUsers
+      @kotlin.jvm.JvmName("setSearchUsers")
+        set(value) {
+        _builder.searchUsers = value
+      }
+    /**
+     * `.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];`
+     */
+    public fun clearSearchUsers() {
+      _builder.clearSearchUsers()
+    }
+    /**
+     * `.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];`
+     * @return Whether the searchUsers field is set.
+     */
+    public fun hasSearchUsers(): kotlin.Boolean {
+      return _builder.hasSearchUsers()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -406,4 +469,10 @@ public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.getMessagesOrNull: app.m
 
 public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.editMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse?
   get() = if (hasEditMessage()) getEditMessage() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.listContactsOrNull: app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse?
+  get() = if (hasListContacts()) getListContacts() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.searchUsersOrNull: app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse?
+  get() = if (hasSearchUsers()) getSearchUsers() else null
 

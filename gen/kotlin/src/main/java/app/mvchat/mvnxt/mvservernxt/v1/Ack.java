@@ -69,6 +69,8 @@ private static final long serialVersionUID = 0L;
     LIST_CONVERSATIONS(35),
     GET_MESSAGES(36),
     EDIT_MESSAGE(38),
+    LIST_CONTACTS(102),
+    SEARCH_USERS(103),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -96,6 +98,8 @@ private static final long serialVersionUID = 0L;
         case 35: return LIST_CONVERSATIONS;
         case 36: return GET_MESSAGES;
         case 38: return EDIT_MESSAGE;
+        case 102: return LIST_CONTACTS;
+        case 103: return SEARCH_USERS;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -525,6 +529,83 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse.getDefaultInstance();
   }
 
+  public static final int LIST_CONTACTS_FIELD_NUMBER = 102;
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return Whether the listContacts field is set.
+   */
+  @java.lang.Override
+  public boolean hasListContacts() {
+    return payloadCase_ == 102;
+  }
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return The listContacts.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse getListContacts() {
+    if (payloadCase_ == 102) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder getListContactsOrBuilder() {
+    if (payloadCase_ == 102) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+  }
+
+  public static final int SEARCH_USERS_FIELD_NUMBER = 103;
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   * @return Whether the searchUsers field is set.
+   */
+  @java.lang.Override
+  public boolean hasSearchUsers() {
+    return payloadCase_ == 103;
+  }
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   * @return The searchUsers.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse getSearchUsers() {
+    if (payloadCase_ == 103) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder getSearchUsersOrBuilder() {
+    if (payloadCase_ == 103) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -574,6 +655,12 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 38) {
       output.writeMessage(38, (app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse) payload_);
+    }
+    if (payloadCase_ == 102) {
+      output.writeMessage(102, (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_);
+    }
+    if (payloadCase_ == 103) {
+      output.writeMessage(103, (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -630,6 +717,14 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 38) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(38, (app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse) payload_);
+    }
+    if (payloadCase_ == 102) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(102, (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_);
+    }
+    if (payloadCase_ == 103) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(103, (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -692,6 +787,14 @@ private static final long serialVersionUID = 0L;
         if (!getEditMessage()
             .equals(other.getEditMessage())) return false;
         break;
+      case 102:
+        if (!getListContacts()
+            .equals(other.getListContacts())) return false;
+        break;
+      case 103:
+        if (!getSearchUsers()
+            .equals(other.getSearchUsers())) return false;
+        break;
       case 0:
       default:
     }
@@ -750,6 +853,14 @@ private static final long serialVersionUID = 0L;
       case 38:
         hash = (37 * hash) + EDIT_MESSAGE_FIELD_NUMBER;
         hash = (53 * hash) + getEditMessage().hashCode();
+        break;
+      case 102:
+        hash = (37 * hash) + LIST_CONTACTS_FIELD_NUMBER;
+        hash = (53 * hash) + getListContacts().hashCode();
+        break;
+      case 103:
+        hash = (37 * hash) + SEARCH_USERS_FIELD_NUMBER;
+        hash = (53 * hash) + getSearchUsers().hashCode();
         break;
       case 0:
       default:
@@ -921,6 +1032,12 @@ private static final long serialVersionUID = 0L;
       if (editMessageBuilder_ != null) {
         editMessageBuilder_.clear();
       }
+      if (listContactsBuilder_ != null) {
+        listContactsBuilder_.clear();
+      }
+      if (searchUsersBuilder_ != null) {
+        searchUsersBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -1008,6 +1125,14 @@ private static final long serialVersionUID = 0L;
           editMessageBuilder_ != null) {
         result.payload_ = editMessageBuilder_.build();
       }
+      if (payloadCase_ == 102 &&
+          listContactsBuilder_ != null) {
+        result.payload_ = listContactsBuilder_.build();
+      }
+      if (payloadCase_ == 103 &&
+          searchUsersBuilder_ != null) {
+        result.payload_ = searchUsersBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1069,6 +1194,14 @@ private static final long serialVersionUID = 0L;
         }
         case EDIT_MESSAGE: {
           mergeEditMessage(other.getEditMessage());
+          break;
+        }
+        case LIST_CONTACTS: {
+          mergeListContacts(other.getListContacts());
+          break;
+        }
+        case SEARCH_USERS: {
+          mergeSearchUsers(other.getSearchUsers());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1181,6 +1314,20 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 38;
               break;
             } // case 306
+            case 818: {
+              input.readMessage(
+                  internalGetListContactsFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 102;
+              break;
+            } // case 818
+            case 826: {
+              input.readMessage(
+                  internalGetSearchUsersFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 103;
+              break;
+            } // case 826
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2893,6 +3040,335 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 38;
       onChanged();
       return editMessageBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder> listContactsBuilder_;
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     * @return Whether the listContacts field is set.
+     */
+    @java.lang.Override
+    public boolean hasListContacts() {
+      return payloadCase_ == 102;
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     * @return The listContacts.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse getListContacts() {
+      if (listContactsBuilder_ == null) {
+        if (payloadCase_ == 102) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 102) {
+          return listContactsBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    public Builder setListContacts(app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse value) {
+      if (listContactsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        listContactsBuilder_.setMessage(value);
+      }
+      payloadCase_ = 102;
+      return this;
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    public Builder setListContacts(
+        app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.Builder builderForValue) {
+      if (listContactsBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        listContactsBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 102;
+      return this;
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    public Builder mergeListContacts(app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse value) {
+      if (listContactsBuilder_ == null) {
+        if (payloadCase_ == 102 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 102) {
+          listContactsBuilder_.mergeFrom(value);
+        } else {
+          listContactsBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 102;
+      return this;
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    public Builder clearListContacts() {
+      if (listContactsBuilder_ == null) {
+        if (payloadCase_ == 102) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 102) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        listContactsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.Builder getListContactsBuilder() {
+      return internalGetListContactsFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder getListContactsOrBuilder() {
+      if ((payloadCase_ == 102) && (listContactsBuilder_ != null)) {
+        return listContactsBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 102) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+     * return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder> 
+        internalGetListContactsFieldBuilder() {
+      if (listContactsBuilder_ == null) {
+        if (!(payloadCase_ == 102)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.getDefaultInstance();
+        }
+        listContactsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 102;
+      onChanged();
+      return listContactsBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder> searchUsersBuilder_;
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     * @return Whether the searchUsers field is set.
+     */
+    @java.lang.Override
+    public boolean hasSearchUsers() {
+      return payloadCase_ == 103;
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     * @return The searchUsers.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse getSearchUsers() {
+      if (searchUsersBuilder_ == null) {
+        if (payloadCase_ == 103) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 103) {
+          return searchUsersBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    public Builder setSearchUsers(app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse value) {
+      if (searchUsersBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        searchUsersBuilder_.setMessage(value);
+      }
+      payloadCase_ = 103;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    public Builder setSearchUsers(
+        app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.Builder builderForValue) {
+      if (searchUsersBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        searchUsersBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 103;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    public Builder mergeSearchUsers(app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse value) {
+      if (searchUsersBuilder_ == null) {
+        if (payloadCase_ == 103 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 103) {
+          searchUsersBuilder_.mergeFrom(value);
+        } else {
+          searchUsersBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 103;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    public Builder clearSearchUsers() {
+      if (searchUsersBuilder_ == null) {
+        if (payloadCase_ == 103) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 103) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        searchUsersBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.Builder getSearchUsersBuilder() {
+      return internalGetSearchUsersFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder getSearchUsersOrBuilder() {
+      if ((payloadCase_ == 103) && (searchUsersBuilder_ != null)) {
+        return searchUsersBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 103) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder> 
+        internalGetSearchUsersFieldBuilder() {
+      if (searchUsersBuilder_ == null) {
+        if (!(payloadCase_ == 103)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
+        }
+        searchUsersBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 103;
+      onChanged();
+      return searchUsersBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Ack)

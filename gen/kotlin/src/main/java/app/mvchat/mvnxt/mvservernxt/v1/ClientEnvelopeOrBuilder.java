@@ -522,5 +522,107 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder getMarkDeliveredOrBuilder();
 
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];</code>
+   * @return Whether the addContact field is set.
+   */
+  boolean hasAddContact();
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];</code>
+   * @return The addContact.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddContact getAddContact();
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddContactOrBuilder getAddContactOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];</code>
+   * @return Whether the removeContact field is set.
+   */
+  boolean hasRemoveContact();
+  /**
+   * <code>.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];</code>
+   * @return The removeContact.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveContact getRemoveContact();
+  /**
+   * <code>.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveContactOrBuilder getRemoveContactOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return Whether the listContacts field is set.
+   */
+  boolean hasListContacts();
+  /**
+   * <code>.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return The listContacts.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListContacts getListContacts();
+  /**
+   * <code>.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListContactsOrBuilder getListContactsOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];</code>
+   * @return Whether the searchUsers field is set.
+   */
+  boolean hasSearchUsers();
+  /**
+   * <code>.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];</code>
+   * @return The searchUsers.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SearchUsers getSearchUsers();
+  /**
+   * <code>.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SearchUsersOrBuilder getSearchUsersOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];</code>
+   * @return Whether the blockUser field is set.
+   */
+  boolean hasBlockUser();
+  /**
+   * <code>.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];</code>
+   * @return The blockUser.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.BlockUser getBlockUser();
+  /**
+   * <code>.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.BlockUserOrBuilder getBlockUserOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];</code>
+   * @return Whether the unblockUser field is set.
+   */
+  boolean hasUnblockUser();
+  /**
+   * <code>.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];</code>
+   * @return The unblockUser.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnblockUser getUnblockUser();
+  /**
+   * <code>.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnblockUserOrBuilder getUnblockUserOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

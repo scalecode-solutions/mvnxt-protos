@@ -825,6 +825,162 @@ public object ClientEnvelopeKt {
     public fun hasMarkDelivered(): kotlin.Boolean {
       return _builder.hasMarkDelivered()
     }
+
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];`
+     */
+    public var addContact: app.mvchat.mvnxt.mvservernxt.v1.AddContact
+      @kotlin.jvm.JvmName("getAddContact")
+        get() = _builder.addContact
+      @kotlin.jvm.JvmName("setAddContact")
+        set(value) {
+        _builder.addContact = value
+      }
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];`
+     */
+    public fun clearAddContact() {
+      _builder.clearAddContact()
+    }
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.AddContact add_contact = 100 [json_name = "addContact"];`
+     * @return Whether the addContact field is set.
+     */
+    public fun hasAddContact(): kotlin.Boolean {
+      return _builder.hasAddContact()
+    }
+
+    /**
+     * `.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];`
+     */
+    public var removeContact: app.mvchat.mvnxt.mvservernxt.v1.RemoveContact
+      @kotlin.jvm.JvmName("getRemoveContact")
+        get() = _builder.removeContact
+      @kotlin.jvm.JvmName("setRemoveContact")
+        set(value) {
+        _builder.removeContact = value
+      }
+    /**
+     * `.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];`
+     */
+    public fun clearRemoveContact() {
+      _builder.clearRemoveContact()
+    }
+    /**
+     * `.mvservernxt.v1.RemoveContact remove_contact = 101 [json_name = "removeContact"];`
+     * @return Whether the removeContact field is set.
+     */
+    public fun hasRemoveContact(): kotlin.Boolean {
+      return _builder.hasRemoveContact()
+    }
+
+    /**
+     * `.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];`
+     */
+    public var listContacts: app.mvchat.mvnxt.mvservernxt.v1.ListContacts
+      @kotlin.jvm.JvmName("getListContacts")
+        get() = _builder.listContacts
+      @kotlin.jvm.JvmName("setListContacts")
+        set(value) {
+        _builder.listContacts = value
+      }
+    /**
+     * `.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];`
+     */
+    public fun clearListContacts() {
+      _builder.clearListContacts()
+    }
+    /**
+     * `.mvservernxt.v1.ListContacts list_contacts = 102 [json_name = "listContacts"];`
+     * @return Whether the listContacts field is set.
+     */
+    public fun hasListContacts(): kotlin.Boolean {
+      return _builder.hasListContacts()
+    }
+
+    /**
+     * `.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];`
+     */
+    public var searchUsers: app.mvchat.mvnxt.mvservernxt.v1.SearchUsers
+      @kotlin.jvm.JvmName("getSearchUsers")
+        get() = _builder.searchUsers
+      @kotlin.jvm.JvmName("setSearchUsers")
+        set(value) {
+        _builder.searchUsers = value
+      }
+    /**
+     * `.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];`
+     */
+    public fun clearSearchUsers() {
+      _builder.clearSearchUsers()
+    }
+    /**
+     * `.mvservernxt.v1.SearchUsers search_users = 103 [json_name = "searchUsers"];`
+     * @return Whether the searchUsers field is set.
+     */
+    public fun hasSearchUsers(): kotlin.Boolean {
+      return _builder.hasSearchUsers()
+    }
+
+    /**
+     * `.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];`
+     */
+    public var blockUser: app.mvchat.mvnxt.mvservernxt.v1.BlockUser
+      @kotlin.jvm.JvmName("getBlockUser")
+        get() = _builder.blockUser
+      @kotlin.jvm.JvmName("setBlockUser")
+        set(value) {
+        _builder.blockUser = value
+      }
+    /**
+     * `.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];`
+     */
+    public fun clearBlockUser() {
+      _builder.clearBlockUser()
+    }
+    /**
+     * `.mvservernxt.v1.BlockUser block_user = 104 [json_name = "blockUser"];`
+     * @return Whether the blockUser field is set.
+     */
+    public fun hasBlockUser(): kotlin.Boolean {
+      return _builder.hasBlockUser()
+    }
+
+    /**
+     * `.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];`
+     */
+    public var unblockUser: app.mvchat.mvnxt.mvservernxt.v1.UnblockUser
+      @kotlin.jvm.JvmName("getUnblockUser")
+        get() = _builder.unblockUser
+      @kotlin.jvm.JvmName("setUnblockUser")
+        set(value) {
+        _builder.unblockUser = value
+      }
+    /**
+     * `.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];`
+     */
+    public fun clearUnblockUser() {
+      _builder.clearUnblockUser()
+    }
+    /**
+     * `.mvservernxt.v1.UnblockUser unblock_user = 105 [json_name = "unblockUser"];`
+     * @return Whether the unblockUser field is set.
+     */
+    public fun hasUnblockUser(): kotlin.Boolean {
+      return _builder.hasUnblockUser()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -927,4 +1083,22 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.updateConvers
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.markDeliveredOrNull: app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered?
   get() = if (hasMarkDelivered()) getMarkDelivered() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.addContactOrNull: app.mvchat.mvnxt.mvservernxt.v1.AddContact?
+  get() = if (hasAddContact()) getAddContact() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.removeContactOrNull: app.mvchat.mvnxt.mvservernxt.v1.RemoveContact?
+  get() = if (hasRemoveContact()) getRemoveContact() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.listContactsOrNull: app.mvchat.mvnxt.mvservernxt.v1.ListContacts?
+  get() = if (hasListContacts()) getListContacts() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.searchUsersOrNull: app.mvchat.mvnxt.mvservernxt.v1.SearchUsers?
+  get() = if (hasSearchUsers()) getSearchUsers() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.blockUserOrNull: app.mvchat.mvnxt.mvservernxt.v1.BlockUser?
+  get() = if (hasBlockUser()) getBlockUser() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.unblockUserOrNull: app.mvchat.mvnxt.mvservernxt.v1.UnblockUser?
+  get() = if (hasUnblockUser()) getUnblockUser() else null
 
