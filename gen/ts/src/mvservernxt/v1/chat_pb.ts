@@ -24,7 +24,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/chat.proto.
  */
 export const file_mvservernxt_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSJaCghSZWFjdGlvbhINCgVlbW9qaRgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEi4KCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIkMKCkF0dGFjaG1lbnQSDgoGc2hhMjU2GAEgASgJEhEKCW1pbWVfdHlwZRgCIAEoCRISCgpzaXplX2J5dGVzGAMgASgDIo0CCgxDb252ZXJzYXRpb24SCgoCaWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgptZW1iZXJfaWRzGAYgAygJEhgKEGxhc3RfbWVzc2FnZV9zZXEYByABKAMSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYCCABKAUSEwoLZGVzY3JpcHRpb24YCSABKAkSDQoFdGhlbWUYCiABKAkitAQKB01lc3NhZ2USCgoCaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRItCgllZGl0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmRlbGV0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmRlbGV0ZWRfYnkYCyABKAkSMwoNZGVsZXRpb25fa2luZBgMIAEoDjIcLm12c2VydmVybnh0LnYxLkRlbGV0aW9uS2luZBIrCglyZWFjdGlvbnMYDSADKAsyGC5tdnNlcnZlcm54dC52MS5SZWFjdGlvbhIuCgpleHBpcmVzX2F0GA4gASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBItCglwaW5uZWRfYXQYDyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhEKCXBpbm5lZF9ieRgQIAEoCRIvCgthdHRhY2htZW50cxgRIAMoCzIaLm12c2VydmVybnh0LnYxLkF0dGFjaG1lbnQiZwoSQ3JlYXRlQ29udmVyc2F0aW9uEi4KBHR5cGUYASABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEhIKCm1lbWJlcl9pZHMYAiADKAkSDQoFdGl0bGUYAyABKAkiNQoJQWRkTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIjgKDFJlbW92ZU1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSIsChFMZWF2ZUNvbnZlcnNhdGlvbhIXCg9jb252ZXJzYXRpb25faWQYASABKAkigAEKC1NlbmRNZXNzYWdlEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIMCgRib2R5GAIgASgJEhMKC3JlcGx5X3RvX2lkGAMgASgJEhkKEWNsaWVudF9tZXNzYWdlX2lkGAQgASgJEhoKEmF0dGFjaG1lbnRfc2hhMjU2cxgFIAMoCSIiChFMaXN0Q29udmVyc2F0aW9ucxINCgVsaW1pdBgBIAEoBSJcCgtHZXRNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEQoJc2luY2Vfc2VxGAIgASgDEg0KBWxpbWl0GAMgASgFEhIKCmJlZm9yZV9zZXEYBCABKAMiLwoLRWRpdE1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCRIMCgRib2R5GAIgASgJIiMKDURlbGV0ZU1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCSIuChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCSIjCg1VbnNlbmRNZXNzYWdlEhIKCm1lc3NhZ2VfaWQYASABKAkiMAoLQWRkUmVhY3Rpb24SEgoKbWVzc2FnZV9pZBgBIAEoCRINCgVlbW9qaRgCIAEoCSIzCg5SZW1vdmVSZWFjdGlvbhISCgptZXNzYWdlX2lkGAEgASgJEg0KBWVtb2ppGAIgASgJIjgKClNlbmRUeXBpbmcSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCWlzX3R5cGluZxgCIAEoCCJQChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUiOQoKUGluTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEoCSI7CgxVbnBpbk1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhIKCm1lc3NhZ2VfaWQYAiABKAkiVQoXU2V0Q29udmVyc2F0aW9uTmlja25hbWUSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkimwEKGlVwZGF0ZUNvbnZlcnNhdGlvbk1ldGFkYXRhEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBAUIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSI6CghNYXJrUmVhZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSFQoNbGFzdF9yZWFkX3NlcRgCIAEoAyJQChpDcmVhdGVDb252ZXJzYXRpb25SZXNwb25zZRIyCgxjb252ZXJzYXRpb24YASABKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iPwoTU2VuZE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSJQChlMaXN0Q29udmVyc2F0aW9uc1Jlc3BvbnNlEjMKDWNvbnZlcnNhdGlvbnMYASADKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iUgoTR2V0TWVzc2FnZXNSZXNwb25zZRIpCghtZXNzYWdlcxgBIAMoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2USEAoIaGFzX21vcmUYAiABKAgiPwoTRWRpdE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSLFAQoTQ29udmVyc2F0aW9uQ3JlYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRISCgptZW1iZXJfaWRzGAUgAygJEi4KCmNyZWF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIncKC01lbWJlckFkZGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCGFkZGVkX2J5GAMgASgJEiwKCGFkZGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ9Cg1NZW1iZXJSZW1vdmVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhIKCnJlbW92ZWRfYnkYAyABKAkSLgoKcmVtb3ZlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiYwoKTWVtYmVyTGVmdBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIrCgdsZWZ0X2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCL5AQoLTWVzc2FnZVNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSCwoDc2VxGAMgASgDEhEKCXNlbmRlcl9pZBgEIAEoCRIMCgRib2R5GAUgASgJEhMKC3JlcGx5X3RvX2lkGAYgASgJEi4KCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhkKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJEi8KC2F0dGFjaG1lbnRzGAkgAygLMhoubXZzZXJ2ZXJueHQudjEuQXR0YWNobWVudCKFAQoSUmVhZFJlY2VpcHRVcGRhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhUKDWxhc3RfcmVhZF9zZXEYAyABKAMSLgoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAieQoNTWVzc2FnZUVkaXRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIMCgRib2R5GAMgASgJEi0KCWVkaXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifAoNTWVzc2FnZUhpZGRlbhISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEi0KCWhpZGRlbl9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAijAEKGU1lc3NhZ2VEZWxldGVkRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEgoKZGVsZXRlZF9ieRgDIAEoCRIuCgpkZWxldGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ+Cg1NZXNzYWdlVW5zZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhEKCXVuc2VudF9ieRgDIAEoCRItCgl1bnNlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpMBChRNZXNzYWdlUmVhY3Rpb25BZGRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEg0KBWVtb2ppGAQgASgJEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpUBChZNZXNzYWdlUmVhY3Rpb25SZW1vdmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSDQoFZW1vamkYBCABKAkSLgoKcmVtb3ZlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidAoNVHlwaW5nQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIRCglpc190eXBpbmcYAyABKAgSJgoCYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpgBChtEaXNhcHBlYXJpbmdNZXNzYWdlc0NoYW5nZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhwKFGRpc2FwcGVhcmluZ19zZWNvbmRzGAIgASgFEhIKCmNoYW5nZWRfYnkYAyABKAkSLgoKY2hhbmdlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAibQoOTWVzc2FnZUV4cGlyZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSLgoKZXhwaXJlZF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifgoNTWVzc2FnZVBpbm5lZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIRCglwaW5uZWRfYnkYAyABKAkSLQoJcGlubmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKEAQoPTWVzc2FnZVVucGlubmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhMKC3VucGlubmVkX2J5GAMgASgJEi8KC3VucGlubmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKdAQobQ29udmVyc2F0aW9uTmlja25hbWVDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCG5pY2tuYW1lGAMgASgJEhIKCmNoYW5nZWRfYnkYBCABKAkSLgoKY2hhbmdlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAi4AEKG0NvbnZlcnNhdGlvbk1ldGFkYXRhQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoFdGl0bGUYAiABKAlIAIgBARIYCgtkZXNjcmlwdGlvbhgDIAEoCUgBiAEBEhIKBXRoZW1lGAQgASgJSAKIAQESEgoKY2hhbmdlZF9ieRgFIAEoCRIuCgpjaGFuZ2VkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSpsChBDb252ZXJzYXRpb25UeXBlEiEKHUNPTlZFUlNBVElPTl9UWVBFX1VOU1BFQ0lGSUVEEAASGAoUQ09OVkVSU0FUSU9OX1RZUEVfRE0QARIbChdDT05WRVJTQVRJT05fVFlQRV9HUk9VUBACKoIBCgxEZWxldGlvbktpbmQSHQoZREVMRVRJT05fS0lORF9VTlNQRUNJRklFRBAAEh4KGkRFTEVUSU9OX0tJTkRfRk9SX0VWRVJZT05FEAESGAoUREVMRVRJT05fS0lORF9VTlNFTlQQAhIZChVERUxFVElPTl9LSU5EX0VYUElSRUQQA0LWAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUIJQ2hhdFByb3RvUAFaT2dpdGh1Yi5jb20vc2NhbGVjb2RlLXNvbHV0aW9ucy9tdm54dC1wcm90b3MvZ2VuL2dvL212c2VydmVybnh0L3YxO212c2VydmVybnh0djGiAgNNWFiqAg5NdnNlcnZlcm54dC5WMcoCDk12c2VydmVybnh0XFYx4gIaTXZzZXJ2ZXJueHRcVjFcR1BCTWV0YWRhdGHqAg9NdnNlcnZlcm54dDo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
+  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSJaCghSZWFjdGlvbhINCgVlbW9qaRgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEi4KCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIkMKCkF0dGFjaG1lbnQSDgoGc2hhMjU2GAEgASgJEhEKCW1pbWVfdHlwZRgCIAEoCRISCgpzaXplX2J5dGVzGAMgASgDIo0CCgxDb252ZXJzYXRpb24SCgoCaWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgptZW1iZXJfaWRzGAYgAygJEhgKEGxhc3RfbWVzc2FnZV9zZXEYByABKAMSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYCCABKAUSEwoLZGVzY3JpcHRpb24YCSABKAkSDQoFdGhlbWUYCiABKAkitAQKB01lc3NhZ2USCgoCaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRItCgllZGl0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmRlbGV0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmRlbGV0ZWRfYnkYCyABKAkSMwoNZGVsZXRpb25fa2luZBgMIAEoDjIcLm12c2VydmVybnh0LnYxLkRlbGV0aW9uS2luZBIrCglyZWFjdGlvbnMYDSADKAsyGC5tdnNlcnZlcm54dC52MS5SZWFjdGlvbhIuCgpleHBpcmVzX2F0GA4gASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBItCglwaW5uZWRfYXQYDyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhEKCXBpbm5lZF9ieRgQIAEoCRIvCgthdHRhY2htZW50cxgRIAMoCzIaLm12c2VydmVybnh0LnYxLkF0dGFjaG1lbnQiZwoSQ3JlYXRlQ29udmVyc2F0aW9uEi4KBHR5cGUYASABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEhIKCm1lbWJlcl9pZHMYAiADKAkSDQoFdGl0bGUYAyABKAkiNQoJQWRkTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIjgKDFJlbW92ZU1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSIsChFMZWF2ZUNvbnZlcnNhdGlvbhIXCg9jb252ZXJzYXRpb25faWQYASABKAkigAEKC1NlbmRNZXNzYWdlEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIMCgRib2R5GAIgASgJEhMKC3JlcGx5X3RvX2lkGAMgASgJEhkKEWNsaWVudF9tZXNzYWdlX2lkGAQgASgJEhoKEmF0dGFjaG1lbnRfc2hhMjU2cxgFIAMoCSIiChFMaXN0Q29udmVyc2F0aW9ucxINCgVsaW1pdBgBIAEoBSJcCgtHZXRNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEQoJc2luY2Vfc2VxGAIgASgDEg0KBWxpbWl0GAMgASgFEhIKCmJlZm9yZV9zZXEYBCABKAMiLwoLRWRpdE1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCRIMCgRib2R5GAIgASgJIiMKDURlbGV0ZU1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCSIuChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCSIjCg1VbnNlbmRNZXNzYWdlEhIKCm1lc3NhZ2VfaWQYASABKAkiMAoLQWRkUmVhY3Rpb24SEgoKbWVzc2FnZV9pZBgBIAEoCRINCgVlbW9qaRgCIAEoCSIzCg5SZW1vdmVSZWFjdGlvbhISCgptZXNzYWdlX2lkGAEgASgJEg0KBWVtb2ppGAIgASgJIjgKClNlbmRUeXBpbmcSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCWlzX3R5cGluZxgCIAEoCCJQChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUiOQoKUGluTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEoCSI7CgxVbnBpbk1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhIKCm1lc3NhZ2VfaWQYAiABKAkiVQoXU2V0Q29udmVyc2F0aW9uTmlja25hbWUSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkimwEKGlVwZGF0ZUNvbnZlcnNhdGlvbk1ldGFkYXRhEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBAUIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSI6CghNYXJrUmVhZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSFQoNbGFzdF9yZWFkX3NlcRgCIAEoAyJECg1NYXJrRGVsaXZlcmVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIaChJsYXN0X2RlbGl2ZXJlZF9zZXEYAiABKAMiUAoaQ3JlYXRlQ29udmVyc2F0aW9uUmVzcG9uc2USMgoMY29udmVyc2F0aW9uGAEgASgLMhwubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uIj8KE1NlbmRNZXNzYWdlUmVzcG9uc2USKAoHbWVzc2FnZRgBIAEoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2UiUAoZTGlzdENvbnZlcnNhdGlvbnNSZXNwb25zZRIzCg1jb252ZXJzYXRpb25zGAEgAygLMhwubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uIlIKE0dldE1lc3NhZ2VzUmVzcG9uc2USKQoIbWVzc2FnZXMYASADKAsyFy5tdnNlcnZlcm54dC52MS5NZXNzYWdlEhAKCGhhc19tb3JlGAIgASgIIj8KE0VkaXRNZXNzYWdlUmVzcG9uc2USKAoHbWVzc2FnZRgBIAEoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2UixQEKE0NvbnZlcnNhdGlvbkNyZWF0ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSEgoKbWVtYmVyX2lkcxgFIAMoCRIuCgpjcmVhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ3CgtNZW1iZXJBZGRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIQCghhZGRlZF9ieRgDIAEoCRIsCghhZGRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifQoNTWVtYmVyUmVtb3ZlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRISCgpyZW1vdmVkX2J5GAMgASgJEi4KCnJlbW92ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wImMKCk1lbWJlckxlZnQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSKwoHbGVmdF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAi+QEKC01lc3NhZ2VTZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRIvCgthdHRhY2htZW50cxgJIAMoCzIaLm12c2VydmVybnh0LnYxLkF0dGFjaG1lbnQihQEKElJlYWRSZWNlaXB0VXBkYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIVCg1sYXN0X3JlYWRfc2VxGAMgASgDEi4KCnVwZGF0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIo4BChZEZWxpdmVyeVJlY2VpcHRVcGRhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhoKEmxhc3RfZGVsaXZlcmVkX3NlcRgDIAEoAxIuCgp1cGRhdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ5Cg1NZXNzYWdlRWRpdGVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgwKBGJvZHkYAyABKAkSLQoJZWRpdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ8Cg1NZXNzYWdlSGlkZGVuEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSLQoJaGlkZGVuX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKMAQoZTWVzc2FnZURlbGV0ZWRGb3JFdmVyeW9uZRISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRISCgpkZWxldGVkX2J5GAMgASgJEi4KCmRlbGV0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn4KDU1lc3NhZ2VVbnNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEQoJdW5zZW50X2J5GAMgASgJEi0KCXVuc2VudF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAikwEKFE1lc3NhZ2VSZWFjdGlvbkFkZGVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSDQoFZW1vamkYBCABKAkSLgoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAilQEKFk1lc3NhZ2VSZWFjdGlvblJlbW92ZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRINCgVlbW9qaRgEIAEoCRIuCgpyZW1vdmVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ0Cg1UeXBpbmdDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhEKCWlzX3R5cGluZxgDIAEoCBImCgJhdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAimAEKG0Rpc2FwcGVhcmluZ01lc3NhZ2VzQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUSEgoKY2hhbmdlZF9ieRgDIAEoCRIuCgpjaGFuZ2VkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJtCg5NZXNzYWdlRXhwaXJlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIuCgpleHBpcmVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ+Cg1NZXNzYWdlUGlubmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhEKCXBpbm5lZF9ieRgDIAEoCRItCglwaW5uZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIoQBCg9NZXNzYWdlVW5waW5uZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEwoLdW5waW5uZWRfYnkYAyABKAkSLwoLdW5waW5uZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIp0BChtDb252ZXJzYXRpb25OaWNrbmFtZUNoYW5nZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkSEgoKY2hhbmdlZF9ieRgEIAEoCRIuCgpjaGFuZ2VkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLgAQobQ29udmVyc2F0aW9uTWV0YWRhdGFDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBARISCgpjaGFuZ2VkX2J5GAUgASgJEi4KCmNoYW5nZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wQggKBl90aXRsZUIOCgxfZGVzY3JpcHRpb25CCAoGX3RoZW1lKmwKEENvbnZlcnNhdGlvblR5cGUSIQodQ09OVkVSU0FUSU9OX1RZUEVfVU5TUEVDSUZJRUQQABIYChRDT05WRVJTQVRJT05fVFlQRV9ETRABEhsKF0NPTlZFUlNBVElPTl9UWVBFX0dST1VQEAIqggEKDERlbGV0aW9uS2luZBIdChlERUxFVElPTl9LSU5EX1VOU1BFQ0lGSUVEEAASHgoaREVMRVRJT05fS0lORF9GT1JfRVZFUllPTkUQARIYChRERUxFVElPTl9LSU5EX1VOU0VOVBACEhkKFURFTEVUSU9OX0tJTkRfRVhQSVJFRBADQtYBCh9hcHAubXZjaGF0Lm12bnh0Lm12c2VydmVybnh0LnYxQglDaGF0UHJvdG9QAVpPZ2l0aHViLmNvbS9zY2FsZWNvZGUtc29sdXRpb25zL212bnh0LXByb3Rvcy9nZW4vZ28vbXZzZXJ2ZXJueHQvdjE7bXZzZXJ2ZXJueHR2MaICA01YWKoCDk12c2VydmVybnh0LlYxygIOTXZzZXJ2ZXJueHRcVjHiAhpNdnNlcnZlcm54dFxWMVxHUEJNZXRhZGF0YeoCD012c2VydmVybnh0OjpWMWIGcHJvdG8z", [file_google_protobuf_timestamp]);
 
 /**
  * Reaction is one emoji reaction from one user on one message.
@@ -1033,6 +1033,45 @@ export const MarkReadSchema: GenMessage<MarkRead> = /*@__PURE__*/
   messageDesc(file_mvservernxt_v1_chat, 23);
 
 /**
+ * MarkDelivered advances the caller's last_delivered_seq on a
+ * conversation — the "the bytes made it to my device" stage between
+ * the server's "sent" (message row written) and the user's "read"
+ * (MarkRead after opening the thread).
+ *
+ * Idempotent — sending a value ≤ the stored one is a no-op.
+ *
+ * Clients send this as soon as GetMessages returns a batch, or as
+ * soon as a live MessageSent pushes in — i.e. when the payload has
+ * landed on the device, not when the user sees it. Read implies
+ * delivered (the server bumps last_delivered_seq alongside
+ * last_read_seq when MarkRead advances past it).
+ *
+ * Emits DeliveryReceiptUpdated. Fan-out rules match ReadReceipt:
+ * caller's own sessions always, other members subject to privacy
+ * preference (v1 default: always on).
+ *
+ * @generated from message mvservernxt.v1.MarkDelivered
+ */
+export type MarkDelivered = Message$1<"mvservernxt.v1.MarkDelivered"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: int64 last_delivered_seq = 2;
+   */
+  lastDeliveredSeq: bigint;
+};
+
+/**
+ * Describes the message mvservernxt.v1.MarkDelivered.
+ * Use `create(MarkDeliveredSchema)` to create a new message.
+ */
+export const MarkDeliveredSchema: GenMessage<MarkDelivered> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 24);
+
+/**
  * @generated from message mvservernxt.v1.CreateConversationResponse
  */
 export type CreateConversationResponse = Message$1<"mvservernxt.v1.CreateConversationResponse"> & {
@@ -1047,7 +1086,7 @@ export type CreateConversationResponse = Message$1<"mvservernxt.v1.CreateConvers
  * Use `create(CreateConversationResponseSchema)` to create a new message.
  */
 export const CreateConversationResponseSchema: GenMessage<CreateConversationResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 24);
+  messageDesc(file_mvservernxt_v1_chat, 25);
 
 /**
  * @generated from message mvservernxt.v1.SendMessageResponse
@@ -1064,7 +1103,7 @@ export type SendMessageResponse = Message$1<"mvservernxt.v1.SendMessageResponse"
  * Use `create(SendMessageResponseSchema)` to create a new message.
  */
 export const SendMessageResponseSchema: GenMessage<SendMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 25);
+  messageDesc(file_mvservernxt_v1_chat, 26);
 
 /**
  * @generated from message mvservernxt.v1.ListConversationsResponse
@@ -1081,7 +1120,7 @@ export type ListConversationsResponse = Message$1<"mvservernxt.v1.ListConversati
  * Use `create(ListConversationsResponseSchema)` to create a new message.
  */
 export const ListConversationsResponseSchema: GenMessage<ListConversationsResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 26);
+  messageDesc(file_mvservernxt_v1_chat, 27);
 
 /**
  * @generated from message mvservernxt.v1.GetMessagesResponse
@@ -1106,7 +1145,7 @@ export type GetMessagesResponse = Message$1<"mvservernxt.v1.GetMessagesResponse"
  * Use `create(GetMessagesResponseSchema)` to create a new message.
  */
 export const GetMessagesResponseSchema: GenMessage<GetMessagesResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 27);
+  messageDesc(file_mvservernxt_v1_chat, 28);
 
 /**
  * @generated from message mvservernxt.v1.EditMessageResponse
@@ -1123,7 +1162,7 @@ export type EditMessageResponse = Message$1<"mvservernxt.v1.EditMessageResponse"
  * Use `create(EditMessageResponseSchema)` to create a new message.
  */
 export const EditMessageResponseSchema: GenMessage<EditMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 28);
+  messageDesc(file_mvservernxt_v1_chat, 29);
 
 /**
  * ConversationCreated fires once per CreateConversation.
@@ -1168,7 +1207,7 @@ export type ConversationCreated = Message$1<"mvservernxt.v1.ConversationCreated"
  * Use `create(ConversationCreatedSchema)` to create a new message.
  */
 export const ConversationCreatedSchema: GenMessage<ConversationCreated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 29);
+  messageDesc(file_mvservernxt_v1_chat, 30);
 
 /**
  * MemberAdded fires for each AddMember call. Fans out to every member
@@ -1203,7 +1242,7 @@ export type MemberAdded = Message$1<"mvservernxt.v1.MemberAdded"> & {
  * Use `create(MemberAddedSchema)` to create a new message.
  */
 export const MemberAddedSchema: GenMessage<MemberAdded> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 30);
+  messageDesc(file_mvservernxt_v1_chat, 31);
 
 /**
  * MemberRemoved fires for each RemoveMember call.
@@ -1237,7 +1276,7 @@ export type MemberRemoved = Message$1<"mvservernxt.v1.MemberRemoved"> & {
  * Use `create(MemberRemovedSchema)` to create a new message.
  */
 export const MemberRemovedSchema: GenMessage<MemberRemoved> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 31);
+  messageDesc(file_mvservernxt_v1_chat, 32);
 
 /**
  * MemberLeft fires for each LeaveConversation call.
@@ -1266,7 +1305,7 @@ export type MemberLeft = Message$1<"mvservernxt.v1.MemberLeft"> & {
  * Use `create(MemberLeftSchema)` to create a new message.
  */
 export const MemberLeftSchema: GenMessage<MemberLeft> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 32);
+  messageDesc(file_mvservernxt_v1_chat, 33);
 
 /**
  * MessageSent fires for each SendMessage call. Fans out to every
@@ -1332,7 +1371,7 @@ export type MessageSent = Message$1<"mvservernxt.v1.MessageSent"> & {
  * Use `create(MessageSentSchema)` to create a new message.
  */
 export const MessageSentSchema: GenMessage<MessageSent> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 33);
+  messageDesc(file_mvservernxt_v1_chat, 34);
 
 /**
  * ReadReceiptUpdated fires for each MarkRead that actually advances the
@@ -1368,7 +1407,45 @@ export type ReadReceiptUpdated = Message$1<"mvservernxt.v1.ReadReceiptUpdated"> 
  * Use `create(ReadReceiptUpdatedSchema)` to create a new message.
  */
 export const ReadReceiptUpdatedSchema: GenMessage<ReadReceiptUpdated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 34);
+  messageDesc(file_mvservernxt_v1_chat, 35);
+
+/**
+ * DeliveryReceiptUpdated fires for each MarkDelivered that advances the
+ * caller's last_delivered_seq, AND for each MarkRead that transitively
+ * advances it (read implies delivered). Fan-out mirrors
+ * ReadReceiptUpdated: own sessions + other members for "delivered to
+ * their device" UX.
+ *
+ * @generated from message mvservernxt.v1.DeliveryReceiptUpdated
+ */
+export type DeliveryReceiptUpdated = Message$1<"mvservernxt.v1.DeliveryReceiptUpdated"> & {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId: string;
+
+  /**
+   * @generated from field: string user_id = 2;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: int64 last_delivered_seq = 3;
+   */
+  lastDeliveredSeq: bigint;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 4;
+   */
+  updatedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.DeliveryReceiptUpdated.
+ * Use `create(DeliveryReceiptUpdatedSchema)` to create a new message.
+ */
+export const DeliveryReceiptUpdatedSchema: GenMessage<DeliveryReceiptUpdated> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 36);
 
 /**
  * MessageEdited fires for each successful EditMessage. Fans out to
@@ -1405,7 +1482,7 @@ export type MessageEdited = Message$1<"mvservernxt.v1.MessageEdited"> & {
  * Use `create(MessageEditedSchema)` to create a new message.
  */
 export const MessageEditedSchema: GenMessage<MessageEdited> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 35);
+  messageDesc(file_mvservernxt_v1_chat, 37);
 
 /**
  * MessageHidden fires for each successful DeleteMessage ("delete for
@@ -1444,7 +1521,7 @@ export type MessageHidden = Message$1<"mvservernxt.v1.MessageHidden"> & {
  * Use `create(MessageHiddenSchema)` to create a new message.
  */
 export const MessageHiddenSchema: GenMessage<MessageHidden> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 36);
+  messageDesc(file_mvservernxt_v1_chat, 38);
 
 /**
  * MessageDeletedForEveryone fires for each successful
@@ -1484,7 +1561,7 @@ export type MessageDeletedForEveryone = Message$1<"mvservernxt.v1.MessageDeleted
  * Use `create(MessageDeletedForEveryoneSchema)` to create a new message.
  */
 export const MessageDeletedForEveryoneSchema: GenMessage<MessageDeletedForEveryone> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 37);
+  messageDesc(file_mvservernxt_v1_chat, 39);
 
 /**
  * MessageUnsent fires for each successful UnsendMessage. Fans out to
@@ -1523,7 +1600,7 @@ export type MessageUnsent = Message$1<"mvservernxt.v1.MessageUnsent"> & {
  * Use `create(MessageUnsentSchema)` to create a new message.
  */
 export const MessageUnsentSchema: GenMessage<MessageUnsent> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 38);
+  messageDesc(file_mvservernxt_v1_chat, 40);
 
 /**
  * MessageReactionAdded fires for each successful AddReaction. Fans out
@@ -1564,7 +1641,7 @@ export type MessageReactionAdded = Message$1<"mvservernxt.v1.MessageReactionAdde
  * Use `create(MessageReactionAddedSchema)` to create a new message.
  */
 export const MessageReactionAddedSchema: GenMessage<MessageReactionAdded> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 39);
+  messageDesc(file_mvservernxt_v1_chat, 41);
 
 /**
  * MessageReactionRemoved fires for each successful RemoveReaction.
@@ -1603,7 +1680,7 @@ export type MessageReactionRemoved = Message$1<"mvservernxt.v1.MessageReactionRe
  * Use `create(MessageReactionRemovedSchema)` to create a new message.
  */
 export const MessageReactionRemovedSchema: GenMessage<MessageReactionRemoved> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 40);
+  messageDesc(file_mvservernxt_v1_chat, 42);
 
 /**
  * TypingChanged fires for each SendTyping. UNLIKE every other chat
@@ -1643,7 +1720,7 @@ export type TypingChanged = Message$1<"mvservernxt.v1.TypingChanged"> & {
  * Use `create(TypingChangedSchema)` to create a new message.
  */
 export const TypingChangedSchema: GenMessage<TypingChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 41);
+  messageDesc(file_mvservernxt_v1_chat, 43);
 
 /**
  * DisappearingMessagesChanged fires for each successful
@@ -1682,7 +1759,7 @@ export type DisappearingMessagesChanged = Message$1<"mvservernxt.v1.Disappearing
  * Use `create(DisappearingMessagesChangedSchema)` to create a new message.
  */
 export const DisappearingMessagesChangedSchema: GenMessage<DisappearingMessagesChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 42);
+  messageDesc(file_mvservernxt_v1_chat, 44);
 
 /**
  * MessageExpired fires when the scheduler's expiry worker soft-deletes
@@ -1714,7 +1791,7 @@ export type MessageExpired = Message$1<"mvservernxt.v1.MessageExpired"> & {
  * Use `create(MessageExpiredSchema)` to create a new message.
  */
 export const MessageExpiredSchema: GenMessage<MessageExpired> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 43);
+  messageDesc(file_mvservernxt_v1_chat, 45);
 
 /**
  * MessagePinned fires for each successful PinMessage. Fans out to
@@ -1749,7 +1826,7 @@ export type MessagePinned = Message$1<"mvservernxt.v1.MessagePinned"> & {
  * Use `create(MessagePinnedSchema)` to create a new message.
  */
 export const MessagePinnedSchema: GenMessage<MessagePinned> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 44);
+  messageDesc(file_mvservernxt_v1_chat, 46);
 
 /**
  * MessageUnpinned fires for each successful UnpinMessage.
@@ -1783,7 +1860,7 @@ export type MessageUnpinned = Message$1<"mvservernxt.v1.MessageUnpinned"> & {
  * Use `create(MessageUnpinnedSchema)` to create a new message.
  */
 export const MessageUnpinnedSchema: GenMessage<MessageUnpinned> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 45);
+  messageDesc(file_mvservernxt_v1_chat, 47);
 
 /**
  * ConversationNicknameChanged fires for each successful
@@ -1828,7 +1905,7 @@ export type ConversationNicknameChanged = Message$1<"mvservernxt.v1.Conversation
  * Use `create(ConversationNicknameChangedSchema)` to create a new message.
  */
 export const ConversationNicknameChangedSchema: GenMessage<ConversationNicknameChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 46);
+  messageDesc(file_mvservernxt_v1_chat, 48);
 
 /**
  * ConversationMetadataChanged fires for each successful
@@ -1875,7 +1952,7 @@ export type ConversationMetadataChanged = Message$1<"mvservernxt.v1.Conversation
  * Use `create(ConversationMetadataChangedSchema)` to create a new message.
  */
 export const ConversationMetadataChangedSchema: GenMessage<ConversationMetadataChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 47);
+  messageDesc(file_mvservernxt_v1_chat, 49);
 
 /**
  * ConversationType distinguishes the two conversation flavors shipping

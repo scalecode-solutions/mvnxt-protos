@@ -917,6 +917,36 @@ public struct Mvservernxt_V1_MarkRead: Sendable {
   public init() {}
 }
 
+/// MarkDelivered advances the caller's last_delivered_seq on a
+/// conversation — the "the bytes made it to my device" stage between
+/// the server's "sent" (message row written) and the user's "read"
+/// (MarkRead after opening the thread).
+///
+/// Idempotent — sending a value ≤ the stored one is a no-op.
+///
+/// Clients send this as soon as GetMessages returns a batch, or as
+/// soon as a live MessageSent pushes in — i.e. when the payload has
+/// landed on the device, not when the user sees it. Read implies
+/// delivered (the server bumps last_delivered_seq alongside
+/// last_read_seq when MarkRead advances past it).
+///
+/// Emits DeliveryReceiptUpdated. Fan-out rules match ReadReceipt:
+/// caller's own sessions always, other members subject to privacy
+/// preference (v1 default: always on).
+public struct Mvservernxt_V1_MarkDelivered: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var lastDeliveredSeq: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Mvservernxt_V1_CreateConversationResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1180,6 +1210,38 @@ public struct Mvservernxt_V1_ReadReceiptUpdated: Sendable {
   public var userID: String = String()
 
   public var lastReadSeq: Int64 = 0
+
+  public var updatedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_updatedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updatedAt = newValue}
+  }
+  /// Returns true if `updatedAt` has been explicitly set.
+  public var hasUpdatedAt: Bool {self._updatedAt != nil}
+  /// Clears the value of `updatedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdatedAt() {self._updatedAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _updatedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// DeliveryReceiptUpdated fires for each MarkDelivered that advances the
+/// caller's last_delivered_seq, AND for each MarkRead that transitively
+/// advances it (read implies delivered). Fan-out mirrors
+/// ReadReceiptUpdated: own sessions + other members for "delivered to
+/// their device" UX.
+public struct Mvservernxt_V1_DeliveryReceiptUpdated: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var userID: String = String()
+
+  public var lastDeliveredSeq: Int64 = 0
 
   public var updatedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {_updatedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -2712,6 +2774,41 @@ extension Mvservernxt_V1_MarkRead: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
+extension Mvservernxt_V1_MarkDelivered: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MarkDelivered"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}last_delivered_seq\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.lastDeliveredSeq) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if self.lastDeliveredSeq != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastDeliveredSeq, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_MarkDelivered, rhs: Mvservernxt_V1_MarkDelivered) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.lastDeliveredSeq != rhs.lastDeliveredSeq {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mvservernxt_V1_CreateConversationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".CreateConversationResponse"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}conversation\0")
@@ -3197,6 +3294,55 @@ extension Mvservernxt_V1_ReadReceiptUpdated: SwiftProtobuf.Message, SwiftProtobu
     if lhs.conversationID != rhs.conversationID {return false}
     if lhs.userID != rhs.userID {return false}
     if lhs.lastReadSeq != rhs.lastReadSeq {return false}
+    if lhs._updatedAt != rhs._updatedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_DeliveryReceiptUpdated: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeliveryReceiptUpdated"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}user_id\0\u{3}last_delivered_seq\0\u{3}updated_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.lastDeliveredSeq) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._updatedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
+    }
+    if self.lastDeliveredSeq != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastDeliveredSeq, fieldNumber: 3)
+    }
+    try { if let v = self._updatedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_DeliveryReceiptUpdated, rhs: Mvservernxt_V1_DeliveryReceiptUpdated) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.lastDeliveredSeq != rhs.lastDeliveredSeq {return false}
     if lhs._updatedAt != rhs._updatedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

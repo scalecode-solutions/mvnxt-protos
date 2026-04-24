@@ -488,6 +488,27 @@ message MarkRead {
   int64  last_read_seq   = 2;
 }
 
+// MarkDelivered advances the caller's last_delivered_seq on a
+// conversation — the "the bytes made it to my device" stage between
+// the server's "sent" (message row written) and the user's "read"
+// (MarkRead after opening the thread).
+//
+// Idempotent — sending a value ≤ the stored one is a no-op.
+//
+// Clients send this as soon as GetMessages returns a batch, or as
+// soon as a live MessageSent pushes in — i.e. when the payload has
+// landed on the device, not when the user sees it. Read implies
+// delivered (the server bumps last_delivered_seq alongside
+// last_read_seq when MarkRead advances past it).
+//
+// Emits DeliveryReceiptUpdated. Fan-out rules match ReadReceipt:
+// caller's own sessions always, other members subject to privacy
+// preference (v1 default: always on).
+message MarkDelivered {
+  string conversation_id     = 1;
+  int64  last_delivered_seq  = 2;
+}
+
 // ============================================================================
 // Ack payloads (returned via Ack.payload)
 // ============================================================================
@@ -578,6 +599,18 @@ message ReadReceiptUpdated {
   string                    user_id         = 2;
   int64                     last_read_seq   = 3;
   google.protobuf.Timestamp updated_at      = 4;
+}
+
+// DeliveryReceiptUpdated fires for each MarkDelivered that advances the
+// caller's last_delivered_seq, AND for each MarkRead that transitively
+// advances it (read implies delivered). Fan-out mirrors
+// ReadReceiptUpdated: own sessions + other members for "delivered to
+// their device" UX.
+message DeliveryReceiptUpdated {
+  string                    conversation_id    = 1;
+  string                    user_id            = 2;
+  int64                     last_delivered_seq = 3;
+  google.protobuf.Timestamp updated_at         = 4;
 }
 
 // MessageEdited fires for each successful EditMessage. Fans out to

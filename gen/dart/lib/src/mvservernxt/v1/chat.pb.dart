@@ -2216,6 +2216,88 @@ class MarkRead extends $pb.GeneratedMessage {
   void clearLastReadSeq() => $_clearField(2);
 }
 
+/// MarkDelivered advances the caller's last_delivered_seq on a
+/// conversation — the "the bytes made it to my device" stage between
+/// the server's "sent" (message row written) and the user's "read"
+/// (MarkRead after opening the thread).
+///
+/// Idempotent — sending a value ≤ the stored one is a no-op.
+///
+/// Clients send this as soon as GetMessages returns a batch, or as
+/// soon as a live MessageSent pushes in — i.e. when the payload has
+/// landed on the device, not when the user sees it. Read implies
+/// delivered (the server bumps last_delivered_seq alongside
+/// last_read_seq when MarkRead advances past it).
+///
+/// Emits DeliveryReceiptUpdated. Fan-out rules match ReadReceipt:
+/// caller's own sessions always, other members subject to privacy
+/// preference (v1 default: always on).
+class MarkDelivered extends $pb.GeneratedMessage {
+  factory MarkDelivered({
+    $core.String? conversationId,
+    $fixnum.Int64? lastDeliveredSeq,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (lastDeliveredSeq != null) result.lastDeliveredSeq = lastDeliveredSeq;
+    return result;
+  }
+
+  MarkDelivered._();
+
+  factory MarkDelivered.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MarkDelivered.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MarkDelivered',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aInt64(2, _omitFieldNames ? '' : 'lastDeliveredSeq')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MarkDelivered clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MarkDelivered copyWith(void Function(MarkDelivered) updates) =>
+      super.copyWith((message) => updates(message as MarkDelivered))
+          as MarkDelivered;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MarkDelivered create() => MarkDelivered._();
+  @$core.override
+  MarkDelivered createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MarkDelivered getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MarkDelivered>(create);
+  static MarkDelivered? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get lastDeliveredSeq => $_getI64(1);
+  @$pb.TagNumber(2)
+  set lastDeliveredSeq($fixnum.Int64 value) => $_setInt64(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasLastDeliveredSeq() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLastDeliveredSeq() => $_clearField(2);
+}
+
 class CreateConversationResponse extends $pb.GeneratedMessage {
   factory CreateConversationResponse({
     Conversation? conversation,
@@ -3123,6 +3205,105 @@ class ReadReceiptUpdated extends $pb.GeneratedMessage {
   $core.bool hasLastReadSeq() => $_has(2);
   @$pb.TagNumber(3)
   void clearLastReadSeq() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get updatedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set updatedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasUpdatedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUpdatedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureUpdatedAt() => $_ensure(3);
+}
+
+/// DeliveryReceiptUpdated fires for each MarkDelivered that advances the
+/// caller's last_delivered_seq, AND for each MarkRead that transitively
+/// advances it (read implies delivered). Fan-out mirrors
+/// ReadReceiptUpdated: own sessions + other members for "delivered to
+/// their device" UX.
+class DeliveryReceiptUpdated extends $pb.GeneratedMessage {
+  factory DeliveryReceiptUpdated({
+    $core.String? conversationId,
+    $core.String? userId,
+    $fixnum.Int64? lastDeliveredSeq,
+    $0.Timestamp? updatedAt,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (lastDeliveredSeq != null) result.lastDeliveredSeq = lastDeliveredSeq;
+    if (updatedAt != null) result.updatedAt = updatedAt;
+    return result;
+  }
+
+  DeliveryReceiptUpdated._();
+
+  factory DeliveryReceiptUpdated.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DeliveryReceiptUpdated.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DeliveryReceiptUpdated',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aInt64(3, _omitFieldNames ? '' : 'lastDeliveredSeq')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'updatedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeliveryReceiptUpdated clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeliveryReceiptUpdated copyWith(
+          void Function(DeliveryReceiptUpdated) updates) =>
+      super.copyWith((message) => updates(message as DeliveryReceiptUpdated))
+          as DeliveryReceiptUpdated;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeliveryReceiptUpdated create() => DeliveryReceiptUpdated._();
+  @$core.override
+  DeliveryReceiptUpdated createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DeliveryReceiptUpdated getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DeliveryReceiptUpdated>(create);
+  static DeliveryReceiptUpdated? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get lastDeliveredSeq => $_getI64(2);
+  @$pb.TagNumber(3)
+  set lastDeliveredSeq($fixnum.Int64 value) => $_setInt64(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLastDeliveredSeq() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLastDeliveredSeq() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $0.Timestamp get updatedAt => $_getN(3);

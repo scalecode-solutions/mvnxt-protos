@@ -89,6 +89,7 @@ private static final long serialVersionUID = 0L;
     MESSAGE_UNPINNED(46),
     CONVERSATION_NICKNAME_CHANGED(47),
     CONVERSATION_METADATA_CHANGED(48),
+    DELIVERY_RECEIPT_UPDATED(49),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -133,6 +134,7 @@ private static final long serialVersionUID = 0L;
         case 46: return MESSAGE_UNPINNED;
         case 47: return CONVERSATION_NICKNAME_CHANGED;
         case 48: return CONVERSATION_METADATA_CHANGED;
+        case 49: return DELIVERY_RECEIPT_UPDATED;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -1199,6 +1201,37 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged.getDefaultInstance();
   }
 
+  public static final int DELIVERY_RECEIPT_UPDATED_FIELD_NUMBER = 49;
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   * @return Whether the deliveryReceiptUpdated field is set.
+   */
+  @java.lang.Override
+  public boolean hasDeliveryReceiptUpdated() {
+    return payloadCase_ == 49;
+  }
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   * @return The deliveryReceiptUpdated.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated getDeliveryReceiptUpdated() {
+    if (payloadCase_ == 49) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder getDeliveryReceiptUpdatedOrBuilder() {
+    if (payloadCase_ == 49) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1308,6 +1341,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 48) {
       output.writeMessage(48, (app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged) payload_);
+    }
+    if (payloadCase_ == 49) {
+      output.writeMessage(49, (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1444,6 +1480,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 48) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(48, (app.mvchat.mvnxt.mvservernxt.v1.ConversationMetadataChanged) payload_);
+    }
+    if (payloadCase_ == 49) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(49, (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -1589,6 +1629,10 @@ private static final long serialVersionUID = 0L;
         if (!getConversationMetadataChanged()
             .equals(other.getConversationMetadataChanged())) return false;
         break;
+      case 49:
+        if (!getDeliveryReceiptUpdated()
+            .equals(other.getDeliveryReceiptUpdated())) return false;
+        break;
       case 0:
       default:
     }
@@ -1728,6 +1772,10 @@ private static final long serialVersionUID = 0L;
       case 48:
         hash = (37 * hash) + CONVERSATION_METADATA_CHANGED_FIELD_NUMBER;
         hash = (53 * hash) + getConversationMetadataChanged().hashCode();
+        break;
+      case 49:
+        hash = (37 * hash) + DELIVERY_RECEIPT_UPDATED_FIELD_NUMBER;
+        hash = (53 * hash) + getDeliveryReceiptUpdated().hashCode();
         break;
       case 0:
       default:
@@ -1877,6 +1925,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
+      bitField1_ = 0;
       seq_ = 0L;
       stream_ = "";
       timestamp_ = null;
@@ -1975,6 +2024,9 @@ private static final long serialVersionUID = 0L;
       if (conversationMetadataChangedBuilder_ != null) {
         conversationMetadataChangedBuilder_.clear();
       }
+      if (deliveryReceiptUpdatedBuilder_ != null) {
+        deliveryReceiptUpdatedBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -2004,6 +2056,7 @@ private static final long serialVersionUID = 0L;
     public app.mvchat.mvnxt.mvservernxt.v1.Event buildPartial() {
       app.mvchat.mvnxt.mvservernxt.v1.Event result = new app.mvchat.mvnxt.mvservernxt.v1.Event(this);
       if (bitField0_ != 0) { buildPartial0(result); }
+      if (bitField1_ != 0) { buildPartial1(result); }
       buildPartialOneofs(result);
       onBuilt();
       return result;
@@ -2037,6 +2090,10 @@ private static final long serialVersionUID = 0L;
         to_bitField0_ |= 0x00000004;
       }
       result.bitField0_ |= to_bitField0_;
+    }
+
+    private void buildPartial1(app.mvchat.mvnxt.mvservernxt.v1.Event result) {
+      int from_bitField1_ = bitField1_;
     }
 
     private void buildPartialOneofs(app.mvchat.mvnxt.mvservernxt.v1.Event result) {
@@ -2149,6 +2206,10 @@ private static final long serialVersionUID = 0L;
       if (payloadCase_ == 48 &&
           conversationMetadataChangedBuilder_ != null) {
         result.payload_ = conversationMetadataChangedBuilder_.build();
+      }
+      if (payloadCase_ == 49 &&
+          deliveryReceiptUpdatedBuilder_ != null) {
+        result.payload_ = deliveryReceiptUpdatedBuilder_.build();
       }
     }
 
@@ -2288,6 +2349,10 @@ private static final long serialVersionUID = 0L;
         }
         case CONVERSATION_METADATA_CHANGED: {
           mergeConversationMetadataChanged(other.getConversationMetadataChanged());
+          break;
+        }
+        case DELIVERY_RECEIPT_UPDATED: {
+          mergeDeliveryReceiptUpdated(other.getDeliveryReceiptUpdated());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -2540,6 +2605,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 48;
               break;
             } // case 386
+            case 394: {
+              input.readMessage(
+                  internalGetDeliveryReceiptUpdatedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 49;
+              break;
+            } // case 394
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2571,6 +2643,7 @@ private static final long serialVersionUID = 0L;
     }
 
     private int bitField0_;
+    private int bitField1_;
 
     private long seq_ ;
     /**
@@ -7124,6 +7197,148 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 48;
       onChanged();
       return conversationMetadataChangedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder> deliveryReceiptUpdatedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     * @return Whether the deliveryReceiptUpdated field is set.
+     */
+    @java.lang.Override
+    public boolean hasDeliveryReceiptUpdated() {
+      return payloadCase_ == 49;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     * @return The deliveryReceiptUpdated.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated getDeliveryReceiptUpdated() {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        if (payloadCase_ == 49) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 49) {
+          return deliveryReceiptUpdatedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    public Builder setDeliveryReceiptUpdated(app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated value) {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        deliveryReceiptUpdatedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 49;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    public Builder setDeliveryReceiptUpdated(
+        app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.Builder builderForValue) {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        deliveryReceiptUpdatedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 49;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    public Builder mergeDeliveryReceiptUpdated(app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated value) {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        if (payloadCase_ == 49 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 49) {
+          deliveryReceiptUpdatedBuilder_.mergeFrom(value);
+        } else {
+          deliveryReceiptUpdatedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 49;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    public Builder clearDeliveryReceiptUpdated() {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        if (payloadCase_ == 49) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 49) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        deliveryReceiptUpdatedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.Builder getDeliveryReceiptUpdatedBuilder() {
+      return internalGetDeliveryReceiptUpdatedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder getDeliveryReceiptUpdatedOrBuilder() {
+      if ((payloadCase_ == 49) && (deliveryReceiptUpdatedBuilder_ != null)) {
+        return deliveryReceiptUpdatedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 49) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeliveryReceiptUpdated delivery_receipt_updated = 49 [json_name = "deliveryReceiptUpdated"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder> 
+        internalGetDeliveryReceiptUpdatedFieldBuilder() {
+      if (deliveryReceiptUpdatedBuilder_ == null) {
+        if (!(payloadCase_ == 49)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.getDefaultInstance();
+        }
+        deliveryReceiptUpdatedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 49;
+      onChanged();
+      return deliveryReceiptUpdatedBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Event)

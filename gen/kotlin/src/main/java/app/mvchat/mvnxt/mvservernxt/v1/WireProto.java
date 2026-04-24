@@ -65,7 +65,7 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
       "servernxt/v1/chat.proto\032\033mvservernxt/v1/" +
       "common.proto\032\032mvservernxt/v1/hello.proto" +
       "\032\035mvservernxt/v1/identity.proto\032\033mvserve" +
-      "rnxt/v1/system.proto\"\342\020\n\016ClientEnvelope\022" +
+      "rnxt/v1/system.proto\"\252\021\n\016ClientEnvelope\022" +
       "\'\n\017idempotency_key\030\001 \001(\tR\016idempotencyKey" +
       "\022*\n\004ping\030\n \001(\0132\024.mvservernxt.v1.PingH\000R\004" +
       "ping\022-\n\005hello\030\013 \001(\0132\025.mvservernxt.v1.Hel" +
@@ -118,101 +118,106 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
       "onversationNicknameH\000R\027setConversationNi" +
       "ckname\022n\n\034update_conversation_metadata\0301" +
       " \001(\0132*.mvservernxt.v1.UpdateConversation" +
-      "MetadataH\000R\032updateConversationMetadataB\t" +
-      "\n\007payload\"\234\001\n\016ServerEnvelope\022\'\n\003ack\030\001 \001(" +
-      "\0132\023.mvservernxt.v1.AckH\000R\003ack\022\'\n\003err\030\002 \001" +
-      "(\0132\023.mvservernxt.v1.ErrH\000R\003err\022-\n\005event\030" +
-      "\003 \001(\0132\025.mvservernxt.v1.EventH\000R\005eventB\t\n" +
-      "\007payload\"\375\005\n\003Ack\022\'\n\017idempotency_key\030\001 \001(" +
-      "\tR\016idempotencyKey\022\022\n\004code\030\002 \001(\005R\004code\022*\n" +
-      "\004pong\030\n \001(\0132\024.mvservernxt.v1.PongH\000R\004pon" +
-      "g\0225\n\005hello\030\013 \001(\0132\035.mvservernxt.v1.HelloR" +
-      "esponseH\000R\005hello\022>\n\010register\030\024 \001(\0132 .mvs" +
-      "ervernxt.v1.RegisterResponseH\000R\010register" +
-      "\0225\n\005login\030\026 \001(\0132\035.mvservernxt.v1.LoginRe" +
-      "sponseH\000R\005login\022;\n\007refresh\030\027 \001(\0132\037.mvser" +
-      "vernxt.v1.RefreshResponseH\000R\007refresh\022]\n\023" +
-      "create_conversation\030\036 \001(\0132*.mvservernxt." +
-      "v1.CreateConversationResponseH\000R\022createC" +
-      "onversation\022H\n\014send_message\030\" \001(\0132#.mvse" +
-      "rvernxt.v1.SendMessageResponseH\000R\013sendMe" +
-      "ssage\022Z\n\022list_conversations\030# \001(\0132).mvse" +
-      "rvernxt.v1.ListConversationsResponseH\000R\021" +
-      "listConversations\022H\n\014get_messages\030$ \001(\0132" +
-      "#.mvservernxt.v1.GetMessagesResponseH\000R\013" +
-      "getMessages\022H\n\014edit_message\030& \001(\0132#.mvse" +
-      "rvernxt.v1.EditMessageResponseH\000R\013editMe" +
-      "ssageB\t\n\007payload\"t\n\003Err\022\'\n\017idempotency_k" +
-      "ey\030\001 \001(\tR\016idempotencyKey\022\022\n\004code\030\002 \001(\005R\004" +
-      "code\022\030\n\007message\030\003 \001(\tR\007message\022\026\n\006reason" +
-      "\030\004 \001(\tR\006reason\"\250\023\n\005Event\022\020\n\003seq\030\001 \001(\003R\003s" +
-      "eq\022\026\n\006stream\030\002 \001(\tR\006stream\0228\n\ttimestamp\030" +
-      "\003 \001(\0132\032.google.protobuf.TimestampR\ttimes" +
-      "tamp\022/\n\010actor_id\030\004 \001(\0132\024.mvservernxt.v1." +
-      "UUIDR\007actorId\0227\n\014aggregate_id\030\005 \001(\0132\024.mv" +
-      "servernxt.v1.UUIDR\013aggregateId\022C\n\rsystem" +
-      "_notice\030\n \001(\0132\034.mvservernxt.v1.SystemNot" +
-      "iceH\000R\014systemNotice\022I\n\017user_registered\030\024" +
-      " \001(\0132\036.mvservernxt.v1.UserRegisteredH\000R\016" +
-      "userRegistered\022D\n\016user_logged_in\030\026 \001(\0132\034" +
-      ".mvservernxt.v1.UserLoggedInH\000R\014userLogg" +
-      "edIn\022I\n\017token_refreshed\030\027 \001(\0132\036.mvserver" +
-      "nxt.v1.TokenRefreshedH\000R\016tokenRefreshed\022" +
-      "G\n\017user_logged_out\030\030 \001(\0132\035.mvservernxt.v" +
-      "1.UserLoggedOutH\000R\ruserLoggedOut\022l\n\034refr" +
-      "esh_token_reuse_detected\030\031 \001(\0132).mvserve" +
-      "rnxt.v1.RefreshTokenReuseDetectedH\000R\031ref" +
-      "reshTokenReuseDetected\022F\n\016email_verified" +
-      "\030\032 \001(\0132\035.mvservernxt.v1.EmailVerifiedH\000R" +
-      "\remailVerified\022_\n\027verification_email_sen" +
-      "t\030\033 \001(\0132%.mvservernxt.v1.VerificationEma" +
-      "ilSentH\000R\025verificationEmailSent\022X\n\024conve" +
-      "rsation_created\030\036 \001(\0132#.mvservernxt.v1.C" +
-      "onversationCreatedH\000R\023conversationCreate" +
-      "d\022@\n\014member_added\030\037 \001(\0132\033.mvservernxt.v1" +
-      ".MemberAddedH\000R\013memberAdded\022F\n\016member_re" +
-      "moved\030  \001(\0132\035.mvservernxt.v1.MemberRemov" +
-      "edH\000R\rmemberRemoved\022=\n\013member_left\030! \001(\013" +
-      "2\032.mvservernxt.v1.MemberLeftH\000R\nmemberLe" +
-      "ft\022@\n\014message_sent\030\" \001(\0132\033.mvservernxt.v" +
-      "1.MessageSentH\000R\013messageSent\022V\n\024read_rec" +
-      "eipt_updated\030# \001(\0132\".mvservernxt.v1.Read" +
-      "ReceiptUpdatedH\000R\022readReceiptUpdated\022F\n\016" +
-      "message_edited\030$ \001(\0132\035.mvservernxt.v1.Me" +
-      "ssageEditedH\000R\rmessageEdited\022F\n\016message_" +
-      "hidden\030% \001(\0132\035.mvservernxt.v1.MessageHid" +
-      "denH\000R\rmessageHidden\022l\n\034message_deleted_" +
-      "for_everyone\030& \001(\0132).mvservernxt.v1.Mess" +
-      "ageDeletedForEveryoneH\000R\031messageDeletedF" +
-      "orEveryone\022F\n\016message_unsent\030\' \001(\0132\035.mvs" +
-      "ervernxt.v1.MessageUnsentH\000R\rmessageUnse" +
-      "nt\022\\\n\026message_reaction_added\030( \001(\0132$.mvs" +
-      "ervernxt.v1.MessageReactionAddedH\000R\024mess" +
-      "ageReactionAdded\022b\n\030message_reaction_rem" +
-      "oved\030) \001(\0132&.mvservernxt.v1.MessageReact" +
-      "ionRemovedH\000R\026messageReactionRemoved\022F\n\016" +
-      "typing_changed\030* \001(\0132\035.mvservernxt.v1.Ty" +
-      "pingChangedH\000R\rtypingChanged\022q\n\035disappea" +
-      "ring_messages_changed\030+ \001(\0132+.mvservernx" +
-      "t.v1.DisappearingMessagesChangedH\000R\033disa" +
-      "ppearingMessagesChanged\022I\n\017message_expir" +
-      "ed\030, \001(\0132\036.mvservernxt.v1.MessageExpired" +
-      "H\000R\016messageExpired\022F\n\016message_pinned\030- \001" +
-      "(\0132\035.mvservernxt.v1.MessagePinnedH\000R\rmes" +
-      "sagePinned\022L\n\020message_unpinned\030. \001(\0132\037.m" +
-      "vservernxt.v1.MessageUnpinnedH\000R\017message" +
-      "Unpinned\022q\n\035conversation_nickname_change" +
-      "d\030/ \001(\0132+.mvservernxt.v1.ConversationNic" +
-      "knameChangedH\000R\033conversationNicknameChan" +
-      "ged\022q\n\035conversation_metadata_changed\0300 \001" +
-      "(\0132+.mvservernxt.v1.ConversationMetadata" +
-      "ChangedH\000R\033conversationMetadataChangedB\t" +
-      "\n\007payloadB\326\001\n\037app.mvchat.mvnxt.mvservern" +
-      "xt.v1B\tWireProtoP\001ZOgithub.com/scalecode" +
-      "-solutions/mvnxt-protos/gen/go/mvservern" +
-      "xt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt." +
-      "V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1\\GPB" +
-      "Metadata\352\002\017Mvservernxt::V1b\006proto3"
+      "MetadataH\000R\032updateConversationMetadata\022F" +
+      "\n\016mark_delivered\0302 \001(\0132\035.mvservernxt.v1." +
+      "MarkDeliveredH\000R\rmarkDeliveredB\t\n\007payloa" +
+      "d\"\234\001\n\016ServerEnvelope\022\'\n\003ack\030\001 \001(\0132\023.mvse" +
+      "rvernxt.v1.AckH\000R\003ack\022\'\n\003err\030\002 \001(\0132\023.mvs" +
+      "ervernxt.v1.ErrH\000R\003err\022-\n\005event\030\003 \001(\0132\025." +
+      "mvservernxt.v1.EventH\000R\005eventB\t\n\007payload" +
+      "\"\375\005\n\003Ack\022\'\n\017idempotency_key\030\001 \001(\tR\016idemp" +
+      "otencyKey\022\022\n\004code\030\002 \001(\005R\004code\022*\n\004pong\030\n " +
+      "\001(\0132\024.mvservernxt.v1.PongH\000R\004pong\0225\n\005hel" +
+      "lo\030\013 \001(\0132\035.mvservernxt.v1.HelloResponseH" +
+      "\000R\005hello\022>\n\010register\030\024 \001(\0132 .mvservernxt" +
+      ".v1.RegisterResponseH\000R\010register\0225\n\005logi" +
+      "n\030\026 \001(\0132\035.mvservernxt.v1.LoginResponseH\000" +
+      "R\005login\022;\n\007refresh\030\027 \001(\0132\037.mvservernxt.v" +
+      "1.RefreshResponseH\000R\007refresh\022]\n\023create_c" +
+      "onversation\030\036 \001(\0132*.mvservernxt.v1.Creat" +
+      "eConversationResponseH\000R\022createConversat" +
+      "ion\022H\n\014send_message\030\" \001(\0132#.mvservernxt." +
+      "v1.SendMessageResponseH\000R\013sendMessage\022Z\n" +
+      "\022list_conversations\030# \001(\0132).mvservernxt." +
+      "v1.ListConversationsResponseH\000R\021listConv" +
+      "ersations\022H\n\014get_messages\030$ \001(\0132#.mvserv" +
+      "ernxt.v1.GetMessagesResponseH\000R\013getMessa" +
+      "ges\022H\n\014edit_message\030& \001(\0132#.mvservernxt." +
+      "v1.EditMessageResponseH\000R\013editMessageB\t\n" +
+      "\007payload\"t\n\003Err\022\'\n\017idempotency_key\030\001 \001(\t" +
+      "R\016idempotencyKey\022\022\n\004code\030\002 \001(\005R\004code\022\030\n\007" +
+      "message\030\003 \001(\tR\007message\022\026\n\006reason\030\004 \001(\tR\006" +
+      "reason\"\214\024\n\005Event\022\020\n\003seq\030\001 \001(\003R\003seq\022\026\n\006st" +
+      "ream\030\002 \001(\tR\006stream\0228\n\ttimestamp\030\003 \001(\0132\032." +
+      "google.protobuf.TimestampR\ttimestamp\022/\n\010" +
+      "actor_id\030\004 \001(\0132\024.mvservernxt.v1.UUIDR\007ac" +
+      "torId\0227\n\014aggregate_id\030\005 \001(\0132\024.mvservernx" +
+      "t.v1.UUIDR\013aggregateId\022C\n\rsystem_notice\030" +
+      "\n \001(\0132\034.mvservernxt.v1.SystemNoticeH\000R\014s" +
+      "ystemNotice\022I\n\017user_registered\030\024 \001(\0132\036.m" +
+      "vservernxt.v1.UserRegisteredH\000R\016userRegi" +
+      "stered\022D\n\016user_logged_in\030\026 \001(\0132\034.mvserve" +
+      "rnxt.v1.UserLoggedInH\000R\014userLoggedIn\022I\n\017" +
+      "token_refreshed\030\027 \001(\0132\036.mvservernxt.v1.T" +
+      "okenRefreshedH\000R\016tokenRefreshed\022G\n\017user_" +
+      "logged_out\030\030 \001(\0132\035.mvservernxt.v1.UserLo" +
+      "ggedOutH\000R\ruserLoggedOut\022l\n\034refresh_toke" +
+      "n_reuse_detected\030\031 \001(\0132).mvservernxt.v1." +
+      "RefreshTokenReuseDetectedH\000R\031refreshToke" +
+      "nReuseDetected\022F\n\016email_verified\030\032 \001(\0132\035" +
+      ".mvservernxt.v1.EmailVerifiedH\000R\remailVe" +
+      "rified\022_\n\027verification_email_sent\030\033 \001(\0132" +
+      "%.mvservernxt.v1.VerificationEmailSentH\000" +
+      "R\025verificationEmailSent\022X\n\024conversation_" +
+      "created\030\036 \001(\0132#.mvservernxt.v1.Conversat" +
+      "ionCreatedH\000R\023conversationCreated\022@\n\014mem" +
+      "ber_added\030\037 \001(\0132\033.mvservernxt.v1.MemberA" +
+      "ddedH\000R\013memberAdded\022F\n\016member_removed\030  " +
+      "\001(\0132\035.mvservernxt.v1.MemberRemovedH\000R\rme" +
+      "mberRemoved\022=\n\013member_left\030! \001(\0132\032.mvser" +
+      "vernxt.v1.MemberLeftH\000R\nmemberLeft\022@\n\014me" +
+      "ssage_sent\030\" \001(\0132\033.mvservernxt.v1.Messag" +
+      "eSentH\000R\013messageSent\022V\n\024read_receipt_upd" +
+      "ated\030# \001(\0132\".mvservernxt.v1.ReadReceiptU" +
+      "pdatedH\000R\022readReceiptUpdated\022F\n\016message_" +
+      "edited\030$ \001(\0132\035.mvservernxt.v1.MessageEdi" +
+      "tedH\000R\rmessageEdited\022F\n\016message_hidden\030%" +
+      " \001(\0132\035.mvservernxt.v1.MessageHiddenH\000R\rm" +
+      "essageHidden\022l\n\034message_deleted_for_ever" +
+      "yone\030& \001(\0132).mvservernxt.v1.MessageDelet" +
+      "edForEveryoneH\000R\031messageDeletedForEveryo" +
+      "ne\022F\n\016message_unsent\030\' \001(\0132\035.mvservernxt" +
+      ".v1.MessageUnsentH\000R\rmessageUnsent\022\\\n\026me" +
+      "ssage_reaction_added\030( \001(\0132$.mvservernxt" +
+      ".v1.MessageReactionAddedH\000R\024messageReact" +
+      "ionAdded\022b\n\030message_reaction_removed\030) \001" +
+      "(\0132&.mvservernxt.v1.MessageReactionRemov" +
+      "edH\000R\026messageReactionRemoved\022F\n\016typing_c" +
+      "hanged\030* \001(\0132\035.mvservernxt.v1.TypingChan" +
+      "gedH\000R\rtypingChanged\022q\n\035disappearing_mes" +
+      "sages_changed\030+ \001(\0132+.mvservernxt.v1.Dis" +
+      "appearingMessagesChangedH\000R\033disappearing" +
+      "MessagesChanged\022I\n\017message_expired\030, \001(\013" +
+      "2\036.mvservernxt.v1.MessageExpiredH\000R\016mess" +
+      "ageExpired\022F\n\016message_pinned\030- \001(\0132\035.mvs" +
+      "ervernxt.v1.MessagePinnedH\000R\rmessagePinn" +
+      "ed\022L\n\020message_unpinned\030. \001(\0132\037.mvservern" +
+      "xt.v1.MessageUnpinnedH\000R\017messageUnpinned" +
+      "\022q\n\035conversation_nickname_changed\030/ \001(\0132" +
+      "+.mvservernxt.v1.ConversationNicknameCha" +
+      "ngedH\000R\033conversationNicknameChanged\022q\n\035c" +
+      "onversation_metadata_changed\0300 \001(\0132+.mvs" +
+      "ervernxt.v1.ConversationMetadataChangedH" +
+      "\000R\033conversationMetadataChanged\022b\n\030delive" +
+      "ry_receipt_updated\0301 \001(\0132&.mvservernxt.v" +
+      "1.DeliveryReceiptUpdatedH\000R\026deliveryRece" +
+      "iptUpdatedB\t\n\007payloadB\326\001\n\037app.mvchat.mvn" +
+      "xt.mvservernxt.v1B\tWireProtoP\001ZOgithub.c" +
+      "om/scalecode-solutions/mvnxt-protos/gen/" +
+      "go/mvservernxt/v1;mvservernxtv1\242\002\003MXX\252\002\016" +
+      "Mvservernxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvserv" +
+      "ernxt\\V1\\GPBMetadata\352\002\017Mvservernxt::V1b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -229,7 +234,7 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_ClientEnvelope_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_ClientEnvelope_descriptor,
-        new java.lang.String[] { "IdempotencyKey", "Ping", "Hello", "Register", "Authenticate", "Login", "Refresh", "Logout", "VerifyEmail", "ResendVerificationEmail", "CreateConversation", "AddMember", "RemoveMember", "LeaveConversation", "SendMessage", "ListConversations", "GetMessages", "MarkRead", "EditMessage", "DeleteMessage", "DeleteMessageForEveryone", "UnsendMessage", "AddReaction", "RemoveReaction", "SendTyping", "SetDisappearingMessages", "PinMessage", "UnpinMessage", "SetConversationNickname", "UpdateConversationMetadata", "Payload", });
+        new java.lang.String[] { "IdempotencyKey", "Ping", "Hello", "Register", "Authenticate", "Login", "Refresh", "Logout", "VerifyEmail", "ResendVerificationEmail", "CreateConversation", "AddMember", "RemoveMember", "LeaveConversation", "SendMessage", "ListConversations", "GetMessages", "MarkRead", "EditMessage", "DeleteMessage", "DeleteMessageForEveryone", "UnsendMessage", "AddReaction", "RemoveReaction", "SendTyping", "SetDisappearingMessages", "PinMessage", "UnpinMessage", "SetConversationNickname", "UpdateConversationMetadata", "MarkDelivered", "Payload", });
     internal_static_mvservernxt_v1_ServerEnvelope_descriptor =
       getDescriptor().getMessageType(1);
     internal_static_mvservernxt_v1_ServerEnvelope_fieldAccessorTable = new
@@ -253,7 +258,7 @@ public final class WireProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Event_descriptor,
-        new java.lang.String[] { "Seq", "Stream", "Timestamp", "ActorId", "AggregateId", "SystemNotice", "UserRegistered", "UserLoggedIn", "TokenRefreshed", "UserLoggedOut", "RefreshTokenReuseDetected", "EmailVerified", "VerificationEmailSent", "ConversationCreated", "MemberAdded", "MemberRemoved", "MemberLeft", "MessageSent", "ReadReceiptUpdated", "MessageEdited", "MessageHidden", "MessageDeletedForEveryone", "MessageUnsent", "MessageReactionAdded", "MessageReactionRemoved", "TypingChanged", "DisappearingMessagesChanged", "MessageExpired", "MessagePinned", "MessageUnpinned", "ConversationNicknameChanged", "ConversationMetadataChanged", "Payload", });
+        new java.lang.String[] { "Seq", "Stream", "Timestamp", "ActorId", "AggregateId", "SystemNotice", "UserRegistered", "UserLoggedIn", "TokenRefreshed", "UserLoggedOut", "RefreshTokenReuseDetected", "EmailVerified", "VerificationEmailSent", "ConversationCreated", "MemberAdded", "MemberRemoved", "MemberLeft", "MessageSent", "ReadReceiptUpdated", "MessageEdited", "MessageHidden", "MessageDeletedForEveryone", "MessageUnsent", "MessageReactionAdded", "MessageReactionRemoved", "TypingChanged", "DisappearingMessagesChanged", "MessageExpired", "MessagePinned", "MessageUnpinned", "ConversationNicknameChanged", "ConversationMetadataChanged", "DeliveryReceiptUpdated", "Payload", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.TimestampProto.getDescriptor();
     app.mvchat.mvnxt.mvservernxt.v1.ChatProto.getDescriptor();

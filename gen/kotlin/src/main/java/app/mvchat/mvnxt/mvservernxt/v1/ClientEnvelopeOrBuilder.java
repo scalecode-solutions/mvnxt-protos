@@ -191,9 +191,9 @@ public interface ClientEnvelopeOrBuilder extends
 
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -202,9 +202,9 @@ public interface ClientEnvelopeOrBuilder extends
   boolean hasCreateConversation();
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -213,9 +213,9 @@ public interface ClientEnvelopeOrBuilder extends
   app.mvchat.mvnxt.mvservernxt.v1.CreateConversation getCreateConversation();
   /**
    * <pre>
-   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
-   * accommodate the full chat surface without crowding future
-   * domains)
+   * Chat (range extended to 30-50 as the surface grows. Contacts /
+   * presence / receipts-v2 are tier-1 next — they get their own
+   * domain ranges when they land.)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -506,6 +506,21 @@ public interface ClientEnvelopeOrBuilder extends
    * <code>.mvservernxt.v1.UpdateConversationMetadata update_conversation_metadata = 49 [json_name = "updateConversationMetadata"];</code>
    */
   app.mvchat.mvnxt.mvservernxt.v1.UpdateConversationMetadataOrBuilder getUpdateConversationMetadataOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   * @return Whether the markDelivered field is set.
+   */
+  boolean hasMarkDelivered();
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   * @return The markDelivered.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered getMarkDelivered();
+  /**
+   * <code>.mvservernxt.v1.MarkDelivered mark_delivered = 50 [json_name = "markDelivered"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder getMarkDeliveredOrBuilder();
 
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }
