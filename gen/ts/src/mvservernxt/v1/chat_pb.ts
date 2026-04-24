@@ -24,7 +24,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/chat.proto.
  */
 export const file_mvservernxt_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSLLAQoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSLgoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEgoKbWVtYmVyX2lkcxgGIAMoCRIYChBsYXN0X21lc3NhZ2Vfc2VxGAcgASgDIqEBCgdNZXNzYWdlEgoKAmlkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRILCgNzZXEYAyABKAMSEQoJc2VuZGVyX2lkGAQgASgJEgwKBGJvZHkYBSABKAkSEwoLcmVwbHlfdG9faWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiZwoSQ3JlYXRlQ29udmVyc2F0aW9uEi4KBHR5cGUYASABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEhIKCm1lbWJlcl9pZHMYAiADKAkSDQoFdGl0bGUYAyABKAkiNQoJQWRkTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIjgKDFJlbW92ZU1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSIsChFMZWF2ZUNvbnZlcnNhdGlvbhIXCg9jb252ZXJzYXRpb25faWQYASABKAkiSQoLU2VuZE1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEgwKBGJvZHkYAiABKAkSEwoLcmVwbHlfdG9faWQYAyABKAkiIgoRTGlzdENvbnZlcnNhdGlvbnMSDQoFbGltaXQYASABKAUiSAoLR2V0TWVzc2FnZXMSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCXNpbmNlX3NlcRgCIAEoAxINCgVsaW1pdBgDIAEoBSI6CghNYXJrUmVhZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSFQoNbGFzdF9yZWFkX3NlcRgCIAEoAyJQChpDcmVhdGVDb252ZXJzYXRpb25SZXNwb25zZRIyCgxjb252ZXJzYXRpb24YASABKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iPwoTU2VuZE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSJQChlMaXN0Q29udmVyc2F0aW9uc1Jlc3BvbnNlEjMKDWNvbnZlcnNhdGlvbnMYASADKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iUgoTR2V0TWVzc2FnZXNSZXNwb25zZRIpCghtZXNzYWdlcxgBIAMoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2USEAoIaGFzX21vcmUYAiABKAgixQEKE0NvbnZlcnNhdGlvbkNyZWF0ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSEgoKbWVtYmVyX2lkcxgFIAMoCRIuCgpjcmVhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ3CgtNZW1iZXJBZGRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIQCghhZGRlZF9ieRgDIAEoCRIsCghhZGRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifQoNTWVtYmVyUmVtb3ZlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRISCgpyZW1vdmVkX2J5GAMgASgJEi4KCnJlbW92ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wImMKCk1lbWJlckxlZnQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSKwoHbGVmdF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAirQEKC01lc3NhZ2VTZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKFAQoSUmVhZFJlY2VpcHRVcGRhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhUKDWxhc3RfcmVhZF9zZXEYAyABKAMSLgoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAqbAoQQ29udmVyc2F0aW9uVHlwZRIhCh1DT05WRVJTQVRJT05fVFlQRV9VTlNQRUNJRklFRBAAEhgKFENPTlZFUlNBVElPTl9UWVBFX0RNEAESGwoXQ09OVkVSU0FUSU9OX1RZUEVfR1JPVVAQAkLWAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUIJQ2hhdFByb3RvUAFaT2dpdGh1Yi5jb20vc2NhbGVjb2RlLXNvbHV0aW9ucy9tdm54dC1wcm90b3MvZ2VuL2dvL212c2VydmVybnh0L3YxO212c2VydmVybnh0djGiAgNNWFiqAg5NdnNlcnZlcm54dC5WMcoCDk12c2VydmVybnh0XFYx4gIaTXZzZXJ2ZXJueHRcVjFcR1BCTWV0YWRhdGHqAg9NdnNlcnZlcm54dDo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
+  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSLLAQoMQ29udmVyc2F0aW9uEgoKAmlkGAEgASgJEi4KBHR5cGUYAiABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEg0KBXRpdGxlGAMgASgJEhIKCmNyZWF0ZWRfYnkYBCABKAkSLgoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEgoKbWVtYmVyX2lkcxgGIAMoCRIYChBsYXN0X21lc3NhZ2Vfc2VxGAcgASgDIrwBCgdNZXNzYWdlEgoKAmlkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRILCgNzZXEYAyABKAMSEQoJc2VuZGVyX2lkGAQgASgJEgwKBGJvZHkYBSABKAkSEwoLcmVwbHlfdG9faWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASGQoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAkiZwoSQ3JlYXRlQ29udmVyc2F0aW9uEi4KBHR5cGUYASABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEhIKCm1lbWJlcl9pZHMYAiADKAkSDQoFdGl0bGUYAyABKAkiNQoJQWRkTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIjgKDFJlbW92ZU1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSIsChFMZWF2ZUNvbnZlcnNhdGlvbhIXCg9jb252ZXJzYXRpb25faWQYASABKAkiZAoLU2VuZE1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEgwKBGJvZHkYAiABKAkSEwoLcmVwbHlfdG9faWQYAyABKAkSGQoRY2xpZW50X21lc3NhZ2VfaWQYBCABKAkiIgoRTGlzdENvbnZlcnNhdGlvbnMSDQoFbGltaXQYASABKAUiXAoLR2V0TWVzc2FnZXMSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCXNpbmNlX3NlcRgCIAEoAxINCgVsaW1pdBgDIAEoBRISCgpiZWZvcmVfc2VxGAQgASgDIjoKCE1hcmtSZWFkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIVCg1sYXN0X3JlYWRfc2VxGAIgASgDIlAKGkNyZWF0ZUNvbnZlcnNhdGlvblJlc3BvbnNlEjIKDGNvbnZlcnNhdGlvbhgBIAEoCzIcLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvbiI/ChNTZW5kTWVzc2FnZVJlc3BvbnNlEigKB21lc3NhZ2UYASABKAsyFy5tdnNlcnZlcm54dC52MS5NZXNzYWdlIlAKGUxpc3RDb252ZXJzYXRpb25zUmVzcG9uc2USMwoNY29udmVyc2F0aW9ucxgBIAMoCzIcLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvbiJSChNHZXRNZXNzYWdlc1Jlc3BvbnNlEikKCG1lc3NhZ2VzGAEgAygLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZRIQCghoYXNfbW9yZRgCIAEoCCLFAQoTQ29udmVyc2F0aW9uQ3JlYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRISCgptZW1iZXJfaWRzGAUgAygJEi4KCmNyZWF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIncKC01lbWJlckFkZGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCGFkZGVkX2J5GAMgASgJEiwKCGFkZGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ9Cg1NZW1iZXJSZW1vdmVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhIKCnJlbW92ZWRfYnkYAyABKAkSLgoKcmVtb3ZlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiYwoKTWVtYmVyTGVmdBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIrCgdsZWZ0X2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLIAQoLTWVzc2FnZVNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSCwoDc2VxGAMgASgDEhEKCXNlbmRlcl9pZBgEIAEoCRIMCgRib2R5GAUgASgJEhMKC3JlcGx5X3RvX2lkGAYgASgJEi4KCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhkKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJIoUBChJSZWFkUmVjZWlwdFVwZGF0ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSFQoNbGFzdF9yZWFkX3NlcRgDIAEoAxIuCgp1cGRhdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCpsChBDb252ZXJzYXRpb25UeXBlEiEKHUNPTlZFUlNBVElPTl9UWVBFX1VOU1BFQ0lGSUVEEAASGAoUQ09OVkVSU0FUSU9OX1RZUEVfRE0QARIbChdDT05WRVJTQVRJT05fVFlQRV9HUk9VUBACQtYBCh9hcHAubXZjaGF0Lm12bnh0Lm12c2VydmVybnh0LnYxQglDaGF0UHJvdG9QAVpPZ2l0aHViLmNvbS9zY2FsZWNvZGUtc29sdXRpb25zL212bnh0LXByb3Rvcy9nZW4vZ28vbXZzZXJ2ZXJueHQvdjE7bXZzZXJ2ZXJueHR2MaICA01YWKoCDk12c2VydmVybnh0LlYxygIOTXZzZXJ2ZXJueHRcVjHiAhpNdnNlcnZlcm54dFxWMVxHUEJNZXRhZGF0YeoCD012c2VydmVybnh0OjpWMWIGcHJvdG8z", [file_google_protobuf_timestamp]);
 
 /**
  * Conversation is the client-facing view of a conversation row +
@@ -73,8 +73,11 @@ export type Conversation = Message$1<"mvservernxt.v1.Conversation"> & {
   memberIds: string[];
 
   /**
-   * Seq of the latest message in the conversation, or 0 if no messages
-   * yet. Useful for sorting in ListConversations without an extra query.
+   * Seq of the latest message ever sent to this conversation, or 0 if
+   * none yet. MONOTONIC — never decrements. Message deletes and unsends
+   * leave tombstone rows that preserve the seq, so this always reflects
+   * the highwater of conversation activity. Used by ListConversations
+   * to sort without an extra query.
    *
    * @generated from field: int64 last_message_seq = 7;
    */
@@ -95,7 +98,7 @@ export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
  */
 export type Message = Message$1<"mvservernxt.v1.Message"> & {
   /**
-   * UUIDv4
+   * UUIDv4, server-assigned
    *
    * @generated from field: string id = 1;
    */
@@ -136,6 +139,21 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
    * @generated from field: google.protobuf.Timestamp created_at = 7;
    */
   createdAt?: Timestamp | undefined;
+
+  /**
+   * Client-assigned correlator echoed from SendMessage.client_message_id.
+   * Empty for messages created server-side (e.g. system notices) or sent
+   * by clients that didn't supply one.
+   *
+   * Used by sending clients to match their optimistic-UI placeholder
+   * against the canonical server message when it arrives back via the
+   * MessageSent broadcast event. Without this, a client can't tell its
+   * own just-sent message apart from a duplicate and ends up rendering
+   * both the placeholder AND the canonical copy.
+   *
+   * @generated from field: string client_message_id = 8;
+   */
+  clientMessageId: string;
 };
 
 /**
@@ -153,6 +171,16 @@ export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
  * Validation:
  *   - DM: exactly one other member_id, not the creator's own.
  *   - GROUP: at least one other member_id, title required.
+ *
+ * DM find-or-create semantics: if a DM between the caller and the named
+ * other user already exists, the existing conversation is returned
+ * (not a new one). The other user cannot have "blocked" the caller out
+ * of a DM — existing DMs resurface when re-opened. GROUPs always create
+ * a fresh conversation regardless of overlapping membership.
+ *
+ * DM immutability: DM membership is fixed at creation. AddMember on a
+ * DM is rejected. If a third person needs in, the caller creates a new
+ * GROUP with the two existing DM members + the third.
  *
  * Returns CreateConversationResponse with the full Conversation.
  *
@@ -286,6 +314,21 @@ export type SendMessage = Message$1<"mvservernxt.v1.SendMessage"> & {
    * @generated from field: string reply_to_id = 3;
    */
   replyToId: string;
+
+  /**
+   * Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+   * ClientEnvelope.idempotency_key (which covers retry dedup) — this
+   * field travels through to the MessageSent broadcast event so the
+   * sender's own sessions can match the canonical server message
+   * against their optimistic placeholder.
+   *
+   * Optional. Empty string means "don't correlate" — the sending client
+   * will see the broadcast as a fresh message. Server stores it as-is
+   * on the Message row; uniqueness is not enforced.
+   *
+   * @generated from field: string client_message_id = 4;
+   */
+  clientMessageId: string;
 };
 
 /**
@@ -321,12 +364,18 @@ export const ListConversationsSchema: GenMessage<ListConversations> = /*@__PURE_
 
 /**
  * GetMessages pulls a window of messages from one conversation.
+ * Caller must be a member.
  *
- *   since_seq = 0  → newest `limit` messages (initial load)
- *   since_seq > 0  → messages with seq > since_seq (forward catch-up)
+ * Three modes, picked by which of since_seq / before_seq is non-zero:
  *
- * Caller must be a member. Results ordered by seq ASC when doing
- * forward catch-up, seq DESC when doing initial load.
+ *   since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+ *   since_seq > 0, before_seq = 0  → seq > since_seq (forward catch-up)
+ *   since_seq = 0, before_seq > 0  → seq < before_seq (scroll up / older)
+ *
+ * Setting both since_seq AND before_seq is rejected with a validation
+ * error — the intent is ambiguous. Results are always ordered by seq
+ * ASC so clients can append without sorting; for initial-load and
+ * scroll-up modes this means the oldest in the window comes first.
  *
  * @generated from message mvservernxt.v1.GetMessages
  */
@@ -347,6 +396,15 @@ export type GetMessages = Message$1<"mvservernxt.v1.GetMessages"> & {
    * @generated from field: int32 limit = 3;
    */
   limit: number;
+
+  /**
+   * For reverse pagination (scroll up): return messages with seq
+   * strictly less than this value, newest first within the `limit`.
+   * 0 means "not set" — see mode table above.
+   *
+   * @generated from field: int64 before_seq = 4;
+   */
+  beforeSeq: bigint;
 };
 
 /**
@@ -360,8 +418,15 @@ export const GetMessagesSchema: GenMessage<GetMessages> = /*@__PURE__*/
  * MarkRead advances the caller's last_read_seq on a conversation.
  * Idempotent — sending a value ≤ the stored one is a no-op.
  *
- * Emits ReadReceiptUpdated to the caller's own sessions (multi-device
- * sync) AND to other members (so their UI can show "seen by X").
+ * Emits ReadReceiptUpdated. The subscriber (ws-broadcast) decides
+ * who receives it based on the caller's read-receipt visibility
+ * preference:
+ *   - Always fans out to the caller's OWN sessions (multi-device
+ *     state sync — not privacy-sensitive).
+ *   - Fans out to OTHER members only if the caller hasn't disabled
+ *     read-receipt visibility. The preference itself lands with the
+ *     settings domain; slice-1 behavior is "always broadcast to
+ *     everyone" (v1 default).
  *
  * @generated from message mvservernxt.v1.MarkRead
  */
@@ -644,6 +709,13 @@ export type MessageSent = Message$1<"mvservernxt.v1.MessageSent"> & {
    * @generated from field: google.protobuf.Timestamp created_at = 7;
    */
   createdAt?: Timestamp | undefined;
+
+  /**
+   * Echoed from SendMessage.client_message_id. See Message.client_message_id.
+   *
+   * @generated from field: string client_message_id = 8;
+   */
+  clientMessageId: string;
 };
 
 /**

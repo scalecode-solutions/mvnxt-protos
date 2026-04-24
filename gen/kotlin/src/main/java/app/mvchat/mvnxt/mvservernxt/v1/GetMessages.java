@@ -8,12 +8,18 @@ package app.mvchat.mvnxt.mvservernxt.v1;
 /**
  * <pre>
  * GetMessages pulls a window of messages from one conversation.
+ * Caller must be a member.
  *
- * since_seq = 0  → newest `limit` messages (initial load)
- * since_seq &gt; 0  → messages with seq &gt; since_seq (forward catch-up)
+ * Three modes, picked by which of since_seq / before_seq is non-zero:
  *
- * Caller must be a member. Results ordered by seq ASC when doing
- * forward catch-up, seq DESC when doing initial load.
+ * since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+ * since_seq &gt; 0, before_seq = 0  → seq &gt; since_seq (forward catch-up)
+ * since_seq = 0, before_seq &gt; 0  → seq &lt; before_seq (scroll up / older)
+ *
+ * Setting both since_seq AND before_seq is rejected with a validation
+ * error — the intent is ambiguous. Results are always ordered by seq
+ * ASC so clients can append without sorting; for initial-load and
+ * scroll-up modes this means the oldest in the window comes first.
  * </pre>
  *
  * Protobuf type {@code mvservernxt.v1.GetMessages}
@@ -124,6 +130,23 @@ private static final long serialVersionUID = 0L;
     return limit_;
   }
 
+  public static final int BEFORE_SEQ_FIELD_NUMBER = 4;
+  private long beforeSeq_ = 0L;
+  /**
+   * <pre>
+   * For reverse pagination (scroll up): return messages with seq
+   * strictly less than this value, newest first within the `limit`.
+   * 0 means "not set" — see mode table above.
+   * </pre>
+   *
+   * <code>int64 before_seq = 4 [json_name = "beforeSeq"];</code>
+   * @return The beforeSeq.
+   */
+  @java.lang.Override
+  public long getBeforeSeq() {
+    return beforeSeq_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -147,6 +170,9 @@ private static final long serialVersionUID = 0L;
     if (limit_ != 0) {
       output.writeInt32(3, limit_);
     }
+    if (beforeSeq_ != 0L) {
+      output.writeInt64(4, beforeSeq_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -166,6 +192,10 @@ private static final long serialVersionUID = 0L;
     if (limit_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(3, limit_);
+    }
+    if (beforeSeq_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(4, beforeSeq_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -188,6 +218,8 @@ private static final long serialVersionUID = 0L;
         != other.getSinceSeq()) return false;
     if (getLimit()
         != other.getLimit()) return false;
+    if (getBeforeSeq()
+        != other.getBeforeSeq()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -206,6 +238,9 @@ private static final long serialVersionUID = 0L;
         getSinceSeq());
     hash = (37 * hash) + LIMIT_FIELD_NUMBER;
     hash = (53 * hash) + getLimit();
+    hash = (37 * hash) + BEFORE_SEQ_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getBeforeSeq());
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -306,12 +341,18 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * GetMessages pulls a window of messages from one conversation.
+   * Caller must be a member.
    *
-   * since_seq = 0  → newest `limit` messages (initial load)
-   * since_seq &gt; 0  → messages with seq &gt; since_seq (forward catch-up)
+   * Three modes, picked by which of since_seq / before_seq is non-zero:
    *
-   * Caller must be a member. Results ordered by seq ASC when doing
-   * forward catch-up, seq DESC when doing initial load.
+   * since_seq = 0, before_seq = 0  → newest `limit` messages (initial load)
+   * since_seq &gt; 0, before_seq = 0  → seq &gt; since_seq (forward catch-up)
+   * since_seq = 0, before_seq &gt; 0  → seq &lt; before_seq (scroll up / older)
+   *
+   * Setting both since_seq AND before_seq is rejected with a validation
+   * error — the intent is ambiguous. Results are always ordered by seq
+   * ASC so clients can append without sorting; for initial-load and
+   * scroll-up modes this means the oldest in the window comes first.
    * </pre>
    *
    * Protobuf type {@code mvservernxt.v1.GetMessages}
@@ -350,6 +391,7 @@ private static final long serialVersionUID = 0L;
       conversationId_ = "";
       sinceSeq_ = 0L;
       limit_ = 0;
+      beforeSeq_ = 0L;
       return this;
     }
 
@@ -392,6 +434,9 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000004) != 0)) {
         result.limit_ = limit_;
       }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.beforeSeq_ = beforeSeq_;
+      }
     }
 
     @java.lang.Override
@@ -416,6 +461,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getLimit() != 0) {
         setLimit(other.getLimit());
+      }
+      if (other.getBeforeSeq() != 0L) {
+        setBeforeSeq(other.getBeforeSeq());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -458,6 +506,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000004;
               break;
             } // case 24
+            case 32: {
+              beforeSeq_ = input.readInt64();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -619,6 +672,56 @@ private static final long serialVersionUID = 0L;
     public Builder clearLimit() {
       bitField0_ = (bitField0_ & ~0x00000004);
       limit_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long beforeSeq_ ;
+    /**
+     * <pre>
+     * For reverse pagination (scroll up): return messages with seq
+     * strictly less than this value, newest first within the `limit`.
+     * 0 means "not set" — see mode table above.
+     * </pre>
+     *
+     * <code>int64 before_seq = 4 [json_name = "beforeSeq"];</code>
+     * @return The beforeSeq.
+     */
+    @java.lang.Override
+    public long getBeforeSeq() {
+      return beforeSeq_;
+    }
+    /**
+     * <pre>
+     * For reverse pagination (scroll up): return messages with seq
+     * strictly less than this value, newest first within the `limit`.
+     * 0 means "not set" — see mode table above.
+     * </pre>
+     *
+     * <code>int64 before_seq = 4 [json_name = "beforeSeq"];</code>
+     * @param value The beforeSeq to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBeforeSeq(long value) {
+
+      beforeSeq_ = value;
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * For reverse pagination (scroll up): return messages with seq
+     * strictly less than this value, newest first within the `limit`.
+     * 0 means "not set" — see mode table above.
+     * </pre>
+     *
+     * <code>int64 before_seq = 4 [json_name = "beforeSeq"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearBeforeSeq() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      beforeSeq_ = 0L;
       onChanged();
       return this;
     }

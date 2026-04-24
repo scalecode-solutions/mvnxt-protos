@@ -12,7 +12,7 @@ public interface MessageOrBuilder extends
 
   /**
    * <pre>
-   * UUIDv4
+   * UUIDv4, server-assigned
    * </pre>
    *
    * <code>string id = 1 [json_name = "id"];</code>
@@ -21,7 +21,7 @@ public interface MessageOrBuilder extends
   java.lang.String getId();
   /**
    * <pre>
-   * UUIDv4
+   * UUIDv4, server-assigned
    * </pre>
    *
    * <code>string id = 1 [json_name = "id"];</code>
@@ -118,4 +118,40 @@ public interface MessageOrBuilder extends
    * <code>.google.protobuf.Timestamp created_at = 7 [json_name = "createdAt"];</code>
    */
   com.google.protobuf.TimestampOrBuilder getCreatedAtOrBuilder();
+
+  /**
+   * <pre>
+   * Client-assigned correlator echoed from SendMessage.client_message_id.
+   * Empty for messages created server-side (e.g. system notices) or sent
+   * by clients that didn't supply one.
+   *
+   * Used by sending clients to match their optimistic-UI placeholder
+   * against the canonical server message when it arrives back via the
+   * MessageSent broadcast event. Without this, a client can't tell its
+   * own just-sent message apart from a duplicate and ends up rendering
+   * both the placeholder AND the canonical copy.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The clientMessageId.
+   */
+  java.lang.String getClientMessageId();
+  /**
+   * <pre>
+   * Client-assigned correlator echoed from SendMessage.client_message_id.
+   * Empty for messages created server-side (e.g. system notices) or sent
+   * by clients that didn't supply one.
+   *
+   * Used by sending clients to match their optimistic-UI placeholder
+   * against the canonical server message when it arrives back via the
+   * MessageSent broadcast event. Without this, a client can't tell its
+   * own just-sent message apart from a duplicate and ends up rendering
+   * both the placeholder AND the canonical copy.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The bytes for clientMessageId.
+   */
+  com.google.protobuf.ByteString
+      getClientMessageIdBytes();
 }

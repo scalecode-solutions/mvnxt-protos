@@ -162,6 +162,31 @@ public object MessageSentKt {
 
     public val MessageSentKt.Dsl.createdAtOrNull: com.google.protobuf.Timestamp?
       get() = _builder.createdAtOrNull
+
+    /**
+     * ```
+     * Echoed from SendMessage.client_message_id. See Message.client_message_id.
+     * ```
+     *
+     * `string client_message_id = 8 [json_name = "clientMessageId"];`
+     */
+    public var clientMessageId: kotlin.String
+      @kotlin.jvm.JvmName("getClientMessageId")
+        get() = _builder.clientMessageId
+      @kotlin.jvm.JvmName("setClientMessageId")
+        set(value) {
+        _builder.clientMessageId = value
+      }
+    /**
+     * ```
+     * Echoed from SendMessage.client_message_id. See Message.client_message_id.
+     * ```
+     *
+     * `string client_message_id = 8 [json_name = "clientMessageId"];`
+     */
+    public fun clearClientMessageId() {
+      _builder.clearClientMessageId()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

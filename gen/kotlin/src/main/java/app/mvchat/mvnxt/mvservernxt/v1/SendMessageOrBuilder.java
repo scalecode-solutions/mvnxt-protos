@@ -53,4 +53,40 @@ public interface SendMessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getReplyToIdBytes();
+
+  /**
+   * <pre>
+   * Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+   * ClientEnvelope.idempotency_key (which covers retry dedup) — this
+   * field travels through to the MessageSent broadcast event so the
+   * sender's own sessions can match the canonical server message
+   * against their optimistic placeholder.
+   *
+   * Optional. Empty string means "don't correlate" — the sending client
+   * will see the broadcast as a fresh message. Server stores it as-is
+   * on the Message row; uniqueness is not enforced.
+   * </pre>
+   *
+   * <code>string client_message_id = 4 [json_name = "clientMessageId"];</code>
+   * @return The clientMessageId.
+   */
+  java.lang.String getClientMessageId();
+  /**
+   * <pre>
+   * Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+   * ClientEnvelope.idempotency_key (which covers retry dedup) — this
+   * field travels through to the MessageSent broadcast event so the
+   * sender's own sessions can match the canonical server message
+   * against their optimistic placeholder.
+   *
+   * Optional. Empty string means "don't correlate" — the sending client
+   * will see the broadcast as a fresh message. Server stores it as-is
+   * on the Message row; uniqueness is not enforced.
+   * </pre>
+   *
+   * <code>string client_message_id = 4 [json_name = "clientMessageId"];</code>
+   * @return The bytes for clientMessageId.
+   */
+  com.google.protobuf.ByteString
+      getClientMessageIdBytes();
 }

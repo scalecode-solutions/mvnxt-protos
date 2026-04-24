@@ -84,6 +84,7 @@ const Message$json = {
       '6': '.google.protobuf.Timestamp',
       '10': 'createdAt'
     },
+    {'1': 'client_message_id', '3': 8, '4': 1, '5': 9, '10': 'clientMessageId'},
   ],
 };
 
@@ -93,7 +94,7 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ZlcnNhdGlvbklkEhAKA3NlcRgDIAEoA1IDc2VxEhsKCXNlbmRlcl9pZBgEIAEoCVIIc2VuZGVy'
     'SWQSEgoEYm9keRgFIAEoCVIEYm9keRIeCgtyZXBseV90b19pZBgGIAEoCVIJcmVwbHlUb0lkEj'
     'kKCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVk'
-    'QXQ=');
+    'QXQSKgoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAlSD2NsaWVudE1lc3NhZ2VJZA==');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -166,13 +167,15 @@ const SendMessage$json = {
     {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
     {'1': 'body', '3': 2, '4': 1, '5': 9, '10': 'body'},
     {'1': 'reply_to_id', '3': 3, '4': 1, '5': 9, '10': 'replyToId'},
+    {'1': 'client_message_id', '3': 4, '4': 1, '5': 9, '10': 'clientMessageId'},
   ],
 };
 
 /// Descriptor for `SendMessage`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List sendMessageDescriptor = $convert.base64Decode(
     'CgtTZW5kTWVzc2FnZRInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdGlvbklkEh'
-    'IKBGJvZHkYAiABKAlSBGJvZHkSHgoLcmVwbHlfdG9faWQYAyABKAlSCXJlcGx5VG9JZA==');
+    'IKBGJvZHkYAiABKAlSBGJvZHkSHgoLcmVwbHlfdG9faWQYAyABKAlSCXJlcGx5VG9JZBIqChFj'
+    'bGllbnRfbWVzc2FnZV9pZBgEIAEoCVIPY2xpZW50TWVzc2FnZUlk');
 
 @$core.Deprecated('Use listConversationsDescriptor instead')
 const ListConversations$json = {
@@ -193,13 +196,15 @@ const GetMessages$json = {
     {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
     {'1': 'since_seq', '3': 2, '4': 1, '5': 3, '10': 'sinceSeq'},
     {'1': 'limit', '3': 3, '4': 1, '5': 5, '10': 'limit'},
+    {'1': 'before_seq', '3': 4, '4': 1, '5': 3, '10': 'beforeSeq'},
   ],
 };
 
 /// Descriptor for `GetMessages`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getMessagesDescriptor = $convert.base64Decode(
     'CgtHZXRNZXNzYWdlcxInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdGlvbklkEh'
-    'sKCXNpbmNlX3NlcRgCIAEoA1IIc2luY2VTZXESFAoFbGltaXQYAyABKAVSBWxpbWl0');
+    'sKCXNpbmNlX3NlcRgCIAEoA1IIc2luY2VTZXESFAoFbGltaXQYAyABKAVSBWxpbWl0Eh0KCmJl'
+    'Zm9yZV9zZXEYBCABKANSCWJlZm9yZVNlcQ==');
 
 @$core.Deprecated('Use markReadDescriptor instead')
 const MarkRead$json = {
@@ -423,6 +428,7 @@ const MessageSent$json = {
       '6': '.google.protobuf.Timestamp',
       '10': 'createdAt'
     },
+    {'1': 'client_message_id', '3': 8, '4': 1, '5': 9, '10': 'clientMessageId'},
   ],
 };
 
@@ -432,7 +438,8 @@ final $typed_data.Uint8List messageSentDescriptor = $convert.base64Decode(
     'F0aW9uX2lkGAIgASgJUg5jb252ZXJzYXRpb25JZBIQCgNzZXEYAyABKANSA3NlcRIbCglzZW5k'
     'ZXJfaWQYBCABKAlSCHNlbmRlcklkEhIKBGJvZHkYBSABKAlSBGJvZHkSHgoLcmVwbHlfdG9faW'
     'QYBiABKAlSCXJlcGx5VG9JZBI5CgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVm'
-    'LlRpbWVzdGFtcFIJY3JlYXRlZEF0');
+    'LlRpbWVzdGFtcFIJY3JlYXRlZEF0EioKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJUg9jbGllbn'
+    'RNZXNzYWdlSWQ=');
 
 @$core.Deprecated('Use readReceiptUpdatedDescriptor instead')
 const ReadReceiptUpdated$json = {

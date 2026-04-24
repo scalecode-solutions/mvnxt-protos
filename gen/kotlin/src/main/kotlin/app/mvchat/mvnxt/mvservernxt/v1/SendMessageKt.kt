@@ -96,6 +96,47 @@ public object SendMessageKt {
     public fun clearReplyToId() {
       _builder.clearReplyToId()
     }
+
+    /**
+     * ```
+     * Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+     * ClientEnvelope.idempotency_key (which covers retry dedup) — this
+     * field travels through to the MessageSent broadcast event so the
+     * sender's own sessions can match the canonical server message
+     * against their optimistic placeholder.
+     *
+     * Optional. Empty string means "don't correlate" — the sending client
+     * will see the broadcast as a fresh message. Server stores it as-is
+     * on the Message row; uniqueness is not enforced.
+     * ```
+     *
+     * `string client_message_id = 4 [json_name = "clientMessageId"];`
+     */
+    public var clientMessageId: kotlin.String
+      @kotlin.jvm.JvmName("getClientMessageId")
+        get() = _builder.clientMessageId
+      @kotlin.jvm.JvmName("setClientMessageId")
+        set(value) {
+        _builder.clientMessageId = value
+      }
+    /**
+     * ```
+     * Client-assigned UUIDv4 for optimistic-UI correlation. Distinct from
+     * ClientEnvelope.idempotency_key (which covers retry dedup) — this
+     * field travels through to the MessageSent broadcast event so the
+     * sender's own sessions can match the canonical server message
+     * against their optimistic placeholder.
+     *
+     * Optional. Empty string means "don't correlate" — the sending client
+     * will see the broadcast as a fresh message. Server stores it as-is
+     * on the Message row; uniqueness is not enforced.
+     * ```
+     *
+     * `string client_message_id = 4 [json_name = "clientMessageId"];`
+     */
+    public fun clearClientMessageId() {
+      _builder.clearClientMessageId()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

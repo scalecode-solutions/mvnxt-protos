@@ -267,8 +267,11 @@ public object ConversationKt {
     }
     /**
      * ```
-     * Seq of the latest message in the conversation, or 0 if no messages
-     * yet. Useful for sorting in ListConversations without an extra query.
+     * Seq of the latest message ever sent to this conversation, or 0 if
+     * none yet. MONOTONIC — never decrements. Message deletes and unsends
+     * leave tombstone rows that preserve the seq, so this always reflects
+     * the highwater of conversation activity. Used by ListConversations
+     * to sort without an extra query.
      * ```
      *
      * `int64 last_message_seq = 7 [json_name = "lastMessageSeq"];`
@@ -282,8 +285,11 @@ public object ConversationKt {
       }
     /**
      * ```
-     * Seq of the latest message in the conversation, or 0 if no messages
-     * yet. Useful for sorting in ListConversations without an extra query.
+     * Seq of the latest message ever sent to this conversation, or 0 if
+     * none yet. MONOTONIC — never decrements. Message deletes and unsends
+     * leave tombstone rows that preserve the seq, so this always reflects
+     * the highwater of conversation activity. Used by ListConversations
+     * to sort without an extra query.
      * ```
      *
      * `int64 last_message_seq = 7 [json_name = "lastMessageSeq"];`

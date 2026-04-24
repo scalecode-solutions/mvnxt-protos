@@ -15,8 +15,15 @@ public inline fun markRead(block: app.mvchat.mvnxt.mvservernxt.v1.MarkReadKt.Dsl
  * MarkRead advances the caller's last_read_seq on a conversation.
  * Idempotent — sending a value ≤ the stored one is a no-op.
  *
- * Emits ReadReceiptUpdated to the caller's own sessions (multi-device
- * sync) AND to other members (so their UI can show "seen by X").
+ * Emits ReadReceiptUpdated. The subscriber (ws-broadcast) decides
+ * who receives it based on the caller's read-receipt visibility
+ * preference:
+ * - Always fans out to the caller's OWN sessions (multi-device
+ * state sync — not privacy-sensitive).
+ * - Fans out to OTHER members only if the caller hasn't disabled
+ * read-receipt visibility. The preference itself lands with the
+ * settings domain; slice-1 behavior is "always broadcast to
+ * everyone" (v1 default).
  * ```
  *
  * Protobuf type `mvservernxt.v1.MarkRead`

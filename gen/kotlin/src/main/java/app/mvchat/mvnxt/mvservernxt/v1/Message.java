@@ -37,6 +37,7 @@ private static final long serialVersionUID = 0L;
     senderId_ = "";
     body_ = "";
     replyToId_ = "";
+    clientMessageId_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -63,7 +64,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object id_ = "";
   /**
    * <pre>
-   * UUIDv4
+   * UUIDv4, server-assigned
    * </pre>
    *
    * <code>string id = 1 [json_name = "id"];</code>
@@ -84,7 +85,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * UUIDv4
+   * UUIDv4, server-assigned
    * </pre>
    *
    * <code>string id = 1 [json_name = "id"];</code>
@@ -318,6 +319,69 @@ private static final long serialVersionUID = 0L;
     return createdAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdAt_;
   }
 
+  public static final int CLIENT_MESSAGE_ID_FIELD_NUMBER = 8;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object clientMessageId_ = "";
+  /**
+   * <pre>
+   * Client-assigned correlator echoed from SendMessage.client_message_id.
+   * Empty for messages created server-side (e.g. system notices) or sent
+   * by clients that didn't supply one.
+   *
+   * Used by sending clients to match their optimistic-UI placeholder
+   * against the canonical server message when it arrives back via the
+   * MessageSent broadcast event. Without this, a client can't tell its
+   * own just-sent message apart from a duplicate and ends up rendering
+   * both the placeholder AND the canonical copy.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The clientMessageId.
+   */
+  @java.lang.Override
+  public java.lang.String getClientMessageId() {
+    java.lang.Object ref = clientMessageId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      clientMessageId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Client-assigned correlator echoed from SendMessage.client_message_id.
+   * Empty for messages created server-side (e.g. system notices) or sent
+   * by clients that didn't supply one.
+   *
+   * Used by sending clients to match their optimistic-UI placeholder
+   * against the canonical server message when it arrives back via the
+   * MessageSent broadcast event. Without this, a client can't tell its
+   * own just-sent message apart from a duplicate and ends up rendering
+   * both the placeholder AND the canonical copy.
+   * </pre>
+   *
+   * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+   * @return The bytes for clientMessageId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getClientMessageIdBytes() {
+    java.lang.Object ref = clientMessageId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      clientMessageId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -353,6 +417,9 @@ private static final long serialVersionUID = 0L;
     if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(7, getCreatedAt());
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 8, clientMessageId_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -384,6 +451,9 @@ private static final long serialVersionUID = 0L;
     if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(7, getCreatedAt());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(8, clientMessageId_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -417,6 +487,8 @@ private static final long serialVersionUID = 0L;
       if (!getCreatedAt()
           .equals(other.getCreatedAt())) return false;
     }
+    if (!getClientMessageId()
+        .equals(other.getClientMessageId())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -445,6 +517,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
       hash = (53 * hash) + getCreatedAt().hashCode();
     }
+    hash = (37 * hash) + CLIENT_MESSAGE_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getClientMessageId().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -597,6 +671,7 @@ private static final long serialVersionUID = 0L;
         createdAtBuilder_.dispose();
         createdAtBuilder_ = null;
       }
+      clientMessageId_ = "";
       return this;
     }
 
@@ -655,6 +730,9 @@ private static final long serialVersionUID = 0L;
             : createdAtBuilder_.build();
         to_bitField0_ |= 0x00000001;
       }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.clientMessageId_ = clientMessageId_;
+      }
       result.bitField0_ |= to_bitField0_;
     }
 
@@ -700,6 +778,11 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasCreatedAt()) {
         mergeCreatedAt(other.getCreatedAt());
+      }
+      if (!other.getClientMessageId().isEmpty()) {
+        clientMessageId_ = other.clientMessageId_;
+        bitField0_ |= 0x00000080;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -764,6 +847,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000040;
               break;
             } // case 58
+            case 66: {
+              clientMessageId_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 66
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -784,7 +872,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object id_ = "";
     /**
      * <pre>
-     * UUIDv4
+     * UUIDv4, server-assigned
      * </pre>
      *
      * <code>string id = 1 [json_name = "id"];</code>
@@ -804,7 +892,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * UUIDv4
+     * UUIDv4, server-assigned
      * </pre>
      *
      * <code>string id = 1 [json_name = "id"];</code>
@@ -825,7 +913,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * UUIDv4
+     * UUIDv4, server-assigned
      * </pre>
      *
      * <code>string id = 1 [json_name = "id"];</code>
@@ -842,7 +930,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * UUIDv4
+     * UUIDv4, server-assigned
      * </pre>
      *
      * <code>string id = 1 [json_name = "id"];</code>
@@ -856,7 +944,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * UUIDv4
+     * UUIDv4, server-assigned
      * </pre>
      *
      * <code>string id = 1 [json_name = "id"];</code>
@@ -1364,6 +1452,138 @@ private static final long serialVersionUID = 0L;
         createdAt_ = null;
       }
       return createdAtBuilder_;
+    }
+
+    private java.lang.Object clientMessageId_ = "";
+    /**
+     * <pre>
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * </pre>
+     *
+     * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+     * @return The clientMessageId.
+     */
+    public java.lang.String getClientMessageId() {
+      java.lang.Object ref = clientMessageId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientMessageId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * </pre>
+     *
+     * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+     * @return The bytes for clientMessageId.
+     */
+    public com.google.protobuf.ByteString
+        getClientMessageIdBytes() {
+      java.lang.Object ref = clientMessageId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientMessageId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * </pre>
+     *
+     * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+     * @param value The clientMessageId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setClientMessageId(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      clientMessageId_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * </pre>
+     *
+     * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearClientMessageId() {
+      clientMessageId_ = getDefaultInstance().getClientMessageId();
+      bitField0_ = (bitField0_ & ~0x00000080);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Client-assigned correlator echoed from SendMessage.client_message_id.
+     * Empty for messages created server-side (e.g. system notices) or sent
+     * by clients that didn't supply one.
+     *
+     * Used by sending clients to match their optimistic-UI placeholder
+     * against the canonical server message when it arrives back via the
+     * MessageSent broadcast event. Without this, a client can't tell its
+     * own just-sent message apart from a duplicate and ends up rendering
+     * both the placeholder AND the canonical copy.
+     * </pre>
+     *
+     * <code>string client_message_id = 8 [json_name = "clientMessageId"];</code>
+     * @param value The bytes for clientMessageId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setClientMessageIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      clientMessageId_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Message)

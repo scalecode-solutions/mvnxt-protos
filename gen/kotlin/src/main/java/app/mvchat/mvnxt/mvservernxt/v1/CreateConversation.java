@@ -15,6 +15,16 @@ package app.mvchat.mvnxt.mvservernxt.v1;
  * - DM: exactly one other member_id, not the creator's own.
  * - GROUP: at least one other member_id, title required.
  *
+ * DM find-or-create semantics: if a DM between the caller and the named
+ * other user already exists, the existing conversation is returned
+ * (not a new one). The other user cannot have "blocked" the caller out
+ * of a DM — existing DMs resurface when re-opened. GROUPs always create
+ * a fresh conversation regardless of overlapping membership.
+ *
+ * DM immutability: DM membership is fixed at creation. AddMember on a
+ * DM is rejected. If a third person needs in, the caller creates a new
+ * GROUP with the two existing DM members + the third.
+ *
  * Returns CreateConversationResponse with the full Conversation.
  * </pre>
  *
@@ -358,6 +368,16 @@ private static final long serialVersionUID = 0L;
    * Validation:
    * - DM: exactly one other member_id, not the creator's own.
    * - GROUP: at least one other member_id, title required.
+   *
+   * DM find-or-create semantics: if a DM between the caller and the named
+   * other user already exists, the existing conversation is returned
+   * (not a new one). The other user cannot have "blocked" the caller out
+   * of a DM — existing DMs resurface when re-opened. GROUPs always create
+   * a fresh conversation regardless of overlapping membership.
+   *
+   * DM immutability: DM membership is fixed at creation. AddMember on a
+   * DM is rejected. If a third person needs in, the caller creates a new
+   * GROUP with the two existing DM members + the third.
    *
    * Returns CreateConversationResponse with the full Conversation.
    * </pre>
