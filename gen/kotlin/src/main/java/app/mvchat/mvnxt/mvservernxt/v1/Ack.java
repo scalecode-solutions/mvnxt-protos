@@ -71,6 +71,7 @@ private static final long serialVersionUID = 0L;
     EDIT_MESSAGE(38),
     LIST_CONTACTS(102),
     SEARCH_USERS(103),
+    SUBSCRIBE_TO_PRESENCE(110),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -100,6 +101,7 @@ private static final long serialVersionUID = 0L;
         case 38: return EDIT_MESSAGE;
         case 102: return LIST_CONTACTS;
         case 103: return SEARCH_USERS;
+        case 110: return SUBSCRIBE_TO_PRESENCE;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -606,6 +608,52 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse.getDefaultInstance();
   }
 
+  public static final int SUBSCRIBE_TO_PRESENCE_FIELD_NUMBER = 110;
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return Whether the subscribeToPresence field is set.
+   */
+  @java.lang.Override
+  public boolean hasSubscribeToPresence() {
+    return payloadCase_ == 110;
+  }
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   * @return The subscribeToPresence.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse getSubscribeToPresence() {
+    if (payloadCase_ == 110) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Presence (UnsubscribeFromPresence, SetActivityState,
+   * SetVisibility return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder getSubscribeToPresenceOrBuilder() {
+    if (payloadCase_ == 110) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -661,6 +709,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 103) {
       output.writeMessage(103, (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_);
+    }
+    if (payloadCase_ == 110) {
+      output.writeMessage(110, (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -725,6 +776,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 103) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(103, (app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse) payload_);
+    }
+    if (payloadCase_ == 110) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(110, (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -795,6 +850,10 @@ private static final long serialVersionUID = 0L;
         if (!getSearchUsers()
             .equals(other.getSearchUsers())) return false;
         break;
+      case 110:
+        if (!getSubscribeToPresence()
+            .equals(other.getSubscribeToPresence())) return false;
+        break;
       case 0:
       default:
     }
@@ -861,6 +920,10 @@ private static final long serialVersionUID = 0L;
       case 103:
         hash = (37 * hash) + SEARCH_USERS_FIELD_NUMBER;
         hash = (53 * hash) + getSearchUsers().hashCode();
+        break;
+      case 110:
+        hash = (37 * hash) + SUBSCRIBE_TO_PRESENCE_FIELD_NUMBER;
+        hash = (53 * hash) + getSubscribeToPresence().hashCode();
         break;
       case 0:
       default:
@@ -1038,6 +1101,9 @@ private static final long serialVersionUID = 0L;
       if (searchUsersBuilder_ != null) {
         searchUsersBuilder_.clear();
       }
+      if (subscribeToPresenceBuilder_ != null) {
+        subscribeToPresenceBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -1133,6 +1199,10 @@ private static final long serialVersionUID = 0L;
           searchUsersBuilder_ != null) {
         result.payload_ = searchUsersBuilder_.build();
       }
+      if (payloadCase_ == 110 &&
+          subscribeToPresenceBuilder_ != null) {
+        result.payload_ = subscribeToPresenceBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1202,6 +1272,10 @@ private static final long serialVersionUID = 0L;
         }
         case SEARCH_USERS: {
           mergeSearchUsers(other.getSearchUsers());
+          break;
+        }
+        case SUBSCRIBE_TO_PRESENCE: {
+          mergeSubscribeToPresence(other.getSubscribeToPresence());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1328,6 +1402,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 103;
               break;
             } // case 826
+            case 882: {
+              input.readMessage(
+                  internalGetSubscribeToPresenceFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 110;
+              break;
+            } // case 882
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -3369,6 +3450,193 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 103;
       onChanged();
       return searchUsersBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder> subscribeToPresenceBuilder_;
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     * @return Whether the subscribeToPresence field is set.
+     */
+    @java.lang.Override
+    public boolean hasSubscribeToPresence() {
+      return payloadCase_ == 110;
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     * @return The subscribeToPresence.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse getSubscribeToPresence() {
+      if (subscribeToPresenceBuilder_ == null) {
+        if (payloadCase_ == 110) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 110) {
+          return subscribeToPresenceBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    public Builder setSubscribeToPresence(app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse value) {
+      if (subscribeToPresenceBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        subscribeToPresenceBuilder_.setMessage(value);
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    public Builder setSubscribeToPresence(
+        app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.Builder builderForValue) {
+      if (subscribeToPresenceBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        subscribeToPresenceBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    public Builder mergeSubscribeToPresence(app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse value) {
+      if (subscribeToPresenceBuilder_ == null) {
+        if (payloadCase_ == 110 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 110) {
+          subscribeToPresenceBuilder_.mergeFrom(value);
+        } else {
+          subscribeToPresenceBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 110;
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    public Builder clearSubscribeToPresence() {
+      if (subscribeToPresenceBuilder_ == null) {
+        if (payloadCase_ == 110) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 110) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        subscribeToPresenceBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.Builder getSubscribeToPresenceBuilder() {
+      return internalGetSubscribeToPresenceFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder getSubscribeToPresenceOrBuilder() {
+      if ((payloadCase_ == 110) && (subscribeToPresenceBuilder_ != null)) {
+        return subscribeToPresenceBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 110) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder> 
+        internalGetSubscribeToPresenceFieldBuilder() {
+      if (subscribeToPresenceBuilder_ == null) {
+        if (!(payloadCase_ == 110)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
+        }
+        subscribeToPresenceBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 110;
+      onChanged();
+      return subscribeToPresenceBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Ack)

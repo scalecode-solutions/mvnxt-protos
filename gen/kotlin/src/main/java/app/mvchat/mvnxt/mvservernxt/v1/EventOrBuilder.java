@@ -651,5 +651,53 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.UserUnblockedOrBuilder getUserUnblockedOrBuilder();
 
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   * @return Whether the presenceChanged field is set.
+   */
+  boolean hasPresenceChanged();
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   * @return The presenceChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged getPresenceChanged();
+  /**
+   * <pre>
+   * Presence (range 110-119). Only two kinds — PresenceChanged is
+   * the public, masked projection; OwnPresenceChanged is the full
+   * self-loopback for multi-device sync.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PresenceChangedOrBuilder getPresenceChangedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   * @return Whether the ownPresenceChanged field is set.
+   */
+  boolean hasOwnPresenceChanged();
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   * @return The ownPresenceChanged.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged getOwnPresenceChanged();
+  /**
+   * <code>.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChangedOrBuilder getOwnPresenceChangedOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

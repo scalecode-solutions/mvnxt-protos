@@ -1019,6 +1019,72 @@ public object EventKt {
     public fun hasUserUnblocked(): kotlin.Boolean {
       return _builder.hasUserUnblocked()
     }
+
+    /**
+     * ```
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * ```
+     *
+     * `.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];`
+     */
+    public var presenceChanged: app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged
+      @kotlin.jvm.JvmName("getPresenceChanged")
+        get() = _builder.presenceChanged
+      @kotlin.jvm.JvmName("setPresenceChanged")
+        set(value) {
+        _builder.presenceChanged = value
+      }
+    /**
+     * ```
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * ```
+     *
+     * `.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];`
+     */
+    public fun clearPresenceChanged() {
+      _builder.clearPresenceChanged()
+    }
+    /**
+     * ```
+     * Presence (range 110-119). Only two kinds — PresenceChanged is
+     * the public, masked projection; OwnPresenceChanged is the full
+     * self-loopback for multi-device sync.
+     * ```
+     *
+     * `.mvservernxt.v1.PresenceChanged presence_changed = 110 [json_name = "presenceChanged"];`
+     * @return Whether the presenceChanged field is set.
+     */
+    public fun hasPresenceChanged(): kotlin.Boolean {
+      return _builder.hasPresenceChanged()
+    }
+
+    /**
+     * `.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];`
+     */
+    public var ownPresenceChanged: app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged
+      @kotlin.jvm.JvmName("getOwnPresenceChanged")
+        get() = _builder.ownPresenceChanged
+      @kotlin.jvm.JvmName("setOwnPresenceChanged")
+        set(value) {
+        _builder.ownPresenceChanged = value
+      }
+    /**
+     * `.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];`
+     */
+    public fun clearOwnPresenceChanged() {
+      _builder.clearOwnPresenceChanged()
+    }
+    /**
+     * `.mvservernxt.v1.OwnPresenceChanged own_presence_changed = 111 [json_name = "ownPresenceChanged"];`
+     * @return Whether the ownPresenceChanged field is set.
+     */
+    public fun hasOwnPresenceChanged(): kotlin.Boolean {
+      return _builder.hasOwnPresenceChanged()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -1136,4 +1202,10 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.userBlockedOrNull: app
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.userUnblockedOrNull: app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked?
   get() = if (hasUserUnblocked()) getUserUnblocked() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.presenceChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.PresenceChanged?
+  get() = if (hasPresenceChanged()) getPresenceChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.ownPresenceChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged?
+  get() = if (hasOwnPresenceChanged()) getOwnPresenceChanged() else null
 

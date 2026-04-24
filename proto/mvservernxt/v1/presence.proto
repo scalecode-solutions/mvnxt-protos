@@ -1,0 +1,138 @@
+// Presence: who's online right now.
+//
+// In-memory only on the server — presence state does not persist
+// across server restarts. Subscriptions are session-scoped and
+// evaporate on disconnect.
+//
+// Two orthogonal axes:
+//   - activity:   what the user is doing (ONLINE | AWAY)
+//   - visibility: whether it's broadcast (VISIBLE | INVISIBLE)
+//
+// The projected state emitted to subscribers folds both axes down
+// to one PresenceState enum: an INVISIBLE user appears as OFFLINE
+// to others, regardless of their activity.
+//
+// Own sessions see their TRUE state (ONLINE/AWAY/INVISIBLE) for
+// multi-device sync via OwnPresenceChanged. Other subscribers see
+// the masked projection via PresenceChanged.
+//
+// Blocks interact with presence: if a block exists between viewer
+// and target (either direction), the viewer sees the target as
+// OFFLINE always. Same DM-gate policy chat already enforces.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+// PresenceState is the PROJECTED presence of a user — what
+// subscribers see. INVISIBLE is a valid value only in
+// OwnPresenceChanged (multi-device self-sync); subscribers never
+// see INVISIBLE — INVISIBLE users appear as OFFLINE to them.
+enum PresenceState {
+  PRESENCE_STATE_UNSPECIFIED = 0;
+  PRESENCE_STATE_OFFLINE     = 1;
+  PRESENCE_STATE_ONLINE      = 2;
+  PRESENCE_STATE_AWAY        = 3;
+  PRESENCE_STATE_INVISIBLE   = 4;  // self-loopback only
+}
+
+// ActivityState is the self-reported client activity axis. Set via
+// SetActivityState. ONLINE = active/focused; AWAY = idle.
+enum ActivityState {
+  ACTIVITY_STATE_UNSPECIFIED = 0;
+  ACTIVITY_STATE_ONLINE      = 1;
+  ACTIVITY_STATE_AWAY        = 2;
+}
+
+// ============================================================================
+// Commands
+// ============================================================================
+
+// SubscribeToPresence registers the caller's session for presence
+// updates on each listed user. Returns an initial snapshot in the
+// Ack so the subscriber doesn't have to wait for a transition to
+// populate its UI.
+//
+// Subscriptions are session-scoped: they evaporate when the session
+// disconnects. Reconnecting clients re-subscribe.
+//
+// Idempotent: subscribing to an already-subscribed user is a no-op.
+message SubscribeToPresence {
+  repeated string user_ids = 1;
+}
+
+// UnsubscribeFromPresence is the inverse of SubscribeToPresence.
+// Idempotent; unknown user_ids are silently ignored.
+message UnsubscribeFromPresence {
+  repeated string user_ids = 1;
+}
+
+// SetActivityState changes the caller's ONLINE ↔ AWAY axis. Fans
+// out to subscribers if it actually alters the projected state
+// (i.e. the caller was VISIBLE). Never modifies visibility.
+message SetActivityState {
+  ActivityState state = 1;
+}
+
+// SetVisibility toggles the caller between VISIBLE and INVISIBLE.
+// VISIBLE (= true) is the default on connect.
+//
+// Going INVISIBLE: subscribers see PresenceChanged with OFFLINE;
+// own sessions see OwnPresenceChanged with INVISIBLE.
+//
+// Going VISIBLE: subscribers see PresenceChanged with ONLINE/AWAY
+// (whichever matches activity); own sessions see the same via
+// OwnPresenceChanged.
+message SetVisibility {
+  bool visible = 1;
+}
+
+// ============================================================================
+// Ack payloads
+// ============================================================================
+
+// PresenceSnapshot is one user's current projected presence. Part
+// of the SubscribeToPresence response and shaped the same as the
+// PresenceChanged event payload so clients can reuse the same
+// reducer.
+message PresenceSnapshot {
+  string                    user_id       = 1;
+  PresenceState             state         = 2;
+  google.protobuf.Timestamp last_seen_at  = 3;  // may be zero for never-seen
+}
+
+message SubscribeToPresenceResponse {
+  repeated PresenceSnapshot snapshots = 1;
+}
+
+// UnsubscribeFromPresence, SetActivityState, SetVisibility return
+// empty Ack (code=200 only).
+
+// ============================================================================
+// Events
+// ============================================================================
+
+// PresenceChanged fires when a user's PROJECTED presence changes.
+// Audience = every session that subscribed to this user. `state`
+// is always the MASKED projection — an INVISIBLE user appears
+// here as OFFLINE.
+message PresenceChanged {
+  string                    user_id     = 1;
+  PresenceState             state       = 2;
+  google.protobuf.Timestamp updated_at  = 3;
+}
+
+// OwnPresenceChanged fires on every state change for the ACTING
+// user, targeting their own sessions for multi-device sync.
+// `state` carries the TRUE value including INVISIBLE. Clients use
+// this to render "you are invisible" UI accurately.
+message OwnPresenceChanged {
+  string                    user_id     = 1;
+  PresenceState             state       = 2;
+  google.protobuf.Timestamp updated_at  = 3;
+}

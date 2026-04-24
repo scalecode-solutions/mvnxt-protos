@@ -427,6 +427,45 @@ public object AckKt {
     public fun hasSearchUsers(): kotlin.Boolean {
       return _builder.hasSearchUsers()
     }
+
+    /**
+     * ```
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     */
+    public var subscribeToPresence: app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse
+      @kotlin.jvm.JvmName("getSubscribeToPresence")
+        get() = _builder.subscribeToPresence
+      @kotlin.jvm.JvmName("setSubscribeToPresence")
+        set(value) {
+        _builder.subscribeToPresence = value
+      }
+    /**
+     * ```
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     */
+    public fun clearSubscribeToPresence() {
+      _builder.clearSubscribeToPresence()
+    }
+    /**
+     * ```
+     * Presence (UnsubscribeFromPresence, SetActivityState,
+     * SetVisibility return empty Ack with no payload)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresenceResponse subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     * @return Whether the subscribeToPresence field is set.
+     */
+    public fun hasSubscribeToPresence(): kotlin.Boolean {
+      return _builder.hasSubscribeToPresence()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -475,4 +514,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.listContactsOrNull: app.
 
 public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.searchUsersOrNull: app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse?
   get() = if (hasSearchUsers()) getSearchUsers() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.subscribeToPresenceOrNull: app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse?
+  get() = if (hasSubscribeToPresence()) getSubscribeToPresence() else null
 

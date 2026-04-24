@@ -981,6 +981,114 @@ public object ClientEnvelopeKt {
     public fun hasUnblockUser(): kotlin.Boolean {
       return _builder.hasUnblockUser()
     }
+
+    /**
+     * ```
+     * Presence (range 110-119)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     */
+    public var subscribeToPresence: app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresence
+      @kotlin.jvm.JvmName("getSubscribeToPresence")
+        get() = _builder.subscribeToPresence
+      @kotlin.jvm.JvmName("setSubscribeToPresence")
+        set(value) {
+        _builder.subscribeToPresence = value
+      }
+    /**
+     * ```
+     * Presence (range 110-119)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     */
+    public fun clearSubscribeToPresence() {
+      _builder.clearSubscribeToPresence()
+    }
+    /**
+     * ```
+     * Presence (range 110-119)
+     * ```
+     *
+     * `.mvservernxt.v1.SubscribeToPresence subscribe_to_presence = 110 [json_name = "subscribeToPresence"];`
+     * @return Whether the subscribeToPresence field is set.
+     */
+    public fun hasSubscribeToPresence(): kotlin.Boolean {
+      return _builder.hasSubscribeToPresence()
+    }
+
+    /**
+     * `.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];`
+     */
+    public var unsubscribeFromPresence: app.mvchat.mvnxt.mvservernxt.v1.UnsubscribeFromPresence
+      @kotlin.jvm.JvmName("getUnsubscribeFromPresence")
+        get() = _builder.unsubscribeFromPresence
+      @kotlin.jvm.JvmName("setUnsubscribeFromPresence")
+        set(value) {
+        _builder.unsubscribeFromPresence = value
+      }
+    /**
+     * `.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];`
+     */
+    public fun clearUnsubscribeFromPresence() {
+      _builder.clearUnsubscribeFromPresence()
+    }
+    /**
+     * `.mvservernxt.v1.UnsubscribeFromPresence unsubscribe_from_presence = 111 [json_name = "unsubscribeFromPresence"];`
+     * @return Whether the unsubscribeFromPresence field is set.
+     */
+    public fun hasUnsubscribeFromPresence(): kotlin.Boolean {
+      return _builder.hasUnsubscribeFromPresence()
+    }
+
+    /**
+     * `.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];`
+     */
+    public var setActivityState: app.mvchat.mvnxt.mvservernxt.v1.SetActivityState
+      @kotlin.jvm.JvmName("getSetActivityState")
+        get() = _builder.setActivityState
+      @kotlin.jvm.JvmName("setSetActivityState")
+        set(value) {
+        _builder.setActivityState = value
+      }
+    /**
+     * `.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];`
+     */
+    public fun clearSetActivityState() {
+      _builder.clearSetActivityState()
+    }
+    /**
+     * `.mvservernxt.v1.SetActivityState set_activity_state = 112 [json_name = "setActivityState"];`
+     * @return Whether the setActivityState field is set.
+     */
+    public fun hasSetActivityState(): kotlin.Boolean {
+      return _builder.hasSetActivityState()
+    }
+
+    /**
+     * `.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];`
+     */
+    public var setVisibility: app.mvchat.mvnxt.mvservernxt.v1.SetVisibility
+      @kotlin.jvm.JvmName("getSetVisibility")
+        get() = _builder.setVisibility
+      @kotlin.jvm.JvmName("setSetVisibility")
+        set(value) {
+        _builder.setVisibility = value
+      }
+    /**
+     * `.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];`
+     */
+    public fun clearSetVisibility() {
+      _builder.clearSetVisibility()
+    }
+    /**
+     * `.mvservernxt.v1.SetVisibility set_visibility = 113 [json_name = "setVisibility"];`
+     * @return Whether the setVisibility field is set.
+     */
+    public fun hasSetVisibility(): kotlin.Boolean {
+      return _builder.hasSetVisibility()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -1101,4 +1209,16 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.blockUserOrNu
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.unblockUserOrNull: app.mvchat.mvnxt.mvservernxt.v1.UnblockUser?
   get() = if (hasUnblockUser()) getUnblockUser() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.subscribeToPresenceOrNull: app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresence?
+  get() = if (hasSubscribeToPresence()) getSubscribeToPresence() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.unsubscribeFromPresenceOrNull: app.mvchat.mvnxt.mvservernxt.v1.UnsubscribeFromPresence?
+  get() = if (hasUnsubscribeFromPresence()) getUnsubscribeFromPresence() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setActivityStateOrNull: app.mvchat.mvnxt.mvservernxt.v1.SetActivityState?
+  get() = if (hasSetActivityState()) getSetActivityState() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.setVisibilityOrNull: app.mvchat.mvnxt.mvservernxt.v1.SetVisibility?
+  get() = if (hasSetVisibility()) getSetVisibility() else null
 
