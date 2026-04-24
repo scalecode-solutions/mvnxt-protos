@@ -85,6 +85,23 @@ const Message$json = {
       '10': 'createdAt'
     },
     {'1': 'client_message_id', '3': 8, '4': 1, '5': 9, '10': 'clientMessageId'},
+    {
+      '1': 'edited_at',
+      '3': 9,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'editedAt'
+    },
+    {
+      '1': 'deleted_at',
+      '3': 10,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'deletedAt'
+    },
+    {'1': 'deleted_by', '3': 11, '4': 1, '5': 9, '10': 'deletedBy'},
   ],
 };
 
@@ -94,7 +111,10 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ZlcnNhdGlvbklkEhAKA3NlcRgDIAEoA1IDc2VxEhsKCXNlbmRlcl9pZBgEIAEoCVIIc2VuZGVy'
     'SWQSEgoEYm9keRgFIAEoCVIEYm9keRIeCgtyZXBseV90b19pZBgGIAEoCVIJcmVwbHlUb0lkEj'
     'kKCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVk'
-    'QXQSKgoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAlSD2NsaWVudE1lc3NhZ2VJZA==');
+    'QXQSKgoRY2xpZW50X21lc3NhZ2VfaWQYCCABKAlSD2NsaWVudE1lc3NhZ2VJZBI3CgllZGl0ZW'
+    'RfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghlZGl0ZWRBdBI5CgpkZWxl'
+    'dGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZGVsZXRlZEF0Eh0KCm'
+    'RlbGV0ZWRfYnkYCyABKAlSCWRlbGV0ZWRCeQ==');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -206,6 +226,46 @@ final $typed_data.Uint8List getMessagesDescriptor = $convert.base64Decode(
     'sKCXNpbmNlX3NlcRgCIAEoA1IIc2luY2VTZXESFAoFbGltaXQYAyABKAVSBWxpbWl0Eh0KCmJl'
     'Zm9yZV9zZXEYBCABKANSCWJlZm9yZVNlcQ==');
 
+@$core.Deprecated('Use editMessageDescriptor instead')
+const EditMessage$json = {
+  '1': 'EditMessage',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'body', '3': 2, '4': 1, '5': 9, '10': 'body'},
+  ],
+};
+
+/// Descriptor for `EditMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editMessageDescriptor = $convert.base64Decode(
+    'CgtFZGl0TWVzc2FnZRIdCgptZXNzYWdlX2lkGAEgASgJUgltZXNzYWdlSWQSEgoEYm9keRgCIA'
+    'EoCVIEYm9keQ==');
+
+@$core.Deprecated('Use deleteMessageDescriptor instead')
+const DeleteMessage$json = {
+  '1': 'DeleteMessage',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+  ],
+};
+
+/// Descriptor for `DeleteMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteMessageDescriptor = $convert.base64Decode(
+    'Cg1EZWxldGVNZXNzYWdlEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZA==');
+
+@$core.Deprecated('Use deleteMessageForEveryoneDescriptor instead')
+const DeleteMessageForEveryone$json = {
+  '1': 'DeleteMessageForEveryone',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+  ],
+};
+
+/// Descriptor for `DeleteMessageForEveryone`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteMessageForEveryoneDescriptor =
+    $convert.base64Decode(
+        'ChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZU'
+        'lk');
+
 @$core.Deprecated('Use markReadDescriptor instead')
 const MarkRead$json = {
   '1': 'MarkRead',
@@ -302,6 +362,26 @@ const GetMessagesResponse$json = {
 final $typed_data.Uint8List getMessagesResponseDescriptor = $convert.base64Decode(
     'ChNHZXRNZXNzYWdlc1Jlc3BvbnNlEjMKCG1lc3NhZ2VzGAEgAygLMhcubXZzZXJ2ZXJueHQudj'
     'EuTWVzc2FnZVIIbWVzc2FnZXMSGQoIaGFzX21vcmUYAiABKAhSB2hhc01vcmU=');
+
+@$core.Deprecated('Use editMessageResponseDescriptor instead')
+const EditMessageResponse$json = {
+  '1': 'EditMessageResponse',
+  '2': [
+    {
+      '1': 'message',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.Message',
+      '10': 'message'
+    },
+  ],
+};
+
+/// Descriptor for `EditMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editMessageResponseDescriptor = $convert.base64Decode(
+    'ChNFZGl0TWVzc2FnZVJlc3BvbnNlEjEKB21lc3NhZ2UYASABKAsyFy5tdnNlcnZlcm54dC52MS'
+    '5NZXNzYWdlUgdtZXNzYWdl');
 
 @$core.Deprecated('Use conversationCreatedDescriptor instead')
 const ConversationCreated$json = {
@@ -465,3 +545,77 @@ final $typed_data.Uint8List readReceiptUpdatedDescriptor = $convert.base64Decode
     'Rpb25JZBIXCgd1c2VyX2lkGAIgASgJUgZ1c2VySWQSIgoNbGFzdF9yZWFkX3NlcRgDIAEoA1IL'
     'bGFzdFJlYWRTZXESOQoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3'
     'RhbXBSCXVwZGF0ZWRBdA==');
+
+@$core.Deprecated('Use messageEditedDescriptor instead')
+const MessageEdited$json = {
+  '1': 'MessageEdited',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'body', '3': 3, '4': 1, '5': 9, '10': 'body'},
+    {
+      '1': 'edited_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'editedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageEdited`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageEditedDescriptor = $convert.base64Decode(
+    'Cg1NZXNzYWdlRWRpdGVkEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZBInCg9jb252ZX'
+    'JzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEhIKBGJvZHkYAyABKAlSBGJvZHkSNwoJ'
+    'ZWRpdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIZWRpdGVkQXQ=');
+
+@$core.Deprecated('Use messageHiddenDescriptor instead')
+const MessageHidden$json = {
+  '1': 'MessageHidden',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 3, '4': 1, '5': 9, '10': 'userId'},
+    {
+      '1': 'hidden_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'hiddenAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageHidden`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageHiddenDescriptor = $convert.base64Decode(
+    'Cg1NZXNzYWdlSGlkZGVuEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZBInCg9jb252ZX'
+    'JzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEhcKB3VzZXJfaWQYAyABKAlSBnVzZXJJ'
+    'ZBI3CgloaWRkZW5fYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghoaWRkZW'
+    '5BdA==');
+
+@$core.Deprecated('Use messageDeletedForEveryoneDescriptor instead')
+const MessageDeletedForEveryone$json = {
+  '1': 'MessageDeletedForEveryone',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'conversation_id', '3': 2, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'deleted_by', '3': 3, '4': 1, '5': 9, '10': 'deletedBy'},
+    {
+      '1': 'deleted_at',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'deletedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MessageDeletedForEveryone`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageDeletedForEveryoneDescriptor = $convert.base64Decode(
+    'ChlNZXNzYWdlRGVsZXRlZEZvckV2ZXJ5b25lEh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2'
+    'VJZBInCg9jb252ZXJzYXRpb25faWQYAiABKAlSDmNvbnZlcnNhdGlvbklkEh0KCmRlbGV0ZWRf'
+    'YnkYAyABKAlSCWRlbGV0ZWRCeRI5CgpkZWxldGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYn'
+    'VmLlRpbWVzdGFtcFIJZGVsZXRlZEF0');

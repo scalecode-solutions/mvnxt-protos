@@ -82,6 +82,9 @@ private static final long serialVersionUID = 0L;
     LIST_CONVERSATIONS(35),
     GET_MESSAGES(36),
     MARK_READ(37),
+    EDIT_MESSAGE(38),
+    DELETE_MESSAGE(39),
+    DELETE_MESSAGE_FOR_EVERYONE(40),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -116,6 +119,9 @@ private static final long serialVersionUID = 0L;
         case 35: return LIST_CONVERSATIONS;
         case 36: return GET_MESSAGES;
         case 37: return MARK_READ;
+        case 38: return EDIT_MESSAGE;
+        case 39: return DELETE_MESSAGE;
+        case 40: return DELETE_MESSAGE_FOR_EVERYONE;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -484,7 +490,9 @@ private static final long serialVersionUID = 0L;
   public static final int CREATE_CONVERSATION_FIELD_NUMBER = 30;
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -496,7 +504,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -511,7 +521,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -741,6 +753,99 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.MarkRead.getDefaultInstance();
   }
 
+  public static final int EDIT_MESSAGE_FIELD_NUMBER = 38;
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   * @return Whether the editMessage field is set.
+   */
+  @java.lang.Override
+  public boolean hasEditMessage() {
+    return payloadCase_ == 38;
+  }
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   * @return The editMessage.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.EditMessage getEditMessage() {
+    if (payloadCase_ == 38) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder getEditMessageOrBuilder() {
+    if (payloadCase_ == 38) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+  }
+
+  public static final int DELETE_MESSAGE_FIELD_NUMBER = 39;
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   * @return Whether the deleteMessage field is set.
+   */
+  @java.lang.Override
+  public boolean hasDeleteMessage() {
+    return payloadCase_ == 39;
+  }
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   * @return The deleteMessage.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage getDeleteMessage() {
+    if (payloadCase_ == 39) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder getDeleteMessageOrBuilder() {
+    if (payloadCase_ == 39) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+  }
+
+  public static final int DELETE_MESSAGE_FOR_EVERYONE_FIELD_NUMBER = 40;
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   * @return Whether the deleteMessageForEveryone field is set.
+   */
+  @java.lang.Override
+  public boolean hasDeleteMessageForEveryone() {
+    return payloadCase_ == 40;
+  }
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   * @return The deleteMessageForEveryone.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone getDeleteMessageForEveryone() {
+    if (payloadCase_ == 40) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder getDeleteMessageForEveryoneOrBuilder() {
+    if (payloadCase_ == 40) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -808,6 +913,15 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 37) {
       output.writeMessage(37, (app.mvchat.mvnxt.mvservernxt.v1.MarkRead) payload_);
+    }
+    if (payloadCase_ == 38) {
+      output.writeMessage(38, (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_);
+    }
+    if (payloadCase_ == 39) {
+      output.writeMessage(39, (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_);
+    }
+    if (payloadCase_ == 40) {
+      output.writeMessage(40, (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -888,6 +1002,18 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 37) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(37, (app.mvchat.mvnxt.mvservernxt.v1.MarkRead) payload_);
+    }
+    if (payloadCase_ == 38) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(38, (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_);
+    }
+    if (payloadCase_ == 39) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(39, (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_);
+    }
+    if (payloadCase_ == 40) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(40, (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -976,6 +1102,18 @@ private static final long serialVersionUID = 0L;
         if (!getMarkRead()
             .equals(other.getMarkRead())) return false;
         break;
+      case 38:
+        if (!getEditMessage()
+            .equals(other.getEditMessage())) return false;
+        break;
+      case 39:
+        if (!getDeleteMessage()
+            .equals(other.getDeleteMessage())) return false;
+        break;
+      case 40:
+        if (!getDeleteMessageForEveryone()
+            .equals(other.getDeleteMessageForEveryone())) return false;
+        break;
       case 0:
       default:
     }
@@ -1060,6 +1198,18 @@ private static final long serialVersionUID = 0L;
       case 37:
         hash = (37 * hash) + MARK_READ_FIELD_NUMBER;
         hash = (53 * hash) + getMarkRead().hashCode();
+        break;
+      case 38:
+        hash = (37 * hash) + EDIT_MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getEditMessage().hashCode();
+        break;
+      case 39:
+        hash = (37 * hash) + DELETE_MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getDeleteMessage().hashCode();
+        break;
+      case 40:
+        hash = (37 * hash) + DELETE_MESSAGE_FOR_EVERYONE_FIELD_NUMBER;
+        hash = (53 * hash) + getDeleteMessageForEveryone().hashCode();
         break;
       case 0:
       default:
@@ -1257,6 +1407,15 @@ private static final long serialVersionUID = 0L;
       if (markReadBuilder_ != null) {
         markReadBuilder_.clear();
       }
+      if (editMessageBuilder_ != null) {
+        editMessageBuilder_.clear();
+      }
+      if (deleteMessageBuilder_ != null) {
+        deleteMessageBuilder_.clear();
+      }
+      if (deleteMessageForEveryoneBuilder_ != null) {
+        deleteMessageForEveryoneBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -1369,6 +1528,18 @@ private static final long serialVersionUID = 0L;
           markReadBuilder_ != null) {
         result.payload_ = markReadBuilder_.build();
       }
+      if (payloadCase_ == 38 &&
+          editMessageBuilder_ != null) {
+        result.payload_ = editMessageBuilder_.build();
+      }
+      if (payloadCase_ == 39 &&
+          deleteMessageBuilder_ != null) {
+        result.payload_ = deleteMessageBuilder_.build();
+      }
+      if (payloadCase_ == 40 &&
+          deleteMessageForEveryoneBuilder_ != null) {
+        result.payload_ = deleteMessageForEveryoneBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1455,6 +1626,18 @@ private static final long serialVersionUID = 0L;
         }
         case MARK_READ: {
           mergeMarkRead(other.getMarkRead());
+          break;
+        }
+        case EDIT_MESSAGE: {
+          mergeEditMessage(other.getEditMessage());
+          break;
+        }
+        case DELETE_MESSAGE: {
+          mergeDeleteMessage(other.getDeleteMessage());
+          break;
+        }
+        case DELETE_MESSAGE_FOR_EVERYONE: {
+          mergeDeleteMessageForEveryone(other.getDeleteMessageForEveryone());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1611,6 +1794,27 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 37;
               break;
             } // case 298
+            case 306: {
+              input.readMessage(
+                  internalGetEditMessageFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 38;
+              break;
+            } // case 306
+            case 314: {
+              input.readMessage(
+                  internalGetDeleteMessageFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 39;
+              break;
+            } // case 314
+            case 322: {
+              input.readMessage(
+                  internalGetDeleteMessageForEveryoneFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 40;
+              break;
+            } // case 322
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -3089,7 +3293,9 @@ private static final long serialVersionUID = 0L;
         app.mvchat.mvnxt.mvservernxt.v1.CreateConversation, app.mvchat.mvnxt.mvservernxt.v1.CreateConversation.Builder, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationOrBuilder> createConversationBuilder_;
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3101,7 +3307,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3123,7 +3331,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3143,7 +3353,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3161,7 +3373,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3188,7 +3402,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3211,7 +3427,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3221,7 +3439,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -3239,7 +3459,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * </pre>
      *
      * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -4255,6 +4477,432 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 37;
       onChanged();
       return markReadBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.EditMessage, app.mvchat.mvnxt.mvservernxt.v1.EditMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder> editMessageBuilder_;
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     * @return Whether the editMessage field is set.
+     */
+    @java.lang.Override
+    public boolean hasEditMessage() {
+      return payloadCase_ == 38;
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     * @return The editMessage.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.EditMessage getEditMessage() {
+      if (editMessageBuilder_ == null) {
+        if (payloadCase_ == 38) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 38) {
+          return editMessageBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    public Builder setEditMessage(app.mvchat.mvnxt.mvservernxt.v1.EditMessage value) {
+      if (editMessageBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        editMessageBuilder_.setMessage(value);
+      }
+      payloadCase_ = 38;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    public Builder setEditMessage(
+        app.mvchat.mvnxt.mvservernxt.v1.EditMessage.Builder builderForValue) {
+      if (editMessageBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        editMessageBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 38;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    public Builder mergeEditMessage(app.mvchat.mvnxt.mvservernxt.v1.EditMessage value) {
+      if (editMessageBuilder_ == null) {
+        if (payloadCase_ == 38 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.EditMessage.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 38) {
+          editMessageBuilder_.mergeFrom(value);
+        } else {
+          editMessageBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 38;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    public Builder clearEditMessage() {
+      if (editMessageBuilder_ == null) {
+        if (payloadCase_ == 38) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 38) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        editMessageBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.EditMessage.Builder getEditMessageBuilder() {
+      return internalGetEditMessageFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder getEditMessageOrBuilder() {
+      if ((payloadCase_ == 38) && (editMessageBuilder_ != null)) {
+        return editMessageBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 38) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.EditMessage, app.mvchat.mvnxt.mvservernxt.v1.EditMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder> 
+        internalGetEditMessageFieldBuilder() {
+      if (editMessageBuilder_ == null) {
+        if (!(payloadCase_ == 38)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.EditMessage.getDefaultInstance();
+        }
+        editMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.EditMessage, app.mvchat.mvnxt.mvservernxt.v1.EditMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.EditMessage) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 38;
+      onChanged();
+      return editMessageBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder> deleteMessageBuilder_;
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     * @return Whether the deleteMessage field is set.
+     */
+    @java.lang.Override
+    public boolean hasDeleteMessage() {
+      return payloadCase_ == 39;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     * @return The deleteMessage.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage getDeleteMessage() {
+      if (deleteMessageBuilder_ == null) {
+        if (payloadCase_ == 39) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 39) {
+          return deleteMessageBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    public Builder setDeleteMessage(app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage value) {
+      if (deleteMessageBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        deleteMessageBuilder_.setMessage(value);
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    public Builder setDeleteMessage(
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.Builder builderForValue) {
+      if (deleteMessageBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        deleteMessageBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    public Builder mergeDeleteMessage(app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage value) {
+      if (deleteMessageBuilder_ == null) {
+        if (payloadCase_ == 39 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 39) {
+          deleteMessageBuilder_.mergeFrom(value);
+        } else {
+          deleteMessageBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    public Builder clearDeleteMessage() {
+      if (deleteMessageBuilder_ == null) {
+        if (payloadCase_ == 39) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 39) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        deleteMessageBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.Builder getDeleteMessageBuilder() {
+      return internalGetDeleteMessageFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder getDeleteMessageOrBuilder() {
+      if ((payloadCase_ == 39) && (deleteMessageBuilder_ != null)) {
+        return deleteMessageBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 39) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder> 
+        internalGetDeleteMessageFieldBuilder() {
+      if (deleteMessageBuilder_ == null) {
+        if (!(payloadCase_ == 39)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.getDefaultInstance();
+        }
+        deleteMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 39;
+      onChanged();
+      return deleteMessageBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder> deleteMessageForEveryoneBuilder_;
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     * @return Whether the deleteMessageForEveryone field is set.
+     */
+    @java.lang.Override
+    public boolean hasDeleteMessageForEveryone() {
+      return payloadCase_ == 40;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     * @return The deleteMessageForEveryone.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone getDeleteMessageForEveryone() {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        if (payloadCase_ == 40) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 40) {
+          return deleteMessageForEveryoneBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    public Builder setDeleteMessageForEveryone(app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone value) {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        deleteMessageForEveryoneBuilder_.setMessage(value);
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    public Builder setDeleteMessageForEveryone(
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.Builder builderForValue) {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        deleteMessageForEveryoneBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    public Builder mergeDeleteMessageForEveryone(app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone value) {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        if (payloadCase_ == 40 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 40) {
+          deleteMessageForEveryoneBuilder_.mergeFrom(value);
+        } else {
+          deleteMessageForEveryoneBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    public Builder clearDeleteMessageForEveryone() {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        if (payloadCase_ == 40) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 40) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        deleteMessageForEveryoneBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.Builder getDeleteMessageForEveryoneBuilder() {
+      return internalGetDeleteMessageForEveryoneFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder getDeleteMessageForEveryoneOrBuilder() {
+      if ((payloadCase_ == 40) && (deleteMessageForEveryoneBuilder_ != null)) {
+        return deleteMessageForEveryoneBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 40) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder> 
+        internalGetDeleteMessageForEveryoneFieldBuilder() {
+      if (deleteMessageForEveryoneBuilder_ == null) {
+        if (!(payloadCase_ == 40)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.getDefaultInstance();
+        }
+        deleteMessageForEveryoneBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone.Builder, app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 40;
+      onChanged();
+      return deleteMessageForEveryoneBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.ClientEnvelope)

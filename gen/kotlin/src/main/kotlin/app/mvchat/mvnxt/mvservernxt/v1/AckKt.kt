@@ -229,8 +229,9 @@ public object AckKt {
 
     /**
      * ```
-     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-     * empty Ack with no payload)
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+     * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+     * payload)
      * ```
      *
      * `.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];`
@@ -244,8 +245,9 @@ public object AckKt {
       }
     /**
      * ```
-     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-     * empty Ack with no payload)
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+     * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+     * payload)
      * ```
      *
      * `.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];`
@@ -255,8 +257,9 @@ public object AckKt {
     }
     /**
      * ```
-     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-     * empty Ack with no payload)
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+     * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+     * payload)
      * ```
      *
      * `.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];`
@@ -337,6 +340,30 @@ public object AckKt {
     public fun hasGetMessages(): kotlin.Boolean {
       return _builder.hasGetMessages()
     }
+
+    /**
+     * `.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];`
+     */
+    public var editMessage: app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse
+      @kotlin.jvm.JvmName("getEditMessage")
+        get() = _builder.editMessage
+      @kotlin.jvm.JvmName("setEditMessage")
+        set(value) {
+        _builder.editMessage = value
+      }
+    /**
+     * `.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];`
+     */
+    public fun clearEditMessage() {
+      _builder.clearEditMessage()
+    }
+    /**
+     * `.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];`
+     * @return Whether the editMessage field is set.
+     */
+    public fun hasEditMessage(): kotlin.Boolean {
+      return _builder.hasEditMessage()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -376,4 +403,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.listConversationsOrNull:
 
 public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.getMessagesOrNull: app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse?
   get() = if (hasGetMessages()) getGetMessages() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.editMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse?
+  get() = if (hasEditMessage()) getEditMessage() else null
 

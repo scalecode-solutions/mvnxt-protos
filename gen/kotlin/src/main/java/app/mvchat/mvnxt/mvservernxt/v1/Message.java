@@ -8,6 +8,15 @@ package app.mvchat.mvnxt.mvservernxt.v1;
 /**
  * <pre>
  * Message is the client-facing view of one message row.
+ *
+ * Soft-delete model (slice 2): messages are NEVER physically removed.
+ * - deleted_at / deleted_by set → "delete for everyone" path; clients
+ * render a "deleted message" placeholder. Server redacts body → ""
+ * on GetMessages for non-admin surfaces, but the row is preserved
+ * for audit and future restore tooling.
+ * - edited_at set → body reflects the latest revision. Edit history
+ * is not exposed on this type in slice 2 (can land via a separate
+ * GetMessageHistory command when needed).
  * </pre>
  *
  * Protobuf type {@code mvservernxt.v1.Message}
@@ -38,6 +47,7 @@ private static final long serialVersionUID = 0L;
     body_ = "";
     replyToId_ = "";
     clientMessageId_ = "";
+    deletedBy_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -204,7 +214,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object body_ = "";
   /**
    * <pre>
-   * Plain text in slice 1.
+   * Redacted to "" when deleted_at set.
    * </pre>
    *
    * <code>string body = 5 [json_name = "body"];</code>
@@ -225,7 +235,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Plain text in slice 1.
+   * Redacted to "" when deleted_at set.
    * </pre>
    *
    * <code>string body = 5 [json_name = "body"];</code>
@@ -382,6 +392,145 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int EDITED_AT_FIELD_NUMBER = 9;
+  private com.google.protobuf.Timestamp editedAt_;
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   * @return Whether the editedAt field is set.
+   */
+  @java.lang.Override
+  public boolean hasEditedAt() {
+    return ((bitField0_ & 0x00000002) != 0);
+  }
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   * @return The editedAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Timestamp getEditedAt() {
+    return editedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : editedAt_;
+  }
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.TimestampOrBuilder getEditedAtOrBuilder() {
+    return editedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : editedAt_;
+  }
+
+  public static final int DELETED_AT_FIELD_NUMBER = 10;
+  private com.google.protobuf.Timestamp deletedAt_;
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   * @return Whether the deletedAt field is set.
+   */
+  @java.lang.Override
+  public boolean hasDeletedAt() {
+    return ((bitField0_ & 0x00000004) != 0);
+  }
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   * @return The deletedAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Timestamp getDeletedAt() {
+    return deletedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deletedAt_;
+  }
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.TimestampOrBuilder getDeletedAtOrBuilder() {
+    return deletedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deletedAt_;
+  }
+
+  public static final int DELETED_BY_FIELD_NUMBER = 11;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object deletedBy_ = "";
+  /**
+   * <pre>
+   * Who issued the delete (user_id string). Typically the sender
+   * (self-delete); admin moderation lands later. Empty when deleted_at
+   * is null.
+   * </pre>
+   *
+   * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+   * @return The deletedBy.
+   */
+  @java.lang.Override
+  public java.lang.String getDeletedBy() {
+    java.lang.Object ref = deletedBy_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      deletedBy_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Who issued the delete (user_id string). Typically the sender
+   * (self-delete); admin moderation lands later. Empty when deleted_at
+   * is null.
+   * </pre>
+   *
+   * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+   * @return The bytes for deletedBy.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getDeletedByBytes() {
+    java.lang.Object ref = deletedBy_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      deletedBy_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -420,6 +569,15 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 8, clientMessageId_);
     }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      output.writeMessage(9, getEditedAt());
+    }
+    if (((bitField0_ & 0x00000004) != 0)) {
+      output.writeMessage(10, getDeletedAt());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deletedBy_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 11, deletedBy_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -455,6 +613,17 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(clientMessageId_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(8, clientMessageId_);
     }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(9, getEditedAt());
+    }
+    if (((bitField0_ & 0x00000004) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(10, getDeletedAt());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deletedBy_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(11, deletedBy_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -489,6 +658,18 @@ private static final long serialVersionUID = 0L;
     }
     if (!getClientMessageId()
         .equals(other.getClientMessageId())) return false;
+    if (hasEditedAt() != other.hasEditedAt()) return false;
+    if (hasEditedAt()) {
+      if (!getEditedAt()
+          .equals(other.getEditedAt())) return false;
+    }
+    if (hasDeletedAt() != other.hasDeletedAt()) return false;
+    if (hasDeletedAt()) {
+      if (!getDeletedAt()
+          .equals(other.getDeletedAt())) return false;
+    }
+    if (!getDeletedBy()
+        .equals(other.getDeletedBy())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -519,6 +700,16 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + CLIENT_MESSAGE_ID_FIELD_NUMBER;
     hash = (53 * hash) + getClientMessageId().hashCode();
+    if (hasEditedAt()) {
+      hash = (37 * hash) + EDITED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getEditedAt().hashCode();
+    }
+    if (hasDeletedAt()) {
+      hash = (37 * hash) + DELETED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getDeletedAt().hashCode();
+    }
+    hash = (37 * hash) + DELETED_BY_FIELD_NUMBER;
+    hash = (53 * hash) + getDeletedBy().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -619,6 +810,15 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * Message is the client-facing view of one message row.
+   *
+   * Soft-delete model (slice 2): messages are NEVER physically removed.
+   * - deleted_at / deleted_by set → "delete for everyone" path; clients
+   * render a "deleted message" placeholder. Server redacts body → ""
+   * on GetMessages for non-admin surfaces, but the row is preserved
+   * for audit and future restore tooling.
+   * - edited_at set → body reflects the latest revision. Edit history
+   * is not exposed on this type in slice 2 (can land via a separate
+   * GetMessageHistory command when needed).
    * </pre>
    *
    * Protobuf type {@code mvservernxt.v1.Message}
@@ -654,6 +854,8 @@ private static final long serialVersionUID = 0L;
       if (com.google.protobuf.GeneratedMessage
               .alwaysUseFieldBuilders) {
         internalGetCreatedAtFieldBuilder();
+        internalGetEditedAtFieldBuilder();
+        internalGetDeletedAtFieldBuilder();
       }
     }
     @java.lang.Override
@@ -672,6 +874,17 @@ private static final long serialVersionUID = 0L;
         createdAtBuilder_ = null;
       }
       clientMessageId_ = "";
+      editedAt_ = null;
+      if (editedAtBuilder_ != null) {
+        editedAtBuilder_.dispose();
+        editedAtBuilder_ = null;
+      }
+      deletedAt_ = null;
+      if (deletedAtBuilder_ != null) {
+        deletedAtBuilder_.dispose();
+        deletedAtBuilder_ = null;
+      }
+      deletedBy_ = "";
       return this;
     }
 
@@ -733,6 +946,21 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000080) != 0)) {
         result.clientMessageId_ = clientMessageId_;
       }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.editedAt_ = editedAtBuilder_ == null
+            ? editedAt_
+            : editedAtBuilder_.build();
+        to_bitField0_ |= 0x00000002;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.deletedAt_ = deletedAtBuilder_ == null
+            ? deletedAt_
+            : deletedAtBuilder_.build();
+        to_bitField0_ |= 0x00000004;
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.deletedBy_ = deletedBy_;
+      }
       result.bitField0_ |= to_bitField0_;
     }
 
@@ -782,6 +1010,17 @@ private static final long serialVersionUID = 0L;
       if (!other.getClientMessageId().isEmpty()) {
         clientMessageId_ = other.clientMessageId_;
         bitField0_ |= 0x00000080;
+        onChanged();
+      }
+      if (other.hasEditedAt()) {
+        mergeEditedAt(other.getEditedAt());
+      }
+      if (other.hasDeletedAt()) {
+        mergeDeletedAt(other.getDeletedAt());
+      }
+      if (!other.getDeletedBy().isEmpty()) {
+        deletedBy_ = other.deletedBy_;
+        bitField0_ |= 0x00000400;
         onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -852,6 +1091,25 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000080;
               break;
             } // case 66
+            case 74: {
+              input.readMessage(
+                  internalGetEditedAtFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 74
+            case 82: {
+              input.readMessage(
+                  internalGetDeletedAtFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 82
+            case 90: {
+              deletedBy_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 90
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1152,7 +1410,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object body_ = "";
     /**
      * <pre>
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * </pre>
      *
      * <code>string body = 5 [json_name = "body"];</code>
@@ -1172,7 +1430,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * </pre>
      *
      * <code>string body = 5 [json_name = "body"];</code>
@@ -1193,7 +1451,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * </pre>
      *
      * <code>string body = 5 [json_name = "body"];</code>
@@ -1210,7 +1468,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * </pre>
      *
      * <code>string body = 5 [json_name = "body"];</code>
@@ -1224,7 +1482,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * </pre>
      *
      * <code>string body = 5 [json_name = "body"];</code>
@@ -1582,6 +1840,458 @@ private static final long serialVersionUID = 0L;
       checkByteStringIsUtf8(value);
       clientMessageId_ = value;
       bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.Timestamp editedAt_;
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> editedAtBuilder_;
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     * @return Whether the editedAt field is set.
+     */
+    public boolean hasEditedAt() {
+      return ((bitField0_ & 0x00000100) != 0);
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     * @return The editedAt.
+     */
+    public com.google.protobuf.Timestamp getEditedAt() {
+      if (editedAtBuilder_ == null) {
+        return editedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : editedAt_;
+      } else {
+        return editedAtBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public Builder setEditedAt(com.google.protobuf.Timestamp value) {
+      if (editedAtBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        editedAt_ = value;
+      } else {
+        editedAtBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public Builder setEditedAt(
+        com.google.protobuf.Timestamp.Builder builderForValue) {
+      if (editedAtBuilder_ == null) {
+        editedAt_ = builderForValue.build();
+      } else {
+        editedAtBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public Builder mergeEditedAt(com.google.protobuf.Timestamp value) {
+      if (editedAtBuilder_ == null) {
+        if (((bitField0_ & 0x00000100) != 0) &&
+          editedAt_ != null &&
+          editedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+          getEditedAtBuilder().mergeFrom(value);
+        } else {
+          editedAt_ = value;
+        }
+      } else {
+        editedAtBuilder_.mergeFrom(value);
+      }
+      if (editedAt_ != null) {
+        bitField0_ |= 0x00000100;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public Builder clearEditedAt() {
+      bitField0_ = (bitField0_ & ~0x00000100);
+      editedAt_ = null;
+      if (editedAtBuilder_ != null) {
+        editedAtBuilder_.dispose();
+        editedAtBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public com.google.protobuf.Timestamp.Builder getEditedAtBuilder() {
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return internalGetEditedAtFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    public com.google.protobuf.TimestampOrBuilder getEditedAtOrBuilder() {
+      if (editedAtBuilder_ != null) {
+        return editedAtBuilder_.getMessageOrBuilder();
+      } else {
+        return editedAt_ == null ?
+            com.google.protobuf.Timestamp.getDefaultInstance() : editedAt_;
+      }
+    }
+    /**
+     * <pre>
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+        internalGetEditedAtFieldBuilder() {
+      if (editedAtBuilder_ == null) {
+        editedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                getEditedAt(),
+                getParentForChildren(),
+                isClean());
+        editedAt_ = null;
+      }
+      return editedAtBuilder_;
+    }
+
+    private com.google.protobuf.Timestamp deletedAt_;
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> deletedAtBuilder_;
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     * @return Whether the deletedAt field is set.
+     */
+    public boolean hasDeletedAt() {
+      return ((bitField0_ & 0x00000200) != 0);
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     * @return The deletedAt.
+     */
+    public com.google.protobuf.Timestamp getDeletedAt() {
+      if (deletedAtBuilder_ == null) {
+        return deletedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deletedAt_;
+      } else {
+        return deletedAtBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public Builder setDeletedAt(com.google.protobuf.Timestamp value) {
+      if (deletedAtBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        deletedAt_ = value;
+      } else {
+        deletedAtBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public Builder setDeletedAt(
+        com.google.protobuf.Timestamp.Builder builderForValue) {
+      if (deletedAtBuilder_ == null) {
+        deletedAt_ = builderForValue.build();
+      } else {
+        deletedAtBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public Builder mergeDeletedAt(com.google.protobuf.Timestamp value) {
+      if (deletedAtBuilder_ == null) {
+        if (((bitField0_ & 0x00000200) != 0) &&
+          deletedAt_ != null &&
+          deletedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+          getDeletedAtBuilder().mergeFrom(value);
+        } else {
+          deletedAt_ = value;
+        }
+      } else {
+        deletedAtBuilder_.mergeFrom(value);
+      }
+      if (deletedAt_ != null) {
+        bitField0_ |= 0x00000200;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public Builder clearDeletedAt() {
+      bitField0_ = (bitField0_ & ~0x00000200);
+      deletedAt_ = null;
+      if (deletedAtBuilder_ != null) {
+        deletedAtBuilder_.dispose();
+        deletedAtBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public com.google.protobuf.Timestamp.Builder getDeletedAtBuilder() {
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return internalGetDeletedAtFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    public com.google.protobuf.TimestampOrBuilder getDeletedAtOrBuilder() {
+      if (deletedAtBuilder_ != null) {
+        return deletedAtBuilder_.getMessageOrBuilder();
+      } else {
+        return deletedAt_ == null ?
+            com.google.protobuf.Timestamp.getDefaultInstance() : deletedAt_;
+      }
+    }
+    /**
+     * <pre>
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+        internalGetDeletedAtFieldBuilder() {
+      if (deletedAtBuilder_ == null) {
+        deletedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                getDeletedAt(),
+                getParentForChildren(),
+                isClean());
+        deletedAt_ = null;
+      }
+      return deletedAtBuilder_;
+    }
+
+    private java.lang.Object deletedBy_ = "";
+    /**
+     * <pre>
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * </pre>
+     *
+     * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+     * @return The deletedBy.
+     */
+    public java.lang.String getDeletedBy() {
+      java.lang.Object ref = deletedBy_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deletedBy_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * </pre>
+     *
+     * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+     * @return The bytes for deletedBy.
+     */
+    public com.google.protobuf.ByteString
+        getDeletedByBytes() {
+      java.lang.Object ref = deletedBy_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deletedBy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * </pre>
+     *
+     * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+     * @param value The deletedBy to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeletedBy(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      deletedBy_ = value;
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * </pre>
+     *
+     * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDeletedBy() {
+      deletedBy_ = getDefaultInstance().getDeletedBy();
+      bitField0_ = (bitField0_ & ~0x00000400);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * </pre>
+     *
+     * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+     * @param value The bytes for deletedBy to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeletedByBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      deletedBy_ = value;
+      bitField0_ |= 0x00000400;
       onChanged();
       return this;
     }

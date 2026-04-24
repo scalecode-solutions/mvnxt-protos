@@ -123,7 +123,9 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     set {payload = .resendVerificationEmail(newValue)}
   }
 
-  /// Chat
+  /// Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+  /// accommodate the full chat surface without crowding future
+  /// domains)
   public var createConversation: Mvservernxt_V1_CreateConversation {
     get {
       if case .createConversation(let v)? = payload {return v}
@@ -188,6 +190,30 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     set {payload = .markRead(newValue)}
   }
 
+  public var editMessage: Mvservernxt_V1_EditMessage {
+    get {
+      if case .editMessage(let v)? = payload {return v}
+      return Mvservernxt_V1_EditMessage()
+    }
+    set {payload = .editMessage(newValue)}
+  }
+
+  public var deleteMessage: Mvservernxt_V1_DeleteMessage {
+    get {
+      if case .deleteMessage(let v)? = payload {return v}
+      return Mvservernxt_V1_DeleteMessage()
+    }
+    set {payload = .deleteMessage(newValue)}
+  }
+
+  public var deleteMessageForEveryone: Mvservernxt_V1_DeleteMessageForEveryone {
+    get {
+      if case .deleteMessageForEveryone(let v)? = payload {return v}
+      return Mvservernxt_V1_DeleteMessageForEveryone()
+    }
+    set {payload = .deleteMessageForEveryone(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Exactly one payload must be set. Domain-specific command types
@@ -207,7 +233,9 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     case logout(Mvservernxt_V1_Logout)
     case verifyEmail(Mvservernxt_V1_VerifyEmail)
     case resendVerificationEmail(Mvservernxt_V1_ResendVerificationEmail)
-    /// Chat
+    /// Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+    /// accommodate the full chat surface without crowding future
+    /// domains)
     case createConversation(Mvservernxt_V1_CreateConversation)
     case addMember(Mvservernxt_V1_AddMember)
     case removeMember(Mvservernxt_V1_RemoveMember)
@@ -216,6 +244,9 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     case listConversations(Mvservernxt_V1_ListConversations)
     case getMessages(Mvservernxt_V1_GetMessages)
     case markRead(Mvservernxt_V1_MarkRead)
+    case editMessage(Mvservernxt_V1_EditMessage)
+    case deleteMessage(Mvservernxt_V1_DeleteMessage)
+    case deleteMessageForEveryone(Mvservernxt_V1_DeleteMessageForEveryone)
 
   }
 
@@ -327,8 +358,9 @@ public struct Mvservernxt_V1_Ack: Sendable {
     set {payload = .refresh(newValue)}
   }
 
-  /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-  /// empty Ack with no payload)
+  /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+  /// DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+  /// payload)
   public var createConversation: Mvservernxt_V1_CreateConversationResponse {
     get {
       if case .createConversation(let v)? = payload {return v}
@@ -361,6 +393,14 @@ public struct Mvservernxt_V1_Ack: Sendable {
     set {payload = .getMessages(newValue)}
   }
 
+  public var editMessage: Mvservernxt_V1_EditMessageResponse {
+    get {
+      if case .editMessage(let v)? = payload {return v}
+      return Mvservernxt_V1_EditMessageResponse()
+    }
+    set {payload = .editMessage(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Optional response payload. Oneof matches the command shape.
@@ -372,12 +412,14 @@ public struct Mvservernxt_V1_Ack: Sendable {
     case register(Mvservernxt_V1_RegisterResponse)
     case login(Mvservernxt_V1_LoginResponse)
     case refresh(Mvservernxt_V1_RefreshResponse)
-    /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-    /// empty Ack with no payload)
+    /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+    /// DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+    /// payload)
     case createConversation(Mvservernxt_V1_CreateConversationResponse)
     case sendMessage(Mvservernxt_V1_SendMessageResponse)
     case listConversations(Mvservernxt_V1_ListConversationsResponse)
     case getMessages(Mvservernxt_V1_GetMessagesResponse)
+    case editMessage(Mvservernxt_V1_EditMessageResponse)
 
   }
 
@@ -572,6 +614,30 @@ public struct Mvservernxt_V1_Event: Sendable {
     set {payload = .readReceiptUpdated(newValue)}
   }
 
+  public var messageEdited: Mvservernxt_V1_MessageEdited {
+    get {
+      if case .messageEdited(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageEdited()
+    }
+    set {payload = .messageEdited(newValue)}
+  }
+
+  public var messageHidden: Mvservernxt_V1_MessageHidden {
+    get {
+      if case .messageHidden(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageHidden()
+    }
+    set {payload = .messageHidden(newValue)}
+  }
+
+  public var messageDeletedForEveryone: Mvservernxt_V1_MessageDeletedForEveryone {
+    get {
+      if case .messageDeletedForEveryone(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageDeletedForEveryone()
+    }
+    set {payload = .messageDeletedForEveryone(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Kind-specific payload.
@@ -593,6 +659,9 @@ public struct Mvservernxt_V1_Event: Sendable {
     case memberLeft(Mvservernxt_V1_MemberLeft)
     case messageSent(Mvservernxt_V1_MessageSent)
     case readReceiptUpdated(Mvservernxt_V1_ReadReceiptUpdated)
+    case messageEdited(Mvservernxt_V1_MessageEdited)
+    case messageHidden(Mvservernxt_V1_MessageHidden)
+    case messageDeletedForEveryone(Mvservernxt_V1_MessageDeletedForEveryone)
 
   }
 
@@ -609,7 +678,7 @@ fileprivate let _protobuf_package = "mvservernxt.v1"
 
 extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ClientEnvelope"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0\u{3}edit_message\0\u{3}delete_message\0\u{3}delete_message_for_everyone\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -839,6 +908,45 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
           self.payload = .markRead(v)
         }
       }()
+      case 38: try {
+        var v: Mvservernxt_V1_EditMessage?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .editMessage(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .editMessage(v)
+        }
+      }()
+      case 39: try {
+        var v: Mvservernxt_V1_DeleteMessage?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .deleteMessage(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .deleteMessage(v)
+        }
+      }()
+      case 40: try {
+        var v: Mvservernxt_V1_DeleteMessageForEveryone?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .deleteMessageForEveryone(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .deleteMessageForEveryone(v)
+        }
+      }()
       default: break
       }
     }
@@ -920,6 +1028,18 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
     case .markRead?: try {
       guard case .markRead(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
+    }()
+    case .editMessage?: try {
+      guard case .editMessage(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
+    }()
+    case .deleteMessage?: try {
+      guard case .deleteMessage(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+    }()
+    case .deleteMessageForEveryone?: try {
+      guard case .deleteMessageForEveryone(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
     }()
     case nil: break
     }
@@ -1020,7 +1140,7 @@ extension Mvservernxt_V1_ServerEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Ack"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{1}code\0\u{2}\u{8}pong\0\u{1}hello\0\u{2}\u{9}register\0\u{2}\u{2}login\0\u{1}refresh\0\u{4}\u{7}create_conversation\0\u{4}\u{4}send_message\0\u{3}list_conversations\0\u{3}get_messages\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{1}code\0\u{2}\u{8}pong\0\u{1}hello\0\u{2}\u{9}register\0\u{2}\u{2}login\0\u{1}refresh\0\u{4}\u{7}create_conversation\0\u{4}\u{4}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{4}\u{2}edit_message\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1147,6 +1267,19 @@ extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
           self.payload = .getMessages(v)
         }
       }()
+      case 38: try {
+        var v: Mvservernxt_V1_EditMessageResponse?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .editMessage(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .editMessage(v)
+        }
+      }()
       default: break
       }
     }
@@ -1199,6 +1332,10 @@ extension Mvservernxt_V1_Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     case .getMessages?: try {
       guard case .getMessages(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
+    }()
+    case .editMessage?: try {
+      guard case .editMessage(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
     }()
     case nil: break
     }
@@ -1261,7 +1398,7 @@ extension Mvservernxt_V1_Err: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
 extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1456,6 +1593,45 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
           self.payload = .readReceiptUpdated(v)
         }
       }()
+      case 36: try {
+        var v: Mvservernxt_V1_MessageEdited?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageEdited(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageEdited(v)
+        }
+      }()
+      case 37: try {
+        var v: Mvservernxt_V1_MessageHidden?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageHidden(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageHidden(v)
+        }
+      }()
+      case 38: try {
+        var v: Mvservernxt_V1_MessageDeletedForEveryone?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageDeletedForEveryone(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageDeletedForEveryone(v)
+        }
+      }()
       default: break
       }
     }
@@ -1537,6 +1713,18 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     case .readReceiptUpdated?: try {
       guard case .readReceiptUpdated(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
+    }()
+    case .messageEdited?: try {
+      guard case .messageEdited(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
+    }()
+    case .messageHidden?: try {
+      guard case .messageHidden(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
+    }()
+    case .messageDeletedForEveryone?: try {
+      guard case .messageDeletedForEveryone(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
     }()
     case nil: break
     }

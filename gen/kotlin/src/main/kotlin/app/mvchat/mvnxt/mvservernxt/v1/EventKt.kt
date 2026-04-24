@@ -575,6 +575,78 @@ public object EventKt {
     public fun hasReadReceiptUpdated(): kotlin.Boolean {
       return _builder.hasReadReceiptUpdated()
     }
+
+    /**
+     * `.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];`
+     */
+    public var messageEdited: app.mvchat.mvnxt.mvservernxt.v1.MessageEdited
+      @kotlin.jvm.JvmName("getMessageEdited")
+        get() = _builder.messageEdited
+      @kotlin.jvm.JvmName("setMessageEdited")
+        set(value) {
+        _builder.messageEdited = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];`
+     */
+    public fun clearMessageEdited() {
+      _builder.clearMessageEdited()
+    }
+    /**
+     * `.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];`
+     * @return Whether the messageEdited field is set.
+     */
+    public fun hasMessageEdited(): kotlin.Boolean {
+      return _builder.hasMessageEdited()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];`
+     */
+    public var messageHidden: app.mvchat.mvnxt.mvservernxt.v1.MessageHidden
+      @kotlin.jvm.JvmName("getMessageHidden")
+        get() = _builder.messageHidden
+      @kotlin.jvm.JvmName("setMessageHidden")
+        set(value) {
+        _builder.messageHidden = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];`
+     */
+    public fun clearMessageHidden() {
+      _builder.clearMessageHidden()
+    }
+    /**
+     * `.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];`
+     * @return Whether the messageHidden field is set.
+     */
+    public fun hasMessageHidden(): kotlin.Boolean {
+      return _builder.hasMessageHidden()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];`
+     */
+    public var messageDeletedForEveryone: app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone
+      @kotlin.jvm.JvmName("getMessageDeletedForEveryone")
+        get() = _builder.messageDeletedForEveryone
+      @kotlin.jvm.JvmName("setMessageDeletedForEveryone")
+        set(value) {
+        _builder.messageDeletedForEveryone = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];`
+     */
+    public fun clearMessageDeletedForEveryone() {
+      _builder.clearMessageDeletedForEveryone()
+    }
+    /**
+     * `.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];`
+     * @return Whether the messageDeletedForEveryone field is set.
+     */
+    public fun hasMessageDeletedForEveryone(): kotlin.Boolean {
+      return _builder.hasMessageDeletedForEveryone()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -638,4 +710,13 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageSentOrNull: app
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.readReceiptUpdatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdated?
   get() = if (hasReadReceiptUpdated()) getReadReceiptUpdated() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageEditedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageEdited?
+  get() = if (hasMessageEdited()) getMessageEdited() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageHiddenOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageHidden?
+  get() = if (hasMessageHidden()) getMessageHidden() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageDeletedForEveryoneOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone?
+  get() = if (hasMessageDeletedForEveryone()) getMessageDeletedForEveryone() else null
 

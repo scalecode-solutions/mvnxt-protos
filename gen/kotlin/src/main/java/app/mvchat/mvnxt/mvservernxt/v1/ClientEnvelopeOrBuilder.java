@@ -191,7 +191,9 @@ public interface ClientEnvelopeOrBuilder extends
 
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -200,7 +202,9 @@ public interface ClientEnvelopeOrBuilder extends
   boolean hasCreateConversation();
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -209,7 +213,9 @@ public interface ClientEnvelopeOrBuilder extends
   app.mvchat.mvnxt.mvservernxt.v1.CreateConversation getCreateConversation();
   /**
    * <pre>
-   * Chat
+   * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+   * accommodate the full chat surface without crowding future
+   * domains)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];</code>
@@ -320,6 +326,51 @@ public interface ClientEnvelopeOrBuilder extends
    * <code>.mvservernxt.v1.MarkRead mark_read = 37 [json_name = "markRead"];</code>
    */
   app.mvchat.mvnxt.mvservernxt.v1.MarkReadOrBuilder getMarkReadOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   * @return Whether the editMessage field is set.
+   */
+  boolean hasEditMessage();
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   * @return The editMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EditMessage getEditMessage();
+  /**
+   * <code>.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EditMessageOrBuilder getEditMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   * @return Whether the deleteMessage field is set.
+   */
+  boolean hasDeleteMessage();
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   * @return The deleteMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage getDeleteMessage();
+  /**
+   * <code>.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageOrBuilder getDeleteMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   * @return Whether the deleteMessageForEveryone field is set.
+   */
+  boolean hasDeleteMessageForEveryone();
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   * @return The deleteMessageForEveryone.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone getDeleteMessageForEveryone();
+  /**
+   * <code>.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder getDeleteMessageForEveryoneOrBuilder();
 
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

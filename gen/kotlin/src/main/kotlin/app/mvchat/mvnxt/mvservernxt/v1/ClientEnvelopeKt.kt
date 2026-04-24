@@ -306,7 +306,9 @@ public object ClientEnvelopeKt {
 
     /**
      * ```
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -320,7 +322,9 @@ public object ClientEnvelopeKt {
       }
     /**
      * ```
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -330,7 +334,9 @@ public object ClientEnvelopeKt {
     }
     /**
      * ```
-     * Chat
+     * Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+     * accommodate the full chat surface without crowding future
+     * domains)
      * ```
      *
      * `.mvservernxt.v1.CreateConversation create_conversation = 30 [json_name = "createConversation"];`
@@ -507,6 +513,78 @@ public object ClientEnvelopeKt {
     public fun hasMarkRead(): kotlin.Boolean {
       return _builder.hasMarkRead()
     }
+
+    /**
+     * `.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];`
+     */
+    public var editMessage: app.mvchat.mvnxt.mvservernxt.v1.EditMessage
+      @kotlin.jvm.JvmName("getEditMessage")
+        get() = _builder.editMessage
+      @kotlin.jvm.JvmName("setEditMessage")
+        set(value) {
+        _builder.editMessage = value
+      }
+    /**
+     * `.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];`
+     */
+    public fun clearEditMessage() {
+      _builder.clearEditMessage()
+    }
+    /**
+     * `.mvservernxt.v1.EditMessage edit_message = 38 [json_name = "editMessage"];`
+     * @return Whether the editMessage field is set.
+     */
+    public fun hasEditMessage(): kotlin.Boolean {
+      return _builder.hasEditMessage()
+    }
+
+    /**
+     * `.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];`
+     */
+    public var deleteMessage: app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage
+      @kotlin.jvm.JvmName("getDeleteMessage")
+        get() = _builder.deleteMessage
+      @kotlin.jvm.JvmName("setDeleteMessage")
+        set(value) {
+        _builder.deleteMessage = value
+      }
+    /**
+     * `.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];`
+     */
+    public fun clearDeleteMessage() {
+      _builder.clearDeleteMessage()
+    }
+    /**
+     * `.mvservernxt.v1.DeleteMessage delete_message = 39 [json_name = "deleteMessage"];`
+     * @return Whether the deleteMessage field is set.
+     */
+    public fun hasDeleteMessage(): kotlin.Boolean {
+      return _builder.hasDeleteMessage()
+    }
+
+    /**
+     * `.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];`
+     */
+    public var deleteMessageForEveryone: app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone
+      @kotlin.jvm.JvmName("getDeleteMessageForEveryone")
+        get() = _builder.deleteMessageForEveryone
+      @kotlin.jvm.JvmName("setDeleteMessageForEveryone")
+        set(value) {
+        _builder.deleteMessageForEveryone = value
+      }
+    /**
+     * `.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];`
+     */
+    public fun clearDeleteMessageForEveryone() {
+      _builder.clearDeleteMessageForEveryone()
+    }
+    /**
+     * `.mvservernxt.v1.DeleteMessageForEveryone delete_message_for_everyone = 40 [json_name = "deleteMessageForEveryone"];`
+     * @return Whether the deleteMessageForEveryone field is set.
+     */
+    public fun hasDeleteMessageForEveryone(): kotlin.Boolean {
+      return _builder.hasDeleteMessageForEveryone()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -570,4 +648,13 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.getMessagesOr
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.markReadOrNull: app.mvchat.mvnxt.mvservernxt.v1.MarkRead?
   get() = if (hasMarkRead()) getMarkRead() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.editMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.EditMessage?
+  get() = if (hasEditMessage()) getEditMessage() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.deleteMessageOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeleteMessage?
+  get() = if (hasDeleteMessage()) getDeleteMessage() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.deleteMessageForEveryoneOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryone?
+  get() = if (hasDeleteMessageForEveryone()) getDeleteMessageForEveryone() else null
 

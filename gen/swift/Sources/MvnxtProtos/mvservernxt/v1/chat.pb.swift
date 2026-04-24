@@ -123,6 +123,15 @@ public struct Mvservernxt_V1_Conversation: Sendable {
 }
 
 /// Message is the client-facing view of one message row.
+///
+/// Soft-delete model (slice 2): messages are NEVER physically removed.
+///   - deleted_at / deleted_by set → "delete for everyone" path; clients
+///     render a "deleted message" placeholder. Server redacts body → ""
+///     on GetMessages for non-admin surfaces, but the row is preserved
+///     for audit and future restore tooling.
+///   - edited_at set → body reflects the latest revision. Edit history
+///     is not exposed on this type in slice 2 (can land via a separate
+///     GetMessageHistory command when needed).
 public struct Mvservernxt_V1_Message: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -138,7 +147,7 @@ public struct Mvservernxt_V1_Message: Sendable {
 
   public var senderID: String = String()
 
-  /// Plain text in slice 1.
+  /// Redacted to "" when deleted_at set.
   public var body: String = String()
 
   /// Reply threading. Empty string if this message isn't a reply.
@@ -164,11 +173,42 @@ public struct Mvservernxt_V1_Message: Sendable {
   /// both the placeholder AND the canonical copy.
   public var clientMessageID: String = String()
 
+  /// When the message body was most recently edited. Null = never edited.
+  /// Slice 2: server-enforced 10 edits / 15 minutes per message from the
+  /// original sender only.
+  public var editedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_editedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_editedAt = newValue}
+  }
+  /// Returns true if `editedAt` has been explicitly set.
+  public var hasEditedAt: Bool {self._editedAt != nil}
+  /// Clears the value of `editedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearEditedAt() {self._editedAt = nil}
+
+  /// When the message was soft-deleted "for everyone". Null = not
+  /// deleted. Clients observing a non-null value MUST render a "deleted"
+  /// placeholder rather than body (which the server redacts to "").
+  public var deletedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_deletedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_deletedAt = newValue}
+  }
+  /// Returns true if `deletedAt` has been explicitly set.
+  public var hasDeletedAt: Bool {self._deletedAt != nil}
+  /// Clears the value of `deletedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeletedAt() {self._deletedAt = nil}
+
+  /// Who issued the delete (user_id string). Typically the sender
+  /// (self-delete); admin moderation lands later. Empty when deleted_at
+  /// is null.
+  public var deletedBy: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _createdAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _editedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _deletedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -344,6 +384,68 @@ public struct Mvservernxt_V1_GetMessages: Sendable {
   public init() {}
 }
 
+/// EditMessage updates the body of a previously-sent message. Caller
+/// MUST be the original sender. Server enforces a rate window of
+/// 10 edits per 15 minutes per message — past that, the request is
+/// rejected. Past edits are lost from the client-facing Message (no
+/// edit history in slice 2; audit tooling lands later).
+///
+/// Editing a soft-deleted message is rejected — clients should remove
+/// the edit affordance when deleted_at is set.
+public struct Mvservernxt_V1_EditMessage: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var body: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// DeleteMessage performs "delete for me" — hides the message from the
+/// caller's own view only. Implemented as a per-user row in
+/// message_hides; the original message row is untouched. Emits
+/// MessageHidden ONLY to the caller's own sessions so multi-device
+/// state syncs. Other members are not notified.
+///
+/// Idempotent: deleting a message that's already hidden for the caller
+/// Acks cleanly without re-emitting.
+public struct Mvservernxt_V1_DeleteMessage: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// DeleteMessageForEveryone performs a server-wide soft delete. Caller
+/// MUST be the original sender. Sets messages.deleted_at and
+/// deleted_by; the row stays, body is redacted to "" on client-visible
+/// reads, and an admin restore path is preserved.
+///
+/// No time window — sender can delete-for-everyone at any time. Emits
+/// MessageDeletedForEveryone to every active member so existing cached
+/// views replace body with a placeholder.
+public struct Mvservernxt_V1_DeleteMessageForEveryone: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// MarkRead advances the caller's last_read_seq on a conversation.
 /// Idempotent — sending a value ≤ the stored one is a no-op.
 ///
@@ -438,6 +540,27 @@ public struct Mvservernxt_V1_GetMessagesResponse: Sendable {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
+
+public struct Mvservernxt_V1_EditMessageResponse: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var message: Mvservernxt_V1_Message {
+    get {_message ?? Mvservernxt_V1_Message()}
+    set {_message = newValue}
+  }
+  /// Returns true if `message` has been explicitly set.
+  public var hasMessage: Bool {self._message != nil}
+  /// Clears the value of `message`. Subsequent reads from it will return its default value.
+  public mutating func clearMessage() {self._message = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _message: Mvservernxt_V1_Message? = nil
 }
 
 /// ConversationCreated fires once per CreateConversation.
@@ -624,6 +747,101 @@ public struct Mvservernxt_V1_ReadReceiptUpdated: Sendable {
   fileprivate var _updatedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+/// MessageEdited fires for each successful EditMessage. Fans out to
+/// every active member so cached views update in place.
+public struct Mvservernxt_V1_MessageEdited: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var conversationID: String = String()
+
+  /// New body, post-edit
+  public var body: String = String()
+
+  public var editedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_editedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_editedAt = newValue}
+  }
+  /// Returns true if `editedAt` has been explicitly set.
+  public var hasEditedAt: Bool {self._editedAt != nil}
+  /// Clears the value of `editedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearEditedAt() {self._editedAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _editedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// MessageHidden fires for each successful DeleteMessage ("delete for
+/// me"). Audience is ONLY the caller's own sessions — other members
+/// never see this event. Multi-device clients use it to sync local
+/// hidden-message state across their devices.
+public struct Mvservernxt_V1_MessageHidden: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var conversationID: String = String()
+
+  /// The caller, hiding for themselves
+  public var userID: String = String()
+
+  public var hiddenAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_hiddenAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_hiddenAt = newValue}
+  }
+  /// Returns true if `hiddenAt` has been explicitly set.
+  public var hasHiddenAt: Bool {self._hiddenAt != nil}
+  /// Clears the value of `hiddenAt`. Subsequent reads from it will return its default value.
+  public mutating func clearHiddenAt() {self._hiddenAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _hiddenAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// MessageDeletedForEveryone fires for each successful
+/// DeleteMessageForEveryone. Fans out to every active member so their
+/// cached copies flip to the "deleted" placeholder. Body is NOT echoed
+/// here — the event is a signal to render the placeholder, not a
+/// content update.
+public struct Mvservernxt_V1_MessageDeletedForEveryone: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var messageID: String = String()
+
+  public var conversationID: String = String()
+
+  /// Usually the original sender
+  public var deletedBy: String = String()
+
+  public var deletedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_deletedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_deletedAt = newValue}
+  }
+  /// Returns true if `deletedAt` has been explicitly set.
+  public var hasDeletedAt: Bool {self._deletedAt != nil}
+  /// Clears the value of `deletedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeletedAt() {self._deletedAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _deletedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mvservernxt.v1"
@@ -698,7 +916,7 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Message"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{3}edited_at\0\u{3}deleted_at\0\u{3}deleted_by\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -714,6 +932,9 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 6: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createdAt) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._editedAt) }()
+      case 10: try { try decoder.decodeSingularMessageField(value: &self._deletedAt) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.deletedBy) }()
       default: break
       }
     }
@@ -748,6 +969,15 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if !self.clientMessageID.isEmpty {
       try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 8)
     }
+    try { if let v = self._editedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
+    try { if let v = self._deletedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    } }()
+    if !self.deletedBy.isEmpty {
+      try visitor.visitSingularStringField(value: self.deletedBy, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -760,6 +990,9 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs._createdAt != rhs._createdAt {return false}
     if lhs.clientMessageID != rhs.clientMessageID {return false}
+    if lhs._editedAt != rhs._editedAt {return false}
+    if lhs._deletedAt != rhs._deletedAt {return false}
+    if lhs.deletedBy != rhs.deletedBy {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1025,6 +1258,101 @@ extension Mvservernxt_V1_GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 }
 
+extension Mvservernxt_V1_EditMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EditMessage"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{1}body\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.body) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    if !self.body.isEmpty {
+      try visitor.visitSingularStringField(value: self.body, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_EditMessage, rhs: Mvservernxt_V1_EditMessage) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.body != rhs.body {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_DeleteMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteMessage"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_DeleteMessage, rhs: Mvservernxt_V1_DeleteMessage) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_DeleteMessageForEveryone: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteMessageForEveryone"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_DeleteMessageForEveryone, rhs: Mvservernxt_V1_DeleteMessageForEveryone) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mvservernxt_V1_MarkRead: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".MarkRead"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}last_read_seq\0")
@@ -1188,6 +1516,40 @@ extension Mvservernxt_V1_GetMessagesResponse: SwiftProtobuf.Message, SwiftProtob
   public static func ==(lhs: Mvservernxt_V1_GetMessagesResponse, rhs: Mvservernxt_V1_GetMessagesResponse) -> Bool {
     if lhs.messages != rhs.messages {return false}
     if lhs.hasMore_p != rhs.hasMore_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_EditMessageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EditMessageResponse"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}message\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_EditMessageResponse, rhs: Mvservernxt_V1_EditMessageResponse) -> Bool {
+    if lhs._message != rhs._message {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1507,6 +1869,153 @@ extension Mvservernxt_V1_ReadReceiptUpdated: SwiftProtobuf.Message, SwiftProtobu
     if lhs.userID != rhs.userID {return false}
     if lhs.lastReadSeq != rhs.lastReadSeq {return false}
     if lhs._updatedAt != rhs._updatedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_MessageEdited: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MessageEdited"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}body\0\u{3}edited_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.body) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._editedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 2)
+    }
+    if !self.body.isEmpty {
+      try visitor.visitSingularStringField(value: self.body, fieldNumber: 3)
+    }
+    try { if let v = self._editedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_MessageEdited, rhs: Mvservernxt_V1_MessageEdited) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.body != rhs.body {return false}
+    if lhs._editedAt != rhs._editedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_MessageHidden: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MessageHidden"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{3}user_id\0\u{3}hidden_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._hiddenAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 2)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 3)
+    }
+    try { if let v = self._hiddenAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_MessageHidden, rhs: Mvservernxt_V1_MessageHidden) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._hiddenAt != rhs._hiddenAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_MessageDeletedForEveryone: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MessageDeletedForEveryone"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{3}deleted_by\0\u{3}deleted_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.deletedBy) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._deletedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 1)
+    }
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 2)
+    }
+    if !self.deletedBy.isEmpty {
+      try visitor.visitSingularStringField(value: self.deletedBy, fieldNumber: 3)
+    }
+    try { if let v = self._deletedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_MessageDeletedForEveryone, rhs: Mvservernxt_V1_MessageDeletedForEveryone) -> Bool {
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.deletedBy != rhs.deletedBy {return false}
+    if lhs._deletedAt != rhs._deletedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

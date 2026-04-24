@@ -66,7 +66,7 @@ public interface MessageOrBuilder extends
 
   /**
    * <pre>
-   * Plain text in slice 1.
+   * Redacted to "" when deleted_at set.
    * </pre>
    *
    * <code>string body = 5 [json_name = "body"];</code>
@@ -75,7 +75,7 @@ public interface MessageOrBuilder extends
   java.lang.String getBody();
   /**
    * <pre>
-   * Plain text in slice 1.
+   * Redacted to "" when deleted_at set.
    * </pre>
    *
    * <code>string body = 5 [json_name = "body"];</code>
@@ -154,4 +154,94 @@ public interface MessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getClientMessageIdBytes();
+
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   * @return Whether the editedAt field is set.
+   */
+  boolean hasEditedAt();
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   * @return The editedAt.
+   */
+  com.google.protobuf.Timestamp getEditedAt();
+  /**
+   * <pre>
+   * When the message body was most recently edited. Null = never edited.
+   * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+   * original sender only.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];</code>
+   */
+  com.google.protobuf.TimestampOrBuilder getEditedAtOrBuilder();
+
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   * @return Whether the deletedAt field is set.
+   */
+  boolean hasDeletedAt();
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   * @return The deletedAt.
+   */
+  com.google.protobuf.Timestamp getDeletedAt();
+  /**
+   * <pre>
+   * When the message was soft-deleted "for everyone". Null = not
+   * deleted. Clients observing a non-null value MUST render a "deleted"
+   * placeholder rather than body (which the server redacts to "").
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
+   */
+  com.google.protobuf.TimestampOrBuilder getDeletedAtOrBuilder();
+
+  /**
+   * <pre>
+   * Who issued the delete (user_id string). Typically the sender
+   * (self-delete); admin moderation lands later. Empty when deleted_at
+   * is null.
+   * </pre>
+   *
+   * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+   * @return The deletedBy.
+   */
+  java.lang.String getDeletedBy();
+  /**
+   * <pre>
+   * Who issued the delete (user_id string). Typically the sender
+   * (self-delete); admin moderation lands later. Empty when deleted_at
+   * is null.
+   * </pre>
+   *
+   * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
+   * @return The bytes for deletedBy.
+   */
+  com.google.protobuf.ByteString
+      getDeletedByBytes();
 }

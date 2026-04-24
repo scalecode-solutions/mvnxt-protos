@@ -369,5 +369,50 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdatedOrBuilder getReadReceiptUpdatedOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];</code>
+   * @return Whether the messageEdited field is set.
+   */
+  boolean hasMessageEdited();
+  /**
+   * <code>.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];</code>
+   * @return The messageEdited.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageEdited getMessageEdited();
+  /**
+   * <code>.mvservernxt.v1.MessageEdited message_edited = 36 [json_name = "messageEdited"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageEditedOrBuilder getMessageEditedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];</code>
+   * @return Whether the messageHidden field is set.
+   */
+  boolean hasMessageHidden();
+  /**
+   * <code>.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];</code>
+   * @return The messageHidden.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageHidden getMessageHidden();
+  /**
+   * <code>.mvservernxt.v1.MessageHidden message_hidden = 37 [json_name = "messageHidden"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageHiddenOrBuilder getMessageHiddenOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];</code>
+   * @return Whether the messageDeletedForEveryone field is set.
+   */
+  boolean hasMessageDeletedForEveryone();
+  /**
+   * <code>.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];</code>
+   * @return The messageDeletedForEveryone.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone getMessageDeletedForEveryone();
+  /**
+   * <code>.mvservernxt.v1.MessageDeletedForEveryone message_deleted_for_everyone = 38 [json_name = "messageDeletedForEveryone"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryoneOrBuilder getMessageDeletedForEveryoneOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }
