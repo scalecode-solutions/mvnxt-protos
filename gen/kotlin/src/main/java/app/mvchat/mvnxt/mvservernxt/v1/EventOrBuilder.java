@@ -579,5 +579,77 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdatedOrBuilder getDeliveryReceiptUpdatedOrBuilder();
 
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];</code>
+   * @return Whether the contactAdded field is set.
+   */
+  boolean hasContactAdded();
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];</code>
+   * @return The contactAdded.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ContactAdded getContactAdded();
+  /**
+   * <pre>
+   * Contacts (range 100-109)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ContactAddedOrBuilder getContactAddedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];</code>
+   * @return Whether the contactRemoved field is set.
+   */
+  boolean hasContactRemoved();
+  /**
+   * <code>.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];</code>
+   * @return The contactRemoved.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ContactRemoved getContactRemoved();
+  /**
+   * <code>.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ContactRemovedOrBuilder getContactRemovedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];</code>
+   * @return Whether the userBlocked field is set.
+   */
+  boolean hasUserBlocked();
+  /**
+   * <code>.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];</code>
+   * @return The userBlocked.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UserBlocked getUserBlocked();
+  /**
+   * <code>.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UserBlockedOrBuilder getUserBlockedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];</code>
+   * @return Whether the userUnblocked field is set.
+   */
+  boolean hasUserUnblocked();
+  /**
+   * <code>.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];</code>
+   * @return The userUnblocked.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked getUserUnblocked();
+  /**
+   * <code>.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UserUnblockedOrBuilder getUserUnblockedOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

@@ -15,10 +15,11 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart'
-    as $4;
+    as $5;
 
 import 'chat.pb.dart' as $3;
-import 'common.pb.dart' as $5;
+import 'common.pb.dart' as $6;
+import 'contacts.pb.dart' as $4;
 import 'hello.pb.dart' as $1;
 import 'identity.pb.dart' as $2;
 import 'system.pb.dart' as $0;
@@ -56,6 +57,12 @@ enum ClientEnvelope_Payload {
   setConversationNickname,
   updateConversationMetadata,
   markDelivered,
+  addContact,
+  removeContact,
+  listContacts,
+  searchUsers,
+  blockUser,
+  unblockUser,
   notSet
 }
 
@@ -99,6 +106,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.SetConversationNickname? setConversationNickname,
     $3.UpdateConversationMetadata? updateConversationMetadata,
     $3.MarkDelivered? markDelivered,
+    $4.AddContact? addContact,
+    $4.RemoveContact? removeContact,
+    $4.ListContacts? listContacts,
+    $4.SearchUsers? searchUsers,
+    $4.BlockUser? blockUser,
+    $4.UnblockUser? unblockUser,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -138,6 +151,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (updateConversationMetadata != null)
       result.updateConversationMetadata = updateConversationMetadata;
     if (markDelivered != null) result.markDelivered = markDelivered;
+    if (addContact != null) result.addContact = addContact;
+    if (removeContact != null) result.removeContact = removeContact;
+    if (listContacts != null) result.listContacts = listContacts;
+    if (searchUsers != null) result.searchUsers = searchUsers;
+    if (blockUser != null) result.blockUser = blockUser;
+    if (unblockUser != null) result.unblockUser = unblockUser;
     return result;
   }
 
@@ -182,6 +201,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     48: ClientEnvelope_Payload.setConversationNickname,
     49: ClientEnvelope_Payload.updateConversationMetadata,
     50: ClientEnvelope_Payload.markDelivered,
+    100: ClientEnvelope_Payload.addContact,
+    101: ClientEnvelope_Payload.removeContact,
+    102: ClientEnvelope_Payload.listContacts,
+    103: ClientEnvelope_Payload.searchUsers,
+    104: ClientEnvelope_Payload.blockUser,
+    105: ClientEnvelope_Payload.unblockUser,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -218,7 +243,13 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       47,
       48,
       49,
-      50
+      50,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -287,6 +318,18 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $3.UpdateConversationMetadata.create)
     ..aOM<$3.MarkDelivered>(50, _omitFieldNames ? '' : 'markDelivered',
         subBuilder: $3.MarkDelivered.create)
+    ..aOM<$4.AddContact>(100, _omitFieldNames ? '' : 'addContact',
+        subBuilder: $4.AddContact.create)
+    ..aOM<$4.RemoveContact>(101, _omitFieldNames ? '' : 'removeContact',
+        subBuilder: $4.RemoveContact.create)
+    ..aOM<$4.ListContacts>(102, _omitFieldNames ? '' : 'listContacts',
+        subBuilder: $4.ListContacts.create)
+    ..aOM<$4.SearchUsers>(103, _omitFieldNames ? '' : 'searchUsers',
+        subBuilder: $4.SearchUsers.create)
+    ..aOM<$4.BlockUser>(104, _omitFieldNames ? '' : 'blockUser',
+        subBuilder: $4.BlockUser.create)
+    ..aOM<$4.UnblockUser>(105, _omitFieldNames ? '' : 'unblockUser',
+        subBuilder: $4.UnblockUser.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -338,6 +381,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
   @$pb.TagNumber(50)
+  @$pb.TagNumber(100)
+  @$pb.TagNumber(101)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
+  @$pb.TagNumber(104)
+  @$pb.TagNumber(105)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -370,6 +419,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
   @$pb.TagNumber(50)
+  @$pb.TagNumber(100)
+  @$pb.TagNumber(101)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
+  @$pb.TagNumber(104)
+  @$pb.TagNumber(105)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -722,6 +777,73 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearMarkDelivered() => $_clearField(50);
   @$pb.TagNumber(50)
   $3.MarkDelivered ensureMarkDelivered() => $_ensure(30);
+
+  /// Contacts (range 100-109)
+  @$pb.TagNumber(100)
+  $4.AddContact get addContact => $_getN(31);
+  @$pb.TagNumber(100)
+  set addContact($4.AddContact value) => $_setField(100, value);
+  @$pb.TagNumber(100)
+  $core.bool hasAddContact() => $_has(31);
+  @$pb.TagNumber(100)
+  void clearAddContact() => $_clearField(100);
+  @$pb.TagNumber(100)
+  $4.AddContact ensureAddContact() => $_ensure(31);
+
+  @$pb.TagNumber(101)
+  $4.RemoveContact get removeContact => $_getN(32);
+  @$pb.TagNumber(101)
+  set removeContact($4.RemoveContact value) => $_setField(101, value);
+  @$pb.TagNumber(101)
+  $core.bool hasRemoveContact() => $_has(32);
+  @$pb.TagNumber(101)
+  void clearRemoveContact() => $_clearField(101);
+  @$pb.TagNumber(101)
+  $4.RemoveContact ensureRemoveContact() => $_ensure(32);
+
+  @$pb.TagNumber(102)
+  $4.ListContacts get listContacts => $_getN(33);
+  @$pb.TagNumber(102)
+  set listContacts($4.ListContacts value) => $_setField(102, value);
+  @$pb.TagNumber(102)
+  $core.bool hasListContacts() => $_has(33);
+  @$pb.TagNumber(102)
+  void clearListContacts() => $_clearField(102);
+  @$pb.TagNumber(102)
+  $4.ListContacts ensureListContacts() => $_ensure(33);
+
+  @$pb.TagNumber(103)
+  $4.SearchUsers get searchUsers => $_getN(34);
+  @$pb.TagNumber(103)
+  set searchUsers($4.SearchUsers value) => $_setField(103, value);
+  @$pb.TagNumber(103)
+  $core.bool hasSearchUsers() => $_has(34);
+  @$pb.TagNumber(103)
+  void clearSearchUsers() => $_clearField(103);
+  @$pb.TagNumber(103)
+  $4.SearchUsers ensureSearchUsers() => $_ensure(34);
+
+  @$pb.TagNumber(104)
+  $4.BlockUser get blockUser => $_getN(35);
+  @$pb.TagNumber(104)
+  set blockUser($4.BlockUser value) => $_setField(104, value);
+  @$pb.TagNumber(104)
+  $core.bool hasBlockUser() => $_has(35);
+  @$pb.TagNumber(104)
+  void clearBlockUser() => $_clearField(104);
+  @$pb.TagNumber(104)
+  $4.BlockUser ensureBlockUser() => $_ensure(35);
+
+  @$pb.TagNumber(105)
+  $4.UnblockUser get unblockUser => $_getN(36);
+  @$pb.TagNumber(105)
+  set unblockUser($4.UnblockUser value) => $_setField(105, value);
+  @$pb.TagNumber(105)
+  $core.bool hasUnblockUser() => $_has(36);
+  @$pb.TagNumber(105)
+  void clearUnblockUser() => $_clearField(105);
+  @$pb.TagNumber(105)
+  $4.UnblockUser ensureUnblockUser() => $_ensure(36);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -844,6 +966,8 @@ enum Ack_Payload {
   listConversations,
   getMessages,
   editMessage,
+  listContacts,
+  searchUsers,
   notSet
 }
 
@@ -862,6 +986,8 @@ class Ack extends $pb.GeneratedMessage {
     $3.ListConversationsResponse? listConversations,
     $3.GetMessagesResponse? getMessages,
     $3.EditMessageResponse? editMessage,
+    $4.ListContactsResponse? listContacts,
+    $4.SearchUsersResponse? searchUsers,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -877,6 +1003,8 @@ class Ack extends $pb.GeneratedMessage {
     if (listConversations != null) result.listConversations = listConversations;
     if (getMessages != null) result.getMessages = getMessages;
     if (editMessage != null) result.editMessage = editMessage;
+    if (listContacts != null) result.listContacts = listContacts;
+    if (searchUsers != null) result.searchUsers = searchUsers;
     return result;
   }
 
@@ -900,13 +1028,15 @@ class Ack extends $pb.GeneratedMessage {
     35: Ack_Payload.listConversations,
     36: Ack_Payload.getMessages,
     38: Ack_Payload.editMessage,
+    102: Ack_Payload.listContacts,
+    103: Ack_Payload.searchUsers,
     0: Ack_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Ack',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38])
+    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38, 102, 103])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aI(2, _omitFieldNames ? '' : 'code')
     ..aOM<$0.Pong>(10, _omitFieldNames ? '' : 'pong',
@@ -931,6 +1061,10 @@ class Ack extends $pb.GeneratedMessage {
         subBuilder: $3.GetMessagesResponse.create)
     ..aOM<$3.EditMessageResponse>(38, _omitFieldNames ? '' : 'editMessage',
         subBuilder: $3.EditMessageResponse.create)
+    ..aOM<$4.ListContactsResponse>(102, _omitFieldNames ? '' : 'listContacts',
+        subBuilder: $4.ListContactsResponse.create)
+    ..aOM<$4.SearchUsersResponse>(103, _omitFieldNames ? '' : 'searchUsers',
+        subBuilder: $4.SearchUsersResponse.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -961,6 +1095,8 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
   @$pb.TagNumber(38)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
   Ack_Payload whichPayload() => _Ack_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(11)
@@ -972,6 +1108,8 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
   @$pb.TagNumber(38)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Correlates to ClientEnvelope.idempotency_key.
@@ -1110,6 +1248,30 @@ class Ack extends $pb.GeneratedMessage {
   void clearEditMessage() => $_clearField(38);
   @$pb.TagNumber(38)
   $3.EditMessageResponse ensureEditMessage() => $_ensure(11);
+
+  /// Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+  /// return empty Ack with no payload)
+  @$pb.TagNumber(102)
+  $4.ListContactsResponse get listContacts => $_getN(12);
+  @$pb.TagNumber(102)
+  set listContacts($4.ListContactsResponse value) => $_setField(102, value);
+  @$pb.TagNumber(102)
+  $core.bool hasListContacts() => $_has(12);
+  @$pb.TagNumber(102)
+  void clearListContacts() => $_clearField(102);
+  @$pb.TagNumber(102)
+  $4.ListContactsResponse ensureListContacts() => $_ensure(12);
+
+  @$pb.TagNumber(103)
+  $4.SearchUsersResponse get searchUsers => $_getN(13);
+  @$pb.TagNumber(103)
+  set searchUsers($4.SearchUsersResponse value) => $_setField(103, value);
+  @$pb.TagNumber(103)
+  $core.bool hasSearchUsers() => $_has(13);
+  @$pb.TagNumber(103)
+  void clearSearchUsers() => $_clearField(103);
+  @$pb.TagNumber(103)
+  $4.SearchUsersResponse ensureSearchUsers() => $_ensure(13);
 }
 
 /// Err is returned for a failed command.
@@ -1237,6 +1399,10 @@ enum Event_Payload {
   conversationNicknameChanged,
   conversationMetadataChanged,
   deliveryReceiptUpdated,
+  contactAdded,
+  contactRemoved,
+  userBlocked,
+  userUnblocked,
   notSet
 }
 
@@ -1247,9 +1413,9 @@ class Event extends $pb.GeneratedMessage {
   factory Event({
     $fixnum.Int64? seq,
     $core.String? stream,
-    $4.Timestamp? timestamp,
-    $5.UUID? actorId,
-    $5.UUID? aggregateId,
+    $5.Timestamp? timestamp,
+    $6.UUID? actorId,
+    $6.UUID? aggregateId,
     $0.SystemNotice? systemNotice,
     $2.UserRegistered? userRegistered,
     $2.UserLoggedIn? userLoggedIn,
@@ -1278,6 +1444,10 @@ class Event extends $pb.GeneratedMessage {
     $3.ConversationNicknameChanged? conversationNicknameChanged,
     $3.ConversationMetadataChanged? conversationMetadataChanged,
     $3.DeliveryReceiptUpdated? deliveryReceiptUpdated,
+    $4.ContactAdded? contactAdded,
+    $4.ContactRemoved? contactRemoved,
+    $4.UserBlocked? userBlocked,
+    $4.UserUnblocked? userUnblocked,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1324,6 +1494,10 @@ class Event extends $pb.GeneratedMessage {
       result.conversationMetadataChanged = conversationMetadataChanged;
     if (deliveryReceiptUpdated != null)
       result.deliveryReceiptUpdated = deliveryReceiptUpdated;
+    if (contactAdded != null) result.contactAdded = contactAdded;
+    if (contactRemoved != null) result.contactRemoved = contactRemoved;
+    if (userBlocked != null) result.userBlocked = userBlocked;
+    if (userUnblocked != null) result.userUnblocked = userUnblocked;
     return result;
   }
 
@@ -1365,6 +1539,10 @@ class Event extends $pb.GeneratedMessage {
     47: Event_Payload.conversationNicknameChanged,
     48: Event_Payload.conversationMetadataChanged,
     49: Event_Payload.deliveryReceiptUpdated,
+    100: Event_Payload.contactAdded,
+    101: Event_Payload.contactRemoved,
+    102: Event_Payload.userBlocked,
+    103: Event_Payload.userUnblocked,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1399,16 +1577,20 @@ class Event extends $pb.GeneratedMessage {
       46,
       47,
       48,
-      49
+      49,
+      100,
+      101,
+      102,
+      103
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
-    ..aOM<$4.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
-        subBuilder: $4.Timestamp.create)
-    ..aOM<$5.UUID>(4, _omitFieldNames ? '' : 'actorId',
-        subBuilder: $5.UUID.create)
-    ..aOM<$5.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
-        subBuilder: $5.UUID.create)
+    ..aOM<$5.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
+        subBuilder: $5.Timestamp.create)
+    ..aOM<$6.UUID>(4, _omitFieldNames ? '' : 'actorId',
+        subBuilder: $6.UUID.create)
+    ..aOM<$6.UUID>(5, _omitFieldNames ? '' : 'aggregateId',
+        subBuilder: $6.UUID.create)
     ..aOM<$0.SystemNotice>(10, _omitFieldNames ? '' : 'systemNotice',
         subBuilder: $0.SystemNotice.create)
     ..aOM<$2.UserRegistered>(20, _omitFieldNames ? '' : 'userRegistered',
@@ -1476,6 +1658,14 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$3.DeliveryReceiptUpdated>(
         49, _omitFieldNames ? '' : 'deliveryReceiptUpdated',
         subBuilder: $3.DeliveryReceiptUpdated.create)
+    ..aOM<$4.ContactAdded>(100, _omitFieldNames ? '' : 'contactAdded',
+        subBuilder: $4.ContactAdded.create)
+    ..aOM<$4.ContactRemoved>(101, _omitFieldNames ? '' : 'contactRemoved',
+        subBuilder: $4.ContactRemoved.create)
+    ..aOM<$4.UserBlocked>(102, _omitFieldNames ? '' : 'userBlocked',
+        subBuilder: $4.UserBlocked.create)
+    ..aOM<$4.UserUnblocked>(103, _omitFieldNames ? '' : 'userUnblocked',
+        subBuilder: $4.UserUnblocked.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1524,6 +1714,10 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(100)
+  @$pb.TagNumber(101)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1553,6 +1747,10 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(100)
+  @$pb.TagNumber(101)
+  @$pb.TagNumber(102)
+  @$pb.TagNumber(103)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1578,39 +1776,39 @@ class Event extends $pb.GeneratedMessage {
 
   /// When the event was written to the log.
   @$pb.TagNumber(3)
-  $4.Timestamp get timestamp => $_getN(2);
+  $5.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($4.Timestamp value) => $_setField(3, value);
+  set timestamp($5.Timestamp value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
   void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
-  $4.Timestamp ensureTimestamp() => $_ensure(2);
+  $5.Timestamp ensureTimestamp() => $_ensure(2);
 
   /// Who caused the event, if applicable.
   @$pb.TagNumber(4)
-  $5.UUID get actorId => $_getN(3);
+  $6.UUID get actorId => $_getN(3);
   @$pb.TagNumber(4)
-  set actorId($5.UUID value) => $_setField(4, value);
+  set actorId($6.UUID value) => $_setField(4, value);
   @$pb.TagNumber(4)
   $core.bool hasActorId() => $_has(3);
   @$pb.TagNumber(4)
   void clearActorId() => $_clearField(4);
   @$pb.TagNumber(4)
-  $5.UUID ensureActorId() => $_ensure(3);
+  $6.UUID ensureActorId() => $_ensure(3);
 
   /// Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
   @$pb.TagNumber(5)
-  $5.UUID get aggregateId => $_getN(4);
+  $6.UUID get aggregateId => $_getN(4);
   @$pb.TagNumber(5)
-  set aggregateId($5.UUID value) => $_setField(5, value);
+  set aggregateId($6.UUID value) => $_setField(5, value);
   @$pb.TagNumber(5)
   $core.bool hasAggregateId() => $_has(4);
   @$pb.TagNumber(5)
   void clearAggregateId() => $_clearField(5);
   @$pb.TagNumber(5)
-  $5.UUID ensureAggregateId() => $_ensure(4);
+  $6.UUID ensureAggregateId() => $_ensure(4);
 
   /// System
   @$pb.TagNumber(10)
@@ -1937,6 +2135,51 @@ class Event extends $pb.GeneratedMessage {
   void clearDeliveryReceiptUpdated() => $_clearField(49);
   @$pb.TagNumber(49)
   $3.DeliveryReceiptUpdated ensureDeliveryReceiptUpdated() => $_ensure(32);
+
+  /// Contacts (range 100-109)
+  @$pb.TagNumber(100)
+  $4.ContactAdded get contactAdded => $_getN(33);
+  @$pb.TagNumber(100)
+  set contactAdded($4.ContactAdded value) => $_setField(100, value);
+  @$pb.TagNumber(100)
+  $core.bool hasContactAdded() => $_has(33);
+  @$pb.TagNumber(100)
+  void clearContactAdded() => $_clearField(100);
+  @$pb.TagNumber(100)
+  $4.ContactAdded ensureContactAdded() => $_ensure(33);
+
+  @$pb.TagNumber(101)
+  $4.ContactRemoved get contactRemoved => $_getN(34);
+  @$pb.TagNumber(101)
+  set contactRemoved($4.ContactRemoved value) => $_setField(101, value);
+  @$pb.TagNumber(101)
+  $core.bool hasContactRemoved() => $_has(34);
+  @$pb.TagNumber(101)
+  void clearContactRemoved() => $_clearField(101);
+  @$pb.TagNumber(101)
+  $4.ContactRemoved ensureContactRemoved() => $_ensure(34);
+
+  @$pb.TagNumber(102)
+  $4.UserBlocked get userBlocked => $_getN(35);
+  @$pb.TagNumber(102)
+  set userBlocked($4.UserBlocked value) => $_setField(102, value);
+  @$pb.TagNumber(102)
+  $core.bool hasUserBlocked() => $_has(35);
+  @$pb.TagNumber(102)
+  void clearUserBlocked() => $_clearField(102);
+  @$pb.TagNumber(102)
+  $4.UserBlocked ensureUserBlocked() => $_ensure(35);
+
+  @$pb.TagNumber(103)
+  $4.UserUnblocked get userUnblocked => $_getN(36);
+  @$pb.TagNumber(103)
+  set userUnblocked($4.UserUnblocked value) => $_setField(103, value);
+  @$pb.TagNumber(103)
+  $core.bool hasUserUnblocked() => $_has(36);
+  @$pb.TagNumber(103)
+  void clearUserUnblocked() => $_clearField(103);
+  @$pb.TagNumber(103)
+  $4.UserUnblocked ensureUserUnblocked() => $_ensure(36);
 }
 
 const $core.bool _omitFieldNames =

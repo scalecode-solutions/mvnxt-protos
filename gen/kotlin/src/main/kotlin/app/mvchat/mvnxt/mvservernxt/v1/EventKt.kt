@@ -911,6 +911,114 @@ public object EventKt {
     public fun hasDeliveryReceiptUpdated(): kotlin.Boolean {
       return _builder.hasDeliveryReceiptUpdated()
     }
+
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];`
+     */
+    public var contactAdded: app.mvchat.mvnxt.mvservernxt.v1.ContactAdded
+      @kotlin.jvm.JvmName("getContactAdded")
+        get() = _builder.contactAdded
+      @kotlin.jvm.JvmName("setContactAdded")
+        set(value) {
+        _builder.contactAdded = value
+      }
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];`
+     */
+    public fun clearContactAdded() {
+      _builder.clearContactAdded()
+    }
+    /**
+     * ```
+     * Contacts (range 100-109)
+     * ```
+     *
+     * `.mvservernxt.v1.ContactAdded contact_added = 100 [json_name = "contactAdded"];`
+     * @return Whether the contactAdded field is set.
+     */
+    public fun hasContactAdded(): kotlin.Boolean {
+      return _builder.hasContactAdded()
+    }
+
+    /**
+     * `.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];`
+     */
+    public var contactRemoved: app.mvchat.mvnxt.mvservernxt.v1.ContactRemoved
+      @kotlin.jvm.JvmName("getContactRemoved")
+        get() = _builder.contactRemoved
+      @kotlin.jvm.JvmName("setContactRemoved")
+        set(value) {
+        _builder.contactRemoved = value
+      }
+    /**
+     * `.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];`
+     */
+    public fun clearContactRemoved() {
+      _builder.clearContactRemoved()
+    }
+    /**
+     * `.mvservernxt.v1.ContactRemoved contact_removed = 101 [json_name = "contactRemoved"];`
+     * @return Whether the contactRemoved field is set.
+     */
+    public fun hasContactRemoved(): kotlin.Boolean {
+      return _builder.hasContactRemoved()
+    }
+
+    /**
+     * `.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];`
+     */
+    public var userBlocked: app.mvchat.mvnxt.mvservernxt.v1.UserBlocked
+      @kotlin.jvm.JvmName("getUserBlocked")
+        get() = _builder.userBlocked
+      @kotlin.jvm.JvmName("setUserBlocked")
+        set(value) {
+        _builder.userBlocked = value
+      }
+    /**
+     * `.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];`
+     */
+    public fun clearUserBlocked() {
+      _builder.clearUserBlocked()
+    }
+    /**
+     * `.mvservernxt.v1.UserBlocked user_blocked = 102 [json_name = "userBlocked"];`
+     * @return Whether the userBlocked field is set.
+     */
+    public fun hasUserBlocked(): kotlin.Boolean {
+      return _builder.hasUserBlocked()
+    }
+
+    /**
+     * `.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];`
+     */
+    public var userUnblocked: app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked
+      @kotlin.jvm.JvmName("getUserUnblocked")
+        get() = _builder.userUnblocked
+      @kotlin.jvm.JvmName("setUserUnblocked")
+        set(value) {
+        _builder.userUnblocked = value
+      }
+    /**
+     * `.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];`
+     */
+    public fun clearUserUnblocked() {
+      _builder.clearUserUnblocked()
+    }
+    /**
+     * `.mvservernxt.v1.UserUnblocked user_unblocked = 103 [json_name = "userUnblocked"];`
+     * @return Whether the userUnblocked field is set.
+     */
+    public fun hasUserUnblocked(): kotlin.Boolean {
+      return _builder.hasUserUnblocked()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -1016,4 +1124,16 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationMetadataCh
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.deliveryReceiptUpdatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.DeliveryReceiptUpdated?
   get() = if (hasDeliveryReceiptUpdated()) getDeliveryReceiptUpdated() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.contactAddedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ContactAdded?
+  get() = if (hasContactAdded()) getContactAdded() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.contactRemovedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ContactRemoved?
+  get() = if (hasContactRemoved()) getContactRemoved() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.userBlockedOrNull: app.mvchat.mvnxt.mvservernxt.v1.UserBlocked?
+  get() = if (hasUserBlocked()) getUserBlocked() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.userUnblockedOrNull: app.mvchat.mvnxt.mvservernxt.v1.UserUnblocked?
+  get() = if (hasUserUnblocked()) getUserUnblocked() else null
 

@@ -232,5 +232,50 @@ public interface AckOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponseOrBuilder getEditMessageOrBuilder();
 
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return Whether the listContacts field is set.
+   */
+  boolean hasListContacts();
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   * @return The listContacts.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponse getListContacts();
+  /**
+   * <pre>
+   * Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+   * return empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ListContactsResponse list_contacts = 102 [json_name = "listContacts"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ListContactsResponseOrBuilder getListContactsOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   * @return Whether the searchUsers field is set.
+   */
+  boolean hasSearchUsers();
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   * @return The searchUsers.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponse getSearchUsers();
+  /**
+   * <code>.mvservernxt.v1.SearchUsersResponse search_users = 103 [json_name = "searchUsers"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SearchUsersResponseOrBuilder getSearchUsersOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase getPayloadCase();
 }

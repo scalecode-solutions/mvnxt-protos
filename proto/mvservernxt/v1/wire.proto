@@ -11,6 +11,7 @@ package mvservernxt.v1;
 import "google/protobuf/timestamp.proto";
 import "mvservernxt/v1/chat.proto";
 import "mvservernxt/v1/common.proto";
+import "mvservernxt/v1/contacts.proto";
 import "mvservernxt/v1/hello.proto";
 import "mvservernxt/v1/identity.proto";
 import "mvservernxt/v1/system.proto";
@@ -70,12 +71,21 @@ message ClientEnvelope {
     UpdateConversationMetadata update_conversation_metadata = 49;
     MarkDelivered           mark_delivered             = 50;
 
-    // Other domains land in their reserved ranges:
-    //   50-59  pulse
-    //   60-69  tangle
-    //   70-79  calls
-    //   80-89  presence
-    //   90-99  media
+    // Contacts (range 100-109)
+    AddContact              add_contact                = 100;
+    RemoveContact           remove_contact             = 101;
+    ListContacts            list_contacts              = 102;
+    SearchUsers             search_users               = 103;
+    BlockUser               block_user                 = 104;
+    UnblockUser             unblock_user               = 105;
+
+    // Other domains land in their reserved ranges (chat 30-50 above,
+    // contacts 100-109 above). Still to be claimed:
+    //   110-119 presence
+    //   120-129 pulse
+    //   130-139 tangle
+    //   140-149 calls
+    //   150-159 media
   }
 }
 
@@ -119,6 +129,11 @@ message Ack {
     ListConversationsResponse  list_conversations  = 35;
     GetMessagesResponse        get_messages        = 36;
     EditMessageResponse        edit_message        = 38;
+
+    // Contacts (AddContact, RemoveContact, BlockUser, UnblockUser
+    // return empty Ack with no payload)
+    ListContactsResponse       list_contacts       = 102;
+    SearchUsersResponse        search_users        = 103;
   }
 }
 
@@ -194,5 +209,11 @@ message Event {
     ConversationNicknameChanged conversation_nickname_changed = 47;
     ConversationMetadataChanged conversation_metadata_changed = 48;
     DeliveryReceiptUpdated     delivery_receipt_updated     = 49;
+
+    // Contacts (range 100-109)
+    ContactAdded               contact_added                = 100;
+    ContactRemoved             contact_removed              = 101;
+    UserBlocked                user_blocked                 = 102;
+    UserUnblocked              user_unblocked               = 103;
   }
 }
