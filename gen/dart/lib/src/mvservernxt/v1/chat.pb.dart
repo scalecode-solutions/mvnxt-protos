@@ -118,6 +118,8 @@ class Conversation extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? memberIds,
     $fixnum.Int64? lastMessageSeq,
     $core.int? disappearingSeconds,
+    $core.String? description,
+    $core.String? theme,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -129,6 +131,8 @@ class Conversation extends $pb.GeneratedMessage {
     if (lastMessageSeq != null) result.lastMessageSeq = lastMessageSeq;
     if (disappearingSeconds != null)
       result.disappearingSeconds = disappearingSeconds;
+    if (description != null) result.description = description;
+    if (theme != null) result.theme = theme;
     return result;
   }
 
@@ -155,6 +159,8 @@ class Conversation extends $pb.GeneratedMessage {
     ..pPS(6, _omitFieldNames ? '' : 'memberIds')
     ..aInt64(7, _omitFieldNames ? '' : 'lastMessageSeq')
     ..aI(8, _omitFieldNames ? '' : 'disappearingSeconds')
+    ..aOS(9, _omitFieldNames ? '' : 'description')
+    ..aOS(10, _omitFieldNames ? '' : 'theme')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -255,6 +261,29 @@ class Conversation extends $pb.GeneratedMessage {
   $core.bool hasDisappearingSeconds() => $_has(7);
   @$pb.TagNumber(8)
   void clearDisappearingSeconds() => $_clearField(8);
+
+  /// Group description (free-form text shown beneath the title in UI).
+  /// Empty for DMs and for groups that never set one. Max 500 chars.
+  @$pb.TagNumber(9)
+  $core.String get description => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set description($core.String value) => $_setString(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasDescription() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearDescription() => $_clearField(9);
+
+  /// Visual theme identifier — opaque to the server, interpreted by
+  /// clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+  /// default. Max 64 chars.
+  @$pb.TagNumber(10)
+  $core.String get theme => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set theme($core.String value) => $_setString(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasTheme() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearTheme() => $_clearField(10);
 }
 
 /// Message is the client-facing view of one message row.
@@ -283,6 +312,8 @@ class Message extends $pb.GeneratedMessage {
     DeletionKind? deletionKind,
     $core.Iterable<Reaction>? reactions,
     $0.Timestamp? expiresAt,
+    $0.Timestamp? pinnedAt,
+    $core.String? pinnedBy,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -299,6 +330,8 @@ class Message extends $pb.GeneratedMessage {
     if (deletionKind != null) result.deletionKind = deletionKind;
     if (reactions != null) result.reactions.addAll(reactions);
     if (expiresAt != null) result.expiresAt = expiresAt;
+    if (pinnedAt != null) result.pinnedAt = pinnedAt;
+    if (pinnedBy != null) result.pinnedBy = pinnedBy;
     return result;
   }
 
@@ -335,6 +368,9 @@ class Message extends $pb.GeneratedMessage {
         subBuilder: Reaction.create)
     ..aOM<$0.Timestamp>(14, _omitFieldNames ? '' : 'expiresAt',
         subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'pinnedAt',
+        subBuilder: $0.Timestamp.create)
+    ..aOS(16, _omitFieldNames ? '' : 'pinnedBy')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -509,6 +545,30 @@ class Message extends $pb.GeneratedMessage {
   void clearExpiresAt() => $_clearField(14);
   @$pb.TagNumber(14)
   $0.Timestamp ensureExpiresAt() => $_ensure(13);
+
+  /// When the message was pinned in its conversation. Null = not
+  /// pinned. Multiple messages can be pinned per conversation; the
+  /// server doesn't cap the set size beyond general abuse protections.
+  @$pb.TagNumber(15)
+  $0.Timestamp get pinnedAt => $_getN(14);
+  @$pb.TagNumber(15)
+  set pinnedAt($0.Timestamp value) => $_setField(15, value);
+  @$pb.TagNumber(15)
+  $core.bool hasPinnedAt() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearPinnedAt() => $_clearField(15);
+  @$pb.TagNumber(15)
+  $0.Timestamp ensurePinnedAt() => $_ensure(14);
+
+  /// Who pinned it (user_id string). Empty when pinned_at is null.
+  @$pb.TagNumber(16)
+  $core.String get pinnedBy => $_getSZ(15);
+  @$pb.TagNumber(16)
+  set pinnedBy($core.String value) => $_setString(15, value);
+  @$pb.TagNumber(16)
+  $core.bool hasPinnedBy() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearPinnedBy() => $_clearField(16);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -1622,6 +1682,347 @@ class SetDisappearingMessages extends $pb.GeneratedMessage {
   $core.bool hasDisappearingSeconds() => $_has(1);
   @$pb.TagNumber(2)
   void clearDisappearingSeconds() => $_clearField(2);
+}
+
+/// PinMessage pins a message so it surfaces at the top of the
+/// conversation view. Caller MUST be an active member. Any active
+/// member can pin or unpin — role-based admin checks land later.
+///
+/// Idempotent: pinning an already-pinned message Acks cleanly without
+/// re-emitting MessagePinned. Pinning a soft-deleted message is
+/// rejected (CodeGone).
+///
+/// Multiple messages can be pinned per conversation. v2 does not
+/// currently cap the set size; attackers are bounded by the reaction
+/// rate limiter shape (a future slice may add a per-conversation pin
+/// cap if product signal warrants).
+class PinMessage extends $pb.GeneratedMessage {
+  factory PinMessage({
+    $core.String? conversationId,
+    $core.String? messageId,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (messageId != null) result.messageId = messageId;
+    return result;
+  }
+
+  PinMessage._();
+
+  factory PinMessage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory PinMessage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'PinMessage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'messageId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  PinMessage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  PinMessage copyWith(void Function(PinMessage) updates) =>
+      super.copyWith((message) => updates(message as PinMessage)) as PinMessage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static PinMessage create() => PinMessage._();
+  @$core.override
+  PinMessage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static PinMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<PinMessage>(create);
+  static PinMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get messageId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set messageId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMessageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMessageId() => $_clearField(2);
+}
+
+/// UnpinMessage removes a pin. Caller MUST be an active member.
+/// Idempotent: unpinning a message that isn't pinned Acks cleanly
+/// without re-emitting MessageUnpinned.
+class UnpinMessage extends $pb.GeneratedMessage {
+  factory UnpinMessage({
+    $core.String? conversationId,
+    $core.String? messageId,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (messageId != null) result.messageId = messageId;
+    return result;
+  }
+
+  UnpinMessage._();
+
+  factory UnpinMessage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory UnpinMessage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'UnpinMessage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'messageId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UnpinMessage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UnpinMessage copyWith(void Function(UnpinMessage) updates) =>
+      super.copyWith((message) => updates(message as UnpinMessage))
+          as UnpinMessage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UnpinMessage create() => UnpinMessage._();
+  @$core.override
+  UnpinMessage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static UnpinMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UnpinMessage>(create);
+  static UnpinMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get messageId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set messageId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMessageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMessageId() => $_clearField(2);
+}
+
+/// SetConversationNickname sets a display nickname for one member
+/// within one conversation. The nickname is VISIBLE to all members —
+/// this is conversation-scoped labeling, not a per-viewer preference.
+///
+/// Caller MUST be an active member of the conversation. In v2 any
+/// member can set any member's nickname (including their own); admin
+/// gating lands when the admin domain does.
+///
+/// Empty nickname clears the override — clients fall back to the
+/// target user's global display_name. Max 64 chars.
+class SetConversationNickname extends $pb.GeneratedMessage {
+  factory SetConversationNickname({
+    $core.String? conversationId,
+    $core.String? userId,
+    $core.String? nickname,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (nickname != null) result.nickname = nickname;
+    return result;
+  }
+
+  SetConversationNickname._();
+
+  factory SetConversationNickname.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory SetConversationNickname.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'SetConversationNickname',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aOS(3, _omitFieldNames ? '' : 'nickname')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SetConversationNickname clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  SetConversationNickname copyWith(
+          void Function(SetConversationNickname) updates) =>
+      super.copyWith((message) => updates(message as SetConversationNickname))
+          as SetConversationNickname;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SetConversationNickname create() => SetConversationNickname._();
+  @$core.override
+  SetConversationNickname createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static SetConversationNickname getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SetConversationNickname>(create);
+  static SetConversationNickname? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get nickname => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set nickname($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasNickname() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNickname() => $_clearField(3);
+}
+
+/// UpdateConversationMetadata edits one or more of title / description /
+/// theme in a single call. Uses proto3 optional presence so clients can
+/// express "don't change this field" by leaving it unset vs "clear this
+/// field" by setting it to "".
+///
+/// Caller MUST be an active member. Title edits are rejected on DMs
+/// (DMs derive their display from members). Description and theme
+/// apply to both DMs and groups.
+class UpdateConversationMetadata extends $pb.GeneratedMessage {
+  factory UpdateConversationMetadata({
+    $core.String? conversationId,
+    $core.String? title,
+    $core.String? description,
+    $core.String? theme,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (title != null) result.title = title;
+    if (description != null) result.description = description;
+    if (theme != null) result.theme = theme;
+    return result;
+  }
+
+  UpdateConversationMetadata._();
+
+  factory UpdateConversationMetadata.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory UpdateConversationMetadata.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'UpdateConversationMetadata',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'title')
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'theme')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UpdateConversationMetadata clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  UpdateConversationMetadata copyWith(
+          void Function(UpdateConversationMetadata) updates) =>
+      super.copyWith(
+              (message) => updates(message as UpdateConversationMetadata))
+          as UpdateConversationMetadata;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateConversationMetadata create() => UpdateConversationMetadata._();
+  @$core.override
+  UpdateConversationMetadata createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static UpdateConversationMetadata getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UpdateConversationMetadata>(create);
+  static UpdateConversationMetadata? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  /// Group title. Unset = leave unchanged. Set to non-empty = update.
+  /// Set to empty = rejected (groups must have a title). Rejected
+  /// outright on DMs.
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => $_clearField(2);
+
+  /// Description. Unset = leave unchanged. Empty set = clear. Max 500.
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => $_clearField(3);
+
+  /// Theme identifier. Unset = leave unchanged. Empty set = reset to
+  /// client default. Max 64 chars.
+  @$pb.TagNumber(4)
+  $core.String get theme => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set theme($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasTheme() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTheme() => $_clearField(4);
 }
 
 /// MarkRead advances the caller's last_read_seq on a conversation.
@@ -3498,6 +3899,430 @@ class MessageExpired extends $pb.GeneratedMessage {
   void clearExpiredAt() => $_clearField(3);
   @$pb.TagNumber(3)
   $0.Timestamp ensureExpiredAt() => $_ensure(2);
+}
+
+/// MessagePinned fires for each successful PinMessage. Fans out to
+/// every active member so cached views flag the pin.
+class MessagePinned extends $pb.GeneratedMessage {
+  factory MessagePinned({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? pinnedBy,
+    $0.Timestamp? pinnedAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (pinnedBy != null) result.pinnedBy = pinnedBy;
+    if (pinnedAt != null) result.pinnedAt = pinnedAt;
+    return result;
+  }
+
+  MessagePinned._();
+
+  factory MessagePinned.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessagePinned.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessagePinned',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'pinnedBy')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'pinnedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessagePinned clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessagePinned copyWith(void Function(MessagePinned) updates) =>
+      super.copyWith((message) => updates(message as MessagePinned))
+          as MessagePinned;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessagePinned create() => MessagePinned._();
+  @$core.override
+  MessagePinned createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessagePinned getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessagePinned>(create);
+  static MessagePinned? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get pinnedBy => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set pinnedBy($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPinnedBy() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPinnedBy() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get pinnedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set pinnedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasPinnedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPinnedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensurePinnedAt() => $_ensure(3);
+}
+
+/// MessageUnpinned fires for each successful UnpinMessage.
+class MessageUnpinned extends $pb.GeneratedMessage {
+  factory MessageUnpinned({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? unpinnedBy,
+    $0.Timestamp? unpinnedAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (unpinnedBy != null) result.unpinnedBy = unpinnedBy;
+    if (unpinnedAt != null) result.unpinnedAt = unpinnedAt;
+    return result;
+  }
+
+  MessageUnpinned._();
+
+  factory MessageUnpinned.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageUnpinned.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageUnpinned',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'unpinnedBy')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'unpinnedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageUnpinned clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageUnpinned copyWith(void Function(MessageUnpinned) updates) =>
+      super.copyWith((message) => updates(message as MessageUnpinned))
+          as MessageUnpinned;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageUnpinned create() => MessageUnpinned._();
+  @$core.override
+  MessageUnpinned createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageUnpinned getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageUnpinned>(create);
+  static MessageUnpinned? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get unpinnedBy => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set unpinnedBy($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasUnpinnedBy() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUnpinnedBy() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get unpinnedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set unpinnedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasUnpinnedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUnpinnedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureUnpinnedAt() => $_ensure(3);
+}
+
+/// ConversationNicknameChanged fires for each successful
+/// SetConversationNickname. Carries the new nickname verbatim (empty
+/// = cleared); clients update their per-conv display map.
+class ConversationNicknameChanged extends $pb.GeneratedMessage {
+  factory ConversationNicknameChanged({
+    $core.String? conversationId,
+    $core.String? userId,
+    $core.String? nickname,
+    $core.String? changedBy,
+    $0.Timestamp? changedAt,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (nickname != null) result.nickname = nickname;
+    if (changedBy != null) result.changedBy = changedBy;
+    if (changedAt != null) result.changedAt = changedAt;
+    return result;
+  }
+
+  ConversationNicknameChanged._();
+
+  factory ConversationNicknameChanged.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ConversationNicknameChanged.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ConversationNicknameChanged',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'userId')
+    ..aOS(3, _omitFieldNames ? '' : 'nickname')
+    ..aOS(4, _omitFieldNames ? '' : 'changedBy')
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'changedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ConversationNicknameChanged clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ConversationNicknameChanged copyWith(
+          void Function(ConversationNicknameChanged) updates) =>
+      super.copyWith(
+              (message) => updates(message as ConversationNicknameChanged))
+          as ConversationNicknameChanged;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ConversationNicknameChanged create() =>
+      ConversationNicknameChanged._();
+  @$core.override
+  ConversationNicknameChanged createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ConversationNicknameChanged getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ConversationNicknameChanged>(create);
+  static ConversationNicknameChanged? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get userId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get nickname => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set nickname($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasNickname() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNickname() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get changedBy => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set changedBy($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasChangedBy() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearChangedBy() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $0.Timestamp get changedAt => $_getN(4);
+  @$pb.TagNumber(5)
+  set changedAt($0.Timestamp value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasChangedAt() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearChangedAt() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $0.Timestamp ensureChangedAt() => $_ensure(4);
+}
+
+/// ConversationMetadataChanged fires for each successful
+/// UpdateConversationMetadata. Only the fields the handler actually
+/// applied are set on the event — clients merge into their local
+/// conversation state rather than overwriting unchanged fields.
+class ConversationMetadataChanged extends $pb.GeneratedMessage {
+  factory ConversationMetadataChanged({
+    $core.String? conversationId,
+    $core.String? title,
+    $core.String? description,
+    $core.String? theme,
+    $core.String? changedBy,
+    $0.Timestamp? changedAt,
+  }) {
+    final result = create();
+    if (conversationId != null) result.conversationId = conversationId;
+    if (title != null) result.title = title;
+    if (description != null) result.description = description;
+    if (theme != null) result.theme = theme;
+    if (changedBy != null) result.changedBy = changedBy;
+    if (changedAt != null) result.changedAt = changedAt;
+    return result;
+  }
+
+  ConversationMetadataChanged._();
+
+  factory ConversationMetadataChanged.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ConversationMetadataChanged.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ConversationMetadataChanged',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(2, _omitFieldNames ? '' : 'title')
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'theme')
+    ..aOS(5, _omitFieldNames ? '' : 'changedBy')
+    ..aOM<$0.Timestamp>(6, _omitFieldNames ? '' : 'changedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ConversationMetadataChanged clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ConversationMetadataChanged copyWith(
+          void Function(ConversationMetadataChanged) updates) =>
+      super.copyWith(
+              (message) => updates(message as ConversationMetadataChanged))
+          as ConversationMetadataChanged;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ConversationMetadataChanged create() =>
+      ConversationMetadataChanged._();
+  @$core.override
+  ConversationMetadataChanged createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ConversationMetadataChanged getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ConversationMetadataChanged>(create);
+  static ConversationMetadataChanged? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get conversationId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set conversationId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasConversationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearConversationId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get theme => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set theme($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasTheme() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTheme() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get changedBy => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set changedBy($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasChangedBy() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearChangedBy() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.Timestamp get changedAt => $_getN(5);
+  @$pb.TagNumber(6)
+  set changedAt($0.Timestamp value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasChangedAt() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearChangedAt() => $_clearField(6);
+  @$pb.TagNumber(6)
+  $0.Timestamp ensureChangedAt() => $_ensure(5);
 }
 
 const $core.bool _omitFieldNames =

@@ -51,6 +51,10 @@ enum ClientEnvelope_Payload {
   removeReaction,
   sendTyping,
   setDisappearingMessages,
+  pinMessage,
+  unpinMessage,
+  setConversationNickname,
+  updateConversationMetadata,
   notSet
 }
 
@@ -89,6 +93,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.RemoveReaction? removeReaction,
     $3.SendTyping? sendTyping,
     $3.SetDisappearingMessages? setDisappearingMessages,
+    $3.PinMessage? pinMessage,
+    $3.UnpinMessage? unpinMessage,
+    $3.SetConversationNickname? setConversationNickname,
+    $3.UpdateConversationMetadata? updateConversationMetadata,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -121,6 +129,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (sendTyping != null) result.sendTyping = sendTyping;
     if (setDisappearingMessages != null)
       result.setDisappearingMessages = setDisappearingMessages;
+    if (pinMessage != null) result.pinMessage = pinMessage;
+    if (unpinMessage != null) result.unpinMessage = unpinMessage;
+    if (setConversationNickname != null)
+      result.setConversationNickname = setConversationNickname;
+    if (updateConversationMetadata != null)
+      result.updateConversationMetadata = updateConversationMetadata;
     return result;
   }
 
@@ -160,6 +174,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     43: ClientEnvelope_Payload.removeReaction,
     44: ClientEnvelope_Payload.sendTyping,
     45: ClientEnvelope_Payload.setDisappearingMessages,
+    46: ClientEnvelope_Payload.pinMessage,
+    47: ClientEnvelope_Payload.unpinMessage,
+    48: ClientEnvelope_Payload.setConversationNickname,
+    49: ClientEnvelope_Payload.updateConversationMetadata,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -191,7 +209,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       42,
       43,
       44,
-      45
+      45,
+      46,
+      47,
+      48,
+      49
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -248,6 +270,16 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     ..aOM<$3.SetDisappearingMessages>(
         45, _omitFieldNames ? '' : 'setDisappearingMessages',
         subBuilder: $3.SetDisappearingMessages.create)
+    ..aOM<$3.PinMessage>(46, _omitFieldNames ? '' : 'pinMessage',
+        subBuilder: $3.PinMessage.create)
+    ..aOM<$3.UnpinMessage>(47, _omitFieldNames ? '' : 'unpinMessage',
+        subBuilder: $3.UnpinMessage.create)
+    ..aOM<$3.SetConversationNickname>(
+        48, _omitFieldNames ? '' : 'setConversationNickname',
+        subBuilder: $3.SetConversationNickname.create)
+    ..aOM<$3.UpdateConversationMetadata>(
+        49, _omitFieldNames ? '' : 'updateConversationMetadata',
+        subBuilder: $3.UpdateConversationMetadata.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -294,6 +326,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(43)
   @$pb.TagNumber(44)
   @$pb.TagNumber(45)
+  @$pb.TagNumber(46)
+  @$pb.TagNumber(47)
+  @$pb.TagNumber(48)
+  @$pb.TagNumber(49)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -321,6 +357,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(43)
   @$pb.TagNumber(44)
   @$pb.TagNumber(45)
+  @$pb.TagNumber(46)
+  @$pb.TagNumber(47)
+  @$pb.TagNumber(48)
+  @$pb.TagNumber(49)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -615,6 +655,53 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearSetDisappearingMessages() => $_clearField(45);
   @$pb.TagNumber(45)
   $3.SetDisappearingMessages ensureSetDisappearingMessages() => $_ensure(25);
+
+  @$pb.TagNumber(46)
+  $3.PinMessage get pinMessage => $_getN(26);
+  @$pb.TagNumber(46)
+  set pinMessage($3.PinMessage value) => $_setField(46, value);
+  @$pb.TagNumber(46)
+  $core.bool hasPinMessage() => $_has(26);
+  @$pb.TagNumber(46)
+  void clearPinMessage() => $_clearField(46);
+  @$pb.TagNumber(46)
+  $3.PinMessage ensurePinMessage() => $_ensure(26);
+
+  @$pb.TagNumber(47)
+  $3.UnpinMessage get unpinMessage => $_getN(27);
+  @$pb.TagNumber(47)
+  set unpinMessage($3.UnpinMessage value) => $_setField(47, value);
+  @$pb.TagNumber(47)
+  $core.bool hasUnpinMessage() => $_has(27);
+  @$pb.TagNumber(47)
+  void clearUnpinMessage() => $_clearField(47);
+  @$pb.TagNumber(47)
+  $3.UnpinMessage ensureUnpinMessage() => $_ensure(27);
+
+  @$pb.TagNumber(48)
+  $3.SetConversationNickname get setConversationNickname => $_getN(28);
+  @$pb.TagNumber(48)
+  set setConversationNickname($3.SetConversationNickname value) =>
+      $_setField(48, value);
+  @$pb.TagNumber(48)
+  $core.bool hasSetConversationNickname() => $_has(28);
+  @$pb.TagNumber(48)
+  void clearSetConversationNickname() => $_clearField(48);
+  @$pb.TagNumber(48)
+  $3.SetConversationNickname ensureSetConversationNickname() => $_ensure(28);
+
+  @$pb.TagNumber(49)
+  $3.UpdateConversationMetadata get updateConversationMetadata => $_getN(29);
+  @$pb.TagNumber(49)
+  set updateConversationMetadata($3.UpdateConversationMetadata value) =>
+      $_setField(49, value);
+  @$pb.TagNumber(49)
+  $core.bool hasUpdateConversationMetadata() => $_has(29);
+  @$pb.TagNumber(49)
+  void clearUpdateConversationMetadata() => $_clearField(49);
+  @$pb.TagNumber(49)
+  $3.UpdateConversationMetadata ensureUpdateConversationMetadata() =>
+      $_ensure(29);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -1125,6 +1212,10 @@ enum Event_Payload {
   typingChanged,
   disappearingMessagesChanged,
   messageExpired,
+  messagePinned,
+  messageUnpinned,
+  conversationNicknameChanged,
+  conversationMetadataChanged,
   notSet
 }
 
@@ -1161,6 +1252,10 @@ class Event extends $pb.GeneratedMessage {
     $3.TypingChanged? typingChanged,
     $3.DisappearingMessagesChanged? disappearingMessagesChanged,
     $3.MessageExpired? messageExpired,
+    $3.MessagePinned? messagePinned,
+    $3.MessageUnpinned? messageUnpinned,
+    $3.ConversationNicknameChanged? conversationNicknameChanged,
+    $3.ConversationMetadataChanged? conversationMetadataChanged,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1199,6 +1294,12 @@ class Event extends $pb.GeneratedMessage {
     if (disappearingMessagesChanged != null)
       result.disappearingMessagesChanged = disappearingMessagesChanged;
     if (messageExpired != null) result.messageExpired = messageExpired;
+    if (messagePinned != null) result.messagePinned = messagePinned;
+    if (messageUnpinned != null) result.messageUnpinned = messageUnpinned;
+    if (conversationNicknameChanged != null)
+      result.conversationNicknameChanged = conversationNicknameChanged;
+    if (conversationMetadataChanged != null)
+      result.conversationMetadataChanged = conversationMetadataChanged;
     return result;
   }
 
@@ -1235,6 +1336,10 @@ class Event extends $pb.GeneratedMessage {
     42: Event_Payload.typingChanged,
     43: Event_Payload.disappearingMessagesChanged,
     44: Event_Payload.messageExpired,
+    45: Event_Payload.messagePinned,
+    46: Event_Payload.messageUnpinned,
+    47: Event_Payload.conversationNicknameChanged,
+    48: Event_Payload.conversationMetadataChanged,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1264,7 +1369,11 @@ class Event extends $pb.GeneratedMessage {
       41,
       42,
       43,
-      44
+      44,
+      45,
+      46,
+      47,
+      48
     ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
@@ -1328,6 +1437,16 @@ class Event extends $pb.GeneratedMessage {
         subBuilder: $3.DisappearingMessagesChanged.create)
     ..aOM<$3.MessageExpired>(44, _omitFieldNames ? '' : 'messageExpired',
         subBuilder: $3.MessageExpired.create)
+    ..aOM<$3.MessagePinned>(45, _omitFieldNames ? '' : 'messagePinned',
+        subBuilder: $3.MessagePinned.create)
+    ..aOM<$3.MessageUnpinned>(46, _omitFieldNames ? '' : 'messageUnpinned',
+        subBuilder: $3.MessageUnpinned.create)
+    ..aOM<$3.ConversationNicknameChanged>(
+        47, _omitFieldNames ? '' : 'conversationNicknameChanged',
+        subBuilder: $3.ConversationNicknameChanged.create)
+    ..aOM<$3.ConversationMetadataChanged>(
+        48, _omitFieldNames ? '' : 'conversationMetadataChanged',
+        subBuilder: $3.ConversationMetadataChanged.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1371,6 +1490,10 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(42)
   @$pb.TagNumber(43)
   @$pb.TagNumber(44)
+  @$pb.TagNumber(45)
+  @$pb.TagNumber(46)
+  @$pb.TagNumber(47)
+  @$pb.TagNumber(48)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1395,6 +1518,10 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(42)
   @$pb.TagNumber(43)
   @$pb.TagNumber(44)
+  @$pb.TagNumber(45)
+  @$pb.TagNumber(46)
+  @$pb.TagNumber(47)
+  @$pb.TagNumber(48)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1719,6 +1846,54 @@ class Event extends $pb.GeneratedMessage {
   void clearMessageExpired() => $_clearField(44);
   @$pb.TagNumber(44)
   $3.MessageExpired ensureMessageExpired() => $_ensure(27);
+
+  @$pb.TagNumber(45)
+  $3.MessagePinned get messagePinned => $_getN(28);
+  @$pb.TagNumber(45)
+  set messagePinned($3.MessagePinned value) => $_setField(45, value);
+  @$pb.TagNumber(45)
+  $core.bool hasMessagePinned() => $_has(28);
+  @$pb.TagNumber(45)
+  void clearMessagePinned() => $_clearField(45);
+  @$pb.TagNumber(45)
+  $3.MessagePinned ensureMessagePinned() => $_ensure(28);
+
+  @$pb.TagNumber(46)
+  $3.MessageUnpinned get messageUnpinned => $_getN(29);
+  @$pb.TagNumber(46)
+  set messageUnpinned($3.MessageUnpinned value) => $_setField(46, value);
+  @$pb.TagNumber(46)
+  $core.bool hasMessageUnpinned() => $_has(29);
+  @$pb.TagNumber(46)
+  void clearMessageUnpinned() => $_clearField(46);
+  @$pb.TagNumber(46)
+  $3.MessageUnpinned ensureMessageUnpinned() => $_ensure(29);
+
+  @$pb.TagNumber(47)
+  $3.ConversationNicknameChanged get conversationNicknameChanged => $_getN(30);
+  @$pb.TagNumber(47)
+  set conversationNicknameChanged($3.ConversationNicknameChanged value) =>
+      $_setField(47, value);
+  @$pb.TagNumber(47)
+  $core.bool hasConversationNicknameChanged() => $_has(30);
+  @$pb.TagNumber(47)
+  void clearConversationNicknameChanged() => $_clearField(47);
+  @$pb.TagNumber(47)
+  $3.ConversationNicknameChanged ensureConversationNicknameChanged() =>
+      $_ensure(30);
+
+  @$pb.TagNumber(48)
+  $3.ConversationMetadataChanged get conversationMetadataChanged => $_getN(31);
+  @$pb.TagNumber(48)
+  set conversationMetadataChanged($3.ConversationMetadataChanged value) =>
+      $_setField(48, value);
+  @$pb.TagNumber(48)
+  $core.bool hasConversationMetadataChanged() => $_has(31);
+  @$pb.TagNumber(48)
+  void clearConversationMetadataChanged() => $_clearField(48);
+  @$pb.TagNumber(48)
+  $3.ConversationMetadataChanged ensureConversationMetadataChanged() =>
+      $_ensure(31);
 }
 
 const $core.bool _omitFieldNames =

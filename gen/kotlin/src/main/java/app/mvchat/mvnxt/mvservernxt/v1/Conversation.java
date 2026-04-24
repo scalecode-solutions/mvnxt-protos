@@ -39,6 +39,8 @@ private static final long serialVersionUID = 0L;
     createdBy_ = "";
     memberIds_ =
         com.google.protobuf.LazyStringArrayList.emptyList();
+    description_ = "";
+    theme_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -340,6 +342,106 @@ private static final long serialVersionUID = 0L;
     return disappearingSeconds_;
   }
 
+  public static final int DESCRIPTION_FIELD_NUMBER = 9;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object description_ = "";
+  /**
+   * <pre>
+   * Group description (free-form text shown beneath the title in UI).
+   * Empty for DMs and for groups that never set one. Max 500 chars.
+   * </pre>
+   *
+   * <code>string description = 9 [json_name = "description"];</code>
+   * @return The description.
+   */
+  @java.lang.Override
+  public java.lang.String getDescription() {
+    java.lang.Object ref = description_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      description_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Group description (free-form text shown beneath the title in UI).
+   * Empty for DMs and for groups that never set one. Max 500 chars.
+   * </pre>
+   *
+   * <code>string description = 9 [json_name = "description"];</code>
+   * @return The bytes for description.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getDescriptionBytes() {
+    java.lang.Object ref = description_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      description_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int THEME_FIELD_NUMBER = 10;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object theme_ = "";
+  /**
+   * <pre>
+   * Visual theme identifier — opaque to the server, interpreted by
+   * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+   * default. Max 64 chars.
+   * </pre>
+   *
+   * <code>string theme = 10 [json_name = "theme"];</code>
+   * @return The theme.
+   */
+  @java.lang.Override
+  public java.lang.String getTheme() {
+    java.lang.Object ref = theme_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      theme_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Visual theme identifier — opaque to the server, interpreted by
+   * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+   * default. Max 64 chars.
+   * </pre>
+   *
+   * <code>string theme = 10 [json_name = "theme"];</code>
+   * @return The bytes for theme.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getThemeBytes() {
+    java.lang.Object ref = theme_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      theme_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -377,6 +479,12 @@ private static final long serialVersionUID = 0L;
     }
     if (disappearingSeconds_ != 0) {
       output.writeInt32(8, disappearingSeconds_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 9, description_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(theme_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 10, theme_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -420,6 +528,12 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(8, disappearingSeconds_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(9, description_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(theme_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(10, theme_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -453,6 +567,10 @@ private static final long serialVersionUID = 0L;
         != other.getLastMessageSeq()) return false;
     if (getDisappearingSeconds()
         != other.getDisappearingSeconds()) return false;
+    if (!getDescription()
+        .equals(other.getDescription())) return false;
+    if (!getTheme()
+        .equals(other.getTheme())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -485,6 +603,10 @@ private static final long serialVersionUID = 0L;
         getLastMessageSeq());
     hash = (37 * hash) + DISAPPEARING_SECONDS_FIELD_NUMBER;
     hash = (53 * hash) + getDisappearingSeconds();
+    hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
+    hash = (53 * hash) + getDescription().hashCode();
+    hash = (37 * hash) + THEME_FIELD_NUMBER;
+    hash = (53 * hash) + getTheme().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -640,6 +762,8 @@ private static final long serialVersionUID = 0L;
           com.google.protobuf.LazyStringArrayList.emptyList();
       lastMessageSeq_ = 0L;
       disappearingSeconds_ = 0;
+      description_ = "";
+      theme_ = "";
       return this;
     }
 
@@ -702,6 +826,12 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000080) != 0)) {
         result.disappearingSeconds_ = disappearingSeconds_;
       }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.description_ = description_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.theme_ = theme_;
+      }
       result.bitField0_ |= to_bitField0_;
     }
 
@@ -753,6 +883,16 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getDisappearingSeconds() != 0) {
         setDisappearingSeconds(other.getDisappearingSeconds());
+      }
+      if (!other.getDescription().isEmpty()) {
+        description_ = other.description_;
+        bitField0_ |= 0x00000100;
+        onChanged();
+      }
+      if (!other.getTheme().isEmpty()) {
+        theme_ = other.theme_;
+        bitField0_ |= 0x00000200;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -822,6 +962,16 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000080;
               break;
             } // case 64
+            case 74: {
+              description_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 74
+            case 82: {
+              theme_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 82
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1552,6 +1702,205 @@ private static final long serialVersionUID = 0L;
     public Builder clearDisappearingSeconds() {
       bitField0_ = (bitField0_ & ~0x00000080);
       disappearingSeconds_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object description_ = "";
+    /**
+     * <pre>
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * </pre>
+     *
+     * <code>string description = 9 [json_name = "description"];</code>
+     * @return The description.
+     */
+    public java.lang.String getDescription() {
+      java.lang.Object ref = description_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        description_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * </pre>
+     *
+     * <code>string description = 9 [json_name = "description"];</code>
+     * @return The bytes for description.
+     */
+    public com.google.protobuf.ByteString
+        getDescriptionBytes() {
+      java.lang.Object ref = description_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        description_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * </pre>
+     *
+     * <code>string description = 9 [json_name = "description"];</code>
+     * @param value The description to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDescription(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      description_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * </pre>
+     *
+     * <code>string description = 9 [json_name = "description"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDescription() {
+      description_ = getDefaultInstance().getDescription();
+      bitField0_ = (bitField0_ & ~0x00000100);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Group description (free-form text shown beneath the title in UI).
+     * Empty for DMs and for groups that never set one. Max 500 chars.
+     * </pre>
+     *
+     * <code>string description = 9 [json_name = "description"];</code>
+     * @param value The bytes for description to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDescriptionBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      description_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object theme_ = "";
+    /**
+     * <pre>
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * </pre>
+     *
+     * <code>string theme = 10 [json_name = "theme"];</code>
+     * @return The theme.
+     */
+    public java.lang.String getTheme() {
+      java.lang.Object ref = theme_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        theme_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * </pre>
+     *
+     * <code>string theme = 10 [json_name = "theme"];</code>
+     * @return The bytes for theme.
+     */
+    public com.google.protobuf.ByteString
+        getThemeBytes() {
+      java.lang.Object ref = theme_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        theme_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * </pre>
+     *
+     * <code>string theme = 10 [json_name = "theme"];</code>
+     * @param value The theme to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTheme(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      theme_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * </pre>
+     *
+     * <code>string theme = 10 [json_name = "theme"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTheme() {
+      theme_ = getDefaultInstance().getTheme();
+      bitField0_ = (bitField0_ & ~0x00000200);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Visual theme identifier — opaque to the server, interpreted by
+     * clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+     * default. Max 64 chars.
+     * </pre>
+     *
+     * <code>string theme = 10 [json_name = "theme"];</code>
+     * @param value The bytes for theme to set.
+     * @return This builder for chaining.
+     */
+    public Builder setThemeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      theme_ = value;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }

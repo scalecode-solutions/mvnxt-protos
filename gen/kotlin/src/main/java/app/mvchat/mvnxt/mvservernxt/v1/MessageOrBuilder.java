@@ -350,4 +350,57 @@ public interface MessageOrBuilder extends
    * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
    */
   com.google.protobuf.TimestampOrBuilder getExpiresAtOrBuilder();
+
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   * @return Whether the pinnedAt field is set.
+   */
+  boolean hasPinnedAt();
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   * @return The pinnedAt.
+   */
+  com.google.protobuf.Timestamp getPinnedAt();
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   */
+  com.google.protobuf.TimestampOrBuilder getPinnedAtOrBuilder();
+
+  /**
+   * <pre>
+   * Who pinned it (user_id string). Empty when pinned_at is null.
+   * </pre>
+   *
+   * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+   * @return The pinnedBy.
+   */
+  java.lang.String getPinnedBy();
+  /**
+   * <pre>
+   * Who pinned it (user_id string). Empty when pinned_at is null.
+   * </pre>
+   *
+   * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+   * @return The bytes for pinnedBy.
+   */
+  com.google.protobuf.ByteString
+      getPinnedByBytes();
 }

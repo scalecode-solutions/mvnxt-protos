@@ -83,6 +83,15 @@ message Conversation {
   // server's scheduler soft-deletes it with deletion_kind=EXPIRED when
   // the TTL is up.
   int32                     disappearing_seconds = 8;
+
+  // Group description (free-form text shown beneath the title in UI).
+  // Empty for DMs and for groups that never set one. Max 500 chars.
+  string                    description          = 9;
+
+  // Visual theme identifier — opaque to the server, interpreted by
+  // clients (e.g. "sunset", "rose", "contrast-high"). Empty = client
+  // default. Max 64 chars.
+  string                    theme                = 10;
 }
 
 // Message is the client-facing view of one message row.
@@ -146,6 +155,14 @@ message Message {
   // in the conversation. Null = no expiry. Set at send time from the
   // conversation's disappearing_seconds policy.
   google.protobuf.Timestamp expires_at        = 14;
+
+  // When the message was pinned in its conversation. Null = not
+  // pinned. Multiple messages can be pinned per conversation; the
+  // server doesn't cap the set size beyond general abuse protections.
+  google.protobuf.Timestamp pinned_at         = 15;
+
+  // Who pinned it (user_id string). Empty when pinned_at is null.
+  string                    pinned_by         = 16;
 }
 
 // ============================================================================
@@ -356,6 +373,71 @@ message SetDisappearingMessages {
   int32  disappearing_seconds = 2;
 }
 
+// PinMessage pins a message so it surfaces at the top of the
+// conversation view. Caller MUST be an active member. Any active
+// member can pin or unpin — role-based admin checks land later.
+//
+// Idempotent: pinning an already-pinned message Acks cleanly without
+// re-emitting MessagePinned. Pinning a soft-deleted message is
+// rejected (CodeGone).
+//
+// Multiple messages can be pinned per conversation. v2 does not
+// currently cap the set size; attackers are bounded by the reaction
+// rate limiter shape (a future slice may add a per-conversation pin
+// cap if product signal warrants).
+message PinMessage {
+  string conversation_id = 1;
+  string message_id      = 2;
+}
+
+// UnpinMessage removes a pin. Caller MUST be an active member.
+// Idempotent: unpinning a message that isn't pinned Acks cleanly
+// without re-emitting MessageUnpinned.
+message UnpinMessage {
+  string conversation_id = 1;
+  string message_id      = 2;
+}
+
+// SetConversationNickname sets a display nickname for one member
+// within one conversation. The nickname is VISIBLE to all members —
+// this is conversation-scoped labeling, not a per-viewer preference.
+//
+// Caller MUST be an active member of the conversation. In v2 any
+// member can set any member's nickname (including their own); admin
+// gating lands when the admin domain does.
+//
+// Empty nickname clears the override — clients fall back to the
+// target user's global display_name. Max 64 chars.
+message SetConversationNickname {
+  string conversation_id = 1;
+  string user_id         = 2;  // Target; may be the caller themselves
+  string nickname        = 3;
+}
+
+// UpdateConversationMetadata edits one or more of title / description /
+// theme in a single call. Uses proto3 optional presence so clients can
+// express "don't change this field" by leaving it unset vs "clear this
+// field" by setting it to "".
+//
+// Caller MUST be an active member. Title edits are rejected on DMs
+// (DMs derive their display from members). Description and theme
+// apply to both DMs and groups.
+message UpdateConversationMetadata {
+  string          conversation_id = 1;
+
+  // Group title. Unset = leave unchanged. Set to non-empty = update.
+  // Set to empty = rejected (groups must have a title). Rejected
+  // outright on DMs.
+  optional string title           = 2;
+
+  // Description. Unset = leave unchanged. Empty set = clear. Max 500.
+  optional string description     = 3;
+
+  // Theme identifier. Unset = leave unchanged. Empty set = reset to
+  // client default. Max 64 chars.
+  optional string theme           = 4;
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
@@ -556,4 +638,45 @@ message MessageExpired {
   string                    message_id      = 1;
   string                    conversation_id = 2;
   google.protobuf.Timestamp expired_at      = 3;
+}
+
+// MessagePinned fires for each successful PinMessage. Fans out to
+// every active member so cached views flag the pin.
+message MessagePinned {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    pinned_by       = 3;
+  google.protobuf.Timestamp pinned_at       = 4;
+}
+
+// MessageUnpinned fires for each successful UnpinMessage.
+message MessageUnpinned {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    unpinned_by     = 3;
+  google.protobuf.Timestamp unpinned_at     = 4;
+}
+
+// ConversationNicknameChanged fires for each successful
+// SetConversationNickname. Carries the new nickname verbatim (empty
+// = cleared); clients update their per-conv display map.
+message ConversationNicknameChanged {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;  // Who the nickname applies to
+  string                    nickname        = 3;  // Empty = cleared
+  string                    changed_by      = 4;
+  google.protobuf.Timestamp changed_at      = 5;
+}
+
+// ConversationMetadataChanged fires for each successful
+// UpdateConversationMetadata. Only the fields the handler actually
+// applied are set on the event — clients merge into their local
+// conversation state rather than overwriting unchanged fields.
+message ConversationMetadataChanged {
+  string                    conversation_id = 1;
+  optional string           title           = 2;
+  optional string           description     = 3;
+  optional string           theme           = 4;
+  string                    changed_by      = 5;
+  google.protobuf.Timestamp changed_at      = 6;
 }

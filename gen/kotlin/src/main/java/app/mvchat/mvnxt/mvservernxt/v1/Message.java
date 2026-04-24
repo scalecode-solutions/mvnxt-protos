@@ -50,6 +50,7 @@ private static final long serialVersionUID = 0L;
     deletedBy_ = "";
     deletionKind_ = 0;
     reactions_ = java.util.Collections.emptyList();
+    pinnedBy_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -674,6 +675,97 @@ private static final long serialVersionUID = 0L;
     return expiresAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiresAt_;
   }
 
+  public static final int PINNED_AT_FIELD_NUMBER = 15;
+  private com.google.protobuf.Timestamp pinnedAt_;
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   * @return Whether the pinnedAt field is set.
+   */
+  @java.lang.Override
+  public boolean hasPinnedAt() {
+    return ((bitField0_ & 0x00000010) != 0);
+  }
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   * @return The pinnedAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Timestamp getPinnedAt() {
+    return pinnedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : pinnedAt_;
+  }
+  /**
+   * <pre>
+   * When the message was pinned in its conversation. Null = not
+   * pinned. Multiple messages can be pinned per conversation; the
+   * server doesn't cap the set size beyond general abuse protections.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.TimestampOrBuilder getPinnedAtOrBuilder() {
+    return pinnedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : pinnedAt_;
+  }
+
+  public static final int PINNED_BY_FIELD_NUMBER = 16;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object pinnedBy_ = "";
+  /**
+   * <pre>
+   * Who pinned it (user_id string). Empty when pinned_at is null.
+   * </pre>
+   *
+   * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+   * @return The pinnedBy.
+   */
+  @java.lang.Override
+  public java.lang.String getPinnedBy() {
+    java.lang.Object ref = pinnedBy_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      pinnedBy_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Who pinned it (user_id string). Empty when pinned_at is null.
+   * </pre>
+   *
+   * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+   * @return The bytes for pinnedBy.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getPinnedByBytes() {
+    java.lang.Object ref = pinnedBy_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      pinnedBy_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -729,6 +821,12 @@ private static final long serialVersionUID = 0L;
     }
     if (((bitField0_ & 0x00000008) != 0)) {
       output.writeMessage(14, getExpiresAt());
+    }
+    if (((bitField0_ & 0x00000010) != 0)) {
+      output.writeMessage(15, getPinnedAt());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pinnedBy_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 16, pinnedBy_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -793,6 +891,13 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(14, getExpiresAt());
     }
+    if (((bitField0_ & 0x00000010) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(15, getPinnedAt());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pinnedBy_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(16, pinnedBy_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -847,6 +952,13 @@ private static final long serialVersionUID = 0L;
       if (!getExpiresAt()
           .equals(other.getExpiresAt())) return false;
     }
+    if (hasPinnedAt() != other.hasPinnedAt()) return false;
+    if (hasPinnedAt()) {
+      if (!getPinnedAt()
+          .equals(other.getPinnedAt())) return false;
+    }
+    if (!getPinnedBy()
+        .equals(other.getPinnedBy())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -897,6 +1009,12 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + EXPIRES_AT_FIELD_NUMBER;
       hash = (53 * hash) + getExpiresAt().hashCode();
     }
+    if (hasPinnedAt()) {
+      hash = (37 * hash) + PINNED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getPinnedAt().hashCode();
+    }
+    hash = (37 * hash) + PINNED_BY_FIELD_NUMBER;
+    hash = (53 * hash) + getPinnedBy().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1045,6 +1163,7 @@ private static final long serialVersionUID = 0L;
         internalGetDeletedAtFieldBuilder();
         internalGetReactionsFieldBuilder();
         internalGetExpiresAtFieldBuilder();
+        internalGetPinnedAtFieldBuilder();
       }
     }
     @java.lang.Override
@@ -1087,6 +1206,12 @@ private static final long serialVersionUID = 0L;
         expiresAtBuilder_.dispose();
         expiresAtBuilder_ = null;
       }
+      pinnedAt_ = null;
+      if (pinnedAtBuilder_ != null) {
+        pinnedAtBuilder_.dispose();
+        pinnedAtBuilder_ = null;
+      }
+      pinnedBy_ = "";
       return this;
     }
 
@@ -1185,6 +1310,15 @@ private static final long serialVersionUID = 0L;
             : expiresAtBuilder_.build();
         to_bitField0_ |= 0x00000008;
       }
+      if (((from_bitField0_ & 0x00004000) != 0)) {
+        result.pinnedAt_ = pinnedAtBuilder_ == null
+            ? pinnedAt_
+            : pinnedAtBuilder_.build();
+        to_bitField0_ |= 0x00000010;
+      }
+      if (((from_bitField0_ & 0x00008000) != 0)) {
+        result.pinnedBy_ = pinnedBy_;
+      }
       result.bitField0_ |= to_bitField0_;
     }
 
@@ -1278,6 +1412,14 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasExpiresAt()) {
         mergeExpiresAt(other.getExpiresAt());
+      }
+      if (other.hasPinnedAt()) {
+        mergePinnedAt(other.getPinnedAt());
+      }
+      if (!other.getPinnedBy().isEmpty()) {
+        pinnedBy_ = other.pinnedBy_;
+        bitField0_ |= 0x00008000;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -1391,6 +1533,18 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00002000;
               break;
             } // case 114
+            case 122: {
+              input.readMessage(
+                  internalGetPinnedAtFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00004000;
+              break;
+            } // case 122
+            case 130: {
+              pinnedBy_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00008000;
+              break;
+            } // case 130
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -3166,6 +3320,273 @@ private static final long serialVersionUID = 0L;
         expiresAt_ = null;
       }
       return expiresAtBuilder_;
+    }
+
+    private com.google.protobuf.Timestamp pinnedAt_;
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> pinnedAtBuilder_;
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     * @return Whether the pinnedAt field is set.
+     */
+    public boolean hasPinnedAt() {
+      return ((bitField0_ & 0x00004000) != 0);
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     * @return The pinnedAt.
+     */
+    public com.google.protobuf.Timestamp getPinnedAt() {
+      if (pinnedAtBuilder_ == null) {
+        return pinnedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : pinnedAt_;
+      } else {
+        return pinnedAtBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public Builder setPinnedAt(com.google.protobuf.Timestamp value) {
+      if (pinnedAtBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        pinnedAt_ = value;
+      } else {
+        pinnedAtBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00004000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public Builder setPinnedAt(
+        com.google.protobuf.Timestamp.Builder builderForValue) {
+      if (pinnedAtBuilder_ == null) {
+        pinnedAt_ = builderForValue.build();
+      } else {
+        pinnedAtBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00004000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public Builder mergePinnedAt(com.google.protobuf.Timestamp value) {
+      if (pinnedAtBuilder_ == null) {
+        if (((bitField0_ & 0x00004000) != 0) &&
+          pinnedAt_ != null &&
+          pinnedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+          getPinnedAtBuilder().mergeFrom(value);
+        } else {
+          pinnedAt_ = value;
+        }
+      } else {
+        pinnedAtBuilder_.mergeFrom(value);
+      }
+      if (pinnedAt_ != null) {
+        bitField0_ |= 0x00004000;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public Builder clearPinnedAt() {
+      bitField0_ = (bitField0_ & ~0x00004000);
+      pinnedAt_ = null;
+      if (pinnedAtBuilder_ != null) {
+        pinnedAtBuilder_.dispose();
+        pinnedAtBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public com.google.protobuf.Timestamp.Builder getPinnedAtBuilder() {
+      bitField0_ |= 0x00004000;
+      onChanged();
+      return internalGetPinnedAtFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    public com.google.protobuf.TimestampOrBuilder getPinnedAtOrBuilder() {
+      if (pinnedAtBuilder_ != null) {
+        return pinnedAtBuilder_.getMessageOrBuilder();
+      } else {
+        return pinnedAt_ == null ?
+            com.google.protobuf.Timestamp.getDefaultInstance() : pinnedAt_;
+      }
+    }
+    /**
+     * <pre>
+     * When the message was pinned in its conversation. Null = not
+     * pinned. Multiple messages can be pinned per conversation; the
+     * server doesn't cap the set size beyond general abuse protections.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp pinned_at = 15 [json_name = "pinnedAt"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+        internalGetPinnedAtFieldBuilder() {
+      if (pinnedAtBuilder_ == null) {
+        pinnedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                getPinnedAt(),
+                getParentForChildren(),
+                isClean());
+        pinnedAt_ = null;
+      }
+      return pinnedAtBuilder_;
+    }
+
+    private java.lang.Object pinnedBy_ = "";
+    /**
+     * <pre>
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * </pre>
+     *
+     * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+     * @return The pinnedBy.
+     */
+    public java.lang.String getPinnedBy() {
+      java.lang.Object ref = pinnedBy_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pinnedBy_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * </pre>
+     *
+     * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+     * @return The bytes for pinnedBy.
+     */
+    public com.google.protobuf.ByteString
+        getPinnedByBytes() {
+      java.lang.Object ref = pinnedBy_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pinnedBy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * </pre>
+     *
+     * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+     * @param value The pinnedBy to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPinnedBy(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      pinnedBy_ = value;
+      bitField0_ |= 0x00008000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * </pre>
+     *
+     * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPinnedBy() {
+      pinnedBy_ = getDefaultInstance().getPinnedBy();
+      bitField0_ = (bitField0_ & ~0x00008000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Who pinned it (user_id string). Empty when pinned_at is null.
+     * </pre>
+     *
+     * <code>string pinned_by = 16 [json_name = "pinnedBy"];</code>
+     * @param value The bytes for pinnedBy to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPinnedByBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      pinnedBy_ = value;
+      bitField0_ |= 0x00008000;
+      onChanged();
+      return this;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Message)
