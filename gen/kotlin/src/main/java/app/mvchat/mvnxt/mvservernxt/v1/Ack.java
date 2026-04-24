@@ -72,6 +72,7 @@ private static final long serialVersionUID = 0L;
     LIST_CONTACTS(102),
     SEARCH_USERS(103),
     SUBSCRIBE_TO_PRESENCE(110),
+    GET_SYNC(200),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -102,6 +103,7 @@ private static final long serialVersionUID = 0L;
         case 102: return LIST_CONTACTS;
         case 103: return SEARCH_USERS;
         case 110: return SUBSCRIBE_TO_PRESENCE;
+        case 200: return GET_SYNC;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -654,6 +656,49 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse.getDefaultInstance();
   }
 
+  public static final int GET_SYNC_FIELD_NUMBER = 200;
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   * @return Whether the getSync field is set.
+   */
+  @java.lang.Override
+  public boolean hasGetSync() {
+    return payloadCase_ == 200;
+  }
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   * @return The getSync.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SyncResponse getGetSync() {
+    if (payloadCase_ == 200) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder getGetSyncOrBuilder() {
+    if (payloadCase_ == 200) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -712,6 +757,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 110) {
       output.writeMessage(110, (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_);
+    }
+    if (payloadCase_ == 200) {
+      output.writeMessage(200, (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -780,6 +828,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 110) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(110, (app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse) payload_);
+    }
+    if (payloadCase_ == 200) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(200, (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -854,6 +906,10 @@ private static final long serialVersionUID = 0L;
         if (!getSubscribeToPresence()
             .equals(other.getSubscribeToPresence())) return false;
         break;
+      case 200:
+        if (!getGetSync()
+            .equals(other.getGetSync())) return false;
+        break;
       case 0:
       default:
     }
@@ -924,6 +980,10 @@ private static final long serialVersionUID = 0L;
       case 110:
         hash = (37 * hash) + SUBSCRIBE_TO_PRESENCE_FIELD_NUMBER;
         hash = (53 * hash) + getSubscribeToPresence().hashCode();
+        break;
+      case 200:
+        hash = (37 * hash) + GET_SYNC_FIELD_NUMBER;
+        hash = (53 * hash) + getGetSync().hashCode();
         break;
       case 0:
       default:
@@ -1104,6 +1164,9 @@ private static final long serialVersionUID = 0L;
       if (subscribeToPresenceBuilder_ != null) {
         subscribeToPresenceBuilder_.clear();
       }
+      if (getSyncBuilder_ != null) {
+        getSyncBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -1203,6 +1266,10 @@ private static final long serialVersionUID = 0L;
           subscribeToPresenceBuilder_ != null) {
         result.payload_ = subscribeToPresenceBuilder_.build();
       }
+      if (payloadCase_ == 200 &&
+          getSyncBuilder_ != null) {
+        result.payload_ = getSyncBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1276,6 +1343,10 @@ private static final long serialVersionUID = 0L;
         }
         case SUBSCRIBE_TO_PRESENCE: {
           mergeSubscribeToPresence(other.getSubscribeToPresence());
+          break;
+        }
+        case GET_SYNC: {
+          mergeGetSync(other.getGetSync());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1409,6 +1480,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 110;
               break;
             } // case 882
+            case 1602: {
+              input.readMessage(
+                  internalGetGetSyncFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 200;
+              break;
+            } // case 1602
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -3637,6 +3715,184 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 110;
       onChanged();
       return subscribeToPresenceBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SyncResponse, app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder> getSyncBuilder_;
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     * @return Whether the getSync field is set.
+     */
+    @java.lang.Override
+    public boolean hasGetSync() {
+      return payloadCase_ == 200;
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     * @return The getSync.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SyncResponse getGetSync() {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 200) {
+          return getSyncBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder setGetSync(app.mvchat.mvnxt.mvservernxt.v1.SyncResponse value) {
+      if (getSyncBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        getSyncBuilder_.setMessage(value);
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder setGetSync(
+        app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.Builder builderForValue) {
+      if (getSyncBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        getSyncBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder mergeGetSync(app.mvchat.mvnxt.mvservernxt.v1.SyncResponse value) {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 200) {
+          getSyncBuilder_.mergeFrom(value);
+        } else {
+          getSyncBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder clearGetSync() {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 200) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        getSyncBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.Builder getGetSyncBuilder() {
+      return internalGetGetSyncFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder getGetSyncOrBuilder() {
+      if ((payloadCase_ == 200) && (getSyncBuilder_ != null)) {
+        return getSyncBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 200) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Sync
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SyncResponse, app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder> 
+        internalGetGetSyncFieldBuilder() {
+      if (getSyncBuilder_ == null) {
+        if (!(payloadCase_ == 200)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.getDefaultInstance();
+        }
+        getSyncBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.SyncResponse, app.mvchat.mvnxt.mvservernxt.v1.SyncResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.SyncResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 200;
+      onChanged();
+      return getSyncBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Ack)

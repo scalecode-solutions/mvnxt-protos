@@ -16,6 +16,7 @@ import "mvservernxt/v1/hello.proto";
 import "mvservernxt/v1/identity.proto";
 import "mvservernxt/v1/media.proto";
 import "mvservernxt/v1/presence.proto";
+import "mvservernxt/v1/sync.proto";
 import "mvservernxt/v1/system.proto";
 
 // ClientEnvelope is a command message from client to server.
@@ -90,6 +91,9 @@ message ClientEnvelope {
     SetActivityState        set_activity_state         = 112;
     SetVisibility           set_visibility             = 113;
 
+    // Sync (range 200-209). Composed-sync-token catch-up.
+    GetSync                 get_sync                   = 200;
+
     // Other domains land in their reserved ranges. Still to be claimed:
     //   120-129 pulse
     //   130-139 tangle
@@ -147,6 +151,9 @@ message Ack {
     // Presence (UnsubscribeFromPresence, SetActivityState,
     // SetVisibility return empty Ack with no payload)
     SubscribeToPresenceResponse subscribe_to_presence = 110;
+
+    // Sync
+    SyncResponse                get_sync              = 200;
   }
 }
 
@@ -165,6 +172,28 @@ message Err {
   // Examples: "validation_failed", "token_reuse_detected", "forbidden",
   //           "rate_limited", "not_found".
   string reason = 4;
+}
+
+// SyncResponse carries up to `limit` events PER stream that the
+// caller is authorized to see (audience-filtered). Each stream's
+// events are ordered by seq ASC. `next` is the advanced opaque
+// token; `too_long` flags that at least one stream hit the limit
+// and the client should re-call promptly to drain the remaining
+// backlog.
+//
+// Defined here rather than in sync.proto because the type
+// references Event, which would cycle through wire.proto.
+message SyncResponse {
+  string         next     = 1;
+  bool           too_long = 2;
+
+  // Per-stream event slices.
+  repeated Event chat     = 10;
+  repeated Event identity = 11;
+  repeated Event contacts = 12;
+  repeated Event media    = 13;
+  // 14-19 reserved for future streams (presence persistence,
+  // pulse, tangle, places, calls).
 }
 
 // Event is a push notification from a server-side event-log subscriber.

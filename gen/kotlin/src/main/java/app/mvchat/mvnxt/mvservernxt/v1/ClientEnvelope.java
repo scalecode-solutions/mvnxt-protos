@@ -108,6 +108,7 @@ private static final long serialVersionUID = 0L;
     UNSUBSCRIBE_FROM_PRESENCE(111),
     SET_ACTIVITY_STATE(112),
     SET_VISIBILITY(113),
+    GET_SYNC(200),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -168,6 +169,7 @@ private static final long serialVersionUID = 0L;
         case 111: return UNSUBSCRIBE_FROM_PRESENCE;
         case 112: return SET_ACTIVITY_STATE;
         case 113: return SET_VISIBILITY;
+        case 200: return GET_SYNC;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -1629,6 +1631,49 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.SetVisibility.getDefaultInstance();
   }
 
+  public static final int GET_SYNC_FIELD_NUMBER = 200;
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   * @return Whether the getSync field is set.
+   */
+  @java.lang.Override
+  public boolean hasGetSync() {
+    return payloadCase_ == 200;
+  }
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   * @return The getSync.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GetSync getGetSync() {
+    if (payloadCase_ == 200) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Sync (range 200-209). Composed-sync-token catch-up.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder getGetSyncOrBuilder() {
+    if (payloadCase_ == 200) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1774,6 +1819,9 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 113) {
       output.writeMessage(113, (app.mvchat.mvnxt.mvservernxt.v1.SetVisibility) payload_);
+    }
+    if (payloadCase_ == 200) {
+      output.writeMessage(200, (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1958,6 +2006,10 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 113) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(113, (app.mvchat.mvnxt.mvservernxt.v1.SetVisibility) payload_);
+    }
+    if (payloadCase_ == 200) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(200, (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -2150,6 +2202,10 @@ private static final long serialVersionUID = 0L;
         if (!getSetVisibility()
             .equals(other.getSetVisibility())) return false;
         break;
+      case 200:
+        if (!getGetSync()
+            .equals(other.getGetSync())) return false;
+        break;
       case 0:
       default:
     }
@@ -2338,6 +2394,10 @@ private static final long serialVersionUID = 0L;
       case 113:
         hash = (37 * hash) + SET_VISIBILITY_FIELD_NUMBER;
         hash = (53 * hash) + getSetVisibility().hashCode();
+        break;
+      case 200:
+        hash = (37 * hash) + GET_SYNC_FIELD_NUMBER;
+        hash = (53 * hash) + getGetSync().hashCode();
         break;
       case 0:
       default:
@@ -2614,6 +2674,9 @@ private static final long serialVersionUID = 0L;
       if (setVisibilityBuilder_ != null) {
         setVisibilityBuilder_.clear();
       }
+      if (getSyncBuilder_ != null) {
+        getSyncBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -2835,6 +2898,10 @@ private static final long serialVersionUID = 0L;
           setVisibilityBuilder_ != null) {
         result.payload_ = setVisibilityBuilder_.build();
       }
+      if (payloadCase_ == 200 &&
+          getSyncBuilder_ != null) {
+        result.payload_ = getSyncBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -3025,6 +3092,10 @@ private static final long serialVersionUID = 0L;
         }
         case SET_VISIBILITY: {
           mergeSetVisibility(other.getSetVisibility());
+          break;
+        }
+        case GET_SYNC: {
+          mergeGetSync(other.getGetSync());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -3363,6 +3434,13 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 113;
               break;
             } // case 906
+            case 1602: {
+              input.readMessage(
+                  internalGetGetSyncFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 200;
+              break;
+            } // case 1602
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -9790,6 +9868,184 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 113;
       onChanged();
       return setVisibilityBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GetSync, app.mvchat.mvnxt.mvservernxt.v1.GetSync.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder> getSyncBuilder_;
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     * @return Whether the getSync field is set.
+     */
+    @java.lang.Override
+    public boolean hasGetSync() {
+      return payloadCase_ == 200;
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     * @return The getSync.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.GetSync getGetSync() {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 200) {
+          return getSyncBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder setGetSync(app.mvchat.mvnxt.mvservernxt.v1.GetSync value) {
+      if (getSyncBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        getSyncBuilder_.setMessage(value);
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder setGetSync(
+        app.mvchat.mvnxt.mvservernxt.v1.GetSync.Builder builderForValue) {
+      if (getSyncBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        getSyncBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder mergeGetSync(app.mvchat.mvnxt.mvservernxt.v1.GetSync value) {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.GetSync.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 200) {
+          getSyncBuilder_.mergeFrom(value);
+        } else {
+          getSyncBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 200;
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public Builder clearGetSync() {
+      if (getSyncBuilder_ == null) {
+        if (payloadCase_ == 200) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 200) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        getSyncBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GetSync.Builder getGetSyncBuilder() {
+      return internalGetGetSyncFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder getGetSyncOrBuilder() {
+      if ((payloadCase_ == 200) && (getSyncBuilder_ != null)) {
+        return getSyncBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 200) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Sync (range 200-209). Composed-sync-token catch-up.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.GetSync get_sync = 200 [json_name = "getSync"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GetSync, app.mvchat.mvnxt.mvservernxt.v1.GetSync.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder> 
+        internalGetGetSyncFieldBuilder() {
+      if (getSyncBuilder_ == null) {
+        if (!(payloadCase_ == 200)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.GetSync.getDefaultInstance();
+        }
+        getSyncBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.GetSync, app.mvchat.mvnxt.mvservernxt.v1.GetSync.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetSyncOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.GetSync) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 200;
+      onChanged();
+      return getSyncBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.ClientEnvelope)

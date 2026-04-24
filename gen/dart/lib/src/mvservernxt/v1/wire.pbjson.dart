@@ -407,6 +407,15 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'setVisibility'
     },
+    {
+      '1': 'get_sync',
+      '3': 200,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.GetSync',
+      '9': 0,
+      '10': 'getSync'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -472,7 +481,8 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'Uhd1bnN1YnNjcmliZUZyb21QcmVzZW5jZRJQChJzZXRfYWN0aXZpdHlfc3RhdGUYcCABKAsyIC'
     '5tdnNlcnZlcm54dC52MS5TZXRBY3Rpdml0eVN0YXRlSABSEHNldEFjdGl2aXR5U3RhdGUSRgoO'
     'c2V0X3Zpc2liaWxpdHkYcSABKAsyHS5tdnNlcnZlcm54dC52MS5TZXRWaXNpYmlsaXR5SABSDX'
-    'NldFZpc2liaWxpdHlCCQoHcGF5bG9hZA==');
+    'NldFZpc2liaWxpdHkSNQoIZ2V0X3N5bmMYyAEgASgLMhcubXZzZXJ2ZXJueHQudjEuR2V0U3lu'
+    'Y0gAUgdnZXRTeW5jQgkKB3BheWxvYWQ=');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -640,6 +650,15 @@ const Ack$json = {
       '9': 0,
       '10': 'subscribeToPresence'
     },
+    {
+      '1': 'get_sync',
+      '3': 200,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SyncResponse',
+      '9': 0,
+      '10': 'getSync'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -666,7 +685,8 @@ final $typed_data.Uint8List ackDescriptor = $convert.base64Decode(
     'gKDHNlYXJjaF91c2VycxhnIAEoCzIjLm12c2VydmVybnh0LnYxLlNlYXJjaFVzZXJzUmVzcG9u'
     'c2VIAFILc2VhcmNoVXNlcnMSYQoVc3Vic2NyaWJlX3RvX3ByZXNlbmNlGG4gASgLMisubXZzZX'
     'J2ZXJueHQudjEuU3Vic2NyaWJlVG9QcmVzZW5jZVJlc3BvbnNlSABSE3N1YnNjcmliZVRvUHJl'
-    'c2VuY2VCCQoHcGF5bG9hZA==');
+    'c2VuY2USOgoIZ2V0X3N5bmMYyAEgASgLMhwubXZzZXJ2ZXJueHQudjEuU3luY1Jlc3BvbnNlSA'
+    'BSB2dldFN5bmNCCQoHcGF5bG9hZA==');
 
 @$core.Deprecated('Use errDescriptor instead')
 const Err$json = {
@@ -684,6 +704,55 @@ final $typed_data.Uint8List errDescriptor = $convert.base64Decode(
     'CgNFcnISJwoPaWRlbXBvdGVuY3lfa2V5GAEgASgJUg5pZGVtcG90ZW5jeUtleRISCgRjb2RlGA'
     'IgASgFUgRjb2RlEhgKB21lc3NhZ2UYAyABKAlSB21lc3NhZ2USFgoGcmVhc29uGAQgASgJUgZy'
     'ZWFzb24=');
+
+@$core.Deprecated('Use syncResponseDescriptor instead')
+const SyncResponse$json = {
+  '1': 'SyncResponse',
+  '2': [
+    {'1': 'next', '3': 1, '4': 1, '5': 9, '10': 'next'},
+    {'1': 'too_long', '3': 2, '4': 1, '5': 8, '10': 'tooLong'},
+    {
+      '1': 'chat',
+      '3': 10,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Event',
+      '10': 'chat'
+    },
+    {
+      '1': 'identity',
+      '3': 11,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Event',
+      '10': 'identity'
+    },
+    {
+      '1': 'contacts',
+      '3': 12,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Event',
+      '10': 'contacts'
+    },
+    {
+      '1': 'media',
+      '3': 13,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Event',
+      '10': 'media'
+    },
+  ],
+};
+
+/// Descriptor for `SyncResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List syncResponseDescriptor = $convert.base64Decode(
+    'CgxTeW5jUmVzcG9uc2USEgoEbmV4dBgBIAEoCVIEbmV4dBIZCgh0b29fbG9uZxgCIAEoCFIHdG'
+    '9vTG9uZxIpCgRjaGF0GAogAygLMhUubXZzZXJ2ZXJueHQudjEuRXZlbnRSBGNoYXQSMQoIaWRl'
+    'bnRpdHkYCyADKAsyFS5tdnNlcnZlcm54dC52MS5FdmVudFIIaWRlbnRpdHkSMQoIY29udGFjdH'
+    'MYDCADKAsyFS5tdnNlcnZlcm54dC52MS5FdmVudFIIY29udGFjdHMSKwoFbWVkaWEYDSADKAsy'
+    'FS5tdnNlcnZlcm54dC52MS5FdmVudFIFbWVkaWE=');
 
 @$core.Deprecated('Use eventDescriptor instead')
 const Event$json = {

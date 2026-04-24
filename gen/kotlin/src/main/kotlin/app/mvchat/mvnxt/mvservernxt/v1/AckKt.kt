@@ -466,6 +466,42 @@ public object AckKt {
     public fun hasSubscribeToPresence(): kotlin.Boolean {
       return _builder.hasSubscribeToPresence()
     }
+
+    /**
+     * ```
+     * Sync
+     * ```
+     *
+     * `.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];`
+     */
+    public var getSync: app.mvchat.mvnxt.mvservernxt.v1.SyncResponse
+      @kotlin.jvm.JvmName("getGetSync")
+        get() = _builder.getSync
+      @kotlin.jvm.JvmName("setGetSync")
+        set(value) {
+        _builder.getSync = value
+      }
+    /**
+     * ```
+     * Sync
+     * ```
+     *
+     * `.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];`
+     */
+    public fun clearGetSync() {
+      _builder.clearGetSync()
+    }
+    /**
+     * ```
+     * Sync
+     * ```
+     *
+     * `.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];`
+     * @return Whether the getSync field is set.
+     */
+    public fun hasGetSync(): kotlin.Boolean {
+      return _builder.hasGetSync()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -517,4 +553,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.searchUsersOrNull: app.m
 
 public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.subscribeToPresenceOrNull: app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponse?
   get() = if (hasSubscribeToPresence()) getSubscribeToPresence() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.AckOrBuilder.getSyncOrNull: app.mvchat.mvnxt.mvservernxt.v1.SyncResponse?
+  get() = if (hasGetSync()) getGetSync() else null
 

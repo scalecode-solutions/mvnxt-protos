@@ -307,5 +307,32 @@ public interface AckOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.SubscribeToPresenceResponseOrBuilder getSubscribeToPresenceOrBuilder();
 
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   * @return Whether the getSync field is set.
+   */
+  boolean hasGetSync();
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   * @return The getSync.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SyncResponse getGetSync();
+  /**
+   * <pre>
+   * Sync
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.SyncResponse get_sync = 200 [json_name = "getSync"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SyncResponseOrBuilder getGetSyncOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase getPayloadCase();
 }
