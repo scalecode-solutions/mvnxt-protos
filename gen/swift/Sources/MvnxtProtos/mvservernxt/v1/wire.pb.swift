@@ -214,6 +214,46 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     set {payload = .deleteMessageForEveryone(newValue)}
   }
 
+  public var unsendMessage: Mvservernxt_V1_UnsendMessage {
+    get {
+      if case .unsendMessage(let v)? = payload {return v}
+      return Mvservernxt_V1_UnsendMessage()
+    }
+    set {payload = .unsendMessage(newValue)}
+  }
+
+  public var addReaction: Mvservernxt_V1_AddReaction {
+    get {
+      if case .addReaction(let v)? = payload {return v}
+      return Mvservernxt_V1_AddReaction()
+    }
+    set {payload = .addReaction(newValue)}
+  }
+
+  public var removeReaction: Mvservernxt_V1_RemoveReaction {
+    get {
+      if case .removeReaction(let v)? = payload {return v}
+      return Mvservernxt_V1_RemoveReaction()
+    }
+    set {payload = .removeReaction(newValue)}
+  }
+
+  public var sendTyping: Mvservernxt_V1_SendTyping {
+    get {
+      if case .sendTyping(let v)? = payload {return v}
+      return Mvservernxt_V1_SendTyping()
+    }
+    set {payload = .sendTyping(newValue)}
+  }
+
+  public var setDisappearingMessages: Mvservernxt_V1_SetDisappearingMessages {
+    get {
+      if case .setDisappearingMessages(let v)? = payload {return v}
+      return Mvservernxt_V1_SetDisappearingMessages()
+    }
+    set {payload = .setDisappearingMessages(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Exactly one payload must be set. Domain-specific command types
@@ -247,6 +287,11 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     case editMessage(Mvservernxt_V1_EditMessage)
     case deleteMessage(Mvservernxt_V1_DeleteMessage)
     case deleteMessageForEveryone(Mvservernxt_V1_DeleteMessageForEveryone)
+    case unsendMessage(Mvservernxt_V1_UnsendMessage)
+    case addReaction(Mvservernxt_V1_AddReaction)
+    case removeReaction(Mvservernxt_V1_RemoveReaction)
+    case sendTyping(Mvservernxt_V1_SendTyping)
+    case setDisappearingMessages(Mvservernxt_V1_SetDisappearingMessages)
 
   }
 
@@ -638,6 +683,54 @@ public struct Mvservernxt_V1_Event: Sendable {
     set {payload = .messageDeletedForEveryone(newValue)}
   }
 
+  public var messageUnsent: Mvservernxt_V1_MessageUnsent {
+    get {
+      if case .messageUnsent(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageUnsent()
+    }
+    set {payload = .messageUnsent(newValue)}
+  }
+
+  public var messageReactionAdded: Mvservernxt_V1_MessageReactionAdded {
+    get {
+      if case .messageReactionAdded(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageReactionAdded()
+    }
+    set {payload = .messageReactionAdded(newValue)}
+  }
+
+  public var messageReactionRemoved: Mvservernxt_V1_MessageReactionRemoved {
+    get {
+      if case .messageReactionRemoved(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageReactionRemoved()
+    }
+    set {payload = .messageReactionRemoved(newValue)}
+  }
+
+  public var typingChanged: Mvservernxt_V1_TypingChanged {
+    get {
+      if case .typingChanged(let v)? = payload {return v}
+      return Mvservernxt_V1_TypingChanged()
+    }
+    set {payload = .typingChanged(newValue)}
+  }
+
+  public var disappearingMessagesChanged: Mvservernxt_V1_DisappearingMessagesChanged {
+    get {
+      if case .disappearingMessagesChanged(let v)? = payload {return v}
+      return Mvservernxt_V1_DisappearingMessagesChanged()
+    }
+    set {payload = .disappearingMessagesChanged(newValue)}
+  }
+
+  public var messageExpired: Mvservernxt_V1_MessageExpired {
+    get {
+      if case .messageExpired(let v)? = payload {return v}
+      return Mvservernxt_V1_MessageExpired()
+    }
+    set {payload = .messageExpired(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Kind-specific payload.
@@ -662,6 +755,12 @@ public struct Mvservernxt_V1_Event: Sendable {
     case messageEdited(Mvservernxt_V1_MessageEdited)
     case messageHidden(Mvservernxt_V1_MessageHidden)
     case messageDeletedForEveryone(Mvservernxt_V1_MessageDeletedForEveryone)
+    case messageUnsent(Mvservernxt_V1_MessageUnsent)
+    case messageReactionAdded(Mvservernxt_V1_MessageReactionAdded)
+    case messageReactionRemoved(Mvservernxt_V1_MessageReactionRemoved)
+    case typingChanged(Mvservernxt_V1_TypingChanged)
+    case disappearingMessagesChanged(Mvservernxt_V1_DisappearingMessagesChanged)
+    case messageExpired(Mvservernxt_V1_MessageExpired)
 
   }
 
@@ -678,7 +777,7 @@ fileprivate let _protobuf_package = "mvservernxt.v1"
 
 extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ClientEnvelope"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0\u{3}edit_message\0\u{3}delete_message\0\u{3}delete_message_for_everyone\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0\u{4}\u{4}create_conversation\0\u{3}add_member\0\u{3}remove_member\0\u{3}leave_conversation\0\u{3}send_message\0\u{3}list_conversations\0\u{3}get_messages\0\u{3}mark_read\0\u{3}edit_message\0\u{3}delete_message\0\u{3}delete_message_for_everyone\0\u{3}unsend_message\0\u{3}add_reaction\0\u{3}remove_reaction\0\u{3}send_typing\0\u{3}set_disappearing_messages\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -947,6 +1046,71 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
           self.payload = .deleteMessageForEveryone(v)
         }
       }()
+      case 41: try {
+        var v: Mvservernxt_V1_UnsendMessage?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .unsendMessage(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .unsendMessage(v)
+        }
+      }()
+      case 42: try {
+        var v: Mvservernxt_V1_AddReaction?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .addReaction(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .addReaction(v)
+        }
+      }()
+      case 43: try {
+        var v: Mvservernxt_V1_RemoveReaction?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .removeReaction(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .removeReaction(v)
+        }
+      }()
+      case 44: try {
+        var v: Mvservernxt_V1_SendTyping?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .sendTyping(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .sendTyping(v)
+        }
+      }()
+      case 45: try {
+        var v: Mvservernxt_V1_SetDisappearingMessages?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .setDisappearingMessages(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .setDisappearingMessages(v)
+        }
+      }()
       default: break
       }
     }
@@ -1040,6 +1204,26 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
     case .deleteMessageForEveryone?: try {
       guard case .deleteMessageForEveryone(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
+    }()
+    case .unsendMessage?: try {
+      guard case .unsendMessage(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 41)
+    }()
+    case .addReaction?: try {
+      guard case .addReaction(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 42)
+    }()
+    case .removeReaction?: try {
+      guard case .removeReaction(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 43)
+    }()
+    case .sendTyping?: try {
+      guard case .sendTyping(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 44)
+    }()
+    case .setDisappearingMessages?: try {
+      guard case .setDisappearingMessages(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 45)
     }()
     case nil: break
     }
@@ -1398,7 +1582,7 @@ extension Mvservernxt_V1_Err: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
 extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0\u{3}message_unsent\0\u{3}message_reaction_added\0\u{3}message_reaction_removed\0\u{3}typing_changed\0\u{3}disappearing_messages_changed\0\u{3}message_expired\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1632,6 +1816,84 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
           self.payload = .messageDeletedForEveryone(v)
         }
       }()
+      case 39: try {
+        var v: Mvservernxt_V1_MessageUnsent?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageUnsent(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageUnsent(v)
+        }
+      }()
+      case 40: try {
+        var v: Mvservernxt_V1_MessageReactionAdded?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageReactionAdded(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageReactionAdded(v)
+        }
+      }()
+      case 41: try {
+        var v: Mvservernxt_V1_MessageReactionRemoved?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageReactionRemoved(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageReactionRemoved(v)
+        }
+      }()
+      case 42: try {
+        var v: Mvservernxt_V1_TypingChanged?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .typingChanged(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .typingChanged(v)
+        }
+      }()
+      case 43: try {
+        var v: Mvservernxt_V1_DisappearingMessagesChanged?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .disappearingMessagesChanged(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .disappearingMessagesChanged(v)
+        }
+      }()
+      case 44: try {
+        var v: Mvservernxt_V1_MessageExpired?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .messageExpired(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .messageExpired(v)
+        }
+      }()
       default: break
       }
     }
@@ -1725,6 +1987,30 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     case .messageDeletedForEveryone?: try {
       guard case .messageDeletedForEveryone(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
+    }()
+    case .messageUnsent?: try {
+      guard case .messageUnsent(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+    }()
+    case .messageReactionAdded?: try {
+      guard case .messageReactionAdded(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
+    }()
+    case .messageReactionRemoved?: try {
+      guard case .messageReactionRemoved(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 41)
+    }()
+    case .typingChanged?: try {
+      guard case .typingChanged(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 42)
+    }()
+    case .disappearingMessagesChanged?: try {
+      guard case .disappearingMessagesChanged(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 43)
+    }()
+    case .messageExpired?: try {
+      guard case .messageExpired(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 44)
     }()
     case nil: break
     }

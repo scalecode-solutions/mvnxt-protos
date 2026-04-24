@@ -46,6 +46,11 @@ enum ClientEnvelope_Payload {
   editMessage,
   deleteMessage,
   deleteMessageForEveryone,
+  unsendMessage,
+  addReaction,
+  removeReaction,
+  sendTyping,
+  setDisappearingMessages,
   notSet
 }
 
@@ -79,6 +84,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.EditMessage? editMessage,
     $3.DeleteMessage? deleteMessage,
     $3.DeleteMessageForEveryone? deleteMessageForEveryone,
+    $3.UnsendMessage? unsendMessage,
+    $3.AddReaction? addReaction,
+    $3.RemoveReaction? removeReaction,
+    $3.SendTyping? sendTyping,
+    $3.SetDisappearingMessages? setDisappearingMessages,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -105,6 +115,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (deleteMessage != null) result.deleteMessage = deleteMessage;
     if (deleteMessageForEveryone != null)
       result.deleteMessageForEveryone = deleteMessageForEveryone;
+    if (unsendMessage != null) result.unsendMessage = unsendMessage;
+    if (addReaction != null) result.addReaction = addReaction;
+    if (removeReaction != null) result.removeReaction = removeReaction;
+    if (sendTyping != null) result.sendTyping = sendTyping;
+    if (setDisappearingMessages != null)
+      result.setDisappearingMessages = setDisappearingMessages;
     return result;
   }
 
@@ -139,6 +155,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     38: ClientEnvelope_Payload.editMessage,
     39: ClientEnvelope_Payload.deleteMessage,
     40: ClientEnvelope_Payload.deleteMessageForEveryone,
+    41: ClientEnvelope_Payload.unsendMessage,
+    42: ClientEnvelope_Payload.addReaction,
+    43: ClientEnvelope_Payload.removeReaction,
+    44: ClientEnvelope_Payload.sendTyping,
+    45: ClientEnvelope_Payload.setDisappearingMessages,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -165,7 +186,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       37,
       38,
       39,
-      40
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
     ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
@@ -211,6 +237,17 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     ..aOM<$3.DeleteMessageForEveryone>(
         40, _omitFieldNames ? '' : 'deleteMessageForEveryone',
         subBuilder: $3.DeleteMessageForEveryone.create)
+    ..aOM<$3.UnsendMessage>(41, _omitFieldNames ? '' : 'unsendMessage',
+        subBuilder: $3.UnsendMessage.create)
+    ..aOM<$3.AddReaction>(42, _omitFieldNames ? '' : 'addReaction',
+        subBuilder: $3.AddReaction.create)
+    ..aOM<$3.RemoveReaction>(43, _omitFieldNames ? '' : 'removeReaction',
+        subBuilder: $3.RemoveReaction.create)
+    ..aOM<$3.SendTyping>(44, _omitFieldNames ? '' : 'sendTyping',
+        subBuilder: $3.SendTyping.create)
+    ..aOM<$3.SetDisappearingMessages>(
+        45, _omitFieldNames ? '' : 'setDisappearingMessages',
+        subBuilder: $3.SetDisappearingMessages.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -252,6 +289,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   @$pb.TagNumber(39)
   @$pb.TagNumber(40)
+  @$pb.TagNumber(41)
+  @$pb.TagNumber(42)
+  @$pb.TagNumber(43)
+  @$pb.TagNumber(44)
+  @$pb.TagNumber(45)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -274,6 +316,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   @$pb.TagNumber(39)
   @$pb.TagNumber(40)
+  @$pb.TagNumber(41)
+  @$pb.TagNumber(42)
+  @$pb.TagNumber(43)
+  @$pb.TagNumber(44)
+  @$pb.TagNumber(45)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -512,6 +559,62 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearDeleteMessageForEveryone() => $_clearField(40);
   @$pb.TagNumber(40)
   $3.DeleteMessageForEveryone ensureDeleteMessageForEveryone() => $_ensure(20);
+
+  @$pb.TagNumber(41)
+  $3.UnsendMessage get unsendMessage => $_getN(21);
+  @$pb.TagNumber(41)
+  set unsendMessage($3.UnsendMessage value) => $_setField(41, value);
+  @$pb.TagNumber(41)
+  $core.bool hasUnsendMessage() => $_has(21);
+  @$pb.TagNumber(41)
+  void clearUnsendMessage() => $_clearField(41);
+  @$pb.TagNumber(41)
+  $3.UnsendMessage ensureUnsendMessage() => $_ensure(21);
+
+  @$pb.TagNumber(42)
+  $3.AddReaction get addReaction => $_getN(22);
+  @$pb.TagNumber(42)
+  set addReaction($3.AddReaction value) => $_setField(42, value);
+  @$pb.TagNumber(42)
+  $core.bool hasAddReaction() => $_has(22);
+  @$pb.TagNumber(42)
+  void clearAddReaction() => $_clearField(42);
+  @$pb.TagNumber(42)
+  $3.AddReaction ensureAddReaction() => $_ensure(22);
+
+  @$pb.TagNumber(43)
+  $3.RemoveReaction get removeReaction => $_getN(23);
+  @$pb.TagNumber(43)
+  set removeReaction($3.RemoveReaction value) => $_setField(43, value);
+  @$pb.TagNumber(43)
+  $core.bool hasRemoveReaction() => $_has(23);
+  @$pb.TagNumber(43)
+  void clearRemoveReaction() => $_clearField(43);
+  @$pb.TagNumber(43)
+  $3.RemoveReaction ensureRemoveReaction() => $_ensure(23);
+
+  @$pb.TagNumber(44)
+  $3.SendTyping get sendTyping => $_getN(24);
+  @$pb.TagNumber(44)
+  set sendTyping($3.SendTyping value) => $_setField(44, value);
+  @$pb.TagNumber(44)
+  $core.bool hasSendTyping() => $_has(24);
+  @$pb.TagNumber(44)
+  void clearSendTyping() => $_clearField(44);
+  @$pb.TagNumber(44)
+  $3.SendTyping ensureSendTyping() => $_ensure(24);
+
+  @$pb.TagNumber(45)
+  $3.SetDisappearingMessages get setDisappearingMessages => $_getN(25);
+  @$pb.TagNumber(45)
+  set setDisappearingMessages($3.SetDisappearingMessages value) =>
+      $_setField(45, value);
+  @$pb.TagNumber(45)
+  $core.bool hasSetDisappearingMessages() => $_has(25);
+  @$pb.TagNumber(45)
+  void clearSetDisappearingMessages() => $_clearField(45);
+  @$pb.TagNumber(45)
+  $3.SetDisappearingMessages ensureSetDisappearingMessages() => $_ensure(25);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -1016,6 +1119,12 @@ enum Event_Payload {
   messageEdited,
   messageHidden,
   messageDeletedForEveryone,
+  messageUnsent,
+  messageReactionAdded,
+  messageReactionRemoved,
+  typingChanged,
+  disappearingMessagesChanged,
+  messageExpired,
   notSet
 }
 
@@ -1046,6 +1155,12 @@ class Event extends $pb.GeneratedMessage {
     $3.MessageEdited? messageEdited,
     $3.MessageHidden? messageHidden,
     $3.MessageDeletedForEveryone? messageDeletedForEveryone,
+    $3.MessageUnsent? messageUnsent,
+    $3.MessageReactionAdded? messageReactionAdded,
+    $3.MessageReactionRemoved? messageReactionRemoved,
+    $3.TypingChanged? typingChanged,
+    $3.DisappearingMessagesChanged? disappearingMessagesChanged,
+    $3.MessageExpired? messageExpired,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -1075,6 +1190,15 @@ class Event extends $pb.GeneratedMessage {
     if (messageHidden != null) result.messageHidden = messageHidden;
     if (messageDeletedForEveryone != null)
       result.messageDeletedForEveryone = messageDeletedForEveryone;
+    if (messageUnsent != null) result.messageUnsent = messageUnsent;
+    if (messageReactionAdded != null)
+      result.messageReactionAdded = messageReactionAdded;
+    if (messageReactionRemoved != null)
+      result.messageReactionRemoved = messageReactionRemoved;
+    if (typingChanged != null) result.typingChanged = typingChanged;
+    if (disappearingMessagesChanged != null)
+      result.disappearingMessagesChanged = disappearingMessagesChanged;
+    if (messageExpired != null) result.messageExpired = messageExpired;
     return result;
   }
 
@@ -1105,14 +1229,43 @@ class Event extends $pb.GeneratedMessage {
     36: Event_Payload.messageEdited,
     37: Event_Payload.messageHidden,
     38: Event_Payload.messageDeletedForEveryone,
+    39: Event_Payload.messageUnsent,
+    40: Event_Payload.messageReactionAdded,
+    41: Event_Payload.messageReactionRemoved,
+    42: Event_Payload.typingChanged,
+    43: Event_Payload.disappearingMessagesChanged,
+    44: Event_Payload.messageExpired,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Event',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(
-        0, [10, 20, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38])
+    ..oo(0, [
+      10,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
     ..aOM<$4.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
@@ -1160,6 +1313,21 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$3.MessageDeletedForEveryone>(
         38, _omitFieldNames ? '' : 'messageDeletedForEveryone',
         subBuilder: $3.MessageDeletedForEveryone.create)
+    ..aOM<$3.MessageUnsent>(39, _omitFieldNames ? '' : 'messageUnsent',
+        subBuilder: $3.MessageUnsent.create)
+    ..aOM<$3.MessageReactionAdded>(
+        40, _omitFieldNames ? '' : 'messageReactionAdded',
+        subBuilder: $3.MessageReactionAdded.create)
+    ..aOM<$3.MessageReactionRemoved>(
+        41, _omitFieldNames ? '' : 'messageReactionRemoved',
+        subBuilder: $3.MessageReactionRemoved.create)
+    ..aOM<$3.TypingChanged>(42, _omitFieldNames ? '' : 'typingChanged',
+        subBuilder: $3.TypingChanged.create)
+    ..aOM<$3.DisappearingMessagesChanged>(
+        43, _omitFieldNames ? '' : 'disappearingMessagesChanged',
+        subBuilder: $3.DisappearingMessagesChanged.create)
+    ..aOM<$3.MessageExpired>(44, _omitFieldNames ? '' : 'messageExpired',
+        subBuilder: $3.MessageExpired.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1197,6 +1365,12 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(36)
   @$pb.TagNumber(37)
   @$pb.TagNumber(38)
+  @$pb.TagNumber(39)
+  @$pb.TagNumber(40)
+  @$pb.TagNumber(41)
+  @$pb.TagNumber(42)
+  @$pb.TagNumber(43)
+  @$pb.TagNumber(44)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1215,6 +1389,12 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(36)
   @$pb.TagNumber(37)
   @$pb.TagNumber(38)
+  @$pb.TagNumber(39)
+  @$pb.TagNumber(40)
+  @$pb.TagNumber(41)
+  @$pb.TagNumber(42)
+  @$pb.TagNumber(43)
+  @$pb.TagNumber(44)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1469,6 +1649,76 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   $3.MessageDeletedForEveryone ensureMessageDeletedForEveryone() =>
       $_ensure(21);
+
+  @$pb.TagNumber(39)
+  $3.MessageUnsent get messageUnsent => $_getN(22);
+  @$pb.TagNumber(39)
+  set messageUnsent($3.MessageUnsent value) => $_setField(39, value);
+  @$pb.TagNumber(39)
+  $core.bool hasMessageUnsent() => $_has(22);
+  @$pb.TagNumber(39)
+  void clearMessageUnsent() => $_clearField(39);
+  @$pb.TagNumber(39)
+  $3.MessageUnsent ensureMessageUnsent() => $_ensure(22);
+
+  @$pb.TagNumber(40)
+  $3.MessageReactionAdded get messageReactionAdded => $_getN(23);
+  @$pb.TagNumber(40)
+  set messageReactionAdded($3.MessageReactionAdded value) =>
+      $_setField(40, value);
+  @$pb.TagNumber(40)
+  $core.bool hasMessageReactionAdded() => $_has(23);
+  @$pb.TagNumber(40)
+  void clearMessageReactionAdded() => $_clearField(40);
+  @$pb.TagNumber(40)
+  $3.MessageReactionAdded ensureMessageReactionAdded() => $_ensure(23);
+
+  @$pb.TagNumber(41)
+  $3.MessageReactionRemoved get messageReactionRemoved => $_getN(24);
+  @$pb.TagNumber(41)
+  set messageReactionRemoved($3.MessageReactionRemoved value) =>
+      $_setField(41, value);
+  @$pb.TagNumber(41)
+  $core.bool hasMessageReactionRemoved() => $_has(24);
+  @$pb.TagNumber(41)
+  void clearMessageReactionRemoved() => $_clearField(41);
+  @$pb.TagNumber(41)
+  $3.MessageReactionRemoved ensureMessageReactionRemoved() => $_ensure(24);
+
+  @$pb.TagNumber(42)
+  $3.TypingChanged get typingChanged => $_getN(25);
+  @$pb.TagNumber(42)
+  set typingChanged($3.TypingChanged value) => $_setField(42, value);
+  @$pb.TagNumber(42)
+  $core.bool hasTypingChanged() => $_has(25);
+  @$pb.TagNumber(42)
+  void clearTypingChanged() => $_clearField(42);
+  @$pb.TagNumber(42)
+  $3.TypingChanged ensureTypingChanged() => $_ensure(25);
+
+  @$pb.TagNumber(43)
+  $3.DisappearingMessagesChanged get disappearingMessagesChanged => $_getN(26);
+  @$pb.TagNumber(43)
+  set disappearingMessagesChanged($3.DisappearingMessagesChanged value) =>
+      $_setField(43, value);
+  @$pb.TagNumber(43)
+  $core.bool hasDisappearingMessagesChanged() => $_has(26);
+  @$pb.TagNumber(43)
+  void clearDisappearingMessagesChanged() => $_clearField(43);
+  @$pb.TagNumber(43)
+  $3.DisappearingMessagesChanged ensureDisappearingMessagesChanged() =>
+      $_ensure(26);
+
+  @$pb.TagNumber(44)
+  $3.MessageExpired get messageExpired => $_getN(27);
+  @$pb.TagNumber(44)
+  set messageExpired($3.MessageExpired value) => $_setField(44, value);
+  @$pb.TagNumber(44)
+  $core.bool hasMessageExpired() => $_has(27);
+  @$pb.TagNumber(44)
+  void clearMessageExpired() => $_clearField(44);
+  @$pb.TagNumber(44)
+  $3.MessageExpired ensureMessageExpired() => $_ensure(27);
 }
 
 const $core.bool _omitFieldNames =

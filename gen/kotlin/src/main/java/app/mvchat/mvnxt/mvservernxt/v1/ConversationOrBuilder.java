@@ -154,4 +154,18 @@ public interface ConversationOrBuilder extends
    * @return The lastMessageSeq.
    */
   long getLastMessageSeq();
+
+  /**
+   * <pre>
+   * Disappearing-message TTL for messages sent into this conversation.
+   * 0 = disappearing messages disabled. When non-zero, a new message's
+   * expires_at is set to created_at + disappearing_seconds and the
+   * server's scheduler soft-deletes it with deletion_kind=EXPIRED when
+   * the TTL is up.
+   * </pre>
+   *
+   * <code>int32 disappearing_seconds = 8 [json_name = "disappearingSeconds"];</code>
+   * @return The disappearingSeconds.
+   */
+  int getDisappearingSeconds();
 }

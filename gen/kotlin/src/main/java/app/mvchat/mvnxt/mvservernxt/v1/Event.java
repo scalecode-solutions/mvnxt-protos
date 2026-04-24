@@ -79,6 +79,12 @@ private static final long serialVersionUID = 0L;
     MESSAGE_EDITED(36),
     MESSAGE_HIDDEN(37),
     MESSAGE_DELETED_FOR_EVERYONE(38),
+    MESSAGE_UNSENT(39),
+    MESSAGE_REACTION_ADDED(40),
+    MESSAGE_REACTION_REMOVED(41),
+    TYPING_CHANGED(42),
+    DISAPPEARING_MESSAGES_CHANGED(43),
+    MESSAGE_EXPIRED(44),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -113,6 +119,12 @@ private static final long serialVersionUID = 0L;
         case 36: return MESSAGE_EDITED;
         case 37: return MESSAGE_HIDDEN;
         case 38: return MESSAGE_DELETED_FOR_EVERYONE;
+        case 39: return MESSAGE_UNSENT;
+        case 40: return MESSAGE_REACTION_ADDED;
+        case 41: return MESSAGE_REACTION_REMOVED;
+        case 42: return TYPING_CHANGED;
+        case 43: return DISAPPEARING_MESSAGES_CHANGED;
+        case 44: return MESSAGE_EXPIRED;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -869,6 +881,192 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone.getDefaultInstance();
   }
 
+  public static final int MESSAGE_UNSENT_FIELD_NUMBER = 39;
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   * @return Whether the messageUnsent field is set.
+   */
+  @java.lang.Override
+  public boolean hasMessageUnsent() {
+    return payloadCase_ == 39;
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   * @return The messageUnsent.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent getMessageUnsent() {
+    if (payloadCase_ == 39) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder getMessageUnsentOrBuilder() {
+    if (payloadCase_ == 39) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+  }
+
+  public static final int MESSAGE_REACTION_ADDED_FIELD_NUMBER = 40;
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   * @return Whether the messageReactionAdded field is set.
+   */
+  @java.lang.Override
+  public boolean hasMessageReactionAdded() {
+    return payloadCase_ == 40;
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   * @return The messageReactionAdded.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded getMessageReactionAdded() {
+    if (payloadCase_ == 40) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder getMessageReactionAddedOrBuilder() {
+    if (payloadCase_ == 40) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+  }
+
+  public static final int MESSAGE_REACTION_REMOVED_FIELD_NUMBER = 41;
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   * @return Whether the messageReactionRemoved field is set.
+   */
+  @java.lang.Override
+  public boolean hasMessageReactionRemoved() {
+    return payloadCase_ == 41;
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   * @return The messageReactionRemoved.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved getMessageReactionRemoved() {
+    if (payloadCase_ == 41) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder getMessageReactionRemovedOrBuilder() {
+    if (payloadCase_ == 41) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+  }
+
+  public static final int TYPING_CHANGED_FIELD_NUMBER = 42;
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   * @return Whether the typingChanged field is set.
+   */
+  @java.lang.Override
+  public boolean hasTypingChanged() {
+    return payloadCase_ == 42;
+  }
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   * @return The typingChanged.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.TypingChanged getTypingChanged() {
+    if (payloadCase_ == 42) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder getTypingChangedOrBuilder() {
+    if (payloadCase_ == 42) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+  }
+
+  public static final int DISAPPEARING_MESSAGES_CHANGED_FIELD_NUMBER = 43;
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   * @return Whether the disappearingMessagesChanged field is set.
+   */
+  @java.lang.Override
+  public boolean hasDisappearingMessagesChanged() {
+    return payloadCase_ == 43;
+  }
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   * @return The disappearingMessagesChanged.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged getDisappearingMessagesChanged() {
+    if (payloadCase_ == 43) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder getDisappearingMessagesChangedOrBuilder() {
+    if (payloadCase_ == 43) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+  }
+
+  public static final int MESSAGE_EXPIRED_FIELD_NUMBER = 44;
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   * @return Whether the messageExpired field is set.
+   */
+  @java.lang.Override
+  public boolean hasMessageExpired() {
+    return payloadCase_ == 44;
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   * @return The messageExpired.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageExpired getMessageExpired() {
+    if (payloadCase_ == 44) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder getMessageExpiredOrBuilder() {
+    if (payloadCase_ == 44) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -948,6 +1146,24 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 38) {
       output.writeMessage(38, (app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone) payload_);
+    }
+    if (payloadCase_ == 39) {
+      output.writeMessage(39, (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_);
+    }
+    if (payloadCase_ == 40) {
+      output.writeMessage(40, (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_);
+    }
+    if (payloadCase_ == 41) {
+      output.writeMessage(41, (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_);
+    }
+    if (payloadCase_ == 42) {
+      output.writeMessage(42, (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_);
+    }
+    if (payloadCase_ == 43) {
+      output.writeMessage(43, (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_);
+    }
+    if (payloadCase_ == 44) {
+      output.writeMessage(44, (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1044,6 +1260,30 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 38) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(38, (app.mvchat.mvnxt.mvservernxt.v1.MessageDeletedForEveryone) payload_);
+    }
+    if (payloadCase_ == 39) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(39, (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_);
+    }
+    if (payloadCase_ == 40) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(40, (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_);
+    }
+    if (payloadCase_ == 41) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(41, (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_);
+    }
+    if (payloadCase_ == 42) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(42, (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_);
+    }
+    if (payloadCase_ == 43) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(43, (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_);
+    }
+    if (payloadCase_ == 44) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(44, (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -1149,6 +1389,30 @@ private static final long serialVersionUID = 0L;
         if (!getMessageDeletedForEveryone()
             .equals(other.getMessageDeletedForEveryone())) return false;
         break;
+      case 39:
+        if (!getMessageUnsent()
+            .equals(other.getMessageUnsent())) return false;
+        break;
+      case 40:
+        if (!getMessageReactionAdded()
+            .equals(other.getMessageReactionAdded())) return false;
+        break;
+      case 41:
+        if (!getMessageReactionRemoved()
+            .equals(other.getMessageReactionRemoved())) return false;
+        break;
+      case 42:
+        if (!getTypingChanged()
+            .equals(other.getTypingChanged())) return false;
+        break;
+      case 43:
+        if (!getDisappearingMessagesChanged()
+            .equals(other.getDisappearingMessagesChanged())) return false;
+        break;
+      case 44:
+        if (!getMessageExpired()
+            .equals(other.getMessageExpired())) return false;
+        break;
       case 0:
       default:
     }
@@ -1248,6 +1512,30 @@ private static final long serialVersionUID = 0L;
       case 38:
         hash = (37 * hash) + MESSAGE_DELETED_FOR_EVERYONE_FIELD_NUMBER;
         hash = (53 * hash) + getMessageDeletedForEveryone().hashCode();
+        break;
+      case 39:
+        hash = (37 * hash) + MESSAGE_UNSENT_FIELD_NUMBER;
+        hash = (53 * hash) + getMessageUnsent().hashCode();
+        break;
+      case 40:
+        hash = (37 * hash) + MESSAGE_REACTION_ADDED_FIELD_NUMBER;
+        hash = (53 * hash) + getMessageReactionAdded().hashCode();
+        break;
+      case 41:
+        hash = (37 * hash) + MESSAGE_REACTION_REMOVED_FIELD_NUMBER;
+        hash = (53 * hash) + getMessageReactionRemoved().hashCode();
+        break;
+      case 42:
+        hash = (37 * hash) + TYPING_CHANGED_FIELD_NUMBER;
+        hash = (53 * hash) + getTypingChanged().hashCode();
+        break;
+      case 43:
+        hash = (37 * hash) + DISAPPEARING_MESSAGES_CHANGED_FIELD_NUMBER;
+        hash = (53 * hash) + getDisappearingMessagesChanged().hashCode();
+        break;
+      case 44:
+        hash = (37 * hash) + MESSAGE_EXPIRED_FIELD_NUMBER;
+        hash = (53 * hash) + getMessageExpired().hashCode();
         break;
       case 0:
       default:
@@ -1465,6 +1753,24 @@ private static final long serialVersionUID = 0L;
       if (messageDeletedForEveryoneBuilder_ != null) {
         messageDeletedForEveryoneBuilder_.clear();
       }
+      if (messageUnsentBuilder_ != null) {
+        messageUnsentBuilder_.clear();
+      }
+      if (messageReactionAddedBuilder_ != null) {
+        messageReactionAddedBuilder_.clear();
+      }
+      if (messageReactionRemovedBuilder_ != null) {
+        messageReactionRemovedBuilder_.clear();
+      }
+      if (typingChangedBuilder_ != null) {
+        typingChangedBuilder_.clear();
+      }
+      if (disappearingMessagesChangedBuilder_ != null) {
+        disappearingMessagesChangedBuilder_.clear();
+      }
+      if (messageExpiredBuilder_ != null) {
+        messageExpiredBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -1600,6 +1906,30 @@ private static final long serialVersionUID = 0L;
           messageDeletedForEveryoneBuilder_ != null) {
         result.payload_ = messageDeletedForEveryoneBuilder_.build();
       }
+      if (payloadCase_ == 39 &&
+          messageUnsentBuilder_ != null) {
+        result.payload_ = messageUnsentBuilder_.build();
+      }
+      if (payloadCase_ == 40 &&
+          messageReactionAddedBuilder_ != null) {
+        result.payload_ = messageReactionAddedBuilder_.build();
+      }
+      if (payloadCase_ == 41 &&
+          messageReactionRemovedBuilder_ != null) {
+        result.payload_ = messageReactionRemovedBuilder_.build();
+      }
+      if (payloadCase_ == 42 &&
+          typingChangedBuilder_ != null) {
+        result.payload_ = typingChangedBuilder_.build();
+      }
+      if (payloadCase_ == 43 &&
+          disappearingMessagesChangedBuilder_ != null) {
+        result.payload_ = disappearingMessagesChangedBuilder_.build();
+      }
+      if (payloadCase_ == 44 &&
+          messageExpiredBuilder_ != null) {
+        result.payload_ = messageExpiredBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1698,6 +2028,30 @@ private static final long serialVersionUID = 0L;
         }
         case MESSAGE_DELETED_FOR_EVERYONE: {
           mergeMessageDeletedForEveryone(other.getMessageDeletedForEveryone());
+          break;
+        }
+        case MESSAGE_UNSENT: {
+          mergeMessageUnsent(other.getMessageUnsent());
+          break;
+        }
+        case MESSAGE_REACTION_ADDED: {
+          mergeMessageReactionAdded(other.getMessageReactionAdded());
+          break;
+        }
+        case MESSAGE_REACTION_REMOVED: {
+          mergeMessageReactionRemoved(other.getMessageReactionRemoved());
+          break;
+        }
+        case TYPING_CHANGED: {
+          mergeTypingChanged(other.getTypingChanged());
+          break;
+        }
+        case DISAPPEARING_MESSAGES_CHANGED: {
+          mergeDisappearingMessagesChanged(other.getDisappearingMessagesChanged());
+          break;
+        }
+        case MESSAGE_EXPIRED: {
+          mergeMessageExpired(other.getMessageExpired());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1880,6 +2234,48 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 38;
               break;
             } // case 306
+            case 314: {
+              input.readMessage(
+                  internalGetMessageUnsentFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 39;
+              break;
+            } // case 314
+            case 322: {
+              input.readMessage(
+                  internalGetMessageReactionAddedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 40;
+              break;
+            } // case 322
+            case 330: {
+              input.readMessage(
+                  internalGetMessageReactionRemovedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 41;
+              break;
+            } // case 330
+            case 338: {
+              input.readMessage(
+                  internalGetTypingChangedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 42;
+              break;
+            } // case 338
+            case 346: {
+              input.readMessage(
+                  internalGetDisappearingMessagesChangedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 43;
+              break;
+            } // case 346
+            case 354: {
+              input.readMessage(
+                  internalGetMessageExpiredFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 44;
+              break;
+            } // case 354
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -5044,6 +5440,858 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 38;
       onChanged();
       return messageDeletedForEveryoneBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder> messageUnsentBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     * @return Whether the messageUnsent field is set.
+     */
+    @java.lang.Override
+    public boolean hasMessageUnsent() {
+      return payloadCase_ == 39;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     * @return The messageUnsent.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent getMessageUnsent() {
+      if (messageUnsentBuilder_ == null) {
+        if (payloadCase_ == 39) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 39) {
+          return messageUnsentBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    public Builder setMessageUnsent(app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent value) {
+      if (messageUnsentBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        messageUnsentBuilder_.setMessage(value);
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    public Builder setMessageUnsent(
+        app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.Builder builderForValue) {
+      if (messageUnsentBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        messageUnsentBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    public Builder mergeMessageUnsent(app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent value) {
+      if (messageUnsentBuilder_ == null) {
+        if (payloadCase_ == 39 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 39) {
+          messageUnsentBuilder_.mergeFrom(value);
+        } else {
+          messageUnsentBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 39;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    public Builder clearMessageUnsent() {
+      if (messageUnsentBuilder_ == null) {
+        if (payloadCase_ == 39) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 39) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        messageUnsentBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.Builder getMessageUnsentBuilder() {
+      return internalGetMessageUnsentFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder getMessageUnsentOrBuilder() {
+      if ((payloadCase_ == 39) && (messageUnsentBuilder_ != null)) {
+        return messageUnsentBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 39) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageUnsent message_unsent = 39 [json_name = "messageUnsent"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder> 
+        internalGetMessageUnsentFieldBuilder() {
+      if (messageUnsentBuilder_ == null) {
+        if (!(payloadCase_ == 39)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.getDefaultInstance();
+        }
+        messageUnsentBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageUnsentOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MessageUnsent) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 39;
+      onChanged();
+      return messageUnsentBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder> messageReactionAddedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     * @return Whether the messageReactionAdded field is set.
+     */
+    @java.lang.Override
+    public boolean hasMessageReactionAdded() {
+      return payloadCase_ == 40;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     * @return The messageReactionAdded.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded getMessageReactionAdded() {
+      if (messageReactionAddedBuilder_ == null) {
+        if (payloadCase_ == 40) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 40) {
+          return messageReactionAddedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    public Builder setMessageReactionAdded(app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded value) {
+      if (messageReactionAddedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        messageReactionAddedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    public Builder setMessageReactionAdded(
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.Builder builderForValue) {
+      if (messageReactionAddedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        messageReactionAddedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    public Builder mergeMessageReactionAdded(app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded value) {
+      if (messageReactionAddedBuilder_ == null) {
+        if (payloadCase_ == 40 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 40) {
+          messageReactionAddedBuilder_.mergeFrom(value);
+        } else {
+          messageReactionAddedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 40;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    public Builder clearMessageReactionAdded() {
+      if (messageReactionAddedBuilder_ == null) {
+        if (payloadCase_ == 40) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 40) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        messageReactionAddedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.Builder getMessageReactionAddedBuilder() {
+      return internalGetMessageReactionAddedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder getMessageReactionAddedOrBuilder() {
+      if ((payloadCase_ == 40) && (messageReactionAddedBuilder_ != null)) {
+        return messageReactionAddedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 40) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionAdded message_reaction_added = 40 [json_name = "messageReactionAdded"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder> 
+        internalGetMessageReactionAddedFieldBuilder() {
+      if (messageReactionAddedBuilder_ == null) {
+        if (!(payloadCase_ == 40)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.getDefaultInstance();
+        }
+        messageReactionAddedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAddedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionAdded) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 40;
+      onChanged();
+      return messageReactionAddedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder> messageReactionRemovedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     * @return Whether the messageReactionRemoved field is set.
+     */
+    @java.lang.Override
+    public boolean hasMessageReactionRemoved() {
+      return payloadCase_ == 41;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     * @return The messageReactionRemoved.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved getMessageReactionRemoved() {
+      if (messageReactionRemovedBuilder_ == null) {
+        if (payloadCase_ == 41) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 41) {
+          return messageReactionRemovedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    public Builder setMessageReactionRemoved(app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved value) {
+      if (messageReactionRemovedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        messageReactionRemovedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 41;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    public Builder setMessageReactionRemoved(
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.Builder builderForValue) {
+      if (messageReactionRemovedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        messageReactionRemovedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 41;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    public Builder mergeMessageReactionRemoved(app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved value) {
+      if (messageReactionRemovedBuilder_ == null) {
+        if (payloadCase_ == 41 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 41) {
+          messageReactionRemovedBuilder_.mergeFrom(value);
+        } else {
+          messageReactionRemovedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 41;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    public Builder clearMessageReactionRemoved() {
+      if (messageReactionRemovedBuilder_ == null) {
+        if (payloadCase_ == 41) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 41) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        messageReactionRemovedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.Builder getMessageReactionRemovedBuilder() {
+      return internalGetMessageReactionRemovedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder getMessageReactionRemovedOrBuilder() {
+      if ((payloadCase_ == 41) && (messageReactionRemovedBuilder_ != null)) {
+        return messageReactionRemovedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 41) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageReactionRemoved message_reaction_removed = 41 [json_name = "messageReactionRemoved"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder> 
+        internalGetMessageReactionRemovedFieldBuilder() {
+      if (messageReactionRemovedBuilder_ == null) {
+        if (!(payloadCase_ == 41)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.getDefaultInstance();
+        }
+        messageReactionRemovedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemovedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MessageReactionRemoved) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 41;
+      onChanged();
+      return messageReactionRemovedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.TypingChanged, app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder> typingChangedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     * @return Whether the typingChanged field is set.
+     */
+    @java.lang.Override
+    public boolean hasTypingChanged() {
+      return payloadCase_ == 42;
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     * @return The typingChanged.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.TypingChanged getTypingChanged() {
+      if (typingChangedBuilder_ == null) {
+        if (payloadCase_ == 42) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 42) {
+          return typingChangedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    public Builder setTypingChanged(app.mvchat.mvnxt.mvservernxt.v1.TypingChanged value) {
+      if (typingChangedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        typingChangedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 42;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    public Builder setTypingChanged(
+        app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.Builder builderForValue) {
+      if (typingChangedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        typingChangedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 42;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    public Builder mergeTypingChanged(app.mvchat.mvnxt.mvservernxt.v1.TypingChanged value) {
+      if (typingChangedBuilder_ == null) {
+        if (payloadCase_ == 42 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 42) {
+          typingChangedBuilder_.mergeFrom(value);
+        } else {
+          typingChangedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 42;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    public Builder clearTypingChanged() {
+      if (typingChangedBuilder_ == null) {
+        if (payloadCase_ == 42) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 42) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        typingChangedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.Builder getTypingChangedBuilder() {
+      return internalGetTypingChangedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder getTypingChangedOrBuilder() {
+      if ((payloadCase_ == 42) && (typingChangedBuilder_ != null)) {
+        return typingChangedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 42) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.TypingChanged typing_changed = 42 [json_name = "typingChanged"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.TypingChanged, app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder> 
+        internalGetTypingChangedFieldBuilder() {
+      if (typingChangedBuilder_ == null) {
+        if (!(payloadCase_ == 42)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.getDefaultInstance();
+        }
+        typingChangedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.TypingChanged, app.mvchat.mvnxt.mvservernxt.v1.TypingChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.TypingChangedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.TypingChanged) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 42;
+      onChanged();
+      return typingChangedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder> disappearingMessagesChangedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     * @return Whether the disappearingMessagesChanged field is set.
+     */
+    @java.lang.Override
+    public boolean hasDisappearingMessagesChanged() {
+      return payloadCase_ == 43;
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     * @return The disappearingMessagesChanged.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged getDisappearingMessagesChanged() {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        if (payloadCase_ == 43) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 43) {
+          return disappearingMessagesChangedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    public Builder setDisappearingMessagesChanged(app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged value) {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        disappearingMessagesChangedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 43;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    public Builder setDisappearingMessagesChanged(
+        app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.Builder builderForValue) {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        disappearingMessagesChangedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 43;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    public Builder mergeDisappearingMessagesChanged(app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged value) {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        if (payloadCase_ == 43 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 43) {
+          disappearingMessagesChangedBuilder_.mergeFrom(value);
+        } else {
+          disappearingMessagesChangedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 43;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    public Builder clearDisappearingMessagesChanged() {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        if (payloadCase_ == 43) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 43) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        disappearingMessagesChangedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.Builder getDisappearingMessagesChangedBuilder() {
+      return internalGetDisappearingMessagesChangedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder getDisappearingMessagesChangedOrBuilder() {
+      if ((payloadCase_ == 43) && (disappearingMessagesChangedBuilder_ != null)) {
+        return disappearingMessagesChangedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 43) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.DisappearingMessagesChanged disappearing_messages_changed = 43 [json_name = "disappearingMessagesChanged"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder> 
+        internalGetDisappearingMessagesChangedFieldBuilder() {
+      if (disappearingMessagesChangedBuilder_ == null) {
+        if (!(payloadCase_ == 43)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.getDefaultInstance();
+        }
+        disappearingMessagesChangedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged.Builder, app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChangedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.DisappearingMessagesChanged) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 43;
+      onChanged();
+      return disappearingMessagesChangedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageExpired, app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder> messageExpiredBuilder_;
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     * @return Whether the messageExpired field is set.
+     */
+    @java.lang.Override
+    public boolean hasMessageExpired() {
+      return payloadCase_ == 44;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     * @return The messageExpired.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageExpired getMessageExpired() {
+      if (messageExpiredBuilder_ == null) {
+        if (payloadCase_ == 44) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 44) {
+          return messageExpiredBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    public Builder setMessageExpired(app.mvchat.mvnxt.mvservernxt.v1.MessageExpired value) {
+      if (messageExpiredBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        messageExpiredBuilder_.setMessage(value);
+      }
+      payloadCase_ = 44;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    public Builder setMessageExpired(
+        app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.Builder builderForValue) {
+      if (messageExpiredBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        messageExpiredBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 44;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    public Builder mergeMessageExpired(app.mvchat.mvnxt.mvservernxt.v1.MessageExpired value) {
+      if (messageExpiredBuilder_ == null) {
+        if (payloadCase_ == 44 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 44) {
+          messageExpiredBuilder_.mergeFrom(value);
+        } else {
+          messageExpiredBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 44;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    public Builder clearMessageExpired() {
+      if (messageExpiredBuilder_ == null) {
+        if (payloadCase_ == 44) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 44) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        messageExpiredBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.Builder getMessageExpiredBuilder() {
+      return internalGetMessageExpiredFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder getMessageExpiredOrBuilder() {
+      if ((payloadCase_ == 44) && (messageExpiredBuilder_ != null)) {
+        return messageExpiredBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 44) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.MessageExpired message_expired = 44 [json_name = "messageExpired"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.MessageExpired, app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder> 
+        internalGetMessageExpiredFieldBuilder() {
+      if (messageExpiredBuilder_ == null) {
+        if (!(payloadCase_ == 44)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.getDefaultInstance();
+        }
+        messageExpiredBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.MessageExpired, app.mvchat.mvnxt.mvservernxt.v1.MessageExpired.Builder, app.mvchat.mvnxt.mvservernxt.v1.MessageExpiredOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.MessageExpired) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 44;
+      onChanged();
+      return messageExpiredBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Event)

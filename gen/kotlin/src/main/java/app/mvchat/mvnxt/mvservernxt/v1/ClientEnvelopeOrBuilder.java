@@ -372,5 +372,80 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.DeleteMessageForEveryoneOrBuilder getDeleteMessageForEveryoneOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];</code>
+   * @return Whether the unsendMessage field is set.
+   */
+  boolean hasUnsendMessage();
+  /**
+   * <code>.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];</code>
+   * @return The unsendMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnsendMessage getUnsendMessage();
+  /**
+   * <code>.mvservernxt.v1.UnsendMessage unsend_message = 41 [json_name = "unsendMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.UnsendMessageOrBuilder getUnsendMessageOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];</code>
+   * @return Whether the addReaction field is set.
+   */
+  boolean hasAddReaction();
+  /**
+   * <code>.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];</code>
+   * @return The addReaction.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddReaction getAddReaction();
+  /**
+   * <code>.mvservernxt.v1.AddReaction add_reaction = 42 [json_name = "addReaction"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AddReactionOrBuilder getAddReactionOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];</code>
+   * @return Whether the removeReaction field is set.
+   */
+  boolean hasRemoveReaction();
+  /**
+   * <code>.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];</code>
+   * @return The removeReaction.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveReaction getRemoveReaction();
+  /**
+   * <code>.mvservernxt.v1.RemoveReaction remove_reaction = 43 [json_name = "removeReaction"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.RemoveReactionOrBuilder getRemoveReactionOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];</code>
+   * @return Whether the sendTyping field is set.
+   */
+  boolean hasSendTyping();
+  /**
+   * <code>.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];</code>
+   * @return The sendTyping.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SendTyping getSendTyping();
+  /**
+   * <code>.mvservernxt.v1.SendTyping send_typing = 44 [json_name = "sendTyping"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SendTypingOrBuilder getSendTypingOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];</code>
+   * @return Whether the setDisappearingMessages field is set.
+   */
+  boolean hasSetDisappearingMessages();
+  /**
+   * <code>.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];</code>
+   * @return The setDisappearingMessages.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetDisappearingMessages getSetDisappearingMessages();
+  /**
+   * <code>.mvservernxt.v1.SetDisappearingMessages set_disappearing_messages = 45 [json_name = "setDisappearingMessages"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.SetDisappearingMessagesOrBuilder getSetDisappearingMessagesOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

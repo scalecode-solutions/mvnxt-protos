@@ -40,5 +40,43 @@ class ConversationType extends $pb.ProtobufEnum {
   const ConversationType._(super.value, super.name);
 }
 
+/// DeletionKind discriminates the flavor of a soft-deleted message.
+/// All three kinds set Message.deleted_at; the row is preserved in
+/// every case (nothing is physically removed). Clients render
+/// differently based on kind.
+///
+/// FOR_EVERYONE: anytime sender-initiated delete. Clients show a
+///   "deleted message" placeholder in-place.
+/// UNSENT:       time-limited sender-initiated undo (v1: 5-minute
+///   window). Clients remove the message entirely — as if it never
+///   happened.
+/// EXPIRED:      disappearing-message TTL hit. Equivalent to UNSENT
+///   client-side (content is gone) but the source is the server's
+///   scheduler rather than a sender action.
+class DeletionKind extends $pb.ProtobufEnum {
+  static const DeletionKind DELETION_KIND_UNSPECIFIED =
+      DeletionKind._(0, _omitEnumNames ? '' : 'DELETION_KIND_UNSPECIFIED');
+  static const DeletionKind DELETION_KIND_FOR_EVERYONE =
+      DeletionKind._(1, _omitEnumNames ? '' : 'DELETION_KIND_FOR_EVERYONE');
+  static const DeletionKind DELETION_KIND_UNSENT =
+      DeletionKind._(2, _omitEnumNames ? '' : 'DELETION_KIND_UNSENT');
+  static const DeletionKind DELETION_KIND_EXPIRED =
+      DeletionKind._(3, _omitEnumNames ? '' : 'DELETION_KIND_EXPIRED');
+
+  static const $core.List<DeletionKind> values = <DeletionKind>[
+    DELETION_KIND_UNSPECIFIED,
+    DELETION_KIND_FOR_EVERYONE,
+    DELETION_KIND_UNSENT,
+    DELETION_KIND_EXPIRED,
+  ];
+
+  static final $core.List<DeletionKind?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 3);
+  static DeletionKind? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const DeletionKind._(super.value, super.name);
+}
+
 const $core.bool _omitEnumNames =
     $core.bool.fromEnvironment('protobuf.omit_enum_names');

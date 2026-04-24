@@ -48,6 +48,8 @@ private static final long serialVersionUID = 0L;
     replyToId_ = "";
     clientMessageId_ = "";
     deletedBy_ = "";
+    deletionKind_ = 0;
+    reactions_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -440,9 +442,10 @@ private static final long serialVersionUID = 0L;
   private com.google.protobuf.Timestamp deletedAt_;
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -454,9 +457,10 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -468,9 +472,10 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -487,7 +492,7 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * Who issued the delete (user_id string). Typically the sender
    * (self-delete); admin moderation lands later. Empty when deleted_at
-   * is null.
+   * is null or the delete was server-initiated (EXPIRED).
    * </pre>
    *
    * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -510,7 +515,7 @@ private static final long serialVersionUID = 0L;
    * <pre>
    * Who issued the delete (user_id string). Typically the sender
    * (self-delete); admin moderation lands later. Empty when deleted_at
-   * is null.
+   * is null or the delete was server-initiated (EXPIRED).
    * </pre>
    *
    * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -529,6 +534,144 @@ private static final long serialVersionUID = 0L;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int DELETION_KIND_FIELD_NUMBER = 12;
+  private int deletionKind_ = 0;
+  /**
+   * <pre>
+   * Discriminates the soft-delete flavor when deleted_at is non-null.
+   * UNSPECIFIED when deleted_at is null.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+   * @return The enum numeric value on the wire for deletionKind.
+   */
+  @java.lang.Override public int getDeletionKindValue() {
+    return deletionKind_;
+  }
+  /**
+   * <pre>
+   * Discriminates the soft-delete flavor when deleted_at is non-null.
+   * UNSPECIFIED when deleted_at is null.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+   * @return The deletionKind.
+   */
+  @java.lang.Override public app.mvchat.mvnxt.mvservernxt.v1.DeletionKind getDeletionKind() {
+    app.mvchat.mvnxt.mvservernxt.v1.DeletionKind result = app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.forNumber(deletionKind_);
+    return result == null ? app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.UNRECOGNIZED : result;
+  }
+
+  public static final int REACTIONS_FIELD_NUMBER = 13;
+  @SuppressWarnings("serial")
+  private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction> reactions_;
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction> getReactionsList() {
+    return reactions_;
+  }
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder> 
+      getReactionsOrBuilderList() {
+    return reactions_;
+  }
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  @java.lang.Override
+  public int getReactionsCount() {
+    return reactions_.size();
+  }
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.Reaction getReactions(int index) {
+    return reactions_.get(index);
+  }
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder getReactionsOrBuilder(
+      int index) {
+    return reactions_.get(index);
+  }
+
+  public static final int EXPIRES_AT_FIELD_NUMBER = 14;
+  private com.google.protobuf.Timestamp expiresAt_;
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   * @return Whether the expiresAt field is set.
+   */
+  @java.lang.Override
+  public boolean hasExpiresAt() {
+    return ((bitField0_ & 0x00000008) != 0);
+  }
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   * @return The expiresAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Timestamp getExpiresAt() {
+    return expiresAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiresAt_;
+  }
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.TimestampOrBuilder getExpiresAtOrBuilder() {
+    return expiresAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiresAt_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -578,6 +721,15 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deletedBy_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 11, deletedBy_);
     }
+    if (deletionKind_ != app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.DELETION_KIND_UNSPECIFIED.getNumber()) {
+      output.writeEnum(12, deletionKind_);
+    }
+    for (int i = 0; i < reactions_.size(); i++) {
+      output.writeMessage(13, reactions_.get(i));
+    }
+    if (((bitField0_ & 0x00000008) != 0)) {
+      output.writeMessage(14, getExpiresAt());
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -623,6 +775,23 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deletedBy_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(11, deletedBy_);
+    }
+    if (deletionKind_ != app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.DELETION_KIND_UNSPECIFIED.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(12, deletionKind_);
+    }
+
+        {
+          final int count = reactions_.size();
+          for (int i = 0; i < count; i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSizeNoTag(reactions_.get(i));
+          }
+          size += 1 * count;
+        }
+    if (((bitField0_ & 0x00000008) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(14, getExpiresAt());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -670,6 +839,14 @@ private static final long serialVersionUID = 0L;
     }
     if (!getDeletedBy()
         .equals(other.getDeletedBy())) return false;
+    if (deletionKind_ != other.deletionKind_) return false;
+    if (!getReactionsList()
+        .equals(other.getReactionsList())) return false;
+    if (hasExpiresAt() != other.hasExpiresAt()) return false;
+    if (hasExpiresAt()) {
+      if (!getExpiresAt()
+          .equals(other.getExpiresAt())) return false;
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -710,6 +887,16 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + DELETED_BY_FIELD_NUMBER;
     hash = (53 * hash) + getDeletedBy().hashCode();
+    hash = (37 * hash) + DELETION_KIND_FIELD_NUMBER;
+    hash = (53 * hash) + deletionKind_;
+    if (getReactionsCount() > 0) {
+      hash = (37 * hash) + REACTIONS_FIELD_NUMBER;
+      hash = (53 * hash) + getReactionsList().hashCode();
+    }
+    if (hasExpiresAt()) {
+      hash = (37 * hash) + EXPIRES_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getExpiresAt().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -856,6 +1043,8 @@ private static final long serialVersionUID = 0L;
         internalGetCreatedAtFieldBuilder();
         internalGetEditedAtFieldBuilder();
         internalGetDeletedAtFieldBuilder();
+        internalGetReactionsFieldBuilder();
+        internalGetExpiresAtFieldBuilder();
       }
     }
     @java.lang.Override
@@ -885,6 +1074,19 @@ private static final long serialVersionUID = 0L;
         deletedAtBuilder_ = null;
       }
       deletedBy_ = "";
+      deletionKind_ = 0;
+      if (reactionsBuilder_ == null) {
+        reactions_ = java.util.Collections.emptyList();
+      } else {
+        reactions_ = null;
+        reactionsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00001000);
+      expiresAt_ = null;
+      if (expiresAtBuilder_ != null) {
+        expiresAtBuilder_.dispose();
+        expiresAtBuilder_ = null;
+      }
       return this;
     }
 
@@ -911,9 +1113,22 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public app.mvchat.mvnxt.mvservernxt.v1.Message buildPartial() {
       app.mvchat.mvnxt.mvservernxt.v1.Message result = new app.mvchat.mvnxt.mvservernxt.v1.Message(this);
+      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
+    }
+
+    private void buildPartialRepeatedFields(app.mvchat.mvnxt.mvservernxt.v1.Message result) {
+      if (reactionsBuilder_ == null) {
+        if (((bitField0_ & 0x00001000) != 0)) {
+          reactions_ = java.util.Collections.unmodifiableList(reactions_);
+          bitField0_ = (bitField0_ & ~0x00001000);
+        }
+        result.reactions_ = reactions_;
+      } else {
+        result.reactions_ = reactionsBuilder_.build();
+      }
     }
 
     private void buildPartial0(app.mvchat.mvnxt.mvservernxt.v1.Message result) {
@@ -960,6 +1175,15 @@ private static final long serialVersionUID = 0L;
       }
       if (((from_bitField0_ & 0x00000400) != 0)) {
         result.deletedBy_ = deletedBy_;
+      }
+      if (((from_bitField0_ & 0x00000800) != 0)) {
+        result.deletionKind_ = deletionKind_;
+      }
+      if (((from_bitField0_ & 0x00002000) != 0)) {
+        result.expiresAt_ = expiresAtBuilder_ == null
+            ? expiresAt_
+            : expiresAtBuilder_.build();
+        to_bitField0_ |= 0x00000008;
       }
       result.bitField0_ |= to_bitField0_;
     }
@@ -1022,6 +1246,38 @@ private static final long serialVersionUID = 0L;
         deletedBy_ = other.deletedBy_;
         bitField0_ |= 0x00000400;
         onChanged();
+      }
+      if (other.deletionKind_ != 0) {
+        setDeletionKindValue(other.getDeletionKindValue());
+      }
+      if (reactionsBuilder_ == null) {
+        if (!other.reactions_.isEmpty()) {
+          if (reactions_.isEmpty()) {
+            reactions_ = other.reactions_;
+            bitField0_ = (bitField0_ & ~0x00001000);
+          } else {
+            ensureReactionsIsMutable();
+            reactions_.addAll(other.reactions_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.reactions_.isEmpty()) {
+          if (reactionsBuilder_.isEmpty()) {
+            reactionsBuilder_.dispose();
+            reactionsBuilder_ = null;
+            reactions_ = other.reactions_;
+            bitField0_ = (bitField0_ & ~0x00001000);
+            reactionsBuilder_ = 
+              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                 internalGetReactionsFieldBuilder() : null;
+          } else {
+            reactionsBuilder_.addAllMessages(other.reactions_);
+          }
+        }
+      }
+      if (other.hasExpiresAt()) {
+        mergeExpiresAt(other.getExpiresAt());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -1110,6 +1366,31 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000400;
               break;
             } // case 90
+            case 96: {
+              deletionKind_ = input.readEnum();
+              bitField0_ |= 0x00000800;
+              break;
+            } // case 96
+            case 106: {
+              app.mvchat.mvnxt.mvservernxt.v1.Reaction m =
+                  input.readMessage(
+                      app.mvchat.mvnxt.mvservernxt.v1.Reaction.parser(),
+                      extensionRegistry);
+              if (reactionsBuilder_ == null) {
+                ensureReactionsIsMutable();
+                reactions_.add(m);
+              } else {
+                reactionsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 106
+            case 114: {
+              input.readMessage(
+                  internalGetExpiresAtFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00002000;
+              break;
+            } // case 114
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2024,9 +2305,10 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> deletedAtBuilder_;
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2037,9 +2319,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2054,9 +2337,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2076,9 +2360,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2096,9 +2381,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2123,9 +2409,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2142,9 +2429,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2156,9 +2444,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2173,9 +2462,10 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * When the message was soft-deleted "for everyone". Null = not
-     * deleted. Clients observing a non-null value MUST render a "deleted"
-     * placeholder rather than body (which the server redacts to "").
+     * When the message was soft-deleted. Null = not deleted. The flavor
+     * of the delete — for-everyone / unsent / expired — is on
+     * deletion_kind. All three preserve the DB row; clients render per
+     * kind.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -2199,7 +2489,7 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * </pre>
      *
      * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -2221,7 +2511,7 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * </pre>
      *
      * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -2244,7 +2534,7 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * </pre>
      *
      * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -2263,7 +2553,7 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * </pre>
      *
      * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -2279,7 +2569,7 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * Who issued the delete (user_id string). Typically the sender
      * (self-delete); admin moderation lands later. Empty when deleted_at
-     * is null.
+     * is null or the delete was server-initiated (EXPIRED).
      * </pre>
      *
      * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -2294,6 +2584,588 @@ private static final long serialVersionUID = 0L;
       bitField0_ |= 0x00000400;
       onChanged();
       return this;
+    }
+
+    private int deletionKind_ = 0;
+    /**
+     * <pre>
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+     * @return The enum numeric value on the wire for deletionKind.
+     */
+    @java.lang.Override public int getDeletionKindValue() {
+      return deletionKind_;
+    }
+    /**
+     * <pre>
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+     * @param value The enum numeric value on the wire for deletionKind to set.
+     * @throws IllegalArgumentException if UNRECOGNIZED is provided.
+     * @return This builder for chaining.
+     */
+    public Builder setDeletionKindValue(int value) {
+      deletionKind_ = value;
+      bitField0_ |= 0x00000800;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+     * @return The deletionKind.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.DeletionKind getDeletionKind() {
+      app.mvchat.mvnxt.mvservernxt.v1.DeletionKind result = app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.forNumber(deletionKind_);
+      return result == null ? app.mvchat.mvnxt.mvservernxt.v1.DeletionKind.UNRECOGNIZED : result;
+    }
+    /**
+     * <pre>
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+     * @param value The deletionKind to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeletionKind(app.mvchat.mvnxt.mvservernxt.v1.DeletionKind value) {
+      if (value == null) { throw new NullPointerException(); }
+      bitField0_ |= 0x00000800;
+      deletionKind_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Discriminates the soft-delete flavor when deleted_at is non-null.
+     * UNSPECIFIED when deleted_at is null.
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDeletionKind() {
+      bitField0_ = (bitField0_ & ~0x00000800);
+      deletionKind_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction> reactions_ =
+      java.util.Collections.emptyList();
+    private void ensureReactionsIsMutable() {
+      if (!((bitField0_ & 0x00001000) != 0)) {
+        reactions_ = new java.util.ArrayList<app.mvchat.mvnxt.mvservernxt.v1.Reaction>(reactions_);
+        bitField0_ |= 0x00001000;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Reaction, app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder, app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder> reactionsBuilder_;
+
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction> getReactionsList() {
+      if (reactionsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(reactions_);
+      } else {
+        return reactionsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public int getReactionsCount() {
+      if (reactionsBuilder_ == null) {
+        return reactions_.size();
+      } else {
+        return reactionsBuilder_.getCount();
+      }
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Reaction getReactions(int index) {
+      if (reactionsBuilder_ == null) {
+        return reactions_.get(index);
+      } else {
+        return reactionsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder setReactions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Reaction value) {
+      if (reactionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureReactionsIsMutable();
+        reactions_.set(index, value);
+        onChanged();
+      } else {
+        reactionsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder setReactions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder builderForValue) {
+      if (reactionsBuilder_ == null) {
+        ensureReactionsIsMutable();
+        reactions_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        reactionsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder addReactions(app.mvchat.mvnxt.mvservernxt.v1.Reaction value) {
+      if (reactionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureReactionsIsMutable();
+        reactions_.add(value);
+        onChanged();
+      } else {
+        reactionsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder addReactions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Reaction value) {
+      if (reactionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureReactionsIsMutable();
+        reactions_.add(index, value);
+        onChanged();
+      } else {
+        reactionsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder addReactions(
+        app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder builderForValue) {
+      if (reactionsBuilder_ == null) {
+        ensureReactionsIsMutable();
+        reactions_.add(builderForValue.build());
+        onChanged();
+      } else {
+        reactionsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder addReactions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder builderForValue) {
+      if (reactionsBuilder_ == null) {
+        ensureReactionsIsMutable();
+        reactions_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        reactionsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder addAllReactions(
+        java.lang.Iterable<? extends app.mvchat.mvnxt.mvservernxt.v1.Reaction> values) {
+      if (reactionsBuilder_ == null) {
+        ensureReactionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, reactions_);
+        onChanged();
+      } else {
+        reactionsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder clearReactions() {
+      if (reactionsBuilder_ == null) {
+        reactions_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00001000);
+        onChanged();
+      } else {
+        reactionsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public Builder removeReactions(int index) {
+      if (reactionsBuilder_ == null) {
+        ensureReactionsIsMutable();
+        reactions_.remove(index);
+        onChanged();
+      } else {
+        reactionsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder getReactionsBuilder(
+        int index) {
+      return internalGetReactionsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder getReactionsOrBuilder(
+        int index) {
+      if (reactionsBuilder_ == null) {
+        return reactions_.get(index);  } else {
+        return reactionsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder> 
+         getReactionsOrBuilderList() {
+      if (reactionsBuilder_ != null) {
+        return reactionsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(reactions_);
+      }
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder addReactionsBuilder() {
+      return internalGetReactionsFieldBuilder().addBuilder(
+          app.mvchat.mvnxt.mvservernxt.v1.Reaction.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder addReactionsBuilder(
+        int index) {
+      return internalGetReactionsFieldBuilder().addBuilder(
+          index, app.mvchat.mvnxt.mvservernxt.v1.Reaction.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Reactions from every user on this message. Unordered; clients
+     * aggregate by emoji.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder> 
+         getReactionsBuilderList() {
+      return internalGetReactionsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Reaction, app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder, app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder> 
+        internalGetReactionsFieldBuilder() {
+      if (reactionsBuilder_ == null) {
+        reactionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.Reaction, app.mvchat.mvnxt.mvservernxt.v1.Reaction.Builder, app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder>(
+                reactions_,
+                ((bitField0_ & 0x00001000) != 0),
+                getParentForChildren(),
+                isClean());
+        reactions_ = null;
+      }
+      return reactionsBuilder_;
+    }
+
+    private com.google.protobuf.Timestamp expiresAt_;
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> expiresAtBuilder_;
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     * @return Whether the expiresAt field is set.
+     */
+    public boolean hasExpiresAt() {
+      return ((bitField0_ & 0x00002000) != 0);
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     * @return The expiresAt.
+     */
+    public com.google.protobuf.Timestamp getExpiresAt() {
+      if (expiresAtBuilder_ == null) {
+        return expiresAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiresAt_;
+      } else {
+        return expiresAtBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public Builder setExpiresAt(com.google.protobuf.Timestamp value) {
+      if (expiresAtBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        expiresAt_ = value;
+      } else {
+        expiresAtBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00002000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public Builder setExpiresAt(
+        com.google.protobuf.Timestamp.Builder builderForValue) {
+      if (expiresAtBuilder_ == null) {
+        expiresAt_ = builderForValue.build();
+      } else {
+        expiresAtBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00002000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public Builder mergeExpiresAt(com.google.protobuf.Timestamp value) {
+      if (expiresAtBuilder_ == null) {
+        if (((bitField0_ & 0x00002000) != 0) &&
+          expiresAt_ != null &&
+          expiresAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+          getExpiresAtBuilder().mergeFrom(value);
+        } else {
+          expiresAt_ = value;
+        }
+      } else {
+        expiresAtBuilder_.mergeFrom(value);
+      }
+      if (expiresAt_ != null) {
+        bitField0_ |= 0x00002000;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public Builder clearExpiresAt() {
+      bitField0_ = (bitField0_ & ~0x00002000);
+      expiresAt_ = null;
+      if (expiresAtBuilder_ != null) {
+        expiresAtBuilder_.dispose();
+        expiresAtBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public com.google.protobuf.Timestamp.Builder getExpiresAtBuilder() {
+      bitField0_ |= 0x00002000;
+      onChanged();
+      return internalGetExpiresAtFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    public com.google.protobuf.TimestampOrBuilder getExpiresAtOrBuilder() {
+      if (expiresAtBuilder_ != null) {
+        return expiresAtBuilder_.getMessageOrBuilder();
+      } else {
+        return expiresAt_ == null ?
+            com.google.protobuf.Timestamp.getDefaultInstance() : expiresAt_;
+      }
+    }
+    /**
+     * <pre>
+     * When the message will disappear if disappearing-messages is active
+     * in the conversation. Null = no expiry. Set at send time from the
+     * conversation's disappearing_seconds policy.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+        internalGetExpiresAtFieldBuilder() {
+      if (expiresAtBuilder_ == null) {
+        expiresAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                getExpiresAt(),
+                getParentForChildren(),
+                isClean());
+        expiresAt_ = null;
+      }
+      return expiresAtBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Message)

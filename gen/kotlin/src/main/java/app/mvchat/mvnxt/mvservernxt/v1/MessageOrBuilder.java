@@ -190,9 +190,10 @@ public interface MessageOrBuilder extends
 
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -201,9 +202,10 @@ public interface MessageOrBuilder extends
   boolean hasDeletedAt();
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -212,9 +214,10 @@ public interface MessageOrBuilder extends
   com.google.protobuf.Timestamp getDeletedAt();
   /**
    * <pre>
-   * When the message was soft-deleted "for everyone". Null = not
-   * deleted. Clients observing a non-null value MUST render a "deleted"
-   * placeholder rather than body (which the server redacts to "").
+   * When the message was soft-deleted. Null = not deleted. The flavor
+   * of the delete — for-everyone / unsent / expired — is on
+   * deletion_kind. All three preserve the DB row; clients render per
+   * kind.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];</code>
@@ -225,7 +228,7 @@ public interface MessageOrBuilder extends
    * <pre>
    * Who issued the delete (user_id string). Typically the sender
    * (self-delete); admin moderation lands later. Empty when deleted_at
-   * is null.
+   * is null or the delete was server-initiated (EXPIRED).
    * </pre>
    *
    * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -236,7 +239,7 @@ public interface MessageOrBuilder extends
    * <pre>
    * Who issued the delete (user_id string). Typically the sender
    * (self-delete); admin moderation lands later. Empty when deleted_at
-   * is null.
+   * is null or the delete was server-initiated (EXPIRED).
    * </pre>
    *
    * <code>string deleted_by = 11 [json_name = "deletedBy"];</code>
@@ -244,4 +247,107 @@ public interface MessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getDeletedByBytes();
+
+  /**
+   * <pre>
+   * Discriminates the soft-delete flavor when deleted_at is non-null.
+   * UNSPECIFIED when deleted_at is null.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+   * @return The enum numeric value on the wire for deletionKind.
+   */
+  int getDeletionKindValue();
+  /**
+   * <pre>
+   * Discriminates the soft-delete flavor when deleted_at is non-null.
+   * UNSPECIFIED when deleted_at is null.
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.DeletionKind deletion_kind = 12 [json_name = "deletionKind"];</code>
+   * @return The deletionKind.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DeletionKind getDeletionKind();
+
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Reaction> 
+      getReactionsList();
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Reaction getReactions(int index);
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  int getReactionsCount();
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder> 
+      getReactionsOrBuilderList();
+  /**
+   * <pre>
+   * Reactions from every user on this message. Unordered; clients
+   * aggregate by emoji.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Reaction reactions = 13 [json_name = "reactions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ReactionOrBuilder getReactionsOrBuilder(
+      int index);
+
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   * @return Whether the expiresAt field is set.
+   */
+  boolean hasExpiresAt();
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   * @return The expiresAt.
+   */
+  com.google.protobuf.Timestamp getExpiresAt();
+  /**
+   * <pre>
+   * When the message will disappear if disappearing-messages is active
+   * in the conversation. Null = no expiry. Set at send time from the
+   * conversation's disappearing_seconds policy.
+   * </pre>
+   *
+   * <code>.google.protobuf.Timestamp expires_at = 14 [json_name = "expiresAt"];</code>
+   */
+  com.google.protobuf.TimestampOrBuilder getExpiresAtOrBuilder();
 }

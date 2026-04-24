@@ -200,6 +200,51 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'deleteMessageForEveryone'
     },
+    {
+      '1': 'unsend_message',
+      '3': 41,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.UnsendMessage',
+      '9': 0,
+      '10': 'unsendMessage'
+    },
+    {
+      '1': 'add_reaction',
+      '3': 42,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.AddReaction',
+      '9': 0,
+      '10': 'addReaction'
+    },
+    {
+      '1': 'remove_reaction',
+      '3': 43,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.RemoveReaction',
+      '9': 0,
+      '10': 'removeReaction'
+    },
+    {
+      '1': 'send_typing',
+      '3': 44,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SendTyping',
+      '9': 0,
+      '10': 'sendTyping'
+    },
+    {
+      '1': 'set_disappearing_messages',
+      '3': 45,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.SetDisappearingMessages',
+      '9': 0,
+      '10': 'setDisappearingMessages'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -233,7 +278,14 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'aXRNZXNzYWdlEkYKDmRlbGV0ZV9tZXNzYWdlGCcgASgLMh0ubXZzZXJ2ZXJueHQudjEuRGVsZX'
     'RlTWVzc2FnZUgAUg1kZWxldGVNZXNzYWdlEmkKG2RlbGV0ZV9tZXNzYWdlX2Zvcl9ldmVyeW9u'
     'ZRgoIAEoCzIoLm12c2VydmVybnh0LnYxLkRlbGV0ZU1lc3NhZ2VGb3JFdmVyeW9uZUgAUhhkZW'
-    'xldGVNZXNzYWdlRm9yRXZlcnlvbmVCCQoHcGF5bG9hZA==');
+    'xldGVNZXNzYWdlRm9yRXZlcnlvbmUSRgoOdW5zZW5kX21lc3NhZ2UYKSABKAsyHS5tdnNlcnZl'
+    'cm54dC52MS5VbnNlbmRNZXNzYWdlSABSDXVuc2VuZE1lc3NhZ2USQAoMYWRkX3JlYWN0aW9uGC'
+    'ogASgLMhsubXZzZXJ2ZXJueHQudjEuQWRkUmVhY3Rpb25IAFILYWRkUmVhY3Rpb24SSQoPcmVt'
+    'b3ZlX3JlYWN0aW9uGCsgASgLMh4ubXZzZXJ2ZXJueHQudjEuUmVtb3ZlUmVhY3Rpb25IAFIOcm'
+    'Vtb3ZlUmVhY3Rpb24SPQoLc2VuZF90eXBpbmcYLCABKAsyGi5tdnNlcnZlcm54dC52MS5TZW5k'
+    'VHlwaW5nSABSCnNlbmRUeXBpbmcSZQoZc2V0X2Rpc2FwcGVhcmluZ19tZXNzYWdlcxgtIAEoCz'
+    'InLm12c2VydmVybnh0LnYxLlNldERpc2FwcGVhcmluZ01lc3NhZ2VzSABSF3NldERpc2FwcGVh'
+    'cmluZ01lc3NhZ2VzQgkKB3BheWxvYWQ=');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -597,6 +649,60 @@ const Event$json = {
       '9': 0,
       '10': 'messageDeletedForEveryone'
     },
+    {
+      '1': 'message_unsent',
+      '3': 39,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MessageUnsent',
+      '9': 0,
+      '10': 'messageUnsent'
+    },
+    {
+      '1': 'message_reaction_added',
+      '3': 40,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MessageReactionAdded',
+      '9': 0,
+      '10': 'messageReactionAdded'
+    },
+    {
+      '1': 'message_reaction_removed',
+      '3': 41,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MessageReactionRemoved',
+      '9': 0,
+      '10': 'messageReactionRemoved'
+    },
+    {
+      '1': 'typing_changed',
+      '3': 42,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.TypingChanged',
+      '9': 0,
+      '10': 'typingChanged'
+    },
+    {
+      '1': 'disappearing_messages_changed',
+      '3': 43,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.DisappearingMessagesChanged',
+      '9': 0,
+      '10': 'disappearingMessagesChanged'
+    },
+    {
+      '1': 'message_expired',
+      '3': 44,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.MessageExpired',
+      '9': 0,
+      '10': 'messageExpired'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -632,5 +738,14 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'ZXJueHQudjEuTWVzc2FnZUVkaXRlZEgAUg1tZXNzYWdlRWRpdGVkEkYKDm1lc3NhZ2VfaGlkZG'
     'VuGCUgASgLMh0ubXZzZXJ2ZXJueHQudjEuTWVzc2FnZUhpZGRlbkgAUg1tZXNzYWdlSGlkZGVu'
     'EmwKHG1lc3NhZ2VfZGVsZXRlZF9mb3JfZXZlcnlvbmUYJiABKAsyKS5tdnNlcnZlcm54dC52MS'
-    '5NZXNzYWdlRGVsZXRlZEZvckV2ZXJ5b25lSABSGW1lc3NhZ2VEZWxldGVkRm9yRXZlcnlvbmVC'
-    'CQoHcGF5bG9hZA==');
+    '5NZXNzYWdlRGVsZXRlZEZvckV2ZXJ5b25lSABSGW1lc3NhZ2VEZWxldGVkRm9yRXZlcnlvbmUS'
+    'RgoObWVzc2FnZV91bnNlbnQYJyABKAsyHS5tdnNlcnZlcm54dC52MS5NZXNzYWdlVW5zZW50SA'
+    'BSDW1lc3NhZ2VVbnNlbnQSXAoWbWVzc2FnZV9yZWFjdGlvbl9hZGRlZBgoIAEoCzIkLm12c2Vy'
+    'dmVybnh0LnYxLk1lc3NhZ2VSZWFjdGlvbkFkZGVkSABSFG1lc3NhZ2VSZWFjdGlvbkFkZGVkEm'
+    'IKGG1lc3NhZ2VfcmVhY3Rpb25fcmVtb3ZlZBgpIAEoCzImLm12c2VydmVybnh0LnYxLk1lc3Nh'
+    'Z2VSZWFjdGlvblJlbW92ZWRIAFIWbWVzc2FnZVJlYWN0aW9uUmVtb3ZlZBJGCg50eXBpbmdfY2'
+    'hhbmdlZBgqIAEoCzIdLm12c2VydmVybnh0LnYxLlR5cGluZ0NoYW5nZWRIAFINdHlwaW5nQ2hh'
+    'bmdlZBJxCh1kaXNhcHBlYXJpbmdfbWVzc2FnZXNfY2hhbmdlZBgrIAEoCzIrLm12c2VydmVybn'
+    'h0LnYxLkRpc2FwcGVhcmluZ01lc3NhZ2VzQ2hhbmdlZEgAUhtkaXNhcHBlYXJpbmdNZXNzYWdl'
+    'c0NoYW5nZWQSSQoPbWVzc2FnZV9leHBpcmVkGCwgASgLMh4ubXZzZXJ2ZXJueHQudjEuTWVzc2'
+    'FnZUV4cGlyZWRIAFIObWVzc2FnZUV4cGlyZWRCCQoHcGF5bG9hZA==');
