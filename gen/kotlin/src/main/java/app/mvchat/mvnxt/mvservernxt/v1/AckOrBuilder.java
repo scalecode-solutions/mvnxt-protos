@@ -141,8 +141,9 @@ public interface AckOrBuilder extends
 
   /**
    * <pre>
-   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-   * empty Ack with no payload)
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+   * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+   * payload)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
@@ -151,8 +152,9 @@ public interface AckOrBuilder extends
   boolean hasCreateConversation();
   /**
    * <pre>
-   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-   * empty Ack with no payload)
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+   * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+   * payload)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
@@ -161,8 +163,9 @@ public interface AckOrBuilder extends
   app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse getCreateConversation();
   /**
    * <pre>
-   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-   * empty Ack with no payload)
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+   * DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+   * payload)
    * </pre>
    *
    * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
@@ -213,6 +216,21 @@ public interface AckOrBuilder extends
    * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
    */
   app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder getGetMessagesOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];</code>
+   * @return Whether the editMessage field is set.
+   */
+  boolean hasEditMessage();
+  /**
+   * <code>.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];</code>
+   * @return The editMessage.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponse getEditMessage();
+  /**
+   * <code>.mvservernxt.v1.EditMessageResponse edit_message = 38 [json_name = "editMessage"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EditMessageResponseOrBuilder getEditMessageOrBuilder();
 
   app.mvchat.mvnxt.mvservernxt.v1.Ack.PayloadCase getPayloadCase();
 }

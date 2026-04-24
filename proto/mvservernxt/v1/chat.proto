@@ -50,12 +50,21 @@ message Conversation {
 }
 
 // Message is the client-facing view of one message row.
+//
+// Soft-delete model (slice 2): messages are NEVER physically removed.
+//   - deleted_at / deleted_by set → "delete for everyone" path; clients
+//     render a "deleted message" placeholder. Server redacts body → ""
+//     on GetMessages for non-admin surfaces, but the row is preserved
+//     for audit and future restore tooling.
+//   - edited_at set → body reflects the latest revision. Edit history
+//     is not exposed on this type in slice 2 (can land via a separate
+//     GetMessageHistory command when needed).
 message Message {
   string                    id              = 1;  // UUIDv4, server-assigned
   string                    conversation_id = 2;
   int64                     seq             = 3;  // Per-conversation monotonic.
   string                    sender_id       = 4;
-  string                    body            = 5;  // Plain text in slice 1.
+  string                    body            = 5;  // Redacted to "" when deleted_at set.
 
   // Reply threading. Empty string if this message isn't a reply.
   string                    reply_to_id     = 6;
@@ -72,6 +81,21 @@ message Message {
   // own just-sent message apart from a duplicate and ends up rendering
   // both the placeholder AND the canonical copy.
   string                    client_message_id = 8;
+
+  // When the message body was most recently edited. Null = never edited.
+  // Slice 2: server-enforced 10 edits / 15 minutes per message from the
+  // original sender only.
+  google.protobuf.Timestamp edited_at         = 9;
+
+  // When the message was soft-deleted "for everyone". Null = not
+  // deleted. Clients observing a non-null value MUST render a "deleted"
+  // placeholder rather than body (which the server redacts to "").
+  google.protobuf.Timestamp deleted_at        = 10;
+
+  // Who issued the delete (user_id string). Typically the sender
+  // (self-delete); admin moderation lands later. Empty when deleted_at
+  // is null.
+  string                    deleted_by        = 11;
 }
 
 // ============================================================================
@@ -184,6 +208,43 @@ message GetMessages {
   int64  before_seq      = 4;
 }
 
+// EditMessage updates the body of a previously-sent message. Caller
+// MUST be the original sender. Server enforces a rate window of
+// 10 edits per 15 minutes per message — past that, the request is
+// rejected. Past edits are lost from the client-facing Message (no
+// edit history in slice 2; audit tooling lands later).
+//
+// Editing a soft-deleted message is rejected — clients should remove
+// the edit affordance when deleted_at is set.
+message EditMessage {
+  string message_id = 1;
+  string body       = 2;
+}
+
+// DeleteMessage performs "delete for me" — hides the message from the
+// caller's own view only. Implemented as a per-user row in
+// message_hides; the original message row is untouched. Emits
+// MessageHidden ONLY to the caller's own sessions so multi-device
+// state syncs. Other members are not notified.
+//
+// Idempotent: deleting a message that's already hidden for the caller
+// Acks cleanly without re-emitting.
+message DeleteMessage {
+  string message_id = 1;
+}
+
+// DeleteMessageForEveryone performs a server-wide soft delete. Caller
+// MUST be the original sender. Sets messages.deleted_at and
+// deleted_by; the row stays, body is redacted to "" on client-visible
+// reads, and an admin restore path is preserved.
+//
+// No time window — sender can delete-for-everyone at any time. Emits
+// MessageDeletedForEveryone to every active member so existing cached
+// views replace body with a placeholder.
+message DeleteMessageForEveryone {
+  string message_id = 1;
+}
+
 // MarkRead advances the caller's last_read_seq on a conversation.
 // Idempotent — sending a value ≤ the stored one is a no-op.
 //
@@ -219,8 +280,10 @@ message GetMessagesResponse {
   bool             has_more = 2;
 }
 
-// AddMember, RemoveMember, LeaveConversation, MarkRead return empty Ack
-// (code=200 only).
+message EditMessageResponse { Message message = 1; }
+
+// AddMember, RemoveMember, LeaveConversation, MarkRead, DeleteMessage,
+// and DeleteMessageForEveryone return empty Ack (code=200 only).
 
 // ============================================================================
 // Events (published to the event log via Log.AppendTx)
@@ -284,4 +347,36 @@ message ReadReceiptUpdated {
   string                    user_id         = 2;
   int64                     last_read_seq   = 3;
   google.protobuf.Timestamp updated_at      = 4;
+}
+
+// MessageEdited fires for each successful EditMessage. Fans out to
+// every active member so cached views update in place.
+message MessageEdited {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    body            = 3;  // New body, post-edit
+  google.protobuf.Timestamp edited_at       = 4;
+}
+
+// MessageHidden fires for each successful DeleteMessage ("delete for
+// me"). Audience is ONLY the caller's own sessions — other members
+// never see this event. Multi-device clients use it to sync local
+// hidden-message state across their devices.
+message MessageHidden {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    user_id         = 3;  // The caller, hiding for themselves
+  google.protobuf.Timestamp hidden_at       = 4;
+}
+
+// MessageDeletedForEveryone fires for each successful
+// DeleteMessageForEveryone. Fans out to every active member so their
+// cached copies flip to the "deleted" placeholder. Body is NOT echoed
+// here — the event is a signal to render the placeholder, not a
+// content update.
+message MessageDeletedForEveryone {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  string                    deleted_by      = 3;  // Usually the original sender
+  google.protobuf.Timestamp deleted_at      = 4;
 }

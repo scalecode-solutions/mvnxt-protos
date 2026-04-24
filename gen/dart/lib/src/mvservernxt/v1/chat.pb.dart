@@ -157,6 +157,15 @@ class Conversation extends $pb.GeneratedMessage {
 }
 
 /// Message is the client-facing view of one message row.
+///
+/// Soft-delete model (slice 2): messages are NEVER physically removed.
+///   - deleted_at / deleted_by set → "delete for everyone" path; clients
+///     render a "deleted message" placeholder. Server redacts body → ""
+///     on GetMessages for non-admin surfaces, but the row is preserved
+///     for audit and future restore tooling.
+///   - edited_at set → body reflects the latest revision. Edit history
+///     is not exposed on this type in slice 2 (can land via a separate
+///     GetMessageHistory command when needed).
 class Message extends $pb.GeneratedMessage {
   factory Message({
     $core.String? id,
@@ -167,6 +176,9 @@ class Message extends $pb.GeneratedMessage {
     $core.String? replyToId,
     $0.Timestamp? createdAt,
     $core.String? clientMessageId,
+    $0.Timestamp? editedAt,
+    $0.Timestamp? deletedAt,
+    $core.String? deletedBy,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -177,6 +189,9 @@ class Message extends $pb.GeneratedMessage {
     if (replyToId != null) result.replyToId = replyToId;
     if (createdAt != null) result.createdAt = createdAt;
     if (clientMessageId != null) result.clientMessageId = clientMessageId;
+    if (editedAt != null) result.editedAt = editedAt;
+    if (deletedAt != null) result.deletedAt = deletedAt;
+    if (deletedBy != null) result.deletedBy = deletedBy;
     return result;
   }
 
@@ -202,6 +217,11 @@ class Message extends $pb.GeneratedMessage {
     ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'createdAt',
         subBuilder: $0.Timestamp.create)
     ..aOS(8, _omitFieldNames ? '' : 'clientMessageId')
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'editedAt',
+        subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'deletedAt',
+        subBuilder: $0.Timestamp.create)
+    ..aOS(11, _omitFieldNames ? '' : 'deletedBy')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -305,6 +325,46 @@ class Message extends $pb.GeneratedMessage {
   $core.bool hasClientMessageId() => $_has(7);
   @$pb.TagNumber(8)
   void clearClientMessageId() => $_clearField(8);
+
+  /// When the message body was most recently edited. Null = never edited.
+  /// Slice 2: server-enforced 10 edits / 15 minutes per message from the
+  /// original sender only.
+  @$pb.TagNumber(9)
+  $0.Timestamp get editedAt => $_getN(8);
+  @$pb.TagNumber(9)
+  set editedAt($0.Timestamp value) => $_setField(9, value);
+  @$pb.TagNumber(9)
+  $core.bool hasEditedAt() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearEditedAt() => $_clearField(9);
+  @$pb.TagNumber(9)
+  $0.Timestamp ensureEditedAt() => $_ensure(8);
+
+  /// When the message was soft-deleted "for everyone". Null = not
+  /// deleted. Clients observing a non-null value MUST render a "deleted"
+  /// placeholder rather than body (which the server redacts to "").
+  @$pb.TagNumber(10)
+  $0.Timestamp get deletedAt => $_getN(9);
+  @$pb.TagNumber(10)
+  set deletedAt($0.Timestamp value) => $_setField(10, value);
+  @$pb.TagNumber(10)
+  $core.bool hasDeletedAt() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearDeletedAt() => $_clearField(10);
+  @$pb.TagNumber(10)
+  $0.Timestamp ensureDeletedAt() => $_ensure(9);
+
+  /// Who issued the delete (user_id string). Typically the sender
+  /// (self-delete); admin moderation lands later. Empty when deleted_at
+  /// is null.
+  @$pb.TagNumber(11)
+  $core.String get deletedBy => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set deletedBy($core.String value) => $_setString(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasDeletedBy() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearDeletedBy() => $_clearField(11);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -865,6 +925,205 @@ class GetMessages extends $pb.GeneratedMessage {
   void clearBeforeSeq() => $_clearField(4);
 }
 
+/// EditMessage updates the body of a previously-sent message. Caller
+/// MUST be the original sender. Server enforces a rate window of
+/// 10 edits per 15 minutes per message — past that, the request is
+/// rejected. Past edits are lost from the client-facing Message (no
+/// edit history in slice 2; audit tooling lands later).
+///
+/// Editing a soft-deleted message is rejected — clients should remove
+/// the edit affordance when deleted_at is set.
+class EditMessage extends $pb.GeneratedMessage {
+  factory EditMessage({
+    $core.String? messageId,
+    $core.String? body,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (body != null) result.body = body;
+    return result;
+  }
+
+  EditMessage._();
+
+  factory EditMessage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory EditMessage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'EditMessage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'body')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EditMessage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EditMessage copyWith(void Function(EditMessage) updates) =>
+      super.copyWith((message) => updates(message as EditMessage))
+          as EditMessage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EditMessage create() => EditMessage._();
+  @$core.override
+  EditMessage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static EditMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<EditMessage>(create);
+  static EditMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get body => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set body($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasBody() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBody() => $_clearField(2);
+}
+
+/// DeleteMessage performs "delete for me" — hides the message from the
+/// caller's own view only. Implemented as a per-user row in
+/// message_hides; the original message row is untouched. Emits
+/// MessageHidden ONLY to the caller's own sessions so multi-device
+/// state syncs. Other members are not notified.
+///
+/// Idempotent: deleting a message that's already hidden for the caller
+/// Acks cleanly without re-emitting.
+class DeleteMessage extends $pb.GeneratedMessage {
+  factory DeleteMessage({
+    $core.String? messageId,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    return result;
+  }
+
+  DeleteMessage._();
+
+  factory DeleteMessage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DeleteMessage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DeleteMessage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeleteMessage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeleteMessage copyWith(void Function(DeleteMessage) updates) =>
+      super.copyWith((message) => updates(message as DeleteMessage))
+          as DeleteMessage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteMessage create() => DeleteMessage._();
+  @$core.override
+  DeleteMessage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DeleteMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DeleteMessage>(create);
+  static DeleteMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+}
+
+/// DeleteMessageForEveryone performs a server-wide soft delete. Caller
+/// MUST be the original sender. Sets messages.deleted_at and
+/// deleted_by; the row stays, body is redacted to "" on client-visible
+/// reads, and an admin restore path is preserved.
+///
+/// No time window — sender can delete-for-everyone at any time. Emits
+/// MessageDeletedForEveryone to every active member so existing cached
+/// views replace body with a placeholder.
+class DeleteMessageForEveryone extends $pb.GeneratedMessage {
+  factory DeleteMessageForEveryone({
+    $core.String? messageId,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    return result;
+  }
+
+  DeleteMessageForEveryone._();
+
+  factory DeleteMessageForEveryone.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DeleteMessageForEveryone.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DeleteMessageForEveryone',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeleteMessageForEveryone clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeleteMessageForEveryone copyWith(
+          void Function(DeleteMessageForEveryone) updates) =>
+      super.copyWith((message) => updates(message as DeleteMessageForEveryone))
+          as DeleteMessageForEveryone;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteMessageForEveryone create() => DeleteMessageForEveryone._();
+  @$core.override
+  DeleteMessageForEveryone createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DeleteMessageForEveryone getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DeleteMessageForEveryone>(create);
+  static DeleteMessageForEveryone? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+}
+
 /// MarkRead advances the caller's last_read_seq on a conversation.
 /// Idempotent — sending a value ≤ the stored one is a no-op.
 ///
@@ -1169,6 +1428,63 @@ class GetMessagesResponse extends $pb.GeneratedMessage {
   $core.bool hasHasMore() => $_has(1);
   @$pb.TagNumber(2)
   void clearHasMore() => $_clearField(2);
+}
+
+class EditMessageResponse extends $pb.GeneratedMessage {
+  factory EditMessageResponse({
+    Message? message,
+  }) {
+    final result = create();
+    if (message != null) result.message = message;
+    return result;
+  }
+
+  EditMessageResponse._();
+
+  factory EditMessageResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory EditMessageResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'EditMessageResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOM<Message>(1, _omitFieldNames ? '' : 'message',
+        subBuilder: Message.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EditMessageResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EditMessageResponse copyWith(void Function(EditMessageResponse) updates) =>
+      super.copyWith((message) => updates(message as EditMessageResponse))
+          as EditMessageResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EditMessageResponse create() => EditMessageResponse._();
+  @$core.override
+  EditMessageResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static EditMessageResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<EditMessageResponse>(create);
+  static EditMessageResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Message get message => $_getN(0);
+  @$pb.TagNumber(1)
+  set message(Message value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessage() => $_clearField(1);
+  @$pb.TagNumber(1)
+  Message ensureMessage() => $_ensure(0);
 }
 
 /// ConversationCreated fires once per CreateConversation.
@@ -1793,6 +2109,297 @@ class ReadReceiptUpdated extends $pb.GeneratedMessage {
   void clearUpdatedAt() => $_clearField(4);
   @$pb.TagNumber(4)
   $0.Timestamp ensureUpdatedAt() => $_ensure(3);
+}
+
+/// MessageEdited fires for each successful EditMessage. Fans out to
+/// every active member so cached views update in place.
+class MessageEdited extends $pb.GeneratedMessage {
+  factory MessageEdited({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? body,
+    $0.Timestamp? editedAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (body != null) result.body = body;
+    if (editedAt != null) result.editedAt = editedAt;
+    return result;
+  }
+
+  MessageEdited._();
+
+  factory MessageEdited.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageEdited.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageEdited',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'body')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'editedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageEdited clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageEdited copyWith(void Function(MessageEdited) updates) =>
+      super.copyWith((message) => updates(message as MessageEdited))
+          as MessageEdited;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageEdited create() => MessageEdited._();
+  @$core.override
+  MessageEdited createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageEdited getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageEdited>(create);
+  static MessageEdited? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get body => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set body($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasBody() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBody() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get editedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set editedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasEditedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEditedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureEditedAt() => $_ensure(3);
+}
+
+/// MessageHidden fires for each successful DeleteMessage ("delete for
+/// me"). Audience is ONLY the caller's own sessions — other members
+/// never see this event. Multi-device clients use it to sync local
+/// hidden-message state across their devices.
+class MessageHidden extends $pb.GeneratedMessage {
+  factory MessageHidden({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? userId,
+    $0.Timestamp? hiddenAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (userId != null) result.userId = userId;
+    if (hiddenAt != null) result.hiddenAt = hiddenAt;
+    return result;
+  }
+
+  MessageHidden._();
+
+  factory MessageHidden.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageHidden.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageHidden',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'userId')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'hiddenAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageHidden clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageHidden copyWith(void Function(MessageHidden) updates) =>
+      super.copyWith((message) => updates(message as MessageHidden))
+          as MessageHidden;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageHidden create() => MessageHidden._();
+  @$core.override
+  MessageHidden createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageHidden getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageHidden>(create);
+  static MessageHidden? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get userId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set userId($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserId() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get hiddenAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set hiddenAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasHiddenAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearHiddenAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureHiddenAt() => $_ensure(3);
+}
+
+/// MessageDeletedForEveryone fires for each successful
+/// DeleteMessageForEveryone. Fans out to every active member so their
+/// cached copies flip to the "deleted" placeholder. Body is NOT echoed
+/// here — the event is a signal to render the placeholder, not a
+/// content update.
+class MessageDeletedForEveryone extends $pb.GeneratedMessage {
+  factory MessageDeletedForEveryone({
+    $core.String? messageId,
+    $core.String? conversationId,
+    $core.String? deletedBy,
+    $0.Timestamp? deletedAt,
+  }) {
+    final result = create();
+    if (messageId != null) result.messageId = messageId;
+    if (conversationId != null) result.conversationId = conversationId;
+    if (deletedBy != null) result.deletedBy = deletedBy;
+    if (deletedAt != null) result.deletedAt = deletedAt;
+    return result;
+  }
+
+  MessageDeletedForEveryone._();
+
+  factory MessageDeletedForEveryone.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MessageDeletedForEveryone.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MessageDeletedForEveryone',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'messageId')
+    ..aOS(2, _omitFieldNames ? '' : 'conversationId')
+    ..aOS(3, _omitFieldNames ? '' : 'deletedBy')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'deletedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageDeletedForEveryone clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MessageDeletedForEveryone copyWith(
+          void Function(MessageDeletedForEveryone) updates) =>
+      super.copyWith((message) => updates(message as MessageDeletedForEveryone))
+          as MessageDeletedForEveryone;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MessageDeletedForEveryone create() => MessageDeletedForEveryone._();
+  @$core.override
+  MessageDeletedForEveryone createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MessageDeletedForEveryone getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MessageDeletedForEveryone>(create);
+  static MessageDeletedForEveryone? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get messageId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set messageId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMessageId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessageId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get conversationId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set conversationId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasConversationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConversationId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get deletedBy => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set deletedBy($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDeletedBy() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDeletedBy() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Timestamp get deletedAt => $_getN(3);
+  @$pb.TagNumber(4)
+  set deletedAt($0.Timestamp value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasDeletedAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDeletedAt() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureDeletedAt() => $_ensure(3);
 }
 
 const $core.bool _omitFieldNames =

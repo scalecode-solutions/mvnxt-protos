@@ -72,6 +72,21 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_GetMessages_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_EditMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_EditMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_DeleteMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_DeleteMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_DeleteMessageForEveryone_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_DeleteMessageForEveryone_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_mvservernxt_v1_MarkRead_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -96,6 +111,11 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_GetMessagesResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_EditMessageResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_EditMessageResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_mvservernxt_v1_ConversationCreated_descriptor;
   static final 
@@ -126,6 +146,21 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_ReadReceiptUpdated_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_MessageEdited_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_MessageEdited_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_MessageHidden_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_MessageHidden_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_MessageDeletedForEveryone_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_MessageDeletedForEveryone_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -143,31 +178,39 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
       "\004 \001(\tR\tcreatedBy\0229\n\ncreated_at\030\005 \001(\0132\032.g" +
       "oogle.protobuf.TimestampR\tcreatedAt\022\035\n\nm" +
       "ember_ids\030\006 \003(\tR\tmemberIds\022(\n\020last_messa" +
-      "ge_seq\030\007 \001(\003R\016lastMessageSeq\"\214\002\n\007Message" +
+      "ge_seq\030\007 \001(\003R\016lastMessageSeq\"\237\003\n\007Message" +
       "\022\016\n\002id\030\001 \001(\tR\002id\022\'\n\017conversation_id\030\002 \001(" +
       "\tR\016conversationId\022\020\n\003seq\030\003 \001(\003R\003seq\022\033\n\ts" +
       "ender_id\030\004 \001(\tR\010senderId\022\022\n\004body\030\005 \001(\tR\004" +
       "body\022\036\n\013reply_to_id\030\006 \001(\tR\treplyToId\0229\n\n" +
       "created_at\030\007 \001(\0132\032.google.protobuf.Times" +
       "tampR\tcreatedAt\022*\n\021client_message_id\030\010 \001" +
-      "(\tR\017clientMessageId\"\177\n\022CreateConversatio" +
-      "n\0224\n\004type\030\001 \001(\0162 .mvservernxt.v1.Convers" +
-      "ationTypeR\004type\022\035\n\nmember_ids\030\002 \003(\tR\tmem" +
-      "berIds\022\024\n\005title\030\003 \001(\tR\005title\"M\n\tAddMembe" +
-      "r\022\'\n\017conversation_id\030\001 \001(\tR\016conversation" +
-      "Id\022\027\n\007user_id\030\002 \001(\tR\006userId\"P\n\014RemoveMem" +
-      "ber\022\'\n\017conversation_id\030\001 \001(\tR\016conversati" +
-      "onId\022\027\n\007user_id\030\002 \001(\tR\006userId\"<\n\021LeaveCo" +
-      "nversation\022\'\n\017conversation_id\030\001 \001(\tR\016con" +
-      "versationId\"\226\001\n\013SendMessage\022\'\n\017conversat" +
-      "ion_id\030\001 \001(\tR\016conversationId\022\022\n\004body\030\002 \001" +
-      "(\tR\004body\022\036\n\013reply_to_id\030\003 \001(\tR\treplyToId" +
-      "\022*\n\021client_message_id\030\004 \001(\tR\017clientMessa" +
-      "geId\")\n\021ListConversations\022\024\n\005limit\030\001 \001(\005" +
-      "R\005limit\"\210\001\n\013GetMessages\022\'\n\017conversation_" +
-      "id\030\001 \001(\tR\016conversationId\022\033\n\tsince_seq\030\002 " +
-      "\001(\003R\010sinceSeq\022\024\n\005limit\030\003 \001(\005R\005limit\022\035\n\nb" +
-      "efore_seq\030\004 \001(\003R\tbeforeSeq\"W\n\010MarkRead\022\'" +
+      "(\tR\017clientMessageId\0227\n\tedited_at\030\t \001(\0132\032" +
+      ".google.protobuf.TimestampR\010editedAt\0229\n\n" +
+      "deleted_at\030\n \001(\0132\032.google.protobuf.Times" +
+      "tampR\tdeletedAt\022\035\n\ndeleted_by\030\013 \001(\tR\tdel" +
+      "etedBy\"\177\n\022CreateConversation\0224\n\004type\030\001 \001" +
+      "(\0162 .mvservernxt.v1.ConversationTypeR\004ty" +
+      "pe\022\035\n\nmember_ids\030\002 \003(\tR\tmemberIds\022\024\n\005tit" +
+      "le\030\003 \001(\tR\005title\"M\n\tAddMember\022\'\n\017conversa" +
+      "tion_id\030\001 \001(\tR\016conversationId\022\027\n\007user_id" +
+      "\030\002 \001(\tR\006userId\"P\n\014RemoveMember\022\'\n\017conver" +
+      "sation_id\030\001 \001(\tR\016conversationId\022\027\n\007user_" +
+      "id\030\002 \001(\tR\006userId\"<\n\021LeaveConversation\022\'\n" +
+      "\017conversation_id\030\001 \001(\tR\016conversationId\"\226" +
+      "\001\n\013SendMessage\022\'\n\017conversation_id\030\001 \001(\tR" +
+      "\016conversationId\022\022\n\004body\030\002 \001(\tR\004body\022\036\n\013r" +
+      "eply_to_id\030\003 \001(\tR\treplyToId\022*\n\021client_me" +
+      "ssage_id\030\004 \001(\tR\017clientMessageId\")\n\021ListC" +
+      "onversations\022\024\n\005limit\030\001 \001(\005R\005limit\"\210\001\n\013G" +
+      "etMessages\022\'\n\017conversation_id\030\001 \001(\tR\016con" +
+      "versationId\022\033\n\tsince_seq\030\002 \001(\003R\010sinceSeq" +
+      "\022\024\n\005limit\030\003 \001(\005R\005limit\022\035\n\nbefore_seq\030\004 \001" +
+      "(\003R\tbeforeSeq\"@\n\013EditMessage\022\035\n\nmessage_" +
+      "id\030\001 \001(\tR\tmessageId\022\022\n\004body\030\002 \001(\tR\004body\"" +
+      ".\n\rDeleteMessage\022\035\n\nmessage_id\030\001 \001(\tR\tme" +
+      "ssageId\"9\n\030DeleteMessageForEveryone\022\035\n\nm" +
+      "essage_id\030\001 \001(\tR\tmessageId\"W\n\010MarkRead\022\'" +
       "\n\017conversation_id\030\001 \001(\tR\016conversationId\022" +
       "\"\n\rlast_read_seq\030\002 \001(\003R\013lastReadSeq\"^\n\032C" +
       "reateConversationResponse\022@\n\014conversatio" +
@@ -179,45 +222,60 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
       "rsationR\rconversations\"e\n\023GetMessagesRes" +
       "ponse\0223\n\010messages\030\001 \003(\0132\027.mvservernxt.v1" +
       ".MessageR\010messages\022\031\n\010has_more\030\002 \001(\010R\007ha" +
-      "sMore\"\203\002\n\023ConversationCreated\022\'\n\017convers" +
-      "ation_id\030\001 \001(\tR\016conversationId\0224\n\004type\030\002" +
-      " \001(\0162 .mvservernxt.v1.ConversationTypeR\004" +
-      "type\022\024\n\005title\030\003 \001(\tR\005title\022\035\n\ncreated_by" +
-      "\030\004 \001(\tR\tcreatedBy\022\035\n\nmember_ids\030\005 \003(\tR\tm" +
-      "emberIds\0229\n\ncreated_at\030\006 \001(\0132\032.google.pr" +
-      "otobuf.TimestampR\tcreatedAt\"\241\001\n\013MemberAd" +
-      "ded\022\'\n\017conversation_id\030\001 \001(\tR\016conversati" +
-      "onId\022\027\n\007user_id\030\002 \001(\tR\006userId\022\031\n\010added_b" +
-      "y\030\003 \001(\tR\007addedBy\0225\n\010added_at\030\004 \001(\0132\032.goo" +
-      "gle.protobuf.TimestampR\007addedAt\"\253\001\n\rMemb" +
-      "erRemoved\022\'\n\017conversation_id\030\001 \001(\tR\016conv" +
-      "ersationId\022\027\n\007user_id\030\002 \001(\tR\006userId\022\035\n\nr" +
-      "emoved_by\030\003 \001(\tR\tremovedBy\0229\n\nremoved_at" +
-      "\030\004 \001(\0132\032.google.protobuf.TimestampR\tremo" +
-      "vedAt\"\203\001\n\nMemberLeft\022\'\n\017conversation_id\030" +
-      "\001 \001(\tR\016conversationId\022\027\n\007user_id\030\002 \001(\tR\006" +
-      "userId\0223\n\007left_at\030\003 \001(\0132\032.google.protobu" +
-      "f.TimestampR\006leftAt\"\237\002\n\013MessageSent\022\035\n\nm" +
-      "essage_id\030\001 \001(\tR\tmessageId\022\'\n\017conversati" +
-      "on_id\030\002 \001(\tR\016conversationId\022\020\n\003seq\030\003 \001(\003" +
-      "R\003seq\022\033\n\tsender_id\030\004 \001(\tR\010senderId\022\022\n\004bo" +
-      "dy\030\005 \001(\tR\004body\022\036\n\013reply_to_id\030\006 \001(\tR\trep" +
-      "lyToId\0229\n\ncreated_at\030\007 \001(\0132\032.google.prot" +
-      "obuf.TimestampR\tcreatedAt\022*\n\021client_mess" +
-      "age_id\030\010 \001(\tR\017clientMessageId\"\265\001\n\022ReadRe" +
-      "ceiptUpdated\022\'\n\017conversation_id\030\001 \001(\tR\016c" +
-      "onversationId\022\027\n\007user_id\030\002 \001(\tR\006userId\022\"" +
-      "\n\rlast_read_seq\030\003 \001(\003R\013lastReadSeq\0229\n\nup" +
-      "dated_at\030\004 \001(\0132\032.google.protobuf.Timesta" +
-      "mpR\tupdatedAt*l\n\020ConversationType\022!\n\035CON" +
-      "VERSATION_TYPE_UNSPECIFIED\020\000\022\030\n\024CONVERSA" +
-      "TION_TYPE_DM\020\001\022\033\n\027CONVERSATION_TYPE_GROU" +
-      "P\020\002B\326\001\n\037app.mvchat.mvnxt.mvservernxt.v1B" +
-      "\tChatProtoP\001ZOgithub.com/scalecode-solut" +
-      "ions/mvnxt-protos/gen/go/mvservernxt/v1;" +
-      "mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt.V1\312\002\016M" +
-      "vservernxt\\V1\342\002\032Mvservernxt\\V1\\GPBMetada" +
-      "ta\352\002\017Mvservernxt::V1b\006proto3"
+      "sMore\"H\n\023EditMessageResponse\0221\n\007message\030" +
+      "\001 \001(\0132\027.mvservernxt.v1.MessageR\007message\"" +
+      "\203\002\n\023ConversationCreated\022\'\n\017conversation_" +
+      "id\030\001 \001(\tR\016conversationId\0224\n\004type\030\002 \001(\0162 " +
+      ".mvservernxt.v1.ConversationTypeR\004type\022\024" +
+      "\n\005title\030\003 \001(\tR\005title\022\035\n\ncreated_by\030\004 \001(\t" +
+      "R\tcreatedBy\022\035\n\nmember_ids\030\005 \003(\tR\tmemberI" +
+      "ds\0229\n\ncreated_at\030\006 \001(\0132\032.google.protobuf" +
+      ".TimestampR\tcreatedAt\"\241\001\n\013MemberAdded\022\'\n" +
+      "\017conversation_id\030\001 \001(\tR\016conversationId\022\027" +
+      "\n\007user_id\030\002 \001(\tR\006userId\022\031\n\010added_by\030\003 \001(" +
+      "\tR\007addedBy\0225\n\010added_at\030\004 \001(\0132\032.google.pr" +
+      "otobuf.TimestampR\007addedAt\"\253\001\n\rMemberRemo" +
+      "ved\022\'\n\017conversation_id\030\001 \001(\tR\016conversati" +
+      "onId\022\027\n\007user_id\030\002 \001(\tR\006userId\022\035\n\nremoved" +
+      "_by\030\003 \001(\tR\tremovedBy\0229\n\nremoved_at\030\004 \001(\013" +
+      "2\032.google.protobuf.TimestampR\tremovedAt\"" +
+      "\203\001\n\nMemberLeft\022\'\n\017conversation_id\030\001 \001(\tR" +
+      "\016conversationId\022\027\n\007user_id\030\002 \001(\tR\006userId" +
+      "\0223\n\007left_at\030\003 \001(\0132\032.google.protobuf.Time" +
+      "stampR\006leftAt\"\237\002\n\013MessageSent\022\035\n\nmessage" +
+      "_id\030\001 \001(\tR\tmessageId\022\'\n\017conversation_id\030" +
+      "\002 \001(\tR\016conversationId\022\020\n\003seq\030\003 \001(\003R\003seq\022" +
+      "\033\n\tsender_id\030\004 \001(\tR\010senderId\022\022\n\004body\030\005 \001" +
+      "(\tR\004body\022\036\n\013reply_to_id\030\006 \001(\tR\treplyToId" +
+      "\0229\n\ncreated_at\030\007 \001(\0132\032.google.protobuf.T" +
+      "imestampR\tcreatedAt\022*\n\021client_message_id" +
+      "\030\010 \001(\tR\017clientMessageId\"\265\001\n\022ReadReceiptU" +
+      "pdated\022\'\n\017conversation_id\030\001 \001(\tR\016convers" +
+      "ationId\022\027\n\007user_id\030\002 \001(\tR\006userId\022\"\n\rlast" +
+      "_read_seq\030\003 \001(\003R\013lastReadSeq\0229\n\nupdated_" +
+      "at\030\004 \001(\0132\032.google.protobuf.TimestampR\tup" +
+      "datedAt\"\244\001\n\rMessageEdited\022\035\n\nmessage_id\030" +
+      "\001 \001(\tR\tmessageId\022\'\n\017conversation_id\030\002 \001(" +
+      "\tR\016conversationId\022\022\n\004body\030\003 \001(\tR\004body\0227\n" +
+      "\tedited_at\030\004 \001(\0132\032.google.protobuf.Times" +
+      "tampR\010editedAt\"\251\001\n\rMessageHidden\022\035\n\nmess" +
+      "age_id\030\001 \001(\tR\tmessageId\022\'\n\017conversation_" +
+      "id\030\002 \001(\tR\016conversationId\022\027\n\007user_id\030\003 \001(" +
+      "\tR\006userId\0227\n\thidden_at\030\004 \001(\0132\032.google.pr" +
+      "otobuf.TimestampR\010hiddenAt\"\275\001\n\031MessageDe" +
+      "letedForEveryone\022\035\n\nmessage_id\030\001 \001(\tR\tme" +
+      "ssageId\022\'\n\017conversation_id\030\002 \001(\tR\016conver" +
+      "sationId\022\035\n\ndeleted_by\030\003 \001(\tR\tdeletedBy\022" +
+      "9\n\ndeleted_at\030\004 \001(\0132\032.google.protobuf.Ti" +
+      "mestampR\tdeletedAt*l\n\020ConversationType\022!" +
+      "\n\035CONVERSATION_TYPE_UNSPECIFIED\020\000\022\030\n\024CON" +
+      "VERSATION_TYPE_DM\020\001\022\033\n\027CONVERSATION_TYPE" +
+      "_GROUP\020\002B\326\001\n\037app.mvchat.mvnxt.mvservernx" +
+      "t.v1B\tChatProtoP\001ZOgithub.com/scalecode-" +
+      "solutions/mvnxt-protos/gen/go/mvservernx" +
+      "t/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt.V" +
+      "1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1\\GPBM" +
+      "etadata\352\002\017Mvservernxt::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -235,7 +293,7 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Message_descriptor,
-        new java.lang.String[] { "Id", "ConversationId", "Seq", "SenderId", "Body", "ReplyToId", "CreatedAt", "ClientMessageId", });
+        new java.lang.String[] { "Id", "ConversationId", "Seq", "SenderId", "Body", "ReplyToId", "CreatedAt", "ClientMessageId", "EditedAt", "DeletedAt", "DeletedBy", });
     internal_static_mvservernxt_v1_CreateConversation_descriptor =
       getDescriptor().getMessageType(2);
     internal_static_mvservernxt_v1_CreateConversation_fieldAccessorTable = new
@@ -278,72 +336,114 @@ public final class ChatProto extends com.google.protobuf.GeneratedFile {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_GetMessages_descriptor,
         new java.lang.String[] { "ConversationId", "SinceSeq", "Limit", "BeforeSeq", });
-    internal_static_mvservernxt_v1_MarkRead_descriptor =
+    internal_static_mvservernxt_v1_EditMessage_descriptor =
       getDescriptor().getMessageType(9);
+    internal_static_mvservernxt_v1_EditMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_EditMessage_descriptor,
+        new java.lang.String[] { "MessageId", "Body", });
+    internal_static_mvservernxt_v1_DeleteMessage_descriptor =
+      getDescriptor().getMessageType(10);
+    internal_static_mvservernxt_v1_DeleteMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_DeleteMessage_descriptor,
+        new java.lang.String[] { "MessageId", });
+    internal_static_mvservernxt_v1_DeleteMessageForEveryone_descriptor =
+      getDescriptor().getMessageType(11);
+    internal_static_mvservernxt_v1_DeleteMessageForEveryone_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_DeleteMessageForEveryone_descriptor,
+        new java.lang.String[] { "MessageId", });
+    internal_static_mvservernxt_v1_MarkRead_descriptor =
+      getDescriptor().getMessageType(12);
     internal_static_mvservernxt_v1_MarkRead_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_MarkRead_descriptor,
         new java.lang.String[] { "ConversationId", "LastReadSeq", });
     internal_static_mvservernxt_v1_CreateConversationResponse_descriptor =
-      getDescriptor().getMessageType(10);
+      getDescriptor().getMessageType(13);
     internal_static_mvservernxt_v1_CreateConversationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_CreateConversationResponse_descriptor,
         new java.lang.String[] { "Conversation", });
     internal_static_mvservernxt_v1_SendMessageResponse_descriptor =
-      getDescriptor().getMessageType(11);
+      getDescriptor().getMessageType(14);
     internal_static_mvservernxt_v1_SendMessageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_SendMessageResponse_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_mvservernxt_v1_ListConversationsResponse_descriptor =
-      getDescriptor().getMessageType(12);
+      getDescriptor().getMessageType(15);
     internal_static_mvservernxt_v1_ListConversationsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_ListConversationsResponse_descriptor,
         new java.lang.String[] { "Conversations", });
     internal_static_mvservernxt_v1_GetMessagesResponse_descriptor =
-      getDescriptor().getMessageType(13);
+      getDescriptor().getMessageType(16);
     internal_static_mvservernxt_v1_GetMessagesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_GetMessagesResponse_descriptor,
         new java.lang.String[] { "Messages", "HasMore", });
+    internal_static_mvservernxt_v1_EditMessageResponse_descriptor =
+      getDescriptor().getMessageType(17);
+    internal_static_mvservernxt_v1_EditMessageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_EditMessageResponse_descriptor,
+        new java.lang.String[] { "Message", });
     internal_static_mvservernxt_v1_ConversationCreated_descriptor =
-      getDescriptor().getMessageType(14);
+      getDescriptor().getMessageType(18);
     internal_static_mvservernxt_v1_ConversationCreated_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_ConversationCreated_descriptor,
         new java.lang.String[] { "ConversationId", "Type", "Title", "CreatedBy", "MemberIds", "CreatedAt", });
     internal_static_mvservernxt_v1_MemberAdded_descriptor =
-      getDescriptor().getMessageType(15);
+      getDescriptor().getMessageType(19);
     internal_static_mvservernxt_v1_MemberAdded_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_MemberAdded_descriptor,
         new java.lang.String[] { "ConversationId", "UserId", "AddedBy", "AddedAt", });
     internal_static_mvservernxt_v1_MemberRemoved_descriptor =
-      getDescriptor().getMessageType(16);
+      getDescriptor().getMessageType(20);
     internal_static_mvservernxt_v1_MemberRemoved_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_MemberRemoved_descriptor,
         new java.lang.String[] { "ConversationId", "UserId", "RemovedBy", "RemovedAt", });
     internal_static_mvservernxt_v1_MemberLeft_descriptor =
-      getDescriptor().getMessageType(17);
+      getDescriptor().getMessageType(21);
     internal_static_mvservernxt_v1_MemberLeft_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_MemberLeft_descriptor,
         new java.lang.String[] { "ConversationId", "UserId", "LeftAt", });
     internal_static_mvservernxt_v1_MessageSent_descriptor =
-      getDescriptor().getMessageType(18);
+      getDescriptor().getMessageType(22);
     internal_static_mvservernxt_v1_MessageSent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_MessageSent_descriptor,
         new java.lang.String[] { "MessageId", "ConversationId", "Seq", "SenderId", "Body", "ReplyToId", "CreatedAt", "ClientMessageId", });
     internal_static_mvservernxt_v1_ReadReceiptUpdated_descriptor =
-      getDescriptor().getMessageType(19);
+      getDescriptor().getMessageType(23);
     internal_static_mvservernxt_v1_ReadReceiptUpdated_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_ReadReceiptUpdated_descriptor,
         new java.lang.String[] { "ConversationId", "UserId", "LastReadSeq", "UpdatedAt", });
+    internal_static_mvservernxt_v1_MessageEdited_descriptor =
+      getDescriptor().getMessageType(24);
+    internal_static_mvservernxt_v1_MessageEdited_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_MessageEdited_descriptor,
+        new java.lang.String[] { "MessageId", "ConversationId", "Body", "EditedAt", });
+    internal_static_mvservernxt_v1_MessageHidden_descriptor =
+      getDescriptor().getMessageType(25);
+    internal_static_mvservernxt_v1_MessageHidden_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_MessageHidden_descriptor,
+        new java.lang.String[] { "MessageId", "ConversationId", "UserId", "HiddenAt", });
+    internal_static_mvservernxt_v1_MessageDeletedForEveryone_descriptor =
+      getDescriptor().getMessageType(26);
+    internal_static_mvservernxt_v1_MessageDeletedForEveryone_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_MessageDeletedForEveryone_descriptor,
+        new java.lang.String[] { "MessageId", "ConversationId", "DeletedBy", "DeletedAt", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.TimestampProto.getDescriptor();
   }

@@ -13,6 +13,15 @@ public inline fun message(block: app.mvchat.mvnxt.mvservernxt.v1.MessageKt.Dsl.(
 /**
  * ```
  * Message is the client-facing view of one message row.
+ *
+ * Soft-delete model (slice 2): messages are NEVER physically removed.
+ * - deleted_at / deleted_by set → "delete for everyone" path; clients
+ * render a "deleted message" placeholder. Server redacts body → ""
+ * on GetMessages for non-admin surfaces, but the row is preserved
+ * for audit and future restore tooling.
+ * - edited_at set → body reflects the latest revision. Edit history
+ * is not exposed on this type in slice 2 (can land via a separate
+ * GetMessageHistory command when needed).
  * ```
  *
  * Protobuf type `mvservernxt.v1.Message`
@@ -119,7 +128,7 @@ public object MessageKt {
 
     /**
      * ```
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * ```
      *
      * `string body = 5 [json_name = "body"];`
@@ -133,7 +142,7 @@ public object MessageKt {
       }
     /**
      * ```
-     * Plain text in slice 1.
+     * Redacted to "" when deleted_at set.
      * ```
      *
      * `string body = 5 [json_name = "body"];`
@@ -234,6 +243,125 @@ public object MessageKt {
     public fun clearClientMessageId() {
       _builder.clearClientMessageId()
     }
+
+    /**
+     * ```
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * ```
+     *
+     * `.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];`
+     */
+    public var editedAt: com.google.protobuf.Timestamp
+      @kotlin.jvm.JvmName("getEditedAt")
+        get() = _builder.editedAt
+      @kotlin.jvm.JvmName("setEditedAt")
+        set(value) {
+        _builder.editedAt = value
+      }
+    /**
+     * ```
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * ```
+     *
+     * `.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];`
+     */
+    public fun clearEditedAt() {
+      _builder.clearEditedAt()
+    }
+    /**
+     * ```
+     * When the message body was most recently edited. Null = never edited.
+     * Slice 2: server-enforced 10 edits / 15 minutes per message from the
+     * original sender only.
+     * ```
+     *
+     * `.google.protobuf.Timestamp edited_at = 9 [json_name = "editedAt"];`
+     * @return Whether the editedAt field is set.
+     */
+    public fun hasEditedAt(): kotlin.Boolean {
+      return _builder.hasEditedAt()
+    }
+
+    public val MessageKt.Dsl.editedAtOrNull: com.google.protobuf.Timestamp?
+      get() = _builder.editedAtOrNull
+
+    /**
+     * ```
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * ```
+     *
+     * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
+     */
+    public var deletedAt: com.google.protobuf.Timestamp
+      @kotlin.jvm.JvmName("getDeletedAt")
+        get() = _builder.deletedAt
+      @kotlin.jvm.JvmName("setDeletedAt")
+        set(value) {
+        _builder.deletedAt = value
+      }
+    /**
+     * ```
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * ```
+     *
+     * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
+     */
+    public fun clearDeletedAt() {
+      _builder.clearDeletedAt()
+    }
+    /**
+     * ```
+     * When the message was soft-deleted "for everyone". Null = not
+     * deleted. Clients observing a non-null value MUST render a "deleted"
+     * placeholder rather than body (which the server redacts to "").
+     * ```
+     *
+     * `.google.protobuf.Timestamp deleted_at = 10 [json_name = "deletedAt"];`
+     * @return Whether the deletedAt field is set.
+     */
+    public fun hasDeletedAt(): kotlin.Boolean {
+      return _builder.hasDeletedAt()
+    }
+
+    public val MessageKt.Dsl.deletedAtOrNull: com.google.protobuf.Timestamp?
+      get() = _builder.deletedAtOrNull
+
+    /**
+     * ```
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * ```
+     *
+     * `string deleted_by = 11 [json_name = "deletedBy"];`
+     */
+    public var deletedBy: kotlin.String
+      @kotlin.jvm.JvmName("getDeletedBy")
+        get() = _builder.deletedBy
+      @kotlin.jvm.JvmName("setDeletedBy")
+        set(value) {
+        _builder.deletedBy = value
+      }
+    /**
+     * ```
+     * Who issued the delete (user_id string). Typically the sender
+     * (self-delete); admin moderation lands later. Empty when deleted_at
+     * is null.
+     * ```
+     *
+     * `string deleted_by = 11 [json_name = "deletedBy"];`
+     */
+    public fun clearDeletedBy() {
+      _builder.clearDeletedBy()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic
@@ -242,4 +370,10 @@ public inline fun app.mvchat.mvnxt.mvservernxt.v1.Message.copy(block: `app.mvcha
 
 public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.createdAtOrNull: com.google.protobuf.Timestamp?
   get() = if (hasCreatedAt()) getCreatedAt() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.editedAtOrNull: com.google.protobuf.Timestamp?
+  get() = if (hasEditedAt()) getEditedAt() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.MessageOrBuilder.deletedAtOrNull: com.google.protobuf.Timestamp?
+  get() = if (hasDeletedAt()) getDeletedAt() else null
 

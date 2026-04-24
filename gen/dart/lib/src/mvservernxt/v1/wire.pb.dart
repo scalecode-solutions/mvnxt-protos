@@ -43,6 +43,9 @@ enum ClientEnvelope_Payload {
   listConversations,
   getMessages,
   markRead,
+  editMessage,
+  deleteMessage,
+  deleteMessageForEveryone,
   notSet
 }
 
@@ -73,6 +76,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.ListConversations? listConversations,
     $3.GetMessages? getMessages,
     $3.MarkRead? markRead,
+    $3.EditMessage? editMessage,
+    $3.DeleteMessage? deleteMessage,
+    $3.DeleteMessageForEveryone? deleteMessageForEveryone,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -95,6 +101,10 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (listConversations != null) result.listConversations = listConversations;
     if (getMessages != null) result.getMessages = getMessages;
     if (markRead != null) result.markRead = markRead;
+    if (editMessage != null) result.editMessage = editMessage;
+    if (deleteMessage != null) result.deleteMessage = deleteMessage;
+    if (deleteMessageForEveryone != null)
+      result.deleteMessageForEveryone = deleteMessageForEveryone;
     return result;
   }
 
@@ -126,14 +136,37 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     35: ClientEnvelope_Payload.listConversations,
     36: ClientEnvelope_Payload.getMessages,
     37: ClientEnvelope_Payload.markRead,
+    38: ClientEnvelope_Payload.editMessage,
+    39: ClientEnvelope_Payload.deleteMessage,
+    40: ClientEnvelope_Payload.deleteMessageForEveryone,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ClientEnvelope',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(
-        0, [10, 11, 20, 21, 22, 23, 24, 25, 26, 30, 31, 32, 33, 34, 35, 36, 37])
+    ..oo(0, [
+      10,
+      11,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
         subBuilder: $0.Ping.create)
@@ -171,6 +204,13 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $3.GetMessages.create)
     ..aOM<$3.MarkRead>(37, _omitFieldNames ? '' : 'markRead',
         subBuilder: $3.MarkRead.create)
+    ..aOM<$3.EditMessage>(38, _omitFieldNames ? '' : 'editMessage',
+        subBuilder: $3.EditMessage.create)
+    ..aOM<$3.DeleteMessage>(39, _omitFieldNames ? '' : 'deleteMessage',
+        subBuilder: $3.DeleteMessage.create)
+    ..aOM<$3.DeleteMessageForEveryone>(
+        40, _omitFieldNames ? '' : 'deleteMessageForEveryone',
+        subBuilder: $3.DeleteMessageForEveryone.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -209,6 +249,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
   @$pb.TagNumber(37)
+  @$pb.TagNumber(38)
+  @$pb.TagNumber(39)
+  @$pb.TagNumber(40)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -228,6 +271,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
   @$pb.TagNumber(37)
+  @$pb.TagNumber(38)
+  @$pb.TagNumber(39)
+  @$pb.TagNumber(40)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -342,7 +388,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(26)
   $2.ResendVerificationEmail ensureResendVerificationEmail() => $_ensure(9);
 
-  /// Chat
+  /// Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+  /// accommodate the full chat surface without crowding future
+  /// domains)
   @$pb.TagNumber(30)
   $3.CreateConversation get createConversation => $_getN(10);
   @$pb.TagNumber(30)
@@ -430,6 +478,40 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearMarkRead() => $_clearField(37);
   @$pb.TagNumber(37)
   $3.MarkRead ensureMarkRead() => $_ensure(17);
+
+  @$pb.TagNumber(38)
+  $3.EditMessage get editMessage => $_getN(18);
+  @$pb.TagNumber(38)
+  set editMessage($3.EditMessage value) => $_setField(38, value);
+  @$pb.TagNumber(38)
+  $core.bool hasEditMessage() => $_has(18);
+  @$pb.TagNumber(38)
+  void clearEditMessage() => $_clearField(38);
+  @$pb.TagNumber(38)
+  $3.EditMessage ensureEditMessage() => $_ensure(18);
+
+  @$pb.TagNumber(39)
+  $3.DeleteMessage get deleteMessage => $_getN(19);
+  @$pb.TagNumber(39)
+  set deleteMessage($3.DeleteMessage value) => $_setField(39, value);
+  @$pb.TagNumber(39)
+  $core.bool hasDeleteMessage() => $_has(19);
+  @$pb.TagNumber(39)
+  void clearDeleteMessage() => $_clearField(39);
+  @$pb.TagNumber(39)
+  $3.DeleteMessage ensureDeleteMessage() => $_ensure(19);
+
+  @$pb.TagNumber(40)
+  $3.DeleteMessageForEveryone get deleteMessageForEveryone => $_getN(20);
+  @$pb.TagNumber(40)
+  set deleteMessageForEveryone($3.DeleteMessageForEveryone value) =>
+      $_setField(40, value);
+  @$pb.TagNumber(40)
+  $core.bool hasDeleteMessageForEveryone() => $_has(20);
+  @$pb.TagNumber(40)
+  void clearDeleteMessageForEveryone() => $_clearField(40);
+  @$pb.TagNumber(40)
+  $3.DeleteMessageForEveryone ensureDeleteMessageForEveryone() => $_ensure(20);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -551,6 +633,7 @@ enum Ack_Payload {
   sendMessage,
   listConversations,
   getMessages,
+  editMessage,
   notSet
 }
 
@@ -568,6 +651,7 @@ class Ack extends $pb.GeneratedMessage {
     $3.SendMessageResponse? sendMessage,
     $3.ListConversationsResponse? listConversations,
     $3.GetMessagesResponse? getMessages,
+    $3.EditMessageResponse? editMessage,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -582,6 +666,7 @@ class Ack extends $pb.GeneratedMessage {
     if (sendMessage != null) result.sendMessage = sendMessage;
     if (listConversations != null) result.listConversations = listConversations;
     if (getMessages != null) result.getMessages = getMessages;
+    if (editMessage != null) result.editMessage = editMessage;
     return result;
   }
 
@@ -604,13 +689,14 @@ class Ack extends $pb.GeneratedMessage {
     34: Ack_Payload.sendMessage,
     35: Ack_Payload.listConversations,
     36: Ack_Payload.getMessages,
+    38: Ack_Payload.editMessage,
     0: Ack_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Ack',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36])
+    ..oo(0, [10, 11, 20, 22, 23, 30, 34, 35, 36, 38])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aI(2, _omitFieldNames ? '' : 'code')
     ..aOM<$0.Pong>(10, _omitFieldNames ? '' : 'pong',
@@ -633,6 +719,8 @@ class Ack extends $pb.GeneratedMessage {
         subBuilder: $3.ListConversationsResponse.create)
     ..aOM<$3.GetMessagesResponse>(36, _omitFieldNames ? '' : 'getMessages',
         subBuilder: $3.GetMessagesResponse.create)
+    ..aOM<$3.EditMessageResponse>(38, _omitFieldNames ? '' : 'editMessage',
+        subBuilder: $3.EditMessageResponse.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -662,6 +750,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(34)
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
+  @$pb.TagNumber(38)
   Ack_Payload whichPayload() => _Ack_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(11)
@@ -672,6 +761,7 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(34)
   @$pb.TagNumber(35)
   @$pb.TagNumber(36)
+  @$pb.TagNumber(38)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Correlates to ClientEnvelope.idempotency_key.
@@ -751,8 +841,9 @@ class Ack extends $pb.GeneratedMessage {
   @$pb.TagNumber(23)
   $2.RefreshResponse ensureRefresh() => $_ensure(6);
 
-  /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-  /// empty Ack with no payload)
+  /// Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+  /// DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+  /// payload)
   @$pb.TagNumber(30)
   $3.CreateConversationResponse get createConversation => $_getN(7);
   @$pb.TagNumber(30)
@@ -798,6 +889,17 @@ class Ack extends $pb.GeneratedMessage {
   void clearGetMessages() => $_clearField(36);
   @$pb.TagNumber(36)
   $3.GetMessagesResponse ensureGetMessages() => $_ensure(10);
+
+  @$pb.TagNumber(38)
+  $3.EditMessageResponse get editMessage => $_getN(11);
+  @$pb.TagNumber(38)
+  set editMessage($3.EditMessageResponse value) => $_setField(38, value);
+  @$pb.TagNumber(38)
+  $core.bool hasEditMessage() => $_has(11);
+  @$pb.TagNumber(38)
+  void clearEditMessage() => $_clearField(38);
+  @$pb.TagNumber(38)
+  $3.EditMessageResponse ensureEditMessage() => $_ensure(11);
 }
 
 /// Err is returned for a failed command.
@@ -911,6 +1013,9 @@ enum Event_Payload {
   memberLeft,
   messageSent,
   readReceiptUpdated,
+  messageEdited,
+  messageHidden,
+  messageDeletedForEveryone,
   notSet
 }
 
@@ -938,6 +1043,9 @@ class Event extends $pb.GeneratedMessage {
     $3.MemberLeft? memberLeft,
     $3.MessageSent? messageSent,
     $3.ReadReceiptUpdated? readReceiptUpdated,
+    $3.MessageEdited? messageEdited,
+    $3.MessageHidden? messageHidden,
+    $3.MessageDeletedForEveryone? messageDeletedForEveryone,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -963,6 +1071,10 @@ class Event extends $pb.GeneratedMessage {
     if (messageSent != null) result.messageSent = messageSent;
     if (readReceiptUpdated != null)
       result.readReceiptUpdated = readReceiptUpdated;
+    if (messageEdited != null) result.messageEdited = messageEdited;
+    if (messageHidden != null) result.messageHidden = messageHidden;
+    if (messageDeletedForEveryone != null)
+      result.messageDeletedForEveryone = messageDeletedForEveryone;
     return result;
   }
 
@@ -990,13 +1102,17 @@ class Event extends $pb.GeneratedMessage {
     33: Event_Payload.memberLeft,
     34: Event_Payload.messageSent,
     35: Event_Payload.readReceiptUpdated,
+    36: Event_Payload.messageEdited,
+    37: Event_Payload.messageHidden,
+    38: Event_Payload.messageDeletedForEveryone,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Event',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 20, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35])
+    ..oo(
+        0, [10, 20, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
     ..aOM<$4.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
@@ -1037,6 +1153,13 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$3.ReadReceiptUpdated>(
         35, _omitFieldNames ? '' : 'readReceiptUpdated',
         subBuilder: $3.ReadReceiptUpdated.create)
+    ..aOM<$3.MessageEdited>(36, _omitFieldNames ? '' : 'messageEdited',
+        subBuilder: $3.MessageEdited.create)
+    ..aOM<$3.MessageHidden>(37, _omitFieldNames ? '' : 'messageHidden',
+        subBuilder: $3.MessageHidden.create)
+    ..aOM<$3.MessageDeletedForEveryone>(
+        38, _omitFieldNames ? '' : 'messageDeletedForEveryone',
+        subBuilder: $3.MessageDeletedForEveryone.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1071,6 +1194,9 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(33)
   @$pb.TagNumber(34)
   @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
+  @$pb.TagNumber(37)
+  @$pb.TagNumber(38)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -1086,6 +1212,9 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(33)
   @$pb.TagNumber(34)
   @$pb.TagNumber(35)
+  @$pb.TagNumber(36)
+  @$pb.TagNumber(37)
+  @$pb.TagNumber(38)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -1305,6 +1434,41 @@ class Event extends $pb.GeneratedMessage {
   void clearReadReceiptUpdated() => $_clearField(35);
   @$pb.TagNumber(35)
   $3.ReadReceiptUpdated ensureReadReceiptUpdated() => $_ensure(18);
+
+  @$pb.TagNumber(36)
+  $3.MessageEdited get messageEdited => $_getN(19);
+  @$pb.TagNumber(36)
+  set messageEdited($3.MessageEdited value) => $_setField(36, value);
+  @$pb.TagNumber(36)
+  $core.bool hasMessageEdited() => $_has(19);
+  @$pb.TagNumber(36)
+  void clearMessageEdited() => $_clearField(36);
+  @$pb.TagNumber(36)
+  $3.MessageEdited ensureMessageEdited() => $_ensure(19);
+
+  @$pb.TagNumber(37)
+  $3.MessageHidden get messageHidden => $_getN(20);
+  @$pb.TagNumber(37)
+  set messageHidden($3.MessageHidden value) => $_setField(37, value);
+  @$pb.TagNumber(37)
+  $core.bool hasMessageHidden() => $_has(20);
+  @$pb.TagNumber(37)
+  void clearMessageHidden() => $_clearField(37);
+  @$pb.TagNumber(37)
+  $3.MessageHidden ensureMessageHidden() => $_ensure(20);
+
+  @$pb.TagNumber(38)
+  $3.MessageDeletedForEveryone get messageDeletedForEveryone => $_getN(21);
+  @$pb.TagNumber(38)
+  set messageDeletedForEveryone($3.MessageDeletedForEveryone value) =>
+      $_setField(38, value);
+  @$pb.TagNumber(38)
+  $core.bool hasMessageDeletedForEveryone() => $_has(21);
+  @$pb.TagNumber(38)
+  void clearMessageDeletedForEveryone() => $_clearField(38);
+  @$pb.TagNumber(38)
+  $3.MessageDeletedForEveryone ensureMessageDeletedForEveryone() =>
+      $_ensure(21);
 }
 
 const $core.bool _omitFieldNames =

@@ -45,7 +45,9 @@ message ClientEnvelope {
     VerifyEmail             verify_email               = 25;
     ResendVerificationEmail resend_verification_email  = 26;
 
-    // Chat
+    // Chat (slice 1 + slice 2 slots; range extended to 30-49 to
+    // accommodate the full chat surface without crowding future
+    // domains)
     CreateConversation      create_conversation        = 30;
     AddMember               add_member                 = 31;
     RemoveMember            remove_member              = 32;
@@ -54,13 +56,16 @@ message ClientEnvelope {
     ListConversations       list_conversations         = 35;
     GetMessages             get_messages               = 36;
     MarkRead                mark_read                  = 37;
+    EditMessage             edit_message               = 38;
+    DeleteMessage           delete_message             = 39;
+    DeleteMessageForEveryone delete_message_for_everyone = 40;
 
     // Other domains land in their reserved ranges:
-    //   40-49  pulse
-    //   50-59  tangle
-    //   60-69  calls
-    //   70-79  presence
-    //   80-89  media
+    //   50-59  pulse
+    //   60-69  tangle
+    //   70-79  calls
+    //   80-89  presence
+    //   90-99  media
   }
 }
 
@@ -96,12 +101,14 @@ message Ack {
     LoginResponse    login    = 22;
     RefreshResponse  refresh  = 23;
 
-    // Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
-    // empty Ack with no payload)
+    // Chat (AddMember, RemoveMember, LeaveConversation, MarkRead,
+    // DeleteMessage, DeleteMessageForEveryone return empty Ack with no
+    // payload)
     CreateConversationResponse create_conversation = 30;
     SendMessageResponse        send_message        = 34;
     ListConversationsResponse  list_conversations  = 35;
     GetMessagesResponse        get_messages        = 36;
+    EditMessageResponse        edit_message        = 38;
   }
 }
 
@@ -163,5 +170,8 @@ message Event {
     MemberLeft                 member_left                  = 33;
     MessageSent                message_sent                 = 34;
     ReadReceiptUpdated         read_receipt_updated         = 35;
+    MessageEdited              message_edited               = 36;
+    MessageHidden              message_hidden               = 37;
+    MessageDeletedForEveryone  message_deleted_for_everyone = 38;
   }
 }
