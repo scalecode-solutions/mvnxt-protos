@@ -1,0 +1,48 @@
+// Media: server-generated side-signals. Blob upload + download
+// itself lives on the HTTP surface (POST/GET /v0/media/...), not
+// here — media.proto carries the events that fan out AFTER an
+// upload lands.
+//
+// Slice-1 event: BlobThumbnailReady. The thumbnail worker scans
+// for newly-uploaded image/HEIC/video blobs, generates a JPEG
+// thumbnail, stores it as its own content-addressed blob, and
+// emits this event so clients can render immediately without
+// polling.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// ============================================================================
+// Events
+// ============================================================================
+
+// BlobThumbnailReady fires once per successful thumbnail job. The
+// thumbnail is itself a content-addressed blob — fetch with the
+// same GET /v0/media/{sha256} endpoint using thumbnail_sha256.
+// Authorization on the thumb mirrors the parent (the
+// CanUserAccessBlob query checks referencing conversations, and the
+// thumb inherits nothing special — it's exposed via its own
+// uploader-is-me rule OR via a separate message-attach step if
+// anyone attaches a thumb to a message, which nothing does today).
+//
+// Audience: the uploader's own sessions. Other members of
+// conversations that reference the parent blob see the thumb the
+// next time they GetMessages or receive a fresh MessageSent echo.
+// Slice-1 compromise — dedicated fan-out to all readers lands if
+// the latency becomes a UX problem.
+message BlobThumbnailReady {
+  // sha256 of the SOURCE blob (the one the user uploaded).
+  string                    blob_sha256       = 1;
+
+  // sha256 of the GENERATED THUMB blob. Fetchable from
+  // /v0/media/{thumbnail_sha256} by the uploader and by anyone
+  // else who can authorize the source blob (they can also authorize
+  // the thumb because the thumb is its own media_blobs row with
+  // uploaded_by = source.uploaded_by).
+  string                    thumbnail_sha256  = 2;
+
+  // When the worker completed. Server-time.
+  google.protobuf.Timestamp ready_at          = 3;
+}

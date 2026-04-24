@@ -1318,6 +1318,7 @@ type Event struct {
 	//	*Event_UserUnblocked
 	//	*Event_PresenceChanged
 	//	*Event_OwnPresenceChanged
+	//	*Event_BlobThumbnailReady
 	Payload       isEvent_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1710,6 +1711,15 @@ func (x *Event) GetOwnPresenceChanged() *OwnPresenceChanged {
 	return nil
 }
 
+func (x *Event) GetBlobThumbnailReady() *BlobThumbnailReady {
+	if x != nil {
+		if x, ok := x.Payload.(*Event_BlobThumbnailReady); ok {
+			return x.BlobThumbnailReady
+		}
+	}
+	return nil
+}
+
 type isEvent_Payload interface {
 	isEvent_Payload()
 }
@@ -1861,6 +1871,12 @@ type Event_OwnPresenceChanged struct {
 	OwnPresenceChanged *OwnPresenceChanged `protobuf:"bytes,111,opt,name=own_presence_changed,json=ownPresenceChanged,proto3,oneof"`
 }
 
+type Event_BlobThumbnailReady struct {
+	// Media (range 150-159). Slice-1: only BlobThumbnailReady.
+	// Future: BlobOrphanSwept, BlobAccessDenied, etc.
+	BlobThumbnailReady *BlobThumbnailReady `protobuf:"bytes,150,opt,name=blob_thumbnail_ready,json=blobThumbnailReady,proto3,oneof"`
+}
+
 func (*Event_SystemNotice) isEvent_Payload() {}
 
 func (*Event_UserRegistered) isEvent_Payload() {}
@@ -1931,11 +1947,13 @@ func (*Event_PresenceChanged) isEvent_Payload() {}
 
 func (*Event_OwnPresenceChanged) isEvent_Payload() {}
 
+func (*Event_BlobThumbnailReady) isEvent_Payload() {}
+
 var File_mvservernxt_v1_wire_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\n" +
-	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19mvservernxt/v1/chat.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1dmvservernxt/v1/contacts.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1dmvservernxt/v1/presence.proto\x1a\x1bmvservernxt/v1/system.proto\"\xf3\x18\n" +
+	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19mvservernxt/v1/chat.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1dmvservernxt/v1/contacts.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1amvservernxt/v1/media.proto\x1a\x1dmvservernxt/v1/presence.proto\x1a\x1bmvservernxt/v1/system.proto\"\xf3\x18\n" +
 	"\x0eClientEnvelope\x12'\n" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12*\n" +
 	"\x04ping\x18\n" +
@@ -2015,7 +2033,7 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x03 \x01(\tR\amessage\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xa1\x18\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xfa\x18\n" +
 	"\x05Event\x12\x10\n" +
 	"\x03seq\x18\x01 \x01(\x03R\x03seq\x12\x16\n" +
 	"\x06stream\x18\x02 \x01(\tR\x06stream\x128\n" +
@@ -2058,7 +2076,8 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\fuser_blocked\x18f \x01(\v2\x1b.mvservernxt.v1.UserBlockedH\x00R\vuserBlocked\x12F\n" +
 	"\x0euser_unblocked\x18g \x01(\v2\x1d.mvservernxt.v1.UserUnblockedH\x00R\ruserUnblocked\x12L\n" +
 	"\x10presence_changed\x18n \x01(\v2\x1f.mvservernxt.v1.PresenceChangedH\x00R\x0fpresenceChanged\x12V\n" +
-	"\x14own_presence_changed\x18o \x01(\v2\".mvservernxt.v1.OwnPresenceChangedH\x00R\x12ownPresenceChangedB\t\n" +
+	"\x14own_presence_changed\x18o \x01(\v2\".mvservernxt.v1.OwnPresenceChangedH\x00R\x12ownPresenceChanged\x12W\n" +
+	"\x14blob_thumbnail_ready\x18\x96\x01 \x01(\v2\".mvservernxt.v1.BlobThumbnailReadyH\x00R\x12blobThumbnailReadyB\t\n" +
 	"\apayloadB\xd6\x01\n" +
 	"\x1fapp.mvchat.mvnxt.mvservernxt.v1B\tWireProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3"
 
@@ -2174,6 +2193,7 @@ var file_mvservernxt_v1_wire_proto_goTypes = []any{
 	(*UserUnblocked)(nil),               // 95: mvservernxt.v1.UserUnblocked
 	(*PresenceChanged)(nil),             // 96: mvservernxt.v1.PresenceChanged
 	(*OwnPresenceChanged)(nil),          // 97: mvservernxt.v1.OwnPresenceChanged
+	(*BlobThumbnailReady)(nil),          // 98: mvservernxt.v1.BlobThumbnailReady
 }
 var file_mvservernxt_v1_wire_proto_depIdxs = []int32{
 	5,  // 0: mvservernxt.v1.ClientEnvelope.ping:type_name -> mvservernxt.v1.Ping
@@ -2273,11 +2293,12 @@ var file_mvservernxt_v1_wire_proto_depIdxs = []int32{
 	95, // 94: mvservernxt.v1.Event.user_unblocked:type_name -> mvservernxt.v1.UserUnblocked
 	96, // 95: mvservernxt.v1.Event.presence_changed:type_name -> mvservernxt.v1.PresenceChanged
 	97, // 96: mvservernxt.v1.Event.own_presence_changed:type_name -> mvservernxt.v1.OwnPresenceChanged
-	97, // [97:97] is the sub-list for method output_type
-	97, // [97:97] is the sub-list for method input_type
-	97, // [97:97] is the sub-list for extension type_name
-	97, // [97:97] is the sub-list for extension extendee
-	0,  // [0:97] is the sub-list for field type_name
+	98, // 97: mvservernxt.v1.Event.blob_thumbnail_ready:type_name -> mvservernxt.v1.BlobThumbnailReady
+	98, // [98:98] is the sub-list for method output_type
+	98, // [98:98] is the sub-list for method input_type
+	98, // [98:98] is the sub-list for extension type_name
+	98, // [98:98] is the sub-list for extension extendee
+	0,  // [0:98] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_wire_proto_init() }
@@ -2290,6 +2311,7 @@ func file_mvservernxt_v1_wire_proto_init() {
 	file_mvservernxt_v1_contacts_proto_init()
 	file_mvservernxt_v1_hello_proto_init()
 	file_mvservernxt_v1_identity_proto_init()
+	file_mvservernxt_v1_media_proto_init()
 	file_mvservernxt_v1_presence_proto_init()
 	file_mvservernxt_v1_system_proto_init()
 	file_mvservernxt_v1_wire_proto_msgTypes[0].OneofWrappers = []any{
@@ -2393,6 +2415,7 @@ func file_mvservernxt_v1_wire_proto_init() {
 		(*Event_UserUnblocked)(nil),
 		(*Event_PresenceChanged)(nil),
 		(*Event_OwnPresenceChanged)(nil),
+		(*Event_BlobThumbnailReady)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

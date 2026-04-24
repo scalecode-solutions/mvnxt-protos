@@ -1109,6 +1109,45 @@ public object EventKt {
     public fun hasOwnPresenceChanged(): kotlin.Boolean {
       return _builder.hasOwnPresenceChanged()
     }
+
+    /**
+     * ```
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * ```
+     *
+     * `.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];`
+     */
+    public var blobThumbnailReady: app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady
+      @kotlin.jvm.JvmName("getBlobThumbnailReady")
+        get() = _builder.blobThumbnailReady
+      @kotlin.jvm.JvmName("setBlobThumbnailReady")
+        set(value) {
+        _builder.blobThumbnailReady = value
+      }
+    /**
+     * ```
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * ```
+     *
+     * `.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];`
+     */
+    public fun clearBlobThumbnailReady() {
+      _builder.clearBlobThumbnailReady()
+    }
+    /**
+     * ```
+     * Media (range 150-159). Slice-1: only BlobThumbnailReady.
+     * Future: BlobOrphanSwept, BlobAccessDenied, etc.
+     * ```
+     *
+     * `.mvservernxt.v1.BlobThumbnailReady blob_thumbnail_ready = 150 [json_name = "blobThumbnailReady"];`
+     * @return Whether the blobThumbnailReady field is set.
+     */
+    public fun hasBlobThumbnailReady(): kotlin.Boolean {
+      return _builder.hasBlobThumbnailReady()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -1235,4 +1274,7 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.presenceChangedOrNull:
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.ownPresenceChangedOrNull: app.mvchat.mvnxt.mvservernxt.v1.OwnPresenceChanged?
   get() = if (hasOwnPresenceChanged()) getOwnPresenceChanged() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.blobThumbnailReadyOrNull: app.mvchat.mvnxt.mvservernxt.v1.BlobThumbnailReady?
+  get() = if (hasBlobThumbnailReady()) getBlobThumbnailReady() else null
 
