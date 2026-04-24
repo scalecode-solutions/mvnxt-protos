@@ -194,6 +194,97 @@ class Attachment extends $pb.GeneratedMessage {
   void clearSizeBytes() => $_clearField(3);
 }
 
+/// Mention marks a span of the message body as an @-reference to a
+/// user. Offsets are in GRAPHEME CLUSTERS (UAX #29), not bytes or
+/// code points — a family emoji 👨‍👩‍👧‍👦 counts as one position even
+/// though it's 25 bytes / 7 code points.
+///
+/// Authoritative source is the client's autocomplete picker: the
+/// user selects "Alice" from a dropdown, the picker knows her
+/// user_id, and the mention triple is submitted alongside the body.
+/// The server validates that the claimed span in the body spells
+/// `@<username>` case-insensitive against the current users.username
+/// of user_id, and rejects the whole send on any mismatch.
+///
+/// grapheme_length includes the leading `@` grapheme — a mention of
+/// `@alice` (6 graphemes) has length 6.
+class Mention extends $pb.GeneratedMessage {
+  factory Mention({
+    $core.String? userId,
+    $core.int? graphemeOffset,
+    $core.int? graphemeLength,
+  }) {
+    final result = create();
+    if (userId != null) result.userId = userId;
+    if (graphemeOffset != null) result.graphemeOffset = graphemeOffset;
+    if (graphemeLength != null) result.graphemeLength = graphemeLength;
+    return result;
+  }
+
+  Mention._();
+
+  factory Mention.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Mention.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Mention',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aI(2, _omitFieldNames ? '' : 'graphemeOffset')
+    ..aI(3, _omitFieldNames ? '' : 'graphemeLength')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Mention clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Mention copyWith(void Function(Mention) updates) =>
+      super.copyWith((message) => updates(message as Mention)) as Mention;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Mention create() => Mention._();
+  @$core.override
+  Mention createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static Mention getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Mention>(create);
+  static Mention? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get graphemeOffset => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set graphemeOffset($core.int value) => $_setSignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasGraphemeOffset() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGraphemeOffset() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get graphemeLength => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set graphemeLength($core.int value) => $_setSignedInt32(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasGraphemeLength() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGraphemeLength() => $_clearField(3);
+}
+
 /// Conversation is the client-facing view of a conversation row +
 /// participant set. Returned by CreateConversation / ListConversations.
 class Conversation extends $pb.GeneratedMessage {
@@ -403,6 +494,7 @@ class Message extends $pb.GeneratedMessage {
     $0.Timestamp? pinnedAt,
     $core.String? pinnedBy,
     $core.Iterable<Attachment>? attachments,
+    $core.Iterable<Mention>? mentions,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -422,6 +514,7 @@ class Message extends $pb.GeneratedMessage {
     if (pinnedAt != null) result.pinnedAt = pinnedAt;
     if (pinnedBy != null) result.pinnedBy = pinnedBy;
     if (attachments != null) result.attachments.addAll(attachments);
+    if (mentions != null) result.mentions.addAll(mentions);
     return result;
   }
 
@@ -463,6 +556,8 @@ class Message extends $pb.GeneratedMessage {
     ..aOS(16, _omitFieldNames ? '' : 'pinnedBy')
     ..pPM<Attachment>(17, _omitFieldNames ? '' : 'attachments',
         subBuilder: Attachment.create)
+    ..pPM<Mention>(18, _omitFieldNames ? '' : 'mentions',
+        subBuilder: Mention.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -668,6 +763,14 @@ class Message extends $pb.GeneratedMessage {
   /// original uploader).
   @$pb.TagNumber(17)
   $pb.PbList<Attachment> get attachments => $_getList(16);
+
+  /// @-mentions on this message. Grapheme-indexed (UAX #29) so
+  /// clients render underlines correctly over multi-byte text.
+  /// Server-validated at send time against the users table;
+  /// clients can trust every entry's user_id resolves and the
+  /// (offset, length) span really spells `@<username>`.
+  @$pb.TagNumber(18)
+  $pb.PbList<Mention> get mentions => $_getList(17);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -971,6 +1074,7 @@ class SendMessage extends $pb.GeneratedMessage {
     $core.String? replyToId,
     $core.String? clientMessageId,
     $core.Iterable<$core.String>? attachmentSha256s,
+    $core.Iterable<Mention>? mentions,
   }) {
     final result = create();
     if (conversationId != null) result.conversationId = conversationId;
@@ -979,6 +1083,7 @@ class SendMessage extends $pb.GeneratedMessage {
     if (clientMessageId != null) result.clientMessageId = clientMessageId;
     if (attachmentSha256s != null)
       result.attachmentSha256s.addAll(attachmentSha256s);
+    if (mentions != null) result.mentions.addAll(mentions);
     return result;
   }
 
@@ -1000,6 +1105,8 @@ class SendMessage extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'replyToId')
     ..aOS(4, _omitFieldNames ? '' : 'clientMessageId')
     ..pPS(5, _omitFieldNames ? '' : 'attachmentSha256s')
+    ..pPM<Mention>(6, _omitFieldNames ? '' : 'mentions',
+        subBuilder: Mention.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1076,6 +1183,14 @@ class SendMessage extends $pb.GeneratedMessage {
   /// messages commit atomically.
   @$pb.TagNumber(5)
   $pb.PbList<$core.String> get attachmentSha256s => $_getList(4);
+
+  /// @-mention spans pre-resolved by the client's autocomplete
+  /// picker. Server validates each span against the body (graphemes
+  /// at offset must spell `@<username>` case-insensitive, username
+  /// must match the claimed user_id) and rejects the whole send on
+  /// any mismatch. Pass an empty list if the message has no mentions.
+  @$pb.TagNumber(6)
+  $pb.PbList<Mention> get mentions => $_getList(5);
 }
 
 /// ListConversations returns the caller's active conversations. Slice 1
@@ -2981,6 +3096,7 @@ class MessageSent extends $pb.GeneratedMessage {
     $0.Timestamp? createdAt,
     $core.String? clientMessageId,
     $core.Iterable<Attachment>? attachments,
+    $core.Iterable<Mention>? mentions,
   }) {
     final result = create();
     if (messageId != null) result.messageId = messageId;
@@ -2992,6 +3108,7 @@ class MessageSent extends $pb.GeneratedMessage {
     if (createdAt != null) result.createdAt = createdAt;
     if (clientMessageId != null) result.clientMessageId = clientMessageId;
     if (attachments != null) result.attachments.addAll(attachments);
+    if (mentions != null) result.mentions.addAll(mentions);
     return result;
   }
 
@@ -3019,6 +3136,8 @@ class MessageSent extends $pb.GeneratedMessage {
     ..aOS(8, _omitFieldNames ? '' : 'clientMessageId')
     ..pPM<Attachment>(9, _omitFieldNames ? '' : 'attachments',
         subBuilder: Attachment.create)
+    ..pPM<Mention>(10, _omitFieldNames ? '' : 'mentions',
+        subBuilder: Mention.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -3120,6 +3239,13 @@ class MessageSent extends $pb.GeneratedMessage {
   /// don't have to fetch the message to see attachments.
   @$pb.TagNumber(9)
   $pb.PbList<Attachment> get attachments => $_getList(8);
+
+  /// @-mention spans echoed from the stored message. Pre-validated
+  /// server-side — recipients can trust every entry resolves. Drives
+  /// mention-highlight rendering and future push-notification
+  /// fan-out to the mentioned users.
+  @$pb.TagNumber(10)
+  $pb.PbList<Mention> get mentions => $_getList(9);
 }
 
 /// ReadReceiptUpdated fires for each MarkRead that actually advances the

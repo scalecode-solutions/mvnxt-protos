@@ -673,309 +673,318 @@ public struct Mvservernxt_V1_Err: Sendable {
 /// Event is a push notification from a server-side event-log subscriber.
 /// Clients track a per-stream cursor (composed sync token, doc 04) so they
 /// can resume after reconnect without replaying everything.
-public struct Mvservernxt_V1_Event: Sendable {
+public struct Mvservernxt_V1_Event: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Position in the global event log.
-  public var seq: Int64 = 0
+  public var seq: Int64 {
+    get {_storage._seq}
+    set {_uniqueStorage()._seq = newValue}
+  }
 
   /// Stream name: "identity", "chat", "pulse", "tangle", "presence", ...
   /// Drives per-stream cursors in the composed sync token.
-  public var stream: String = String()
+  public var stream: String {
+    get {_storage._stream}
+    set {_uniqueStorage()._stream = newValue}
+  }
 
   /// When the event was written to the log.
   public var timestamp: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {_timestamp ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_timestamp = newValue}
+    get {_storage._timestamp ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._timestamp = newValue}
   }
   /// Returns true if `timestamp` has been explicitly set.
-  public var hasTimestamp: Bool {self._timestamp != nil}
+  public var hasTimestamp: Bool {_storage._timestamp != nil}
   /// Clears the value of `timestamp`. Subsequent reads from it will return its default value.
-  public mutating func clearTimestamp() {self._timestamp = nil}
+  public mutating func clearTimestamp() {_uniqueStorage()._timestamp = nil}
 
   /// Who caused the event, if applicable.
   public var actorID: Mvservernxt_V1_UUID {
-    get {_actorID ?? Mvservernxt_V1_UUID()}
-    set {_actorID = newValue}
+    get {_storage._actorID ?? Mvservernxt_V1_UUID()}
+    set {_uniqueStorage()._actorID = newValue}
   }
   /// Returns true if `actorID` has been explicitly set.
-  public var hasActorID: Bool {self._actorID != nil}
+  public var hasActorID: Bool {_storage._actorID != nil}
   /// Clears the value of `actorID`. Subsequent reads from it will return its default value.
-  public mutating func clearActorID() {self._actorID = nil}
+  public mutating func clearActorID() {_uniqueStorage()._actorID = nil}
 
   /// Aggregate this event pertains to (conv_id, user_id, pulse_id, ...).
   public var aggregateID: Mvservernxt_V1_UUID {
-    get {_aggregateID ?? Mvservernxt_V1_UUID()}
-    set {_aggregateID = newValue}
+    get {_storage._aggregateID ?? Mvservernxt_V1_UUID()}
+    set {_uniqueStorage()._aggregateID = newValue}
   }
   /// Returns true if `aggregateID` has been explicitly set.
-  public var hasAggregateID: Bool {self._aggregateID != nil}
+  public var hasAggregateID: Bool {_storage._aggregateID != nil}
   /// Clears the value of `aggregateID`. Subsequent reads from it will return its default value.
-  public mutating func clearAggregateID() {self._aggregateID = nil}
+  public mutating func clearAggregateID() {_uniqueStorage()._aggregateID = nil}
 
   /// Kind-specific payload.
-  public var payload: Mvservernxt_V1_Event.OneOf_Payload? = nil
+  public var payload: OneOf_Payload? {
+    get {return _storage._payload}
+    set {_uniqueStorage()._payload = newValue}
+  }
 
   /// System
   public var systemNotice: Mvservernxt_V1_SystemNotice {
     get {
-      if case .systemNotice(let v)? = payload {return v}
+      if case .systemNotice(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_SystemNotice()
     }
-    set {payload = .systemNotice(newValue)}
+    set {_uniqueStorage()._payload = .systemNotice(newValue)}
   }
 
   /// Identity
   public var userRegistered: Mvservernxt_V1_UserRegistered {
     get {
-      if case .userRegistered(let v)? = payload {return v}
+      if case .userRegistered(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_UserRegistered()
     }
-    set {payload = .userRegistered(newValue)}
+    set {_uniqueStorage()._payload = .userRegistered(newValue)}
   }
 
   public var userLoggedIn: Mvservernxt_V1_UserLoggedIn {
     get {
-      if case .userLoggedIn(let v)? = payload {return v}
+      if case .userLoggedIn(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_UserLoggedIn()
     }
-    set {payload = .userLoggedIn(newValue)}
+    set {_uniqueStorage()._payload = .userLoggedIn(newValue)}
   }
 
   public var tokenRefreshed: Mvservernxt_V1_TokenRefreshed {
     get {
-      if case .tokenRefreshed(let v)? = payload {return v}
+      if case .tokenRefreshed(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_TokenRefreshed()
     }
-    set {payload = .tokenRefreshed(newValue)}
+    set {_uniqueStorage()._payload = .tokenRefreshed(newValue)}
   }
 
   public var userLoggedOut: Mvservernxt_V1_UserLoggedOut {
     get {
-      if case .userLoggedOut(let v)? = payload {return v}
+      if case .userLoggedOut(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_UserLoggedOut()
     }
-    set {payload = .userLoggedOut(newValue)}
+    set {_uniqueStorage()._payload = .userLoggedOut(newValue)}
   }
 
   public var refreshTokenReuseDetected: Mvservernxt_V1_RefreshTokenReuseDetected {
     get {
-      if case .refreshTokenReuseDetected(let v)? = payload {return v}
+      if case .refreshTokenReuseDetected(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_RefreshTokenReuseDetected()
     }
-    set {payload = .refreshTokenReuseDetected(newValue)}
+    set {_uniqueStorage()._payload = .refreshTokenReuseDetected(newValue)}
   }
 
   public var emailVerified: Mvservernxt_V1_EmailVerified {
     get {
-      if case .emailVerified(let v)? = payload {return v}
+      if case .emailVerified(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_EmailVerified()
     }
-    set {payload = .emailVerified(newValue)}
+    set {_uniqueStorage()._payload = .emailVerified(newValue)}
   }
 
   public var verificationEmailSent: Mvservernxt_V1_VerificationEmailSent {
     get {
-      if case .verificationEmailSent(let v)? = payload {return v}
+      if case .verificationEmailSent(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_VerificationEmailSent()
     }
-    set {payload = .verificationEmailSent(newValue)}
+    set {_uniqueStorage()._payload = .verificationEmailSent(newValue)}
   }
 
   /// Chat
   public var conversationCreated: Mvservernxt_V1_ConversationCreated {
     get {
-      if case .conversationCreated(let v)? = payload {return v}
+      if case .conversationCreated(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ConversationCreated()
     }
-    set {payload = .conversationCreated(newValue)}
+    set {_uniqueStorage()._payload = .conversationCreated(newValue)}
   }
 
   public var memberAdded: Mvservernxt_V1_MemberAdded {
     get {
-      if case .memberAdded(let v)? = payload {return v}
+      if case .memberAdded(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MemberAdded()
     }
-    set {payload = .memberAdded(newValue)}
+    set {_uniqueStorage()._payload = .memberAdded(newValue)}
   }
 
   public var memberRemoved: Mvservernxt_V1_MemberRemoved {
     get {
-      if case .memberRemoved(let v)? = payload {return v}
+      if case .memberRemoved(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MemberRemoved()
     }
-    set {payload = .memberRemoved(newValue)}
+    set {_uniqueStorage()._payload = .memberRemoved(newValue)}
   }
 
   public var memberLeft: Mvservernxt_V1_MemberLeft {
     get {
-      if case .memberLeft(let v)? = payload {return v}
+      if case .memberLeft(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MemberLeft()
     }
-    set {payload = .memberLeft(newValue)}
+    set {_uniqueStorage()._payload = .memberLeft(newValue)}
   }
 
   public var messageSent: Mvservernxt_V1_MessageSent {
     get {
-      if case .messageSent(let v)? = payload {return v}
+      if case .messageSent(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageSent()
     }
-    set {payload = .messageSent(newValue)}
+    set {_uniqueStorage()._payload = .messageSent(newValue)}
   }
 
   public var readReceiptUpdated: Mvservernxt_V1_ReadReceiptUpdated {
     get {
-      if case .readReceiptUpdated(let v)? = payload {return v}
+      if case .readReceiptUpdated(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ReadReceiptUpdated()
     }
-    set {payload = .readReceiptUpdated(newValue)}
+    set {_uniqueStorage()._payload = .readReceiptUpdated(newValue)}
   }
 
   public var messageEdited: Mvservernxt_V1_MessageEdited {
     get {
-      if case .messageEdited(let v)? = payload {return v}
+      if case .messageEdited(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageEdited()
     }
-    set {payload = .messageEdited(newValue)}
+    set {_uniqueStorage()._payload = .messageEdited(newValue)}
   }
 
   public var messageHidden: Mvservernxt_V1_MessageHidden {
     get {
-      if case .messageHidden(let v)? = payload {return v}
+      if case .messageHidden(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageHidden()
     }
-    set {payload = .messageHidden(newValue)}
+    set {_uniqueStorage()._payload = .messageHidden(newValue)}
   }
 
   public var messageDeletedForEveryone: Mvservernxt_V1_MessageDeletedForEveryone {
     get {
-      if case .messageDeletedForEveryone(let v)? = payload {return v}
+      if case .messageDeletedForEveryone(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageDeletedForEveryone()
     }
-    set {payload = .messageDeletedForEveryone(newValue)}
+    set {_uniqueStorage()._payload = .messageDeletedForEveryone(newValue)}
   }
 
   public var messageUnsent: Mvservernxt_V1_MessageUnsent {
     get {
-      if case .messageUnsent(let v)? = payload {return v}
+      if case .messageUnsent(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageUnsent()
     }
-    set {payload = .messageUnsent(newValue)}
+    set {_uniqueStorage()._payload = .messageUnsent(newValue)}
   }
 
   public var messageReactionAdded: Mvservernxt_V1_MessageReactionAdded {
     get {
-      if case .messageReactionAdded(let v)? = payload {return v}
+      if case .messageReactionAdded(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageReactionAdded()
     }
-    set {payload = .messageReactionAdded(newValue)}
+    set {_uniqueStorage()._payload = .messageReactionAdded(newValue)}
   }
 
   public var messageReactionRemoved: Mvservernxt_V1_MessageReactionRemoved {
     get {
-      if case .messageReactionRemoved(let v)? = payload {return v}
+      if case .messageReactionRemoved(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageReactionRemoved()
     }
-    set {payload = .messageReactionRemoved(newValue)}
+    set {_uniqueStorage()._payload = .messageReactionRemoved(newValue)}
   }
 
   public var typingChanged: Mvservernxt_V1_TypingChanged {
     get {
-      if case .typingChanged(let v)? = payload {return v}
+      if case .typingChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_TypingChanged()
     }
-    set {payload = .typingChanged(newValue)}
+    set {_uniqueStorage()._payload = .typingChanged(newValue)}
   }
 
   public var disappearingMessagesChanged: Mvservernxt_V1_DisappearingMessagesChanged {
     get {
-      if case .disappearingMessagesChanged(let v)? = payload {return v}
+      if case .disappearingMessagesChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_DisappearingMessagesChanged()
     }
-    set {payload = .disappearingMessagesChanged(newValue)}
+    set {_uniqueStorage()._payload = .disappearingMessagesChanged(newValue)}
   }
 
   public var messageExpired: Mvservernxt_V1_MessageExpired {
     get {
-      if case .messageExpired(let v)? = payload {return v}
+      if case .messageExpired(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageExpired()
     }
-    set {payload = .messageExpired(newValue)}
+    set {_uniqueStorage()._payload = .messageExpired(newValue)}
   }
 
   public var messagePinned: Mvservernxt_V1_MessagePinned {
     get {
-      if case .messagePinned(let v)? = payload {return v}
+      if case .messagePinned(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessagePinned()
     }
-    set {payload = .messagePinned(newValue)}
+    set {_uniqueStorage()._payload = .messagePinned(newValue)}
   }
 
   public var messageUnpinned: Mvservernxt_V1_MessageUnpinned {
     get {
-      if case .messageUnpinned(let v)? = payload {return v}
+      if case .messageUnpinned(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_MessageUnpinned()
     }
-    set {payload = .messageUnpinned(newValue)}
+    set {_uniqueStorage()._payload = .messageUnpinned(newValue)}
   }
 
   public var conversationNicknameChanged: Mvservernxt_V1_ConversationNicknameChanged {
     get {
-      if case .conversationNicknameChanged(let v)? = payload {return v}
+      if case .conversationNicknameChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ConversationNicknameChanged()
     }
-    set {payload = .conversationNicknameChanged(newValue)}
+    set {_uniqueStorage()._payload = .conversationNicknameChanged(newValue)}
   }
 
   public var conversationMetadataChanged: Mvservernxt_V1_ConversationMetadataChanged {
     get {
-      if case .conversationMetadataChanged(let v)? = payload {return v}
+      if case .conversationMetadataChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ConversationMetadataChanged()
     }
-    set {payload = .conversationMetadataChanged(newValue)}
+    set {_uniqueStorage()._payload = .conversationMetadataChanged(newValue)}
   }
 
   public var deliveryReceiptUpdated: Mvservernxt_V1_DeliveryReceiptUpdated {
     get {
-      if case .deliveryReceiptUpdated(let v)? = payload {return v}
+      if case .deliveryReceiptUpdated(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_DeliveryReceiptUpdated()
     }
-    set {payload = .deliveryReceiptUpdated(newValue)}
+    set {_uniqueStorage()._payload = .deliveryReceiptUpdated(newValue)}
   }
 
   /// Contacts (range 100-109)
   public var contactAdded: Mvservernxt_V1_ContactAdded {
     get {
-      if case .contactAdded(let v)? = payload {return v}
+      if case .contactAdded(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ContactAdded()
     }
-    set {payload = .contactAdded(newValue)}
+    set {_uniqueStorage()._payload = .contactAdded(newValue)}
   }
 
   public var contactRemoved: Mvservernxt_V1_ContactRemoved {
     get {
-      if case .contactRemoved(let v)? = payload {return v}
+      if case .contactRemoved(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_ContactRemoved()
     }
-    set {payload = .contactRemoved(newValue)}
+    set {_uniqueStorage()._payload = .contactRemoved(newValue)}
   }
 
   public var userBlocked: Mvservernxt_V1_UserBlocked {
     get {
-      if case .userBlocked(let v)? = payload {return v}
+      if case .userBlocked(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_UserBlocked()
     }
-    set {payload = .userBlocked(newValue)}
+    set {_uniqueStorage()._payload = .userBlocked(newValue)}
   }
 
   public var userUnblocked: Mvservernxt_V1_UserUnblocked {
     get {
-      if case .userUnblocked(let v)? = payload {return v}
+      if case .userUnblocked(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_UserUnblocked()
     }
-    set {payload = .userUnblocked(newValue)}
+    set {_uniqueStorage()._payload = .userUnblocked(newValue)}
   }
 
   /// Presence (range 110-119). Only two kinds — PresenceChanged is
@@ -983,18 +992,18 @@ public struct Mvservernxt_V1_Event: Sendable {
   /// self-loopback for multi-device sync.
   public var presenceChanged: Mvservernxt_V1_PresenceChanged {
     get {
-      if case .presenceChanged(let v)? = payload {return v}
+      if case .presenceChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_PresenceChanged()
     }
-    set {payload = .presenceChanged(newValue)}
+    set {_uniqueStorage()._payload = .presenceChanged(newValue)}
   }
 
   public var ownPresenceChanged: Mvservernxt_V1_OwnPresenceChanged {
     get {
-      if case .ownPresenceChanged(let v)? = payload {return v}
+      if case .ownPresenceChanged(let v)? = _storage._payload {return v}
       return Mvservernxt_V1_OwnPresenceChanged()
     }
-    set {payload = .ownPresenceChanged(newValue)}
+    set {_uniqueStorage()._payload = .ownPresenceChanged(newValue)}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -1047,9 +1056,7 @@ public struct Mvservernxt_V1_Event: Sendable {
 
   public init() {}
 
-  fileprivate var _timestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _actorID: Mvservernxt_V1_UUID? = nil
-  fileprivate var _aggregateID: Mvservernxt_V1_UUID? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -2171,633 +2178,679 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   public static let protoMessageName: String = _protobuf_package + ".Event"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0\u{4}\u{3}conversation_created\0\u{3}member_added\0\u{3}member_removed\0\u{3}member_left\0\u{3}message_sent\0\u{3}read_receipt_updated\0\u{3}message_edited\0\u{3}message_hidden\0\u{3}message_deleted_for_everyone\0\u{3}message_unsent\0\u{3}message_reaction_added\0\u{3}message_reaction_removed\0\u{3}typing_changed\0\u{3}disappearing_messages_changed\0\u{3}message_expired\0\u{3}message_pinned\0\u{3}message_unpinned\0\u{3}conversation_nickname_changed\0\u{3}conversation_metadata_changed\0\u{3}delivery_receipt_updated\0\u{4}3contact_added\0\u{3}contact_removed\0\u{3}user_blocked\0\u{3}user_unblocked\0\u{4}\u{7}presence_changed\0\u{3}own_presence_changed\0")
 
+  fileprivate class _StorageClass {
+    var _seq: Int64 = 0
+    var _stream: String = String()
+    var _timestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _actorID: Mvservernxt_V1_UUID? = nil
+    var _aggregateID: Mvservernxt_V1_UUID? = nil
+    var _payload: Mvservernxt_V1_Event.OneOf_Payload?
+
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _seq = source._seq
+      _stream = source._stream
+      _timestamp = source._timestamp
+      _actorID = source._actorID
+      _aggregateID = source._aggregateID
+      _payload = source._payload
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt64Field(value: &self.seq) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.stream) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._timestamp) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._actorID) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._aggregateID) }()
-      case 10: try {
-        var v: Mvservernxt_V1_SystemNotice?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .systemNotice(let m) = current {v = m}
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._seq) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._stream) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._timestamp) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._actorID) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._aggregateID) }()
+        case 10: try {
+          var v: Mvservernxt_V1_SystemNotice?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .systemNotice(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .systemNotice(v)
+          }
+        }()
+        case 20: try {
+          var v: Mvservernxt_V1_UserRegistered?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .userRegistered(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .userRegistered(v)
+          }
+        }()
+        case 22: try {
+          var v: Mvservernxt_V1_UserLoggedIn?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .userLoggedIn(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .userLoggedIn(v)
+          }
+        }()
+        case 23: try {
+          var v: Mvservernxt_V1_TokenRefreshed?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .tokenRefreshed(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .tokenRefreshed(v)
+          }
+        }()
+        case 24: try {
+          var v: Mvservernxt_V1_UserLoggedOut?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .userLoggedOut(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .userLoggedOut(v)
+          }
+        }()
+        case 25: try {
+          var v: Mvservernxt_V1_RefreshTokenReuseDetected?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .refreshTokenReuseDetected(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .refreshTokenReuseDetected(v)
+          }
+        }()
+        case 26: try {
+          var v: Mvservernxt_V1_EmailVerified?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .emailVerified(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .emailVerified(v)
+          }
+        }()
+        case 27: try {
+          var v: Mvservernxt_V1_VerificationEmailSent?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .verificationEmailSent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .verificationEmailSent(v)
+          }
+        }()
+        case 30: try {
+          var v: Mvservernxt_V1_ConversationCreated?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .conversationCreated(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .conversationCreated(v)
+          }
+        }()
+        case 31: try {
+          var v: Mvservernxt_V1_MemberAdded?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .memberAdded(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .memberAdded(v)
+          }
+        }()
+        case 32: try {
+          var v: Mvservernxt_V1_MemberRemoved?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .memberRemoved(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .memberRemoved(v)
+          }
+        }()
+        case 33: try {
+          var v: Mvservernxt_V1_MemberLeft?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .memberLeft(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .memberLeft(v)
+          }
+        }()
+        case 34: try {
+          var v: Mvservernxt_V1_MessageSent?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageSent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageSent(v)
+          }
+        }()
+        case 35: try {
+          var v: Mvservernxt_V1_ReadReceiptUpdated?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .readReceiptUpdated(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .readReceiptUpdated(v)
+          }
+        }()
+        case 36: try {
+          var v: Mvservernxt_V1_MessageEdited?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageEdited(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageEdited(v)
+          }
+        }()
+        case 37: try {
+          var v: Mvservernxt_V1_MessageHidden?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageHidden(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageHidden(v)
+          }
+        }()
+        case 38: try {
+          var v: Mvservernxt_V1_MessageDeletedForEveryone?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageDeletedForEveryone(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageDeletedForEveryone(v)
+          }
+        }()
+        case 39: try {
+          var v: Mvservernxt_V1_MessageUnsent?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageUnsent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageUnsent(v)
+          }
+        }()
+        case 40: try {
+          var v: Mvservernxt_V1_MessageReactionAdded?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageReactionAdded(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageReactionAdded(v)
+          }
+        }()
+        case 41: try {
+          var v: Mvservernxt_V1_MessageReactionRemoved?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageReactionRemoved(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageReactionRemoved(v)
+          }
+        }()
+        case 42: try {
+          var v: Mvservernxt_V1_TypingChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .typingChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .typingChanged(v)
+          }
+        }()
+        case 43: try {
+          var v: Mvservernxt_V1_DisappearingMessagesChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .disappearingMessagesChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .disappearingMessagesChanged(v)
+          }
+        }()
+        case 44: try {
+          var v: Mvservernxt_V1_MessageExpired?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageExpired(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageExpired(v)
+          }
+        }()
+        case 45: try {
+          var v: Mvservernxt_V1_MessagePinned?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messagePinned(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messagePinned(v)
+          }
+        }()
+        case 46: try {
+          var v: Mvservernxt_V1_MessageUnpinned?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .messageUnpinned(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .messageUnpinned(v)
+          }
+        }()
+        case 47: try {
+          var v: Mvservernxt_V1_ConversationNicknameChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .conversationNicknameChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .conversationNicknameChanged(v)
+          }
+        }()
+        case 48: try {
+          var v: Mvservernxt_V1_ConversationMetadataChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .conversationMetadataChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .conversationMetadataChanged(v)
+          }
+        }()
+        case 49: try {
+          var v: Mvservernxt_V1_DeliveryReceiptUpdated?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .deliveryReceiptUpdated(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .deliveryReceiptUpdated(v)
+          }
+        }()
+        case 100: try {
+          var v: Mvservernxt_V1_ContactAdded?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .contactAdded(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .contactAdded(v)
+          }
+        }()
+        case 101: try {
+          var v: Mvservernxt_V1_ContactRemoved?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .contactRemoved(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .contactRemoved(v)
+          }
+        }()
+        case 102: try {
+          var v: Mvservernxt_V1_UserBlocked?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .userBlocked(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .userBlocked(v)
+          }
+        }()
+        case 103: try {
+          var v: Mvservernxt_V1_UserUnblocked?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .userUnblocked(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .userUnblocked(v)
+          }
+        }()
+        case 110: try {
+          var v: Mvservernxt_V1_PresenceChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .presenceChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .presenceChanged(v)
+          }
+        }()
+        case 111: try {
+          var v: Mvservernxt_V1_OwnPresenceChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .ownPresenceChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .ownPresenceChanged(v)
+          }
+        }()
+        default: break
         }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .systemNotice(v)
-        }
-      }()
-      case 20: try {
-        var v: Mvservernxt_V1_UserRegistered?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .userRegistered(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .userRegistered(v)
-        }
-      }()
-      case 22: try {
-        var v: Mvservernxt_V1_UserLoggedIn?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .userLoggedIn(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .userLoggedIn(v)
-        }
-      }()
-      case 23: try {
-        var v: Mvservernxt_V1_TokenRefreshed?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .tokenRefreshed(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .tokenRefreshed(v)
-        }
-      }()
-      case 24: try {
-        var v: Mvservernxt_V1_UserLoggedOut?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .userLoggedOut(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .userLoggedOut(v)
-        }
-      }()
-      case 25: try {
-        var v: Mvservernxt_V1_RefreshTokenReuseDetected?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .refreshTokenReuseDetected(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .refreshTokenReuseDetected(v)
-        }
-      }()
-      case 26: try {
-        var v: Mvservernxt_V1_EmailVerified?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .emailVerified(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .emailVerified(v)
-        }
-      }()
-      case 27: try {
-        var v: Mvservernxt_V1_VerificationEmailSent?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .verificationEmailSent(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .verificationEmailSent(v)
-        }
-      }()
-      case 30: try {
-        var v: Mvservernxt_V1_ConversationCreated?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .conversationCreated(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .conversationCreated(v)
-        }
-      }()
-      case 31: try {
-        var v: Mvservernxt_V1_MemberAdded?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .memberAdded(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .memberAdded(v)
-        }
-      }()
-      case 32: try {
-        var v: Mvservernxt_V1_MemberRemoved?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .memberRemoved(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .memberRemoved(v)
-        }
-      }()
-      case 33: try {
-        var v: Mvservernxt_V1_MemberLeft?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .memberLeft(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .memberLeft(v)
-        }
-      }()
-      case 34: try {
-        var v: Mvservernxt_V1_MessageSent?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageSent(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageSent(v)
-        }
-      }()
-      case 35: try {
-        var v: Mvservernxt_V1_ReadReceiptUpdated?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .readReceiptUpdated(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .readReceiptUpdated(v)
-        }
-      }()
-      case 36: try {
-        var v: Mvservernxt_V1_MessageEdited?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageEdited(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageEdited(v)
-        }
-      }()
-      case 37: try {
-        var v: Mvservernxt_V1_MessageHidden?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageHidden(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageHidden(v)
-        }
-      }()
-      case 38: try {
-        var v: Mvservernxt_V1_MessageDeletedForEveryone?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageDeletedForEveryone(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageDeletedForEveryone(v)
-        }
-      }()
-      case 39: try {
-        var v: Mvservernxt_V1_MessageUnsent?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageUnsent(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageUnsent(v)
-        }
-      }()
-      case 40: try {
-        var v: Mvservernxt_V1_MessageReactionAdded?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageReactionAdded(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageReactionAdded(v)
-        }
-      }()
-      case 41: try {
-        var v: Mvservernxt_V1_MessageReactionRemoved?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageReactionRemoved(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageReactionRemoved(v)
-        }
-      }()
-      case 42: try {
-        var v: Mvservernxt_V1_TypingChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .typingChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .typingChanged(v)
-        }
-      }()
-      case 43: try {
-        var v: Mvservernxt_V1_DisappearingMessagesChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .disappearingMessagesChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .disappearingMessagesChanged(v)
-        }
-      }()
-      case 44: try {
-        var v: Mvservernxt_V1_MessageExpired?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageExpired(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageExpired(v)
-        }
-      }()
-      case 45: try {
-        var v: Mvservernxt_V1_MessagePinned?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messagePinned(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messagePinned(v)
-        }
-      }()
-      case 46: try {
-        var v: Mvservernxt_V1_MessageUnpinned?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .messageUnpinned(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .messageUnpinned(v)
-        }
-      }()
-      case 47: try {
-        var v: Mvservernxt_V1_ConversationNicknameChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .conversationNicknameChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .conversationNicknameChanged(v)
-        }
-      }()
-      case 48: try {
-        var v: Mvservernxt_V1_ConversationMetadataChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .conversationMetadataChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .conversationMetadataChanged(v)
-        }
-      }()
-      case 49: try {
-        var v: Mvservernxt_V1_DeliveryReceiptUpdated?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .deliveryReceiptUpdated(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .deliveryReceiptUpdated(v)
-        }
-      }()
-      case 100: try {
-        var v: Mvservernxt_V1_ContactAdded?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .contactAdded(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .contactAdded(v)
-        }
-      }()
-      case 101: try {
-        var v: Mvservernxt_V1_ContactRemoved?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .contactRemoved(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .contactRemoved(v)
-        }
-      }()
-      case 102: try {
-        var v: Mvservernxt_V1_UserBlocked?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .userBlocked(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .userBlocked(v)
-        }
-      }()
-      case 103: try {
-        var v: Mvservernxt_V1_UserUnblocked?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .userUnblocked(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .userUnblocked(v)
-        }
-      }()
-      case 110: try {
-        var v: Mvservernxt_V1_PresenceChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .presenceChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .presenceChanged(v)
-        }
-      }()
-      case 111: try {
-        var v: Mvservernxt_V1_OwnPresenceChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .ownPresenceChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .ownPresenceChanged(v)
-        }
-      }()
-      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if self.seq != 0 {
-      try visitor.visitSingularInt64Field(value: self.seq, fieldNumber: 1)
-    }
-    if !self.stream.isEmpty {
-      try visitor.visitSingularStringField(value: self.stream, fieldNumber: 2)
-    }
-    try { if let v = self._timestamp {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._actorID {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._aggregateID {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    } }()
-    switch self.payload {
-    case .systemNotice?: try {
-      guard case .systemNotice(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-    }()
-    case .userRegistered?: try {
-      guard case .userRegistered(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
-    }()
-    case .userLoggedIn?: try {
-      guard case .userLoggedIn(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 22)
-    }()
-    case .tokenRefreshed?: try {
-      guard case .tokenRefreshed(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
-    }()
-    case .userLoggedOut?: try {
-      guard case .userLoggedOut(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
-    }()
-    case .refreshTokenReuseDetected?: try {
-      guard case .refreshTokenReuseDetected(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
-    }()
-    case .emailVerified?: try {
-      guard case .emailVerified(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
-    }()
-    case .verificationEmailSent?: try {
-      guard case .verificationEmailSent(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
-    }()
-    case .conversationCreated?: try {
-      guard case .conversationCreated(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 30)
-    }()
-    case .memberAdded?: try {
-      guard case .memberAdded(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 31)
-    }()
-    case .memberRemoved?: try {
-      guard case .memberRemoved(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 32)
-    }()
-    case .memberLeft?: try {
-      guard case .memberLeft(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 33)
-    }()
-    case .messageSent?: try {
-      guard case .messageSent(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 34)
-    }()
-    case .readReceiptUpdated?: try {
-      guard case .readReceiptUpdated(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
-    }()
-    case .messageEdited?: try {
-      guard case .messageEdited(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
-    }()
-    case .messageHidden?: try {
-      guard case .messageHidden(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
-    }()
-    case .messageDeletedForEveryone?: try {
-      guard case .messageDeletedForEveryone(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
-    }()
-    case .messageUnsent?: try {
-      guard case .messageUnsent(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
-    }()
-    case .messageReactionAdded?: try {
-      guard case .messageReactionAdded(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
-    }()
-    case .messageReactionRemoved?: try {
-      guard case .messageReactionRemoved(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 41)
-    }()
-    case .typingChanged?: try {
-      guard case .typingChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 42)
-    }()
-    case .disappearingMessagesChanged?: try {
-      guard case .disappearingMessagesChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 43)
-    }()
-    case .messageExpired?: try {
-      guard case .messageExpired(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 44)
-    }()
-    case .messagePinned?: try {
-      guard case .messagePinned(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 45)
-    }()
-    case .messageUnpinned?: try {
-      guard case .messageUnpinned(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 46)
-    }()
-    case .conversationNicknameChanged?: try {
-      guard case .conversationNicknameChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 47)
-    }()
-    case .conversationMetadataChanged?: try {
-      guard case .conversationMetadataChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 48)
-    }()
-    case .deliveryReceiptUpdated?: try {
-      guard case .deliveryReceiptUpdated(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 49)
-    }()
-    case .contactAdded?: try {
-      guard case .contactAdded(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
-    }()
-    case .contactRemoved?: try {
-      guard case .contactRemoved(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
-    }()
-    case .userBlocked?: try {
-      guard case .userBlocked(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
-    }()
-    case .userUnblocked?: try {
-      guard case .userUnblocked(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
-    }()
-    case .presenceChanged?: try {
-      guard case .presenceChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
-    }()
-    case .ownPresenceChanged?: try {
-      guard case .ownPresenceChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
-    }()
-    case nil: break
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._seq != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._seq, fieldNumber: 1)
+      }
+      if !_storage._stream.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._stream, fieldNumber: 2)
+      }
+      try { if let v = _storage._timestamp {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
+      try { if let v = _storage._actorID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
+      try { if let v = _storage._aggregateID {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      } }()
+      switch _storage._payload {
+      case .systemNotice?: try {
+        guard case .systemNotice(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }()
+      case .userRegistered?: try {
+        guard case .userRegistered(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
+      }()
+      case .userLoggedIn?: try {
+        guard case .userLoggedIn(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 22)
+      }()
+      case .tokenRefreshed?: try {
+        guard case .tokenRefreshed(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
+      }()
+      case .userLoggedOut?: try {
+        guard case .userLoggedOut(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
+      }()
+      case .refreshTokenReuseDetected?: try {
+        guard case .refreshTokenReuseDetected(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
+      }()
+      case .emailVerified?: try {
+        guard case .emailVerified(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
+      }()
+      case .verificationEmailSent?: try {
+        guard case .verificationEmailSent(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
+      }()
+      case .conversationCreated?: try {
+        guard case .conversationCreated(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 30)
+      }()
+      case .memberAdded?: try {
+        guard case .memberAdded(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 31)
+      }()
+      case .memberRemoved?: try {
+        guard case .memberRemoved(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 32)
+      }()
+      case .memberLeft?: try {
+        guard case .memberLeft(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 33)
+      }()
+      case .messageSent?: try {
+        guard case .messageSent(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 34)
+      }()
+      case .readReceiptUpdated?: try {
+        guard case .readReceiptUpdated(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
+      }()
+      case .messageEdited?: try {
+        guard case .messageEdited(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
+      }()
+      case .messageHidden?: try {
+        guard case .messageHidden(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
+      }()
+      case .messageDeletedForEveryone?: try {
+        guard case .messageDeletedForEveryone(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
+      }()
+      case .messageUnsent?: try {
+        guard case .messageUnsent(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+      }()
+      case .messageReactionAdded?: try {
+        guard case .messageReactionAdded(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
+      }()
+      case .messageReactionRemoved?: try {
+        guard case .messageReactionRemoved(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 41)
+      }()
+      case .typingChanged?: try {
+        guard case .typingChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 42)
+      }()
+      case .disappearingMessagesChanged?: try {
+        guard case .disappearingMessagesChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 43)
+      }()
+      case .messageExpired?: try {
+        guard case .messageExpired(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 44)
+      }()
+      case .messagePinned?: try {
+        guard case .messagePinned(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 45)
+      }()
+      case .messageUnpinned?: try {
+        guard case .messageUnpinned(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 46)
+      }()
+      case .conversationNicknameChanged?: try {
+        guard case .conversationNicknameChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 47)
+      }()
+      case .conversationMetadataChanged?: try {
+        guard case .conversationMetadataChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 48)
+      }()
+      case .deliveryReceiptUpdated?: try {
+        guard case .deliveryReceiptUpdated(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 49)
+      }()
+      case .contactAdded?: try {
+        guard case .contactAdded(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+      }()
+      case .contactRemoved?: try {
+        guard case .contactRemoved(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
+      }()
+      case .userBlocked?: try {
+        guard case .userBlocked(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
+      }()
+      case .userUnblocked?: try {
+        guard case .userUnblocked(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+      }()
+      case .presenceChanged?: try {
+        guard case .presenceChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
+      }()
+      case .ownPresenceChanged?: try {
+        guard case .ownPresenceChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
+      }()
+      case nil: break
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Mvservernxt_V1_Event, rhs: Mvservernxt_V1_Event) -> Bool {
-    if lhs.seq != rhs.seq {return false}
-    if lhs.stream != rhs.stream {return false}
-    if lhs._timestamp != rhs._timestamp {return false}
-    if lhs._actorID != rhs._actorID {return false}
-    if lhs._aggregateID != rhs._aggregateID {return false}
-    if lhs.payload != rhs.payload {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._seq != rhs_storage._seq {return false}
+        if _storage._stream != rhs_storage._stream {return false}
+        if _storage._timestamp != rhs_storage._timestamp {return false}
+        if _storage._actorID != rhs_storage._actorID {return false}
+        if _storage._aggregateID != rhs_storage._aggregateID {return false}
+        if _storage._payload != rhs_storage._payload {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -462,4 +462,68 @@ public interface MessageOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
       int index);
+
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> 
+      getMentionsList();
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Mention getMentions(int index);
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  int getMentionsCount();
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+      getMentionsOrBuilderList();
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder getMentionsOrBuilder(
+      int index);
 }

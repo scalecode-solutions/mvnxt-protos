@@ -164,4 +164,63 @@ public interface MessageSentOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
       int index);
+
+  /**
+   * <pre>
+   * &#64;-mention spans echoed from the stored message. Pre-validated
+   * server-side — recipients can trust every entry resolves. Drives
+   * mention-highlight rendering and future push-notification
+   * fan-out to the mentioned users.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> 
+      getMentionsList();
+  /**
+   * <pre>
+   * &#64;-mention spans echoed from the stored message. Pre-validated
+   * server-side — recipients can trust every entry resolves. Drives
+   * mention-highlight rendering and future push-notification
+   * fan-out to the mentioned users.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Mention getMentions(int index);
+  /**
+   * <pre>
+   * &#64;-mention spans echoed from the stored message. Pre-validated
+   * server-side — recipients can trust every entry resolves. Drives
+   * mention-highlight rendering and future push-notification
+   * fan-out to the mentioned users.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];</code>
+   */
+  int getMentionsCount();
+  /**
+   * <pre>
+   * &#64;-mention spans echoed from the stored message. Pre-validated
+   * server-side — recipients can trust every entry resolves. Drives
+   * mention-highlight rendering and future push-notification
+   * fan-out to the mentioned users.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+      getMentionsOrBuilderList();
+  /**
+   * <pre>
+   * &#64;-mention spans echoed from the stored message. Pre-validated
+   * server-side — recipients can trust every entry resolves. Drives
+   * mention-highlight rendering and future push-notification
+   * fan-out to the mentioned users.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder getMentionsOrBuilder(
+      int index);
 }
