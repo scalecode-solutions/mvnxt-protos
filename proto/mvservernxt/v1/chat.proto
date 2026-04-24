@@ -74,6 +74,26 @@ message Attachment {
   int64  size_bytes = 3;
 }
 
+// Mention marks a span of the message body as an @-reference to a
+// user. Offsets are in GRAPHEME CLUSTERS (UAX #29), not bytes or
+// code points — a family emoji 👨‍👩‍👧‍👦 counts as one position even
+// though it's 25 bytes / 7 code points.
+//
+// Authoritative source is the client's autocomplete picker: the
+// user selects "Alice" from a dropdown, the picker knows her
+// user_id, and the mention triple is submitted alongside the body.
+// The server validates that the claimed span in the body spells
+// `@<username>` case-insensitive against the current users.username
+// of user_id, and rejects the whole send on any mismatch.
+//
+// grapheme_length includes the leading `@` grapheme — a mention of
+// `@alice` (6 graphemes) has length 6.
+message Mention {
+  string user_id          = 1;
+  int32  grapheme_offset  = 2;
+  int32  grapheme_length  = 3;
+}
+
 // Conversation is the client-facing view of a conversation row +
 // participant set. Returned by CreateConversation / ListConversations.
 message Conversation {
@@ -186,6 +206,13 @@ message Message {
   // read authorization (member of a referencing conversation OR
   // original uploader).
   repeated Attachment       attachments       = 17;
+
+  // @-mentions on this message. Grapheme-indexed (UAX #29) so
+  // clients render underlines correctly over multi-byte text.
+  // Server-validated at send time against the users table;
+  // clients can trust every entry's user_id resolves and the
+  // (offset, length) span really spells `@<username>`.
+  repeated Mention          mentions          = 18;
 }
 
 // ============================================================================
@@ -273,6 +300,13 @@ message SendMessage {
   // the same transaction as the message insert, so attachments and
   // messages commit atomically.
   repeated string attachment_sha256s = 5;
+
+  // @-mention spans pre-resolved by the client's autocomplete
+  // picker. Server validates each span against the body (graphemes
+  // at offset must spell `@<username>` case-insensitive, username
+  // must match the claimed user_id) and rejects the whole send on
+  // any mismatch. Pass an empty list if the message has no mentions.
+  repeated Mention mentions = 6;
 }
 
 // ListConversations returns the caller's active conversations. Slice 1
@@ -589,6 +623,12 @@ message MessageSent {
   // Message.attachments). Echoed on the broadcast so recipients
   // don't have to fetch the message to see attachments.
   repeated Attachment       attachments       = 9;
+
+  // @-mention spans echoed from the stored message. Pre-validated
+  // server-side — recipients can trust every entry resolves. Drives
+  // mention-highlight rendering and future push-notification
+  // fan-out to the mentioned users.
+  repeated Mention          mentions          = 10;
 }
 
 // ReadReceiptUpdated fires for each MarkRead that actually advances the

@@ -158,4 +158,68 @@ public interface SendMessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getAttachmentSha256SBytes(int index);
+
+  /**
+   * <pre>
+   * &#64;-mention spans pre-resolved by the client's autocomplete
+   * picker. Server validates each span against the body (graphemes
+   * at offset must spell `&#64;&lt;username&gt;` case-insensitive, username
+   * must match the claimed user_id) and rejects the whole send on
+   * any mismatch. Pass an empty list if the message has no mentions.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 6 [json_name = "mentions"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> 
+      getMentionsList();
+  /**
+   * <pre>
+   * &#64;-mention spans pre-resolved by the client's autocomplete
+   * picker. Server validates each span against the body (graphemes
+   * at offset must spell `&#64;&lt;username&gt;` case-insensitive, username
+   * must match the claimed user_id) and rejects the whole send on
+   * any mismatch. Pass an empty list if the message has no mentions.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 6 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Mention getMentions(int index);
+  /**
+   * <pre>
+   * &#64;-mention spans pre-resolved by the client's autocomplete
+   * picker. Server validates each span against the body (graphemes
+   * at offset must spell `&#64;&lt;username&gt;` case-insensitive, username
+   * must match the claimed user_id) and rejects the whole send on
+   * any mismatch. Pass an empty list if the message has no mentions.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 6 [json_name = "mentions"];</code>
+   */
+  int getMentionsCount();
+  /**
+   * <pre>
+   * &#64;-mention spans pre-resolved by the client's autocomplete
+   * picker. Server validates each span against the body (graphemes
+   * at offset must spell `&#64;&lt;username&gt;` case-insensitive, username
+   * must match the claimed user_id) and rejects the whole send on
+   * any mismatch. Pass an empty list if the message has no mentions.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 6 [json_name = "mentions"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+      getMentionsOrBuilderList();
+  /**
+   * <pre>
+   * &#64;-mention spans pre-resolved by the client's autocomplete
+   * picker. Server validates each span against the body (graphemes
+   * at offset must spell `&#64;&lt;username&gt;` case-insensitive, username
+   * must match the claimed user_id) and rejects the whole send on
+   * any mismatch. Pass an empty list if the message has no mentions.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 6 [json_name = "mentions"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder getMentionsOrBuilder(
+      int index);
 }

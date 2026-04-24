@@ -52,6 +52,7 @@ private static final long serialVersionUID = 0L;
     reactions_ = java.util.Collections.emptyList();
     pinnedBy_ = "";
     attachments_ = java.util.Collections.emptyList();
+    mentions_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -843,6 +844,87 @@ private static final long serialVersionUID = 0L;
     return attachments_.get(index);
   }
 
+  public static final int MENTIONS_FIELD_NUMBER = 18;
+  @SuppressWarnings("serial")
+  private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> mentions_;
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> getMentionsList() {
+    return mentions_;
+  }
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+      getMentionsOrBuilderList() {
+    return mentions_;
+  }
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  @java.lang.Override
+  public int getMentionsCount() {
+    return mentions_.size();
+  }
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.Mention getMentions(int index) {
+    return mentions_.get(index);
+  }
+  /**
+   * <pre>
+   * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+   * clients render underlines correctly over multi-byte text.
+   * Server-validated at send time against the users table;
+   * clients can trust every entry's user_id resolves and the
+   * (offset, length) span really spells `&#64;&lt;username&gt;`.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder getMentionsOrBuilder(
+      int index) {
+    return mentions_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -907,6 +989,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < attachments_.size(); i++) {
       output.writeMessage(17, attachments_.get(i));
+    }
+    for (int i = 0; i < mentions_.size(); i++) {
+      output.writeMessage(18, mentions_.get(i));
     }
     getUnknownFields().writeTo(output);
   }
@@ -987,6 +1072,15 @@ private static final long serialVersionUID = 0L;
           }
           size += 2 * count;
         }
+
+        {
+          final int count = mentions_.size();
+          for (int i = 0; i < count; i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSizeNoTag(mentions_.get(i));
+          }
+          size += 2 * count;
+        }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -1050,6 +1144,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPinnedBy())) return false;
     if (!getAttachmentsList()
         .equals(other.getAttachmentsList())) return false;
+    if (!getMentionsList()
+        .equals(other.getMentionsList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -1109,6 +1205,10 @@ private static final long serialVersionUID = 0L;
     if (getAttachmentsCount() > 0) {
       hash = (37 * hash) + ATTACHMENTS_FIELD_NUMBER;
       hash = (53 * hash) + getAttachmentsList().hashCode();
+    }
+    if (getMentionsCount() > 0) {
+      hash = (37 * hash) + MENTIONS_FIELD_NUMBER;
+      hash = (53 * hash) + getMentionsList().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -1260,6 +1360,7 @@ private static final long serialVersionUID = 0L;
         internalGetExpiresAtFieldBuilder();
         internalGetPinnedAtFieldBuilder();
         internalGetAttachmentsFieldBuilder();
+        internalGetMentionsFieldBuilder();
       }
     }
     @java.lang.Override
@@ -1315,6 +1416,13 @@ private static final long serialVersionUID = 0L;
         attachmentsBuilder_.clear();
       }
       bitField0_ = (bitField0_ & ~0x00010000);
+      if (mentionsBuilder_ == null) {
+        mentions_ = java.util.Collections.emptyList();
+      } else {
+        mentions_ = null;
+        mentionsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00020000);
       return this;
     }
 
@@ -1365,6 +1473,15 @@ private static final long serialVersionUID = 0L;
         result.attachments_ = attachments_;
       } else {
         result.attachments_ = attachmentsBuilder_.build();
+      }
+      if (mentionsBuilder_ == null) {
+        if (((bitField0_ & 0x00020000) != 0)) {
+          mentions_ = java.util.Collections.unmodifiableList(mentions_);
+          bitField0_ = (bitField0_ & ~0x00020000);
+        }
+        result.mentions_ = mentions_;
+      } else {
+        result.mentions_ = mentionsBuilder_.build();
       }
     }
 
@@ -1559,6 +1676,32 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (mentionsBuilder_ == null) {
+        if (!other.mentions_.isEmpty()) {
+          if (mentions_.isEmpty()) {
+            mentions_ = other.mentions_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+          } else {
+            ensureMentionsIsMutable();
+            mentions_.addAll(other.mentions_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.mentions_.isEmpty()) {
+          if (mentionsBuilder_.isEmpty()) {
+            mentionsBuilder_.dispose();
+            mentionsBuilder_ = null;
+            mentions_ = other.mentions_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+            mentionsBuilder_ = 
+              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                 internalGetMentionsFieldBuilder() : null;
+          } else {
+            mentionsBuilder_.addAllMessages(other.mentions_);
+          }
+        }
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -1696,6 +1839,19 @@ private static final long serialVersionUID = 0L;
               }
               break;
             } // case 138
+            case 146: {
+              app.mvchat.mvnxt.mvservernxt.v1.Mention m =
+                  input.readMessage(
+                      app.mvchat.mvnxt.mvservernxt.v1.Mention.parser(),
+                      extensionRegistry);
+              if (mentionsBuilder_ == null) {
+                ensureMentionsIsMutable();
+                mentions_.add(m);
+              } else {
+                mentionsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 146
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -4104,6 +4260,390 @@ private static final long serialVersionUID = 0L;
         attachments_ = null;
       }
       return attachmentsBuilder_;
+    }
+
+    private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> mentions_ =
+      java.util.Collections.emptyList();
+    private void ensureMentionsIsMutable() {
+      if (!((bitField0_ & 0x00020000) != 0)) {
+        mentions_ = new java.util.ArrayList<app.mvchat.mvnxt.mvservernxt.v1.Mention>(mentions_);
+        bitField0_ |= 0x00020000;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Mention, app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder, app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> mentionsBuilder_;
+
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention> getMentionsList() {
+      if (mentionsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(mentions_);
+      } else {
+        return mentionsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public int getMentionsCount() {
+      if (mentionsBuilder_ == null) {
+        return mentions_.size();
+      } else {
+        return mentionsBuilder_.getCount();
+      }
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Mention getMentions(int index) {
+      if (mentionsBuilder_ == null) {
+        return mentions_.get(index);
+      } else {
+        return mentionsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder setMentions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Mention value) {
+      if (mentionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMentionsIsMutable();
+        mentions_.set(index, value);
+        onChanged();
+      } else {
+        mentionsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder setMentions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder builderForValue) {
+      if (mentionsBuilder_ == null) {
+        ensureMentionsIsMutable();
+        mentions_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        mentionsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder addMentions(app.mvchat.mvnxt.mvservernxt.v1.Mention value) {
+      if (mentionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMentionsIsMutable();
+        mentions_.add(value);
+        onChanged();
+      } else {
+        mentionsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder addMentions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Mention value) {
+      if (mentionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMentionsIsMutable();
+        mentions_.add(index, value);
+        onChanged();
+      } else {
+        mentionsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder addMentions(
+        app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder builderForValue) {
+      if (mentionsBuilder_ == null) {
+        ensureMentionsIsMutable();
+        mentions_.add(builderForValue.build());
+        onChanged();
+      } else {
+        mentionsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder addMentions(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder builderForValue) {
+      if (mentionsBuilder_ == null) {
+        ensureMentionsIsMutable();
+        mentions_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        mentionsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder addAllMentions(
+        java.lang.Iterable<? extends app.mvchat.mvnxt.mvservernxt.v1.Mention> values) {
+      if (mentionsBuilder_ == null) {
+        ensureMentionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, mentions_);
+        onChanged();
+      } else {
+        mentionsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder clearMentions() {
+      if (mentionsBuilder_ == null) {
+        mentions_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+      } else {
+        mentionsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public Builder removeMentions(int index) {
+      if (mentionsBuilder_ == null) {
+        ensureMentionsIsMutable();
+        mentions_.remove(index);
+        onChanged();
+      } else {
+        mentionsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder getMentionsBuilder(
+        int index) {
+      return internalGetMentionsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder getMentionsOrBuilder(
+        int index) {
+      if (mentionsBuilder_ == null) {
+        return mentions_.get(index);  } else {
+        return mentionsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+         getMentionsOrBuilderList() {
+      if (mentionsBuilder_ != null) {
+        return mentionsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(mentions_);
+      }
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder addMentionsBuilder() {
+      return internalGetMentionsFieldBuilder().addBuilder(
+          app.mvchat.mvnxt.mvservernxt.v1.Mention.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder addMentionsBuilder(
+        int index) {
+      return internalGetMentionsFieldBuilder().addBuilder(
+          index, app.mvchat.mvnxt.mvservernxt.v1.Mention.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * &#64;-mentions on this message. Grapheme-indexed (UAX #29) so
+     * clients render underlines correctly over multi-byte text.
+     * Server-validated at send time against the users table;
+     * clients can trust every entry's user_id resolves and the
+     * (offset, length) span really spells `&#64;&lt;username&gt;`.
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.Mention mentions = 18 [json_name = "mentions"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder> 
+         getMentionsBuilderList() {
+      return internalGetMentionsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.Mention, app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder, app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder> 
+        internalGetMentionsFieldBuilder() {
+      if (mentionsBuilder_ == null) {
+        mentionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.Mention, app.mvchat.mvnxt.mvservernxt.v1.Mention.Builder, app.mvchat.mvnxt.mvservernxt.v1.MentionOrBuilder>(
+                mentions_,
+                ((bitField0_ & 0x00020000) != 0),
+                getParentForChildren(),
+                isClean());
+        mentions_ = null;
+      }
+      return mentionsBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Message)

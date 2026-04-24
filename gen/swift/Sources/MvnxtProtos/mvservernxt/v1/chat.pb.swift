@@ -187,6 +187,36 @@ public struct Mvservernxt_V1_Attachment: Sendable {
   public init() {}
 }
 
+/// Mention marks a span of the message body as an @-reference to a
+/// user. Offsets are in GRAPHEME CLUSTERS (UAX #29), not bytes or
+/// code points — a family emoji 👨‍👩‍👧‍👦 counts as one position even
+/// though it's 25 bytes / 7 code points.
+///
+/// Authoritative source is the client's autocomplete picker: the
+/// user selects "Alice" from a dropdown, the picker knows her
+/// user_id, and the mention triple is submitted alongside the body.
+/// The server validates that the claimed span in the body spells
+/// `@<username>` case-insensitive against the current users.username
+/// of user_id, and rejects the whole send on any mismatch.
+///
+/// grapheme_length includes the leading `@` grapheme — a mention of
+/// `@alice` (6 graphemes) has length 6.
+public struct Mvservernxt_V1_Mention: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: String = String()
+
+  public var graphemeOffset: Int32 = 0
+
+  public var graphemeLength: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// Conversation is the client-facing view of a conversation row +
 /// participant set. Returned by CreateConversation / ListConversations.
 public struct Mvservernxt_V1_Conversation: Sendable {
@@ -406,6 +436,16 @@ public struct Mvservernxt_V1_Message: @unchecked Sendable {
     set {_uniqueStorage()._attachments = newValue}
   }
 
+  /// @-mentions on this message. Grapheme-indexed (UAX #29) so
+  /// clients render underlines correctly over multi-byte text.
+  /// Server-validated at send time against the users table;
+  /// clients can trust every entry's user_id resolves and the
+  /// (offset, length) span really spells `@<username>`.
+  public var mentions: [Mvservernxt_V1_Mention] {
+    get {_storage._mentions}
+    set {_uniqueStorage()._mentions = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -538,6 +578,13 @@ public struct Mvservernxt_V1_SendMessage: Sendable {
   /// the same transaction as the message insert, so attachments and
   /// messages commit atomically.
   public var attachmentSha256S: [String] = []
+
+  /// @-mention spans pre-resolved by the client's autocomplete
+  /// picker. Server validates each span against the body (graphemes
+  /// at offset must spell `@<username>` case-insensitive, username
+  /// must match the claimed user_id) and rejects the whole send on
+  /// any mismatch. Pass an empty list if the message has no mentions.
+  public var mentions: [Mvservernxt_V1_Mention] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1190,6 +1237,12 @@ public struct Mvservernxt_V1_MessageSent: Sendable {
   /// don't have to fetch the message to see attachments.
   public var attachments: [Mvservernxt_V1_Attachment] = []
 
+  /// @-mention spans echoed from the stored message. Pre-validated
+  /// server-side — recipients can trust every entry resolves. Drives
+  /// mention-highlight rendering and future push-notification
+  /// fan-out to the mentioned users.
+  public var mentions: [Mvservernxt_V1_Mention] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1789,6 +1842,46 @@ extension Mvservernxt_V1_Attachment: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 }
 
+extension Mvservernxt_V1_Mention: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Mention"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}user_id\0\u{3}grapheme_offset\0\u{3}grapheme_length\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.graphemeOffset) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.graphemeLength) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if self.graphemeOffset != 0 {
+      try visitor.visitSingularInt32Field(value: self.graphemeOffset, fieldNumber: 2)
+    }
+    if self.graphemeLength != 0 {
+      try visitor.visitSingularInt32Field(value: self.graphemeLength, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_Mention, rhs: Mvservernxt_V1_Mention) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.graphemeOffset != rhs.graphemeOffset {return false}
+    if lhs.graphemeLength != rhs.graphemeLength {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Conversation"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}title\0\u{3}created_by\0\u{3}created_at\0\u{3}member_ids\0\u{3}last_message_seq\0\u{3}disappearing_seconds\0\u{1}description\0\u{1}theme\0")
@@ -1870,7 +1963,7 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Message"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{3}edited_at\0\u{3}deleted_at\0\u{3}deleted_by\0\u{3}deletion_kind\0\u{1}reactions\0\u{3}expires_at\0\u{3}pinned_at\0\u{3}pinned_by\0\u{1}attachments\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{3}edited_at\0\u{3}deleted_at\0\u{3}deleted_by\0\u{3}deletion_kind\0\u{1}reactions\0\u{3}expires_at\0\u{3}pinned_at\0\u{3}pinned_by\0\u{1}attachments\0\u{1}mentions\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -1890,6 +1983,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _pinnedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _pinnedBy: String = String()
     var _attachments: [Mvservernxt_V1_Attachment] = []
+    var _mentions: [Mvservernxt_V1_Mention] = []
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -1917,6 +2011,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       _pinnedAt = source._pinnedAt
       _pinnedBy = source._pinnedBy
       _attachments = source._attachments
+      _mentions = source._mentions
     }
   }
 
@@ -1952,6 +2047,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         case 15: try { try decoder.decodeSingularMessageField(value: &_storage._pinnedAt) }()
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._pinnedBy) }()
         case 17: try { try decoder.decodeRepeatedMessageField(value: &_storage._attachments) }()
+        case 18: try { try decoder.decodeRepeatedMessageField(value: &_storage._mentions) }()
         default: break
         }
       }
@@ -2015,6 +2111,9 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       if !_storage._attachments.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._attachments, fieldNumber: 17)
       }
+      if !_storage._mentions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._mentions, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2041,6 +2140,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         if _storage._pinnedAt != rhs_storage._pinnedAt {return false}
         if _storage._pinnedBy != rhs_storage._pinnedBy {return false}
         if _storage._attachments != rhs_storage._attachments {return false}
+        if _storage._mentions != rhs_storage._mentions {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2192,7 +2292,7 @@ extension Mvservernxt_V1_LeaveConversation: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SendMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}client_message_id\0\u{3}attachment_sha256s\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}client_message_id\0\u{3}attachment_sha256s\0\u{1}mentions\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2205,6 +2305,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 3: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
       case 5: try { try decoder.decodeRepeatedStringField(value: &self.attachmentSha256S) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mentions) }()
       default: break
       }
     }
@@ -2226,6 +2327,9 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.attachmentSha256S.isEmpty {
       try visitor.visitRepeatedStringField(value: self.attachmentSha256S, fieldNumber: 5)
     }
+    if !self.mentions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mentions, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2235,6 +2339,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs.clientMessageID != rhs.clientMessageID {return false}
     if lhs.attachmentSha256S != rhs.attachmentSha256S {return false}
+    if lhs.mentions != rhs.mentions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3179,7 +3284,7 @@ extension Mvservernxt_V1_MemberLeft: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
 extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".MessageSent"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{1}attachments\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{1}attachments\0\u{1}mentions\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -3196,6 +3301,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createdAt) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
       case 9: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
+      case 10: try { try decoder.decodeRepeatedMessageField(value: &self.mentions) }()
       default: break
       }
     }
@@ -3233,6 +3339,9 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.attachments.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 9)
     }
+    if !self.mentions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mentions, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3246,6 +3355,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs._createdAt != rhs._createdAt {return false}
     if lhs.clientMessageID != rhs.clientMessageID {return false}
     if lhs.attachments != rhs.attachments {return false}
+    if lhs.mentions != rhs.mentions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

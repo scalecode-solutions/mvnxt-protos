@@ -300,6 +300,126 @@ public object MessageSentKt {
     public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.clear() {
       _builder.clearAttachments()
     }
+
+    /**
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
+     */
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class MentionsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     */
+     public val mentions: com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>
+      @kotlin.jvm.JvmSynthetic
+  get() = com.google.protobuf.kotlin.DslList(
+        _builder.mentionsList
+      )
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     * @param value The mentions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addMentions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.add(value: app.mvchat.mvnxt.mvservernxt.v1.Mention) {
+      _builder.addMentions(value)
+    }
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     * @param value The mentions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignMentions")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.plusAssign(value: app.mvchat.mvnxt.mvservernxt.v1.Mention) {
+      add(value)
+    }
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     * @param values The mentions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAllMentions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.addAll(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Mention>) {
+      _builder.addAllMentions(values)
+    }
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     * @param values The mentions to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAllMentions")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.plusAssign(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Mention>) {
+      addAll(values)
+    }
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     * @param index The index to set the value at.
+     * @param value The mentions to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setMentions")
+    public operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.set(index: kotlin.Int, value: app.mvchat.mvnxt.mvservernxt.v1.Mention) {
+      _builder.setMentions(index, value)
+    }
+    /**
+     * ```
+     * @-mention spans echoed from the stored message. Pre-validated
+     * server-side — recipients can trust every entry resolves. Drives
+     * mention-highlight rendering and future push-notification
+     * fan-out to the mentioned users.
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Mention mentions = 10 [json_name = "mentions"];`
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("clearMentions")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Mention, MentionsProxy>.clear() {
+      _builder.clearMentions()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

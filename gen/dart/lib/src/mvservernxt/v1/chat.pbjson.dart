@@ -85,6 +85,22 @@ final $typed_data.Uint8List attachmentDescriptor = $convert.base64Decode(
     'CgpBdHRhY2htZW50EhYKBnNoYTI1NhgBIAEoCVIGc2hhMjU2EhsKCW1pbWVfdHlwZRgCIAEoCV'
     'IIbWltZVR5cGUSHQoKc2l6ZV9ieXRlcxgDIAEoA1IJc2l6ZUJ5dGVz');
 
+@$core.Deprecated('Use mentionDescriptor instead')
+const Mention$json = {
+  '1': 'Mention',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'grapheme_offset', '3': 2, '4': 1, '5': 5, '10': 'graphemeOffset'},
+    {'1': 'grapheme_length', '3': 3, '4': 1, '5': 5, '10': 'graphemeLength'},
+  ],
+};
+
+/// Descriptor for `Mention`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mentionDescriptor = $convert.base64Decode(
+    'CgdNZW50aW9uEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZBInCg9ncmFwaGVtZV9vZmZzZXQYAi'
+    'ABKAVSDmdyYXBoZW1lT2Zmc2V0EicKD2dyYXBoZW1lX2xlbmd0aBgDIAEoBVIOZ3JhcGhlbWVM'
+    'ZW5ndGg=');
+
 @$core.Deprecated('Use conversationDescriptor instead')
 const Conversation$json = {
   '1': 'Conversation',
@@ -209,6 +225,14 @@ const Message$json = {
       '6': '.mvservernxt.v1.Attachment',
       '10': 'attachments'
     },
+    {
+      '1': 'mentions',
+      '3': 18,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Mention',
+      '10': 'mentions'
+    },
   ],
 };
 
@@ -227,7 +251,8 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJZXhwaXJlc0F0EjcKCXBpbm5lZF9hdB'
     'gPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCHBpbm5lZEF0EhsKCXBpbm5lZF9i'
     'eRgQIAEoCVIIcGlubmVkQnkSPAoLYXR0YWNobWVudHMYESADKAsyGi5tdnNlcnZlcm54dC52MS'
-    '5BdHRhY2htZW50UgthdHRhY2htZW50cw==');
+    '5BdHRhY2htZW50UgthdHRhY2htZW50cxIzCghtZW50aW9ucxgSIAMoCzIXLm12c2VydmVybnh0'
+    'LnYxLk1lbnRpb25SCG1lbnRpb25z');
 
 @$core.Deprecated('Use createConversationDescriptor instead')
 const CreateConversation$json = {
@@ -308,6 +333,14 @@ const SendMessage$json = {
       '5': 9,
       '10': 'attachmentSha256s'
     },
+    {
+      '1': 'mentions',
+      '3': 6,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Mention',
+      '10': 'mentions'
+    },
   ],
 };
 
@@ -316,7 +349,8 @@ final $typed_data.Uint8List sendMessageDescriptor = $convert.base64Decode(
     'CgtTZW5kTWVzc2FnZRInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdGlvbklkEh'
     'IKBGJvZHkYAiABKAlSBGJvZHkSHgoLcmVwbHlfdG9faWQYAyABKAlSCXJlcGx5VG9JZBIqChFj'
     'bGllbnRfbWVzc2FnZV9pZBgEIAEoCVIPY2xpZW50TWVzc2FnZUlkEi0KEmF0dGFjaG1lbnRfc2'
-    'hhMjU2cxgFIAMoCVIRYXR0YWNobWVudFNoYTI1NnM=');
+    'hhMjU2cxgFIAMoCVIRYXR0YWNobWVudFNoYTI1NnMSMwoIbWVudGlvbnMYBiADKAsyFy5tdnNl'
+    'cnZlcm54dC52MS5NZW50aW9uUghtZW50aW9ucw==');
 
 @$core.Deprecated('Use listConversationsDescriptor instead')
 const ListConversations$json = {
@@ -808,6 +842,14 @@ const MessageSent$json = {
       '6': '.mvservernxt.v1.Attachment',
       '10': 'attachments'
     },
+    {
+      '1': 'mentions',
+      '3': 10,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.Mention',
+      '10': 'mentions'
+    },
   ],
 };
 
@@ -819,7 +861,8 @@ final $typed_data.Uint8List messageSentDescriptor = $convert.base64Decode(
     'QYBiABKAlSCXJlcGx5VG9JZBI5CgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVm'
     'LlRpbWVzdGFtcFIJY3JlYXRlZEF0EioKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJUg9jbGllbn'
     'RNZXNzYWdlSWQSPAoLYXR0YWNobWVudHMYCSADKAsyGi5tdnNlcnZlcm54dC52MS5BdHRhY2ht'
-    'ZW50UgthdHRhY2htZW50cw==');
+    'ZW50UgthdHRhY2htZW50cxIzCghtZW50aW9ucxgKIAMoCzIXLm12c2VydmVybnh0LnYxLk1lbn'
+    'Rpb25SCG1lbnRpb25z');
 
 @$core.Deprecated('Use readReceiptUpdatedDescriptor instead')
 const ReadReceiptUpdated$json = {
