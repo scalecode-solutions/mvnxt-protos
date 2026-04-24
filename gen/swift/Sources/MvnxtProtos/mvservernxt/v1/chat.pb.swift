@@ -160,6 +160,33 @@ public struct Mvservernxt_V1_Reaction: Sendable {
   fileprivate var _createdAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+/// Attachment is the server-populated view of one media blob attached
+/// to a message. Clients render by mime_type and fetch the blob via
+/// GET /v0/media/{sha256} with Bearer auth — access is gated on the
+/// caller's membership in a conversation referencing this sha256 (or
+/// on being the original uploader).
+///
+/// On SendMessage the client provides only sha256 strings
+/// (SendMessage.attachment_sha256s); the server looks up mime_type /
+/// size_bytes from media_blobs and echoes them on Message.attachments
+/// + MessageSent.attachments so clients never see fields a malicious
+/// sender could fake.
+public struct Mvservernxt_V1_Attachment: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var sha256: String = String()
+
+  public var mimeType: String = String()
+
+  public var sizeBytes: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// Conversation is the client-facing view of a conversation row +
 /// participant set. Returned by CreateConversation / ListConversations.
 public struct Mvservernxt_V1_Conversation: Sendable {
@@ -370,6 +397,15 @@ public struct Mvservernxt_V1_Message: @unchecked Sendable {
     set {_uniqueStorage()._pinnedBy = newValue}
   }
 
+  /// Server-populated attachment metadata. Each entry's sha256 is
+  /// fetchable via GET /v0/media/{sha256} subject to the caller's
+  /// read authorization (member of a referencing conversation OR
+  /// original uploader).
+  public var attachments: [Mvservernxt_V1_Attachment] {
+    get {_storage._attachments}
+    set {_uniqueStorage()._attachments = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -492,6 +528,16 @@ public struct Mvservernxt_V1_SendMessage: Sendable {
   /// will see the broadcast as a fresh message. Server stores it as-is
   /// on the Message row; uniqueness is not enforced.
   public var clientMessageID: String = String()
+
+  /// SHA-256s of previously-uploaded media blobs to attach. Each MUST
+  /// already exist in media_blobs (upload via HTTP first, get the
+  /// sha256 back, then reference it here). Unknown / malformed sha256s
+  /// fail the whole Send with a validation error — no partial attach.
+  ///
+  /// The server records one media_references row per attachment in
+  /// the same transaction as the message insert, so attachments and
+  /// messages commit atomically.
+  public var attachmentSha256S: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1109,6 +1155,11 @@ public struct Mvservernxt_V1_MessageSent: Sendable {
   /// Echoed from SendMessage.client_message_id. See Message.client_message_id.
   public var clientMessageID: String = String()
 
+  /// Server-populated attachment metadata (same shape as
+  /// Message.attachments). Echoed on the broadcast so recipients
+  /// don't have to fetch the message to see attachments.
+  public var attachments: [Mvservernxt_V1_Attachment] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1636,6 +1687,46 @@ extension Mvservernxt_V1_Reaction: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
+extension Mvservernxt_V1_Attachment: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Attachment"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}sha256\0\u{3}mime_type\0\u{3}size_bytes\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.sha256) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.mimeType) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.sizeBytes) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sha256.isEmpty {
+      try visitor.visitSingularStringField(value: self.sha256, fieldNumber: 1)
+    }
+    if !self.mimeType.isEmpty {
+      try visitor.visitSingularStringField(value: self.mimeType, fieldNumber: 2)
+    }
+    if self.sizeBytes != 0 {
+      try visitor.visitSingularInt64Field(value: self.sizeBytes, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_Attachment, rhs: Mvservernxt_V1_Attachment) -> Bool {
+    if lhs.sha256 != rhs.sha256 {return false}
+    if lhs.mimeType != rhs.mimeType {return false}
+    if lhs.sizeBytes != rhs.sizeBytes {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Conversation"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}title\0\u{3}created_by\0\u{3}created_at\0\u{3}member_ids\0\u{3}last_message_seq\0\u{3}disappearing_seconds\0\u{1}description\0\u{1}theme\0")
@@ -1717,7 +1808,7 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Message"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{3}edited_at\0\u{3}deleted_at\0\u{3}deleted_by\0\u{3}deletion_kind\0\u{1}reactions\0\u{3}expires_at\0\u{3}pinned_at\0\u{3}pinned_by\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{3}edited_at\0\u{3}deleted_at\0\u{3}deleted_by\0\u{3}deletion_kind\0\u{1}reactions\0\u{3}expires_at\0\u{3}pinned_at\0\u{3}pinned_by\0\u{1}attachments\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -1736,6 +1827,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _expiresAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _pinnedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _pinnedBy: String = String()
+    var _attachments: [Mvservernxt_V1_Attachment] = []
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -1762,6 +1854,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       _expiresAt = source._expiresAt
       _pinnedAt = source._pinnedAt
       _pinnedBy = source._pinnedBy
+      _attachments = source._attachments
     }
   }
 
@@ -1796,6 +1889,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         case 14: try { try decoder.decodeSingularMessageField(value: &_storage._expiresAt) }()
         case 15: try { try decoder.decodeSingularMessageField(value: &_storage._pinnedAt) }()
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._pinnedBy) }()
+        case 17: try { try decoder.decodeRepeatedMessageField(value: &_storage._attachments) }()
         default: break
         }
       }
@@ -1856,6 +1950,9 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       if !_storage._pinnedBy.isEmpty {
         try visitor.visitSingularStringField(value: _storage._pinnedBy, fieldNumber: 16)
       }
+      if !_storage._attachments.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._attachments, fieldNumber: 17)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1881,6 +1978,7 @@ extension Mvservernxt_V1_Message: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         if _storage._expiresAt != rhs_storage._expiresAt {return false}
         if _storage._pinnedAt != rhs_storage._pinnedAt {return false}
         if _storage._pinnedBy != rhs_storage._pinnedBy {return false}
+        if _storage._attachments != rhs_storage._attachments {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2032,7 +2130,7 @@ extension Mvservernxt_V1_LeaveConversation: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SendMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}client_message_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}client_message_id\0\u{3}attachment_sha256s\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2044,6 +2142,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 2: try { try decoder.decodeSingularStringField(value: &self.body) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
+      case 5: try { try decoder.decodeRepeatedStringField(value: &self.attachmentSha256S) }()
       default: break
       }
     }
@@ -2062,6 +2161,9 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.clientMessageID.isEmpty {
       try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 4)
     }
+    if !self.attachmentSha256S.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.attachmentSha256S, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2070,6 +2172,7 @@ extension Mvservernxt_V1_SendMessage: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.body != rhs.body {return false}
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs.clientMessageID != rhs.clientMessageID {return false}
+    if lhs.attachmentSha256S != rhs.attachmentSha256S {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2979,7 +3082,7 @@ extension Mvservernxt_V1_MemberLeft: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
 extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".MessageSent"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}message_id\0\u{3}conversation_id\0\u{1}seq\0\u{3}sender_id\0\u{1}body\0\u{3}reply_to_id\0\u{3}created_at\0\u{3}client_message_id\0\u{1}attachments\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2995,6 +3098,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 6: try { try decoder.decodeSingularStringField(value: &self.replyToID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createdAt) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.clientMessageID) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
       default: break
       }
     }
@@ -3029,6 +3133,9 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.clientMessageID.isEmpty {
       try visitor.visitSingularStringField(value: self.clientMessageID, fieldNumber: 8)
     }
+    if !self.attachments.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3041,6 +3148,7 @@ extension Mvservernxt_V1_MessageSent: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.replyToID != rhs.replyToID {return false}
     if lhs._createdAt != rhs._createdAt {return false}
     if lhs.clientMessageID != rhs.clientMessageID {return false}
+    if lhs.attachments != rhs.attachments {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

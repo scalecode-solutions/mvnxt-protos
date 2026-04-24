@@ -620,6 +620,126 @@ public object MessageKt {
     public fun clearPinnedBy() {
       _builder.clearPinnedBy()
     }
+
+    /**
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
+     */
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class AttachmentsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     */
+     public val attachments: com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>
+      @kotlin.jvm.JvmSynthetic
+  get() = com.google.protobuf.kotlin.DslList(
+        _builder.attachmentsList
+      )
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     * @param value The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAttachments")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.add(value: app.mvchat.mvnxt.mvservernxt.v1.Attachment) {
+      _builder.addAttachments(value)
+    }
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     * @param value The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAttachments")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.plusAssign(value: app.mvchat.mvnxt.mvservernxt.v1.Attachment) {
+      add(value)
+    }
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     * @param values The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("addAllAttachments")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.addAll(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Attachment>) {
+      _builder.addAllAttachments(values)
+    }
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     * @param values The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("plusAssignAllAttachments")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.plusAssign(values: kotlin.collections.Iterable<app.mvchat.mvnxt.mvservernxt.v1.Attachment>) {
+      addAll(values)
+    }
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     * @param index The index to set the value at.
+     * @param value The attachments to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("setAttachments")
+    public operator fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.set(index: kotlin.Int, value: app.mvchat.mvnxt.mvservernxt.v1.Attachment) {
+      _builder.setAttachments(index, value)
+    }
+    /**
+     * ```
+     * Server-populated attachment metadata. Each entry's sha256 is
+     * fetchable via GET /v0/media/{sha256} subject to the caller's
+     * read authorization (member of a referencing conversation OR
+     * original uploader).
+     * ```
+     *
+     * `repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];`
+     */
+    @kotlin.jvm.JvmSynthetic
+@kotlin.jvm.JvmName("clearAttachments")
+    public fun com.google.protobuf.kotlin.DslList<app.mvchat.mvnxt.mvservernxt.v1.Attachment, AttachmentsProxy>.clear() {
+      _builder.clearAttachments()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

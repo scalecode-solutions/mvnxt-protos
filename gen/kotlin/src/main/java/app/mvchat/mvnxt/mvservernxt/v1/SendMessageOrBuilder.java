@@ -89,4 +89,73 @@ public interface SendMessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getClientMessageIdBytes();
+
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @return A list containing the attachmentSha256s.
+   */
+  java.util.List<java.lang.String>
+      getAttachmentSha256SList();
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @return The count of attachmentSha256s.
+   */
+  int getAttachmentSha256SCount();
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @param index The index of the element to return.
+   * @return The attachmentSha256s at the given index.
+   */
+  java.lang.String getAttachmentSha256S(int index);
+  /**
+   * <pre>
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   * </pre>
+   *
+   * <code>repeated string attachment_sha256s = 5 [json_name = "attachmentSha256s"];</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the attachmentSha256s at the given index.
+   */
+  com.google.protobuf.ByteString
+      getAttachmentSha256SBytes(int index);
 }

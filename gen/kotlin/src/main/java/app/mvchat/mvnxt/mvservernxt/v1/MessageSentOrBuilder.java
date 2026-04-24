@@ -110,4 +110,58 @@ public interface MessageSentOrBuilder extends
    */
   com.google.protobuf.ByteString
       getClientMessageIdBytes();
+
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> 
+      getAttachmentsList();
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Attachment getAttachments(int index);
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  int getAttachmentsCount();
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> 
+      getAttachmentsOrBuilderList();
+  /**
+   * <pre>
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 9 [json_name = "attachments"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
+      int index);
 }

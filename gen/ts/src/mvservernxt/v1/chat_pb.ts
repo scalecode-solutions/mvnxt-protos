@@ -24,7 +24,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/chat.proto.
  */
 export const file_mvservernxt_v1_chat: GenFile = /*@__PURE__*/
-  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSJaCghSZWFjdGlvbhINCgVlbW9qaRgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEi4KCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIo0CCgxDb252ZXJzYXRpb24SCgoCaWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgptZW1iZXJfaWRzGAYgAygJEhgKEGxhc3RfbWVzc2FnZV9zZXEYByABKAMSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYCCABKAUSEwoLZGVzY3JpcHRpb24YCSABKAkSDQoFdGhlbWUYCiABKAkigwQKB01lc3NhZ2USCgoCaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRItCgllZGl0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmRlbGV0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmRlbGV0ZWRfYnkYCyABKAkSMwoNZGVsZXRpb25fa2luZBgMIAEoDjIcLm12c2VydmVybnh0LnYxLkRlbGV0aW9uS2luZBIrCglyZWFjdGlvbnMYDSADKAsyGC5tdnNlcnZlcm54dC52MS5SZWFjdGlvbhIuCgpleHBpcmVzX2F0GA4gASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBItCglwaW5uZWRfYXQYDyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhEKCXBpbm5lZF9ieRgQIAEoCSJnChJDcmVhdGVDb252ZXJzYXRpb24SLgoEdHlwZRgBIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSEgoKbWVtYmVyX2lkcxgCIAMoCRINCgV0aXRsZRgDIAEoCSI1CglBZGRNZW1iZXISFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiOAoMUmVtb3ZlTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIiwKEUxlYXZlQ29udmVyc2F0aW9uEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCSJkCgtTZW5kTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDAoEYm9keRgCIAEoCRITCgtyZXBseV90b19pZBgDIAEoCRIZChFjbGllbnRfbWVzc2FnZV9pZBgEIAEoCSIiChFMaXN0Q29udmVyc2F0aW9ucxINCgVsaW1pdBgBIAEoBSJcCgtHZXRNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEQoJc2luY2Vfc2VxGAIgASgDEg0KBWxpbWl0GAMgASgFEhIKCmJlZm9yZV9zZXEYBCABKAMiLwoLRWRpdE1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCRIMCgRib2R5GAIgASgJIiMKDURlbGV0ZU1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCSIuChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCSIjCg1VbnNlbmRNZXNzYWdlEhIKCm1lc3NhZ2VfaWQYASABKAkiMAoLQWRkUmVhY3Rpb24SEgoKbWVzc2FnZV9pZBgBIAEoCRINCgVlbW9qaRgCIAEoCSIzCg5SZW1vdmVSZWFjdGlvbhISCgptZXNzYWdlX2lkGAEgASgJEg0KBWVtb2ppGAIgASgJIjgKClNlbmRUeXBpbmcSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCWlzX3R5cGluZxgCIAEoCCJQChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUiOQoKUGluTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEoCSI7CgxVbnBpbk1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhIKCm1lc3NhZ2VfaWQYAiABKAkiVQoXU2V0Q29udmVyc2F0aW9uTmlja25hbWUSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkimwEKGlVwZGF0ZUNvbnZlcnNhdGlvbk1ldGFkYXRhEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBAUIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSI6CghNYXJrUmVhZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSFQoNbGFzdF9yZWFkX3NlcRgCIAEoAyJQChpDcmVhdGVDb252ZXJzYXRpb25SZXNwb25zZRIyCgxjb252ZXJzYXRpb24YASABKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iPwoTU2VuZE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSJQChlMaXN0Q29udmVyc2F0aW9uc1Jlc3BvbnNlEjMKDWNvbnZlcnNhdGlvbnMYASADKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iUgoTR2V0TWVzc2FnZXNSZXNwb25zZRIpCghtZXNzYWdlcxgBIAMoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2USEAoIaGFzX21vcmUYAiABKAgiPwoTRWRpdE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSLFAQoTQ29udmVyc2F0aW9uQ3JlYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRISCgptZW1iZXJfaWRzGAUgAygJEi4KCmNyZWF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIncKC01lbWJlckFkZGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCGFkZGVkX2J5GAMgASgJEiwKCGFkZGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ9Cg1NZW1iZXJSZW1vdmVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhIKCnJlbW92ZWRfYnkYAyABKAkSLgoKcmVtb3ZlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiYwoKTWVtYmVyTGVmdBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIrCgdsZWZ0X2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLIAQoLTWVzc2FnZVNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSCwoDc2VxGAMgASgDEhEKCXNlbmRlcl9pZBgEIAEoCRIMCgRib2R5GAUgASgJEhMKC3JlcGx5X3RvX2lkGAYgASgJEi4KCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhkKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJIoUBChJSZWFkUmVjZWlwdFVwZGF0ZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSFQoNbGFzdF9yZWFkX3NlcRgDIAEoAxIuCgp1cGRhdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ5Cg1NZXNzYWdlRWRpdGVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgwKBGJvZHkYAyABKAkSLQoJZWRpdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ8Cg1NZXNzYWdlSGlkZGVuEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSLQoJaGlkZGVuX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKMAQoZTWVzc2FnZURlbGV0ZWRGb3JFdmVyeW9uZRISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRISCgpkZWxldGVkX2J5GAMgASgJEi4KCmRlbGV0ZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn4KDU1lc3NhZ2VVbnNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEQoJdW5zZW50X2J5GAMgASgJEi0KCXVuc2VudF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAikwEKFE1lc3NhZ2VSZWFjdGlvbkFkZGVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSDQoFZW1vamkYBCABKAkSLgoKY3JlYXRlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAilQEKFk1lc3NhZ2VSZWFjdGlvblJlbW92ZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSDwoHdXNlcl9pZBgDIAEoCRINCgVlbW9qaRgEIAEoCRIuCgpyZW1vdmVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ0Cg1UeXBpbmdDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhEKCWlzX3R5cGluZxgDIAEoCBImCgJhdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAimAEKG0Rpc2FwcGVhcmluZ01lc3NhZ2VzQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUSEgoKY2hhbmdlZF9ieRgDIAEoCRIuCgpjaGFuZ2VkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJtCg5NZXNzYWdlRXhwaXJlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIuCgpleHBpcmVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ+Cg1NZXNzYWdlUGlubmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhEKCXBpbm5lZF9ieRgDIAEoCRItCglwaW5uZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIoQBCg9NZXNzYWdlVW5waW5uZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEwoLdW5waW5uZWRfYnkYAyABKAkSLwoLdW5waW5uZWRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIp0BChtDb252ZXJzYXRpb25OaWNrbmFtZUNoYW5nZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkSEgoKY2hhbmdlZF9ieRgEIAEoCRIuCgpjaGFuZ2VkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLgAQobQ29udmVyc2F0aW9uTWV0YWRhdGFDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBARISCgpjaGFuZ2VkX2J5GAUgASgJEi4KCmNoYW5nZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wQggKBl90aXRsZUIOCgxfZGVzY3JpcHRpb25CCAoGX3RoZW1lKmwKEENvbnZlcnNhdGlvblR5cGUSIQodQ09OVkVSU0FUSU9OX1RZUEVfVU5TUEVDSUZJRUQQABIYChRDT05WRVJTQVRJT05fVFlQRV9ETRABEhsKF0NPTlZFUlNBVElPTl9UWVBFX0dST1VQEAIqggEKDERlbGV0aW9uS2luZBIdChlERUxFVElPTl9LSU5EX1VOU1BFQ0lGSUVEEAASHgoaREVMRVRJT05fS0lORF9GT1JfRVZFUllPTkUQARIYChRERUxFVElPTl9LSU5EX1VOU0VOVBACEhkKFURFTEVUSU9OX0tJTkRfRVhQSVJFRBADQtYBCh9hcHAubXZjaGF0Lm12bnh0Lm12c2VydmVybnh0LnYxQglDaGF0UHJvdG9QAVpPZ2l0aHViLmNvbS9zY2FsZWNvZGUtc29sdXRpb25zL212bnh0LXByb3Rvcy9nZW4vZ28vbXZzZXJ2ZXJueHQvdjE7bXZzZXJ2ZXJueHR2MaICA01YWKoCDk12c2VydmVybnh0LlYxygIOTXZzZXJ2ZXJueHRcVjHiAhpNdnNlcnZlcm54dFxWMVxHUEJNZXRhZGF0YeoCD012c2VydmVybnh0OjpWMWIGcHJvdG8z", [file_google_protobuf_timestamp]);
+  fileDesc("ChltdnNlcnZlcm54dC92MS9jaGF0LnByb3RvEg5tdnNlcnZlcm54dC52MSJaCghSZWFjdGlvbhINCgVlbW9qaRgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEi4KCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIkMKCkF0dGFjaG1lbnQSDgoGc2hhMjU2GAEgASgJEhEKCW1pbWVfdHlwZRgCIAEoCRISCgpzaXplX2J5dGVzGAMgASgDIo0CCgxDb252ZXJzYXRpb24SCgoCaWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBISCgptZW1iZXJfaWRzGAYgAygJEhgKEGxhc3RfbWVzc2FnZV9zZXEYByABKAMSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYCCABKAUSEwoLZGVzY3JpcHRpb24YCSABKAkSDQoFdGhlbWUYCiABKAkitAQKB01lc3NhZ2USCgoCaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEgsKA3NlcRgDIAEoAxIRCglzZW5kZXJfaWQYBCABKAkSDAoEYm9keRgFIAEoCRITCgtyZXBseV90b19pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIZChFjbGllbnRfbWVzc2FnZV9pZBgIIAEoCRItCgllZGl0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmRlbGV0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhIKCmRlbGV0ZWRfYnkYCyABKAkSMwoNZGVsZXRpb25fa2luZBgMIAEoDjIcLm12c2VydmVybnh0LnYxLkRlbGV0aW9uS2luZBIrCglyZWFjdGlvbnMYDSADKAsyGC5tdnNlcnZlcm54dC52MS5SZWFjdGlvbhIuCgpleHBpcmVzX2F0GA4gASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBItCglwaW5uZWRfYXQYDyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhEKCXBpbm5lZF9ieRgQIAEoCRIvCgthdHRhY2htZW50cxgRIAMoCzIaLm12c2VydmVybnh0LnYxLkF0dGFjaG1lbnQiZwoSQ3JlYXRlQ29udmVyc2F0aW9uEi4KBHR5cGUYASABKA4yIC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb25UeXBlEhIKCm1lbWJlcl9pZHMYAiADKAkSDQoFdGl0bGUYAyABKAkiNQoJQWRkTWVtYmVyEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJIjgKDFJlbW92ZU1lbWJlchIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSIsChFMZWF2ZUNvbnZlcnNhdGlvbhIXCg9jb252ZXJzYXRpb25faWQYASABKAkigAEKC1NlbmRNZXNzYWdlEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIMCgRib2R5GAIgASgJEhMKC3JlcGx5X3RvX2lkGAMgASgJEhkKEWNsaWVudF9tZXNzYWdlX2lkGAQgASgJEhoKEmF0dGFjaG1lbnRfc2hhMjU2cxgFIAMoCSIiChFMaXN0Q29udmVyc2F0aW9ucxINCgVsaW1pdBgBIAEoBSJcCgtHZXRNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEQoJc2luY2Vfc2VxGAIgASgDEg0KBWxpbWl0GAMgASgFEhIKCmJlZm9yZV9zZXEYBCABKAMiLwoLRWRpdE1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCRIMCgRib2R5GAIgASgJIiMKDURlbGV0ZU1lc3NhZ2USEgoKbWVzc2FnZV9pZBgBIAEoCSIuChhEZWxldGVNZXNzYWdlRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCSIjCg1VbnNlbmRNZXNzYWdlEhIKCm1lc3NhZ2VfaWQYASABKAkiMAoLQWRkUmVhY3Rpb24SEgoKbWVzc2FnZV9pZBgBIAEoCRINCgVlbW9qaRgCIAEoCSIzCg5SZW1vdmVSZWFjdGlvbhISCgptZXNzYWdlX2lkGAEgASgJEg0KBWVtb2ppGAIgASgJIjgKClNlbmRUeXBpbmcSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhEKCWlzX3R5cGluZxgCIAEoCCJQChdTZXREaXNhcHBlYXJpbmdNZXNzYWdlcxIXCg9jb252ZXJzYXRpb25faWQYASABKAkSHAoUZGlzYXBwZWFyaW5nX3NlY29uZHMYAiABKAUiOQoKUGluTWVzc2FnZRIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoKbWVzc2FnZV9pZBgCIAEoCSI7CgxVbnBpbk1lc3NhZ2USFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhIKCm1lc3NhZ2VfaWQYAiABKAkiVQoXU2V0Q29udmVyc2F0aW9uTmlja25hbWUSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkSEAoIbmlja25hbWUYAyABKAkimwEKGlVwZGF0ZUNvbnZlcnNhdGlvbk1ldGFkYXRhEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRISCgV0aXRsZRgCIAEoCUgAiAEBEhgKC2Rlc2NyaXB0aW9uGAMgASgJSAGIAQESEgoFdGhlbWUYBCABKAlIAogBAUIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSI6CghNYXJrUmVhZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSFQoNbGFzdF9yZWFkX3NlcRgCIAEoAyJQChpDcmVhdGVDb252ZXJzYXRpb25SZXNwb25zZRIyCgxjb252ZXJzYXRpb24YASABKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iPwoTU2VuZE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSJQChlMaXN0Q29udmVyc2F0aW9uc1Jlc3BvbnNlEjMKDWNvbnZlcnNhdGlvbnMYASADKAsyHC5tdnNlcnZlcm54dC52MS5Db252ZXJzYXRpb24iUgoTR2V0TWVzc2FnZXNSZXNwb25zZRIpCghtZXNzYWdlcxgBIAMoCzIXLm12c2VydmVybnh0LnYxLk1lc3NhZ2USEAoIaGFzX21vcmUYAiABKAgiPwoTRWRpdE1lc3NhZ2VSZXNwb25zZRIoCgdtZXNzYWdlGAEgASgLMhcubXZzZXJ2ZXJueHQudjEuTWVzc2FnZSLFAQoTQ29udmVyc2F0aW9uQ3JlYXRlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSLgoEdHlwZRgCIAEoDjIgLm12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblR5cGUSDQoFdGl0bGUYAyABKAkSEgoKY3JlYXRlZF9ieRgEIAEoCRISCgptZW1iZXJfaWRzGAUgAygJEi4KCmNyZWF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIncKC01lbWJlckFkZGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCGFkZGVkX2J5GAMgASgJEiwKCGFkZGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ9Cg1NZW1iZXJSZW1vdmVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhIKCnJlbW92ZWRfYnkYAyABKAkSLgoKcmVtb3ZlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiYwoKTWVtYmVyTGVmdBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIrCgdsZWZ0X2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCL5AQoLTWVzc2FnZVNlbnQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSCwoDc2VxGAMgASgDEhEKCXNlbmRlcl9pZBgEIAEoCRIMCgRib2R5GAUgASgJEhMKC3JlcGx5X3RvX2lkGAYgASgJEi4KCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhkKEWNsaWVudF9tZXNzYWdlX2lkGAggASgJEi8KC2F0dGFjaG1lbnRzGAkgAygLMhoubXZzZXJ2ZXJueHQudjEuQXR0YWNobWVudCKFAQoSUmVhZFJlY2VpcHRVcGRhdGVkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhUKDWxhc3RfcmVhZF9zZXEYAyABKAMSLgoKdXBkYXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAieQoNTWVzc2FnZUVkaXRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIMCgRib2R5GAMgASgJEi0KCWVkaXRlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifAoNTWVzc2FnZUhpZGRlbhISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEi0KCWhpZGRlbl9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAijAEKGU1lc3NhZ2VEZWxldGVkRm9yRXZlcnlvbmUSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSEgoKZGVsZXRlZF9ieRgDIAEoCRIuCgpkZWxldGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ+Cg1NZXNzYWdlVW5zZW50EhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhEKCXVuc2VudF9ieRgDIAEoCRItCgl1bnNlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpMBChRNZXNzYWdlUmVhY3Rpb25BZGRlZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIPCgd1c2VyX2lkGAMgASgJEg0KBWVtb2ppGAQgASgJEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpUBChZNZXNzYWdlUmVhY3Rpb25SZW1vdmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEg8KB3VzZXJfaWQYAyABKAkSDQoFZW1vamkYBCABKAkSLgoKcmVtb3ZlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidAoNVHlwaW5nQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIRCglpc190eXBpbmcYAyABKAgSJgoCYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIpgBChtEaXNhcHBlYXJpbmdNZXNzYWdlc0NoYW5nZWQSFwoPY29udmVyc2F0aW9uX2lkGAEgASgJEhwKFGRpc2FwcGVhcmluZ19zZWNvbmRzGAIgASgFEhIKCmNoYW5nZWRfYnkYAyABKAkSLgoKY2hhbmdlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAibQoOTWVzc2FnZUV4cGlyZWQSEgoKbWVzc2FnZV9pZBgBIAEoCRIXCg9jb252ZXJzYXRpb25faWQYAiABKAkSLgoKZXhwaXJlZF9hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifgoNTWVzc2FnZVBpbm5lZBISCgptZXNzYWdlX2lkGAEgASgJEhcKD2NvbnZlcnNhdGlvbl9pZBgCIAEoCRIRCglwaW5uZWRfYnkYAyABKAkSLQoJcGlubmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKEAQoPTWVzc2FnZVVucGlubmVkEhIKCm1lc3NhZ2VfaWQYASABKAkSFwoPY29udmVyc2F0aW9uX2lkGAIgASgJEhMKC3VucGlubmVkX2J5GAMgASgJEi8KC3VucGlubmVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKdAQobQ29udmVyc2F0aW9uTmlja25hbWVDaGFuZ2VkEhcKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEhAKCG5pY2tuYW1lGAMgASgJEhIKCmNoYW5nZWRfYnkYBCABKAkSLgoKY2hhbmdlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAi4AEKG0NvbnZlcnNhdGlvbk1ldGFkYXRhQ2hhbmdlZBIXCg9jb252ZXJzYXRpb25faWQYASABKAkSEgoFdGl0bGUYAiABKAlIAIgBARIYCgtkZXNjcmlwdGlvbhgDIAEoCUgBiAEBEhIKBXRoZW1lGAQgASgJSAKIAQESEgoKY2hhbmdlZF9ieRgFIAEoCRIuCgpjaGFuZ2VkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW9uQggKBl90aGVtZSpsChBDb252ZXJzYXRpb25UeXBlEiEKHUNPTlZFUlNBVElPTl9UWVBFX1VOU1BFQ0lGSUVEEAASGAoUQ09OVkVSU0FUSU9OX1RZUEVfRE0QARIbChdDT05WRVJTQVRJT05fVFlQRV9HUk9VUBACKoIBCgxEZWxldGlvbktpbmQSHQoZREVMRVRJT05fS0lORF9VTlNQRUNJRklFRBAAEh4KGkRFTEVUSU9OX0tJTkRfRk9SX0VWRVJZT05FEAESGAoUREVMRVRJT05fS0lORF9VTlNFTlQQAhIZChVERUxFVElPTl9LSU5EX0VYUElSRUQQA0LWAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUIJQ2hhdFByb3RvUAFaT2dpdGh1Yi5jb20vc2NhbGVjb2RlLXNvbHV0aW9ucy9tdm54dC1wcm90b3MvZ2VuL2dvL212c2VydmVybnh0L3YxO212c2VydmVybnh0djGiAgNNWFiqAg5NdnNlcnZlcm54dC5WMcoCDk12c2VydmVybnh0XFYx4gIaTXZzZXJ2ZXJueHRcVjFcR1BCTWV0YWRhdGHqAg9NdnNlcnZlcm54dDo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
 
 /**
  * Reaction is one emoji reaction from one user on one message.
@@ -56,6 +56,45 @@ export type Reaction = Message$1<"mvservernxt.v1.Reaction"> & {
  */
 export const ReactionSchema: GenMessage<Reaction> = /*@__PURE__*/
   messageDesc(file_mvservernxt_v1_chat, 0);
+
+/**
+ * Attachment is the server-populated view of one media blob attached
+ * to a message. Clients render by mime_type and fetch the blob via
+ * GET /v0/media/{sha256} with Bearer auth — access is gated on the
+ * caller's membership in a conversation referencing this sha256 (or
+ * on being the original uploader).
+ *
+ * On SendMessage the client provides only sha256 strings
+ * (SendMessage.attachment_sha256s); the server looks up mime_type /
+ * size_bytes from media_blobs and echoes them on Message.attachments
+ * + MessageSent.attachments so clients never see fields a malicious
+ * sender could fake.
+ *
+ * @generated from message mvservernxt.v1.Attachment
+ */
+export type Attachment = Message$1<"mvservernxt.v1.Attachment"> & {
+  /**
+   * @generated from field: string sha256 = 1;
+   */
+  sha256: string;
+
+  /**
+   * @generated from field: string mime_type = 2;
+   */
+  mimeType: string;
+
+  /**
+   * @generated from field: int64 size_bytes = 3;
+   */
+  sizeBytes: bigint;
+};
+
+/**
+ * Describes the message mvservernxt.v1.Attachment.
+ * Use `create(AttachmentSchema)` to create a new message.
+ */
+export const AttachmentSchema: GenMessage<Attachment> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_chat, 1);
 
 /**
  * Conversation is the client-facing view of a conversation row +
@@ -148,7 +187,7 @@ export type Conversation = Message$1<"mvservernxt.v1.Conversation"> & {
  * Use `create(ConversationSchema)` to create a new message.
  */
 export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 1);
+  messageDesc(file_mvservernxt_v1_chat, 2);
 
 /**
  * Message is the client-facing view of one message row.
@@ -291,6 +330,16 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
    * @generated from field: string pinned_by = 16;
    */
   pinnedBy: string;
+
+  /**
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   *
+   * @generated from field: repeated mvservernxt.v1.Attachment attachments = 17;
+   */
+  attachments: Attachment[];
 };
 
 /**
@@ -298,7 +347,7 @@ export type Message = Message$1<"mvservernxt.v1.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 2);
+  messageDesc(file_mvservernxt_v1_chat, 3);
 
 /**
  * CreateConversation makes a new conversation and auto-adds the creator
@@ -347,7 +396,7 @@ export type CreateConversation = Message$1<"mvservernxt.v1.CreateConversation"> 
  * Use `create(CreateConversationSchema)` to create a new message.
  */
 export const CreateConversationSchema: GenMessage<CreateConversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 3);
+  messageDesc(file_mvservernxt_v1_chat, 4);
 
 /**
  * AddMember adds a user to an existing GROUP. DMs are fixed at creation
@@ -376,7 +425,7 @@ export type AddMember = Message$1<"mvservernxt.v1.AddMember"> & {
  * Use `create(AddMemberSchema)` to create a new message.
  */
 export const AddMemberSchema: GenMessage<AddMember> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 4);
+  messageDesc(file_mvservernxt_v1_chat, 5);
 
 /**
  * RemoveMember removes a user from a GROUP. Caller must be a member.
@@ -401,7 +450,7 @@ export type RemoveMember = Message$1<"mvservernxt.v1.RemoveMember"> & {
  * Use `create(RemoveMemberSchema)` to create a new message.
  */
 export const RemoveMemberSchema: GenMessage<RemoveMember> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 5);
+  messageDesc(file_mvservernxt_v1_chat, 6);
 
 /**
  * LeaveConversation removes the caller from a conversation. No-op if
@@ -422,7 +471,7 @@ export type LeaveConversation = Message$1<"mvservernxt.v1.LeaveConversation"> & 
  * Use `create(LeaveConversationSchema)` to create a new message.
  */
 export const LeaveConversationSchema: GenMessage<LeaveConversation> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 6);
+  messageDesc(file_mvservernxt_v1_chat, 7);
 
 /**
  * SendMessage posts a new message. Assigns a per-conversation monotonic
@@ -466,6 +515,20 @@ export type SendMessage = Message$1<"mvservernxt.v1.SendMessage"> & {
    * @generated from field: string client_message_id = 4;
    */
   clientMessageId: string;
+
+  /**
+   * SHA-256s of previously-uploaded media blobs to attach. Each MUST
+   * already exist in media_blobs (upload via HTTP first, get the
+   * sha256 back, then reference it here). Unknown / malformed sha256s
+   * fail the whole Send with a validation error — no partial attach.
+   *
+   * The server records one media_references row per attachment in
+   * the same transaction as the message insert, so attachments and
+   * messages commit atomically.
+   *
+   * @generated from field: repeated string attachment_sha256s = 5;
+   */
+  attachmentSha256s: string[];
 };
 
 /**
@@ -473,7 +536,7 @@ export type SendMessage = Message$1<"mvservernxt.v1.SendMessage"> & {
  * Use `create(SendMessageSchema)` to create a new message.
  */
 export const SendMessageSchema: GenMessage<SendMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 7);
+  messageDesc(file_mvservernxt_v1_chat, 8);
 
 /**
  * ListConversations returns the caller's active conversations. Slice 1
@@ -497,7 +560,7 @@ export type ListConversations = Message$1<"mvservernxt.v1.ListConversations"> & 
  * Use `create(ListConversationsSchema)` to create a new message.
  */
 export const ListConversationsSchema: GenMessage<ListConversations> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 8);
+  messageDesc(file_mvservernxt_v1_chat, 9);
 
 /**
  * GetMessages pulls a window of messages from one conversation.
@@ -549,7 +612,7 @@ export type GetMessages = Message$1<"mvservernxt.v1.GetMessages"> & {
  * Use `create(GetMessagesSchema)` to create a new message.
  */
 export const GetMessagesSchema: GenMessage<GetMessages> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 9);
+  messageDesc(file_mvservernxt_v1_chat, 10);
 
 /**
  * EditMessage updates the body of a previously-sent message. Caller
@@ -580,7 +643,7 @@ export type EditMessage = Message$1<"mvservernxt.v1.EditMessage"> & {
  * Use `create(EditMessageSchema)` to create a new message.
  */
 export const EditMessageSchema: GenMessage<EditMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 10);
+  messageDesc(file_mvservernxt_v1_chat, 11);
 
 /**
  * DeleteMessage performs "delete for me" — hides the message from the
@@ -606,7 +669,7 @@ export type DeleteMessage = Message$1<"mvservernxt.v1.DeleteMessage"> & {
  * Use `create(DeleteMessageSchema)` to create a new message.
  */
 export const DeleteMessageSchema: GenMessage<DeleteMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 11);
+  messageDesc(file_mvservernxt_v1_chat, 12);
 
 /**
  * DeleteMessageForEveryone performs a server-wide soft delete. Caller
@@ -632,7 +695,7 @@ export type DeleteMessageForEveryone = Message$1<"mvservernxt.v1.DeleteMessageFo
  * Use `create(DeleteMessageForEveryoneSchema)` to create a new message.
  */
 export const DeleteMessageForEveryoneSchema: GenMessage<DeleteMessageForEveryone> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 12);
+  messageDesc(file_mvservernxt_v1_chat, 13);
 
 /**
  * UnsendMessage is the time-limited "undo" variant of delete. Within 5
@@ -662,7 +725,7 @@ export type UnsendMessage = Message$1<"mvservernxt.v1.UnsendMessage"> & {
  * Use `create(UnsendMessageSchema)` to create a new message.
  */
 export const UnsendMessageSchema: GenMessage<UnsendMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 13);
+  messageDesc(file_mvservernxt_v1_chat, 14);
 
 /**
  * AddReaction adds an emoji reaction from the caller to a message. A
@@ -692,7 +755,7 @@ export type AddReaction = Message$1<"mvservernxt.v1.AddReaction"> & {
  * Use `create(AddReactionSchema)` to create a new message.
  */
 export const AddReactionSchema: GenMessage<AddReaction> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 14);
+  messageDesc(file_mvservernxt_v1_chat, 15);
 
 /**
  * RemoveReaction undoes an AddReaction for (caller, message, emoji).
@@ -718,7 +781,7 @@ export type RemoveReaction = Message$1<"mvservernxt.v1.RemoveReaction"> & {
  * Use `create(RemoveReactionSchema)` to create a new message.
  */
 export const RemoveReactionSchema: GenMessage<RemoveReaction> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 15);
+  messageDesc(file_mvservernxt_v1_chat, 16);
 
 /**
  * SendTyping is a transient signal that the caller is composing a
@@ -752,7 +815,7 @@ export type SendTyping = Message$1<"mvservernxt.v1.SendTyping"> & {
  * Use `create(SendTypingSchema)` to create a new message.
  */
 export const SendTypingSchema: GenMessage<SendTyping> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 16);
+  messageDesc(file_mvservernxt_v1_chat, 17);
 
 /**
  * SetDisappearingMessages adjusts the per-conversation TTL for future
@@ -781,7 +844,7 @@ export type SetDisappearingMessages = Message$1<"mvservernxt.v1.SetDisappearingM
  * Use `create(SetDisappearingMessagesSchema)` to create a new message.
  */
 export const SetDisappearingMessagesSchema: GenMessage<SetDisappearingMessages> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 17);
+  messageDesc(file_mvservernxt_v1_chat, 18);
 
 /**
  * PinMessage pins a message so it surfaces at the top of the
@@ -816,7 +879,7 @@ export type PinMessage = Message$1<"mvservernxt.v1.PinMessage"> & {
  * Use `create(PinMessageSchema)` to create a new message.
  */
 export const PinMessageSchema: GenMessage<PinMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 18);
+  messageDesc(file_mvservernxt_v1_chat, 19);
 
 /**
  * UnpinMessage removes a pin. Caller MUST be an active member.
@@ -842,7 +905,7 @@ export type UnpinMessage = Message$1<"mvservernxt.v1.UnpinMessage"> & {
  * Use `create(UnpinMessageSchema)` to create a new message.
  */
 export const UnpinMessageSchema: GenMessage<UnpinMessage> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 19);
+  messageDesc(file_mvservernxt_v1_chat, 20);
 
 /**
  * SetConversationNickname sets a display nickname for one member
@@ -882,7 +945,7 @@ export type SetConversationNickname = Message$1<"mvservernxt.v1.SetConversationN
  * Use `create(SetConversationNicknameSchema)` to create a new message.
  */
 export const SetConversationNicknameSchema: GenMessage<SetConversationNickname> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 20);
+  messageDesc(file_mvservernxt_v1_chat, 21);
 
 /**
  * UpdateConversationMetadata edits one or more of title / description /
@@ -932,7 +995,7 @@ export type UpdateConversationMetadata = Message$1<"mvservernxt.v1.UpdateConvers
  * Use `create(UpdateConversationMetadataSchema)` to create a new message.
  */
 export const UpdateConversationMetadataSchema: GenMessage<UpdateConversationMetadata> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 21);
+  messageDesc(file_mvservernxt_v1_chat, 22);
 
 /**
  * MarkRead advances the caller's last_read_seq on a conversation.
@@ -967,7 +1030,7 @@ export type MarkRead = Message$1<"mvservernxt.v1.MarkRead"> & {
  * Use `create(MarkReadSchema)` to create a new message.
  */
 export const MarkReadSchema: GenMessage<MarkRead> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 22);
+  messageDesc(file_mvservernxt_v1_chat, 23);
 
 /**
  * @generated from message mvservernxt.v1.CreateConversationResponse
@@ -984,7 +1047,7 @@ export type CreateConversationResponse = Message$1<"mvservernxt.v1.CreateConvers
  * Use `create(CreateConversationResponseSchema)` to create a new message.
  */
 export const CreateConversationResponseSchema: GenMessage<CreateConversationResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 23);
+  messageDesc(file_mvservernxt_v1_chat, 24);
 
 /**
  * @generated from message mvservernxt.v1.SendMessageResponse
@@ -1001,7 +1064,7 @@ export type SendMessageResponse = Message$1<"mvservernxt.v1.SendMessageResponse"
  * Use `create(SendMessageResponseSchema)` to create a new message.
  */
 export const SendMessageResponseSchema: GenMessage<SendMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 24);
+  messageDesc(file_mvservernxt_v1_chat, 25);
 
 /**
  * @generated from message mvservernxt.v1.ListConversationsResponse
@@ -1018,7 +1081,7 @@ export type ListConversationsResponse = Message$1<"mvservernxt.v1.ListConversati
  * Use `create(ListConversationsResponseSchema)` to create a new message.
  */
 export const ListConversationsResponseSchema: GenMessage<ListConversationsResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 25);
+  messageDesc(file_mvservernxt_v1_chat, 26);
 
 /**
  * @generated from message mvservernxt.v1.GetMessagesResponse
@@ -1043,7 +1106,7 @@ export type GetMessagesResponse = Message$1<"mvservernxt.v1.GetMessagesResponse"
  * Use `create(GetMessagesResponseSchema)` to create a new message.
  */
 export const GetMessagesResponseSchema: GenMessage<GetMessagesResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 26);
+  messageDesc(file_mvservernxt_v1_chat, 27);
 
 /**
  * @generated from message mvservernxt.v1.EditMessageResponse
@@ -1060,7 +1123,7 @@ export type EditMessageResponse = Message$1<"mvservernxt.v1.EditMessageResponse"
  * Use `create(EditMessageResponseSchema)` to create a new message.
  */
 export const EditMessageResponseSchema: GenMessage<EditMessageResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 27);
+  messageDesc(file_mvservernxt_v1_chat, 28);
 
 /**
  * ConversationCreated fires once per CreateConversation.
@@ -1105,7 +1168,7 @@ export type ConversationCreated = Message$1<"mvservernxt.v1.ConversationCreated"
  * Use `create(ConversationCreatedSchema)` to create a new message.
  */
 export const ConversationCreatedSchema: GenMessage<ConversationCreated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 28);
+  messageDesc(file_mvservernxt_v1_chat, 29);
 
 /**
  * MemberAdded fires for each AddMember call. Fans out to every member
@@ -1140,7 +1203,7 @@ export type MemberAdded = Message$1<"mvservernxt.v1.MemberAdded"> & {
  * Use `create(MemberAddedSchema)` to create a new message.
  */
 export const MemberAddedSchema: GenMessage<MemberAdded> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 29);
+  messageDesc(file_mvservernxt_v1_chat, 30);
 
 /**
  * MemberRemoved fires for each RemoveMember call.
@@ -1174,7 +1237,7 @@ export type MemberRemoved = Message$1<"mvservernxt.v1.MemberRemoved"> & {
  * Use `create(MemberRemovedSchema)` to create a new message.
  */
 export const MemberRemovedSchema: GenMessage<MemberRemoved> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 30);
+  messageDesc(file_mvservernxt_v1_chat, 31);
 
 /**
  * MemberLeft fires for each LeaveConversation call.
@@ -1203,7 +1266,7 @@ export type MemberLeft = Message$1<"mvservernxt.v1.MemberLeft"> & {
  * Use `create(MemberLeftSchema)` to create a new message.
  */
 export const MemberLeftSchema: GenMessage<MemberLeft> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 31);
+  messageDesc(file_mvservernxt_v1_chat, 32);
 
 /**
  * MessageSent fires for each SendMessage call. Fans out to every
@@ -1253,6 +1316,15 @@ export type MessageSent = Message$1<"mvservernxt.v1.MessageSent"> & {
    * @generated from field: string client_message_id = 8;
    */
   clientMessageId: string;
+
+  /**
+   * Server-populated attachment metadata (same shape as
+   * Message.attachments). Echoed on the broadcast so recipients
+   * don't have to fetch the message to see attachments.
+   *
+   * @generated from field: repeated mvservernxt.v1.Attachment attachments = 9;
+   */
+  attachments: Attachment[];
 };
 
 /**
@@ -1260,7 +1332,7 @@ export type MessageSent = Message$1<"mvservernxt.v1.MessageSent"> & {
  * Use `create(MessageSentSchema)` to create a new message.
  */
 export const MessageSentSchema: GenMessage<MessageSent> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 32);
+  messageDesc(file_mvservernxt_v1_chat, 33);
 
 /**
  * ReadReceiptUpdated fires for each MarkRead that actually advances the
@@ -1296,7 +1368,7 @@ export type ReadReceiptUpdated = Message$1<"mvservernxt.v1.ReadReceiptUpdated"> 
  * Use `create(ReadReceiptUpdatedSchema)` to create a new message.
  */
 export const ReadReceiptUpdatedSchema: GenMessage<ReadReceiptUpdated> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 33);
+  messageDesc(file_mvservernxt_v1_chat, 34);
 
 /**
  * MessageEdited fires for each successful EditMessage. Fans out to
@@ -1333,7 +1405,7 @@ export type MessageEdited = Message$1<"mvservernxt.v1.MessageEdited"> & {
  * Use `create(MessageEditedSchema)` to create a new message.
  */
 export const MessageEditedSchema: GenMessage<MessageEdited> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 34);
+  messageDesc(file_mvservernxt_v1_chat, 35);
 
 /**
  * MessageHidden fires for each successful DeleteMessage ("delete for
@@ -1372,7 +1444,7 @@ export type MessageHidden = Message$1<"mvservernxt.v1.MessageHidden"> & {
  * Use `create(MessageHiddenSchema)` to create a new message.
  */
 export const MessageHiddenSchema: GenMessage<MessageHidden> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 35);
+  messageDesc(file_mvservernxt_v1_chat, 36);
 
 /**
  * MessageDeletedForEveryone fires for each successful
@@ -1412,7 +1484,7 @@ export type MessageDeletedForEveryone = Message$1<"mvservernxt.v1.MessageDeleted
  * Use `create(MessageDeletedForEveryoneSchema)` to create a new message.
  */
 export const MessageDeletedForEveryoneSchema: GenMessage<MessageDeletedForEveryone> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 36);
+  messageDesc(file_mvservernxt_v1_chat, 37);
 
 /**
  * MessageUnsent fires for each successful UnsendMessage. Fans out to
@@ -1451,7 +1523,7 @@ export type MessageUnsent = Message$1<"mvservernxt.v1.MessageUnsent"> & {
  * Use `create(MessageUnsentSchema)` to create a new message.
  */
 export const MessageUnsentSchema: GenMessage<MessageUnsent> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 37);
+  messageDesc(file_mvservernxt_v1_chat, 38);
 
 /**
  * MessageReactionAdded fires for each successful AddReaction. Fans out
@@ -1492,7 +1564,7 @@ export type MessageReactionAdded = Message$1<"mvservernxt.v1.MessageReactionAdde
  * Use `create(MessageReactionAddedSchema)` to create a new message.
  */
 export const MessageReactionAddedSchema: GenMessage<MessageReactionAdded> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 38);
+  messageDesc(file_mvservernxt_v1_chat, 39);
 
 /**
  * MessageReactionRemoved fires for each successful RemoveReaction.
@@ -1531,7 +1603,7 @@ export type MessageReactionRemoved = Message$1<"mvservernxt.v1.MessageReactionRe
  * Use `create(MessageReactionRemovedSchema)` to create a new message.
  */
 export const MessageReactionRemovedSchema: GenMessage<MessageReactionRemoved> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 39);
+  messageDesc(file_mvservernxt_v1_chat, 40);
 
 /**
  * TypingChanged fires for each SendTyping. UNLIKE every other chat
@@ -1571,7 +1643,7 @@ export type TypingChanged = Message$1<"mvservernxt.v1.TypingChanged"> & {
  * Use `create(TypingChangedSchema)` to create a new message.
  */
 export const TypingChangedSchema: GenMessage<TypingChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 40);
+  messageDesc(file_mvservernxt_v1_chat, 41);
 
 /**
  * DisappearingMessagesChanged fires for each successful
@@ -1610,7 +1682,7 @@ export type DisappearingMessagesChanged = Message$1<"mvservernxt.v1.Disappearing
  * Use `create(DisappearingMessagesChangedSchema)` to create a new message.
  */
 export const DisappearingMessagesChangedSchema: GenMessage<DisappearingMessagesChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 41);
+  messageDesc(file_mvservernxt_v1_chat, 42);
 
 /**
  * MessageExpired fires when the scheduler's expiry worker soft-deletes
@@ -1642,7 +1714,7 @@ export type MessageExpired = Message$1<"mvservernxt.v1.MessageExpired"> & {
  * Use `create(MessageExpiredSchema)` to create a new message.
  */
 export const MessageExpiredSchema: GenMessage<MessageExpired> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 42);
+  messageDesc(file_mvservernxt_v1_chat, 43);
 
 /**
  * MessagePinned fires for each successful PinMessage. Fans out to
@@ -1677,7 +1749,7 @@ export type MessagePinned = Message$1<"mvservernxt.v1.MessagePinned"> & {
  * Use `create(MessagePinnedSchema)` to create a new message.
  */
 export const MessagePinnedSchema: GenMessage<MessagePinned> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 43);
+  messageDesc(file_mvservernxt_v1_chat, 44);
 
 /**
  * MessageUnpinned fires for each successful UnpinMessage.
@@ -1711,7 +1783,7 @@ export type MessageUnpinned = Message$1<"mvservernxt.v1.MessageUnpinned"> & {
  * Use `create(MessageUnpinnedSchema)` to create a new message.
  */
 export const MessageUnpinnedSchema: GenMessage<MessageUnpinned> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 44);
+  messageDesc(file_mvservernxt_v1_chat, 45);
 
 /**
  * ConversationNicknameChanged fires for each successful
@@ -1756,7 +1828,7 @@ export type ConversationNicknameChanged = Message$1<"mvservernxt.v1.Conversation
  * Use `create(ConversationNicknameChangedSchema)` to create a new message.
  */
 export const ConversationNicknameChangedSchema: GenMessage<ConversationNicknameChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 45);
+  messageDesc(file_mvservernxt_v1_chat, 46);
 
 /**
  * ConversationMetadataChanged fires for each successful
@@ -1803,7 +1875,7 @@ export type ConversationMetadataChanged = Message$1<"mvservernxt.v1.Conversation
  * Use `create(ConversationMetadataChangedSchema)` to create a new message.
  */
 export const ConversationMetadataChangedSchema: GenMessage<ConversationMetadataChanged> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_chat, 46);
+  messageDesc(file_mvservernxt_v1_chat, 47);
 
 /**
  * ConversationType distinguishes the two conversation flavors shipping

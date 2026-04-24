@@ -403,4 +403,63 @@ public interface MessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPinnedByBytes();
+
+  /**
+   * <pre>
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.Attachment> 
+      getAttachmentsList();
+  /**
+   * <pre>
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.Attachment getAttachments(int index);
+  /**
+   * <pre>
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];</code>
+   */
+  int getAttachmentsCount();
+  /**
+   * <pre>
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder> 
+      getAttachmentsOrBuilderList();
+  /**
+   * <pre>
+   * Server-populated attachment metadata. Each entry's sha256 is
+   * fetchable via GET /v0/media/{sha256} subject to the caller's
+   * read authorization (member of a referencing conversation OR
+   * original uploader).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.Attachment attachments = 17 [json_name = "attachments"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.AttachmentOrBuilder getAttachmentsOrBuilder(
+      int index);
 }

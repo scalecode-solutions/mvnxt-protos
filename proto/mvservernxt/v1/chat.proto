@@ -57,6 +57,23 @@ message Reaction {
   google.protobuf.Timestamp created_at = 3;
 }
 
+// Attachment is the server-populated view of one media blob attached
+// to a message. Clients render by mime_type and fetch the blob via
+// GET /v0/media/{sha256} with Bearer auth — access is gated on the
+// caller's membership in a conversation referencing this sha256 (or
+// on being the original uploader).
+//
+// On SendMessage the client provides only sha256 strings
+// (SendMessage.attachment_sha256s); the server looks up mime_type /
+// size_bytes from media_blobs and echoes them on Message.attachments
+// + MessageSent.attachments so clients never see fields a malicious
+// sender could fake.
+message Attachment {
+  string sha256     = 1;
+  string mime_type  = 2;
+  int64  size_bytes = 3;
+}
+
 // Conversation is the client-facing view of a conversation row +
 // participant set. Returned by CreateConversation / ListConversations.
 message Conversation {
@@ -163,6 +180,12 @@ message Message {
 
   // Who pinned it (user_id string). Empty when pinned_at is null.
   string                    pinned_by         = 16;
+
+  // Server-populated attachment metadata. Each entry's sha256 is
+  // fetchable via GET /v0/media/{sha256} subject to the caller's
+  // read authorization (member of a referencing conversation OR
+  // original uploader).
+  repeated Attachment       attachments       = 17;
 }
 
 // ============================================================================
@@ -240,6 +263,16 @@ message SendMessage {
   // will see the broadcast as a fresh message. Server stores it as-is
   // on the Message row; uniqueness is not enforced.
   string client_message_id = 4;
+
+  // SHA-256s of previously-uploaded media blobs to attach. Each MUST
+  // already exist in media_blobs (upload via HTTP first, get the
+  // sha256 back, then reference it here). Unknown / malformed sha256s
+  // fail the whole Send with a validation error — no partial attach.
+  //
+  // The server records one media_references row per attachment in
+  // the same transaction as the message insert, so attachments and
+  // messages commit atomically.
+  repeated string attachment_sha256s = 5;
 }
 
 // ListConversations returns the caller's active conversations. Slice 1
@@ -530,6 +563,11 @@ message MessageSent {
 
   // Echoed from SendMessage.client_message_id. See Message.client_message_id.
   string                    client_message_id = 8;
+
+  // Server-populated attachment metadata (same shape as
+  // Message.attachments). Echoed on the broadcast so recipients
+  // don't have to fetch the message to see attachments.
+  repeated Attachment       attachments       = 9;
 }
 
 // ReadReceiptUpdated fires for each MarkRead that actually advances the

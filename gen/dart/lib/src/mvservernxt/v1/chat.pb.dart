@@ -106,6 +106,94 @@ class Reaction extends $pb.GeneratedMessage {
   $0.Timestamp ensureCreatedAt() => $_ensure(2);
 }
 
+/// Attachment is the server-populated view of one media blob attached
+/// to a message. Clients render by mime_type and fetch the blob via
+/// GET /v0/media/{sha256} with Bearer auth — access is gated on the
+/// caller's membership in a conversation referencing this sha256 (or
+/// on being the original uploader).
+///
+/// On SendMessage the client provides only sha256 strings
+/// (SendMessage.attachment_sha256s); the server looks up mime_type /
+/// size_bytes from media_blobs and echoes them on Message.attachments
+/// + MessageSent.attachments so clients never see fields a malicious
+/// sender could fake.
+class Attachment extends $pb.GeneratedMessage {
+  factory Attachment({
+    $core.String? sha256,
+    $core.String? mimeType,
+    $fixnum.Int64? sizeBytes,
+  }) {
+    final result = create();
+    if (sha256 != null) result.sha256 = sha256;
+    if (mimeType != null) result.mimeType = mimeType;
+    if (sizeBytes != null) result.sizeBytes = sizeBytes;
+    return result;
+  }
+
+  Attachment._();
+
+  factory Attachment.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Attachment.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Attachment',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'sha256')
+    ..aOS(2, _omitFieldNames ? '' : 'mimeType')
+    ..aInt64(3, _omitFieldNames ? '' : 'sizeBytes')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Attachment clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Attachment copyWith(void Function(Attachment) updates) =>
+      super.copyWith((message) => updates(message as Attachment)) as Attachment;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Attachment create() => Attachment._();
+  @$core.override
+  Attachment createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static Attachment getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Attachment>(create);
+  static Attachment? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sha256 => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sha256($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSha256() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSha256() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get mimeType => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set mimeType($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMimeType() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMimeType() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get sizeBytes => $_getI64(2);
+  @$pb.TagNumber(3)
+  set sizeBytes($fixnum.Int64 value) => $_setInt64(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasSizeBytes() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSizeBytes() => $_clearField(3);
+}
+
 /// Conversation is the client-facing view of a conversation row +
 /// participant set. Returned by CreateConversation / ListConversations.
 class Conversation extends $pb.GeneratedMessage {
@@ -314,6 +402,7 @@ class Message extends $pb.GeneratedMessage {
     $0.Timestamp? expiresAt,
     $0.Timestamp? pinnedAt,
     $core.String? pinnedBy,
+    $core.Iterable<Attachment>? attachments,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -332,6 +421,7 @@ class Message extends $pb.GeneratedMessage {
     if (expiresAt != null) result.expiresAt = expiresAt;
     if (pinnedAt != null) result.pinnedAt = pinnedAt;
     if (pinnedBy != null) result.pinnedBy = pinnedBy;
+    if (attachments != null) result.attachments.addAll(attachments);
     return result;
   }
 
@@ -371,6 +461,8 @@ class Message extends $pb.GeneratedMessage {
     ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'pinnedAt',
         subBuilder: $0.Timestamp.create)
     ..aOS(16, _omitFieldNames ? '' : 'pinnedBy')
+    ..pPM<Attachment>(17, _omitFieldNames ? '' : 'attachments',
+        subBuilder: Attachment.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -569,6 +661,13 @@ class Message extends $pb.GeneratedMessage {
   $core.bool hasPinnedBy() => $_has(15);
   @$pb.TagNumber(16)
   void clearPinnedBy() => $_clearField(16);
+
+  /// Server-populated attachment metadata. Each entry's sha256 is
+  /// fetchable via GET /v0/media/{sha256} subject to the caller's
+  /// read authorization (member of a referencing conversation OR
+  /// original uploader).
+  @$pb.TagNumber(17)
+  $pb.PbList<Attachment> get attachments => $_getList(16);
 }
 
 /// CreateConversation makes a new conversation and auto-adds the creator
@@ -871,12 +970,15 @@ class SendMessage extends $pb.GeneratedMessage {
     $core.String? body,
     $core.String? replyToId,
     $core.String? clientMessageId,
+    $core.Iterable<$core.String>? attachmentSha256s,
   }) {
     final result = create();
     if (conversationId != null) result.conversationId = conversationId;
     if (body != null) result.body = body;
     if (replyToId != null) result.replyToId = replyToId;
     if (clientMessageId != null) result.clientMessageId = clientMessageId;
+    if (attachmentSha256s != null)
+      result.attachmentSha256s.addAll(attachmentSha256s);
     return result;
   }
 
@@ -897,6 +999,7 @@ class SendMessage extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'body')
     ..aOS(3, _omitFieldNames ? '' : 'replyToId')
     ..aOS(4, _omitFieldNames ? '' : 'clientMessageId')
+    ..pPS(5, _omitFieldNames ? '' : 'attachmentSha256s')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -962,6 +1065,17 @@ class SendMessage extends $pb.GeneratedMessage {
   $core.bool hasClientMessageId() => $_has(3);
   @$pb.TagNumber(4)
   void clearClientMessageId() => $_clearField(4);
+
+  /// SHA-256s of previously-uploaded media blobs to attach. Each MUST
+  /// already exist in media_blobs (upload via HTTP first, get the
+  /// sha256 back, then reference it here). Unknown / malformed sha256s
+  /// fail the whole Send with a validation error — no partial attach.
+  ///
+  /// The server records one media_references row per attachment in
+  /// the same transaction as the message insert, so attachments and
+  /// messages commit atomically.
+  @$pb.TagNumber(5)
+  $pb.PbList<$core.String> get attachmentSha256s => $_getList(4);
 }
 
 /// ListConversations returns the caller's active conversations. Slice 1
@@ -2784,6 +2898,7 @@ class MessageSent extends $pb.GeneratedMessage {
     $core.String? replyToId,
     $0.Timestamp? createdAt,
     $core.String? clientMessageId,
+    $core.Iterable<Attachment>? attachments,
   }) {
     final result = create();
     if (messageId != null) result.messageId = messageId;
@@ -2794,6 +2909,7 @@ class MessageSent extends $pb.GeneratedMessage {
     if (replyToId != null) result.replyToId = replyToId;
     if (createdAt != null) result.createdAt = createdAt;
     if (clientMessageId != null) result.clientMessageId = clientMessageId;
+    if (attachments != null) result.attachments.addAll(attachments);
     return result;
   }
 
@@ -2819,6 +2935,8 @@ class MessageSent extends $pb.GeneratedMessage {
     ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'createdAt',
         subBuilder: $0.Timestamp.create)
     ..aOS(8, _omitFieldNames ? '' : 'clientMessageId')
+    ..pPM<Attachment>(9, _omitFieldNames ? '' : 'attachments',
+        subBuilder: Attachment.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -2914,6 +3032,12 @@ class MessageSent extends $pb.GeneratedMessage {
   $core.bool hasClientMessageId() => $_has(7);
   @$pb.TagNumber(8)
   void clearClientMessageId() => $_clearField(8);
+
+  /// Server-populated attachment metadata (same shape as
+  /// Message.attachments). Echoed on the broadcast so recipients
+  /// don't have to fetch the message to see attachments.
+  @$pb.TagNumber(9)
+  $pb.PbList<Attachment> get attachments => $_getList(8);
 }
 
 /// ReadReceiptUpdated fires for each MarkRead that actually advances the
