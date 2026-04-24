@@ -154,6 +154,54 @@ public object AuthTokensKt {
     public fun clearUsername() {
       _builder.clearUsername()
     }
+
+    /**
+     * ```
+     * Email-verification status as of the moment these tokens were issued.
+     * Clients render this — e.g. show a "verify your email" banner when
+     * email_verified is false. Server policy may or may not block features
+     * on !email_verified; the token itself is valid either way.
+     * ```
+     *
+     * `bool email_verified = 7 [json_name = "emailVerified"];`
+     */
+    public var emailVerified: kotlin.Boolean
+      @kotlin.jvm.JvmName("getEmailVerified")
+        get() = _builder.emailVerified
+      @kotlin.jvm.JvmName("setEmailVerified")
+        set(value) {
+        _builder.emailVerified = value
+      }
+    /**
+     * ```
+     * Email-verification status as of the moment these tokens were issued.
+     * Clients render this — e.g. show a "verify your email" banner when
+     * email_verified is false. Server policy may or may not block features
+     * on !email_verified; the token itself is valid either way.
+     * ```
+     *
+     * `bool email_verified = 7 [json_name = "emailVerified"];`
+     */
+    public fun clearEmailVerified() {
+      _builder.clearEmailVerified()
+    }
+
+    /**
+     * `string email = 8 [json_name = "email"];`
+     */
+    public var email: kotlin.String
+      @kotlin.jvm.JvmName("getEmail")
+        get() = _builder.email
+      @kotlin.jvm.JvmName("setEmail")
+        set(value) {
+        _builder.email = value
+      }
+    /**
+     * `string email = 8 [json_name = "email"];`
+     */
+    public fun clearEmail() {
+      _builder.clearEmail()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

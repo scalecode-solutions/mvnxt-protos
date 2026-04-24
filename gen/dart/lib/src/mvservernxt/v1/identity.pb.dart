@@ -25,11 +25,13 @@ class Register extends $pb.GeneratedMessage {
     $core.String? username,
     $core.String? password,
     $core.String? displayName,
+    $core.String? email,
   }) {
     final result = create();
     if (username != null) result.username = username;
     if (password != null) result.password = password;
     if (displayName != null) result.displayName = displayName;
+    if (email != null) result.email = email;
     return result;
   }
 
@@ -49,6 +51,7 @@ class Register extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'username')
     ..aOS(2, _omitFieldNames ? '' : 'password')
     ..aOS(3, _omitFieldNames ? '' : 'displayName')
+    ..aOS(4, _omitFieldNames ? '' : 'email')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -95,6 +98,132 @@ class Register extends $pb.GeneratedMessage {
   $core.bool hasDisplayName() => $_has(2);
   @$pb.TagNumber(3)
   void clearDisplayName() => $_clearField(3);
+
+  /// Email. Required when the server runs with email verification enabled;
+  /// optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+  @$pb.TagNumber(4)
+  $core.String get email => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set email($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasEmail() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEmail() => $_clearField(4);
+}
+
+/// VerifyEmail completes the email-verification loop. The token is delivered
+/// to the user's inbox by the server after Register. Pre-auth — sent from
+/// whichever device clicks the verification link.
+class VerifyEmail extends $pb.GeneratedMessage {
+  factory VerifyEmail({
+    $core.String? token,
+  }) {
+    final result = create();
+    if (token != null) result.token = token;
+    return result;
+  }
+
+  VerifyEmail._();
+
+  factory VerifyEmail.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory VerifyEmail.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'VerifyEmail',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'token')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  VerifyEmail clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  VerifyEmail copyWith(void Function(VerifyEmail) updates) =>
+      super.copyWith((message) => updates(message as VerifyEmail))
+          as VerifyEmail;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerifyEmail create() => VerifyEmail._();
+  @$core.override
+  VerifyEmail createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static VerifyEmail getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<VerifyEmail>(create);
+  static VerifyEmail? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get token => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set token($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearToken() => $_clearField(1);
+}
+
+/// ResendVerificationEmail re-dispatches a fresh verification email. Used
+/// when the original email expired, was lost, or the user changed addresses.
+/// Pre-auth — takes the target email.
+class ResendVerificationEmail extends $pb.GeneratedMessage {
+  factory ResendVerificationEmail({
+    $core.String? email,
+  }) {
+    final result = create();
+    if (email != null) result.email = email;
+    return result;
+  }
+
+  ResendVerificationEmail._();
+
+  factory ResendVerificationEmail.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ResendVerificationEmail.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ResendVerificationEmail',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'email')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ResendVerificationEmail clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ResendVerificationEmail copyWith(
+          void Function(ResendVerificationEmail) updates) =>
+      super.copyWith((message) => updates(message as ResendVerificationEmail))
+          as ResendVerificationEmail;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ResendVerificationEmail create() => ResendVerificationEmail._();
+  @$core.override
+  ResendVerificationEmail createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ResendVerificationEmail getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ResendVerificationEmail>(create);
+  static ResendVerificationEmail? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get email => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set email($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => $_clearField(1);
 }
 
 /// Authenticate binds an existing WebSocket session to a prior-issued access
@@ -341,6 +470,8 @@ class AuthTokens extends $pb.GeneratedMessage {
     $0.Timestamp? refreshExpiresAt,
     $core.String? userId,
     $core.String? username,
+    $core.bool? emailVerified,
+    $core.String? email,
   }) {
     final result = create();
     if (accessToken != null) result.accessToken = accessToken;
@@ -349,6 +480,8 @@ class AuthTokens extends $pb.GeneratedMessage {
     if (refreshExpiresAt != null) result.refreshExpiresAt = refreshExpiresAt;
     if (userId != null) result.userId = userId;
     if (username != null) result.username = username;
+    if (emailVerified != null) result.emailVerified = emailVerified;
+    if (email != null) result.email = email;
     return result;
   }
 
@@ -373,6 +506,8 @@ class AuthTokens extends $pb.GeneratedMessage {
         subBuilder: $0.Timestamp.create)
     ..aOS(5, _omitFieldNames ? '' : 'userId')
     ..aOS(6, _omitFieldNames ? '' : 'username')
+    ..aOB(7, _omitFieldNames ? '' : 'emailVerified')
+    ..aOS(8, _omitFieldNames ? '' : 'email')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -450,6 +585,28 @@ class AuthTokens extends $pb.GeneratedMessage {
   $core.bool hasUsername() => $_has(5);
   @$pb.TagNumber(6)
   void clearUsername() => $_clearField(6);
+
+  /// Email-verification status as of the moment these tokens were issued.
+  /// Clients render this — e.g. show a "verify your email" banner when
+  /// email_verified is false. Server policy may or may not block features
+  /// on !email_verified; the token itself is valid either way.
+  @$pb.TagNumber(7)
+  $core.bool get emailVerified => $_getBF(6);
+  @$pb.TagNumber(7)
+  set emailVerified($core.bool value) => $_setBool(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasEmailVerified() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearEmailVerified() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get email => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set email($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasEmail() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearEmail() => $_clearField(8);
 }
 
 class RegisterResponse extends $pb.GeneratedMessage {
@@ -1054,6 +1211,175 @@ class RefreshTokenReuseDetected extends $pb.GeneratedMessage {
   void clearDetectedAt() => $_clearField(3);
   @$pb.TagNumber(3)
   $0.Timestamp ensureDetectedAt() => $_ensure(2);
+}
+
+/// EmailVerified fires when a user completes the verification loop.
+/// Subscribers (ws-broadcast) deliver it to the user's active sessions so
+/// UI can hide the "verify your email" banner without a reload.
+class EmailVerified extends $pb.GeneratedMessage {
+  factory EmailVerified({
+    $core.String? userId,
+    $core.String? email,
+    $0.Timestamp? verifiedAt,
+  }) {
+    final result = create();
+    if (userId != null) result.userId = userId;
+    if (email != null) result.email = email;
+    if (verifiedAt != null) result.verifiedAt = verifiedAt;
+    return result;
+  }
+
+  EmailVerified._();
+
+  factory EmailVerified.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory EmailVerified.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'EmailVerified',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aOS(2, _omitFieldNames ? '' : 'email')
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'verifiedAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EmailVerified clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EmailVerified copyWith(void Function(EmailVerified) updates) =>
+      super.copyWith((message) => updates(message as EmailVerified))
+          as EmailVerified;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EmailVerified create() => EmailVerified._();
+  @$core.override
+  EmailVerified createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static EmailVerified getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<EmailVerified>(create);
+  static EmailVerified? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get email => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set email($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasEmail() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmail() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $0.Timestamp get verifiedAt => $_getN(2);
+  @$pb.TagNumber(3)
+  set verifiedAt($0.Timestamp value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasVerifiedAt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearVerifiedAt() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $0.Timestamp ensureVerifiedAt() => $_ensure(2);
+}
+
+/// VerificationEmailSent fires each time the server dispatches a
+/// verification email (initial registration + resends). Useful for audit,
+/// abuse detection, email-throttle metrics.
+class VerificationEmailSent extends $pb.GeneratedMessage {
+  factory VerificationEmailSent({
+    $core.String? userId,
+    $core.String? email,
+    $0.Timestamp? sentAt,
+  }) {
+    final result = create();
+    if (userId != null) result.userId = userId;
+    if (email != null) result.email = email;
+    if (sentAt != null) result.sentAt = sentAt;
+    return result;
+  }
+
+  VerificationEmailSent._();
+
+  factory VerificationEmailSent.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory VerificationEmailSent.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'VerificationEmailSent',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aOS(2, _omitFieldNames ? '' : 'email')
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'sentAt',
+        subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  VerificationEmailSent clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  VerificationEmailSent copyWith(
+          void Function(VerificationEmailSent) updates) =>
+      super.copyWith((message) => updates(message as VerificationEmailSent))
+          as VerificationEmailSent;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerificationEmailSent create() => VerificationEmailSent._();
+  @$core.override
+  VerificationEmailSent createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static VerificationEmailSent getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<VerificationEmailSent>(create);
+  static VerificationEmailSent? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get email => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set email($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasEmail() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmail() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $0.Timestamp get sentAt => $_getN(2);
+  @$pb.TagNumber(3)
+  set sentAt($0.Timestamp value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasSentAt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSentAt() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $0.Timestamp ensureSentAt() => $_ensure(2);
 }
 
 const $core.bool _omitFieldNames =

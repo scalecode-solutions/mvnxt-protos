@@ -68,6 +68,8 @@ private static final long serialVersionUID = 0L;
     TOKEN_REFRESHED(23),
     USER_LOGGED_OUT(24),
     REFRESH_TOKEN_REUSE_DETECTED(25),
+    EMAIL_VERIFIED(26),
+    VERIFICATION_EMAIL_SENT(27),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -91,6 +93,8 @@ private static final long serialVersionUID = 0L;
         case 23: return TOKEN_REFRESHED;
         case 24: return USER_LOGGED_OUT;
         case 25: return REFRESH_TOKEN_REUSE_DETECTED;
+        case 26: return EMAIL_VERIFIED;
+        case 27: return VERIFICATION_EMAIL_SENT;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -494,6 +498,68 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.RefreshTokenReuseDetected.getDefaultInstance();
   }
 
+  public static final int EMAIL_VERIFIED_FIELD_NUMBER = 26;
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   * @return Whether the emailVerified field is set.
+   */
+  @java.lang.Override
+  public boolean hasEmailVerified() {
+    return payloadCase_ == 26;
+  }
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   * @return The emailVerified.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.EmailVerified getEmailVerified() {
+    if (payloadCase_ == 26) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder getEmailVerifiedOrBuilder() {
+    if (payloadCase_ == 26) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+  }
+
+  public static final int VERIFICATION_EMAIL_SENT_FIELD_NUMBER = 27;
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   * @return Whether the verificationEmailSent field is set.
+   */
+  @java.lang.Override
+  public boolean hasVerificationEmailSent() {
+    return payloadCase_ == 27;
+  }
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   * @return The verificationEmailSent.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent getVerificationEmailSent() {
+    if (payloadCase_ == 27) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder getVerificationEmailSentOrBuilder() {
+    if (payloadCase_ == 27) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -540,6 +606,12 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 25) {
       output.writeMessage(25, (app.mvchat.mvnxt.mvservernxt.v1.RefreshTokenReuseDetected) payload_);
+    }
+    if (payloadCase_ == 26) {
+      output.writeMessage(26, (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_);
+    }
+    if (payloadCase_ == 27) {
+      output.writeMessage(27, (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -592,6 +664,14 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 25) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(25, (app.mvchat.mvnxt.mvservernxt.v1.RefreshTokenReuseDetected) payload_);
+    }
+    if (payloadCase_ == 26) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(26, (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_);
+    }
+    if (payloadCase_ == 27) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(27, (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -653,6 +733,14 @@ private static final long serialVersionUID = 0L;
         if (!getRefreshTokenReuseDetected()
             .equals(other.getRefreshTokenReuseDetected())) return false;
         break;
+      case 26:
+        if (!getEmailVerified()
+            .equals(other.getEmailVerified())) return false;
+        break;
+      case 27:
+        if (!getVerificationEmailSent()
+            .equals(other.getVerificationEmailSent())) return false;
+        break;
       case 0:
       default:
     }
@@ -708,6 +796,14 @@ private static final long serialVersionUID = 0L;
       case 25:
         hash = (37 * hash) + REFRESH_TOKEN_REUSE_DETECTED_FIELD_NUMBER;
         hash = (53 * hash) + getRefreshTokenReuseDetected().hashCode();
+        break;
+      case 26:
+        hash = (37 * hash) + EMAIL_VERIFIED_FIELD_NUMBER;
+        hash = (53 * hash) + getEmailVerified().hashCode();
+        break;
+      case 27:
+        hash = (37 * hash) + VERIFICATION_EMAIL_SENT_FIELD_NUMBER;
+        hash = (53 * hash) + getVerificationEmailSent().hashCode();
         break;
       case 0:
       default:
@@ -892,6 +988,12 @@ private static final long serialVersionUID = 0L;
       if (refreshTokenReuseDetectedBuilder_ != null) {
         refreshTokenReuseDetectedBuilder_.clear();
       }
+      if (emailVerifiedBuilder_ != null) {
+        emailVerifiedBuilder_.clear();
+      }
+      if (verificationEmailSentBuilder_ != null) {
+        verificationEmailSentBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -983,6 +1085,14 @@ private static final long serialVersionUID = 0L;
           refreshTokenReuseDetectedBuilder_ != null) {
         result.payload_ = refreshTokenReuseDetectedBuilder_.build();
       }
+      if (payloadCase_ == 26 &&
+          emailVerifiedBuilder_ != null) {
+        result.payload_ = emailVerifiedBuilder_.build();
+      }
+      if (payloadCase_ == 27 &&
+          verificationEmailSentBuilder_ != null) {
+        result.payload_ = verificationEmailSentBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -1037,6 +1147,14 @@ private static final long serialVersionUID = 0L;
         }
         case REFRESH_TOKEN_REUSE_DETECTED: {
           mergeRefreshTokenReuseDetected(other.getRefreshTokenReuseDetected());
+          break;
+        }
+        case EMAIL_VERIFIED: {
+          mergeEmailVerified(other.getEmailVerified());
+          break;
+        }
+        case VERIFICATION_EMAIL_SENT: {
+          mergeVerificationEmailSent(other.getVerificationEmailSent());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -1142,6 +1260,20 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 25;
               break;
             } // case 202
+            case 210: {
+              input.readMessage(
+                  internalGetEmailVerifiedFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 26;
+              break;
+            } // case 210
+            case 218: {
+              input.readMessage(
+                  internalGetVerificationEmailSentFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 27;
+              break;
+            } // case 218
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2708,6 +2840,290 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 25;
       onChanged();
       return refreshTokenReuseDetectedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.EmailVerified, app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.Builder, app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder> emailVerifiedBuilder_;
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     * @return Whether the emailVerified field is set.
+     */
+    @java.lang.Override
+    public boolean hasEmailVerified() {
+      return payloadCase_ == 26;
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     * @return The emailVerified.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.EmailVerified getEmailVerified() {
+      if (emailVerifiedBuilder_ == null) {
+        if (payloadCase_ == 26) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 26) {
+          return emailVerifiedBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    public Builder setEmailVerified(app.mvchat.mvnxt.mvservernxt.v1.EmailVerified value) {
+      if (emailVerifiedBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        emailVerifiedBuilder_.setMessage(value);
+      }
+      payloadCase_ = 26;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    public Builder setEmailVerified(
+        app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.Builder builderForValue) {
+      if (emailVerifiedBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        emailVerifiedBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 26;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    public Builder mergeEmailVerified(app.mvchat.mvnxt.mvservernxt.v1.EmailVerified value) {
+      if (emailVerifiedBuilder_ == null) {
+        if (payloadCase_ == 26 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 26) {
+          emailVerifiedBuilder_.mergeFrom(value);
+        } else {
+          emailVerifiedBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 26;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    public Builder clearEmailVerified() {
+      if (emailVerifiedBuilder_ == null) {
+        if (payloadCase_ == 26) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 26) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        emailVerifiedBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.Builder getEmailVerifiedBuilder() {
+      return internalGetEmailVerifiedFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder getEmailVerifiedOrBuilder() {
+      if ((payloadCase_ == 26) && (emailVerifiedBuilder_ != null)) {
+        return emailVerifiedBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 26) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.EmailVerified, app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.Builder, app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder> 
+        internalGetEmailVerifiedFieldBuilder() {
+      if (emailVerifiedBuilder_ == null) {
+        if (!(payloadCase_ == 26)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.getDefaultInstance();
+        }
+        emailVerifiedBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.EmailVerified, app.mvchat.mvnxt.mvservernxt.v1.EmailVerified.Builder, app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.EmailVerified) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 26;
+      onChanged();
+      return emailVerifiedBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.Builder, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder> verificationEmailSentBuilder_;
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     * @return Whether the verificationEmailSent field is set.
+     */
+    @java.lang.Override
+    public boolean hasVerificationEmailSent() {
+      return payloadCase_ == 27;
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     * @return The verificationEmailSent.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent getVerificationEmailSent() {
+      if (verificationEmailSentBuilder_ == null) {
+        if (payloadCase_ == 27) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 27) {
+          return verificationEmailSentBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    public Builder setVerificationEmailSent(app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent value) {
+      if (verificationEmailSentBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        verificationEmailSentBuilder_.setMessage(value);
+      }
+      payloadCase_ = 27;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    public Builder setVerificationEmailSent(
+        app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.Builder builderForValue) {
+      if (verificationEmailSentBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        verificationEmailSentBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 27;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    public Builder mergeVerificationEmailSent(app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent value) {
+      if (verificationEmailSentBuilder_ == null) {
+        if (payloadCase_ == 27 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 27) {
+          verificationEmailSentBuilder_.mergeFrom(value);
+        } else {
+          verificationEmailSentBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 27;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    public Builder clearVerificationEmailSent() {
+      if (verificationEmailSentBuilder_ == null) {
+        if (payloadCase_ == 27) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 27) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        verificationEmailSentBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.Builder getVerificationEmailSentBuilder() {
+      return internalGetVerificationEmailSentFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder getVerificationEmailSentOrBuilder() {
+      if ((payloadCase_ == 27) && (verificationEmailSentBuilder_ != null)) {
+        return verificationEmailSentBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 27) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.Builder, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder> 
+        internalGetVerificationEmailSentFieldBuilder() {
+      if (verificationEmailSentBuilder_ == null) {
+        if (!(payloadCase_ == 27)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.getDefaultInstance();
+        }
+        verificationEmailSentBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent.Builder, app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 27;
+      onChanged();
+      return verificationEmailSentBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Event)

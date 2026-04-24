@@ -237,5 +237,35 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.RefreshTokenReuseDetectedOrBuilder getRefreshTokenReuseDetectedOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   * @return Whether the emailVerified field is set.
+   */
+  boolean hasEmailVerified();
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   * @return The emailVerified.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EmailVerified getEmailVerified();
+  /**
+   * <code>.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.EmailVerifiedOrBuilder getEmailVerifiedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   * @return Whether the verificationEmailSent field is set.
+   */
+  boolean hasVerificationEmailSent();
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   * @return The verificationEmailSent.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent getVerificationEmailSent();
+  /**
+   * <code>.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder getVerificationEmailSentOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

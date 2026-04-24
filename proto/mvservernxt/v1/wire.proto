@@ -36,11 +36,13 @@ message ClientEnvelope {
     Hello hello = 11;
 
     // Identity
-    Register     register     = 20;
-    Authenticate authenticate = 21;
-    Login        login        = 22;
-    Refresh      refresh      = 23;
-    Logout       logout       = 24;
+    Register                register                   = 20;
+    Authenticate            authenticate               = 21;
+    Login                   login                      = 22;
+    Refresh                 refresh                    = 23;
+    Logout                  logout                     = 24;
+    VerifyEmail             verify_email               = 25;
+    ResendVerificationEmail resend_verification_email  = 26;
 
     // Other domains land in their reserved ranges:
     //   30-39  chat
@@ -134,5 +136,7 @@ message Event {
     TokenRefreshed             token_refreshed              = 23;
     UserLoggedOut              user_logged_out              = 24;
     RefreshTokenReuseDetected  refresh_token_reuse_detected = 25;
+    EmailVerified              email_verified               = 26;
+    VerificationEmailSent      verification_email_sent      = 27;
   }
 }

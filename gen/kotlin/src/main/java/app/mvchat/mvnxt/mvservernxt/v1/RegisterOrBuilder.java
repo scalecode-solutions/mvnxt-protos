@@ -69,4 +69,26 @@ public interface RegisterOrBuilder extends
    */
   com.google.protobuf.ByteString
       getDisplayNameBytes();
+
+  /**
+   * <pre>
+   * Email. Required when the server runs with email verification enabled;
+   * optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+   * </pre>
+   *
+   * <code>string email = 4 [json_name = "email"];</code>
+   * @return The email.
+   */
+  java.lang.String getEmail();
+  /**
+   * <pre>
+   * Email. Required when the server runs with email verification enabled;
+   * optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+   * </pre>
+   *
+   * <code>string email = 4 [json_name = "email"];</code>
+   * @return The bytes for email.
+   */
+  com.google.protobuf.ByteString
+      getEmailBytes();
 }

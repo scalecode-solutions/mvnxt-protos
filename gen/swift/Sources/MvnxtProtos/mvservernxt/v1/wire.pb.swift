@@ -107,6 +107,22 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     set {payload = .logout(newValue)}
   }
 
+  public var verifyEmail: Mvservernxt_V1_VerifyEmail {
+    get {
+      if case .verifyEmail(let v)? = payload {return v}
+      return Mvservernxt_V1_VerifyEmail()
+    }
+    set {payload = .verifyEmail(newValue)}
+  }
+
+  public var resendVerificationEmail: Mvservernxt_V1_ResendVerificationEmail {
+    get {
+      if case .resendVerificationEmail(let v)? = payload {return v}
+      return Mvservernxt_V1_ResendVerificationEmail()
+    }
+    set {payload = .resendVerificationEmail(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Exactly one payload must be set. Domain-specific command types
@@ -124,6 +140,8 @@ public struct Mvservernxt_V1_ClientEnvelope: Sendable {
     case login(Mvservernxt_V1_Login)
     case refresh(Mvservernxt_V1_Refresh)
     case logout(Mvservernxt_V1_Logout)
+    case verifyEmail(Mvservernxt_V1_VerifyEmail)
+    case resendVerificationEmail(Mvservernxt_V1_ResendVerificationEmail)
 
   }
 
@@ -375,6 +393,22 @@ public struct Mvservernxt_V1_Event: Sendable {
     set {payload = .refreshTokenReuseDetected(newValue)}
   }
 
+  public var emailVerified: Mvservernxt_V1_EmailVerified {
+    get {
+      if case .emailVerified(let v)? = payload {return v}
+      return Mvservernxt_V1_EmailVerified()
+    }
+    set {payload = .emailVerified(newValue)}
+  }
+
+  public var verificationEmailSent: Mvservernxt_V1_VerificationEmailSent {
+    get {
+      if case .verificationEmailSent(let v)? = payload {return v}
+      return Mvservernxt_V1_VerificationEmailSent()
+    }
+    set {payload = .verificationEmailSent(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Kind-specific payload.
@@ -387,6 +421,8 @@ public struct Mvservernxt_V1_Event: Sendable {
     case tokenRefreshed(Mvservernxt_V1_TokenRefreshed)
     case userLoggedOut(Mvservernxt_V1_UserLoggedOut)
     case refreshTokenReuseDetected(Mvservernxt_V1_RefreshTokenReuseDetected)
+    case emailVerified(Mvservernxt_V1_EmailVerified)
+    case verificationEmailSent(Mvservernxt_V1_VerificationEmailSent)
 
   }
 
@@ -403,7 +439,7 @@ fileprivate let _protobuf_package = "mvservernxt.v1"
 
 extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ClientEnvelope"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}idempotency_key\0\u{2}\u{9}ping\0\u{1}hello\0\u{2}\u{9}register\0\u{1}authenticate\0\u{1}login\0\u{1}refresh\0\u{1}logout\0\u{3}verify_email\0\u{3}resend_verification_email\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -503,6 +539,32 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
           self.payload = .logout(v)
         }
       }()
+      case 25: try {
+        var v: Mvservernxt_V1_VerifyEmail?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .verifyEmail(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .verifyEmail(v)
+        }
+      }()
+      case 26: try {
+        var v: Mvservernxt_V1_ResendVerificationEmail?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .resendVerificationEmail(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .resendVerificationEmail(v)
+        }
+      }()
       default: break
       }
     }
@@ -544,6 +606,14 @@ extension Mvservernxt_V1_ClientEnvelope: SwiftProtobuf.Message, SwiftProtobuf._M
     case .logout?: try {
       guard case .logout(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
+    }()
+    case .verifyEmail?: try {
+      guard case .verifyEmail(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
+    }()
+    case .resendVerificationEmail?: try {
+      guard case .resendVerificationEmail(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
     }()
     case nil: break
     }
@@ -817,7 +887,7 @@ extension Mvservernxt_V1_Err: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
 extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}seq\0\u{1}stream\0\u{1}timestamp\0\u{3}actor_id\0\u{3}aggregate_id\0\u{4}\u{5}system_notice\0\u{4}\u{a}user_registered\0\u{4}\u{2}user_logged_in\0\u{3}token_refreshed\0\u{3}user_logged_out\0\u{3}refresh_token_reuse_detected\0\u{3}email_verified\0\u{3}verification_email_sent\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -908,6 +978,32 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
           self.payload = .refreshTokenReuseDetected(v)
         }
       }()
+      case 26: try {
+        var v: Mvservernxt_V1_EmailVerified?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .emailVerified(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .emailVerified(v)
+        }
+      }()
+      case 27: try {
+        var v: Mvservernxt_V1_VerificationEmailSent?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .verificationEmailSent(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .verificationEmailSent(v)
+        }
+      }()
       default: break
       }
     }
@@ -957,6 +1053,14 @@ extension Mvservernxt_V1_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     case .refreshTokenReuseDetected?: try {
       guard case .refreshTokenReuseDetected(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
+    }()
+    case .emailVerified?: try {
+      guard case .emailVerified(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
+    }()
+    case .verificationEmailSent?: try {
+      guard case .verificationEmailSent(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
     }()
     case nil: break
     }

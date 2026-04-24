@@ -32,6 +32,16 @@ public final class IdentityProto extends com.google.protobuf.GeneratedFile {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_Register_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_VerifyEmail_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_VerifyEmail_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_ResendVerificationEmail_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_ResendVerificationEmail_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_mvservernxt_v1_Authenticate_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -96,6 +106,16 @@ public final class IdentityProto extends com.google.protobuf.GeneratedFile {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mvservernxt_v1_RefreshTokenReuseDetected_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_EmailVerified_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_EmailVerified_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mvservernxt_v1_VerificationEmailSent_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mvservernxt_v1_VerificationEmailSent_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -107,50 +127,61 @@ public final class IdentityProto extends com.google.protobuf.GeneratedFile {
     java.lang.String[] descriptorData = {
       "\n\035mvservernxt/v1/identity.proto\022\016mvserve" +
       "rnxt.v1\032\037google/protobuf/timestamp.proto" +
-      "\"e\n\010Register\022\032\n\010username\030\001 \001(\tR\010username" +
+      "\"{\n\010Register\022\032\n\010username\030\001 \001(\tR\010username" +
       "\022\032\n\010password\030\002 \001(\tR\010password\022!\n\014display_" +
-      "name\030\003 \001(\tR\013displayName\"1\n\014Authenticate\022" +
-      "!\n\014access_token\030\001 \001(\tR\013accessToken\"?\n\005Lo" +
-      "gin\022\032\n\010username\030\001 \001(\tR\010username\022\032\n\010passw" +
-      "ord\030\002 \001(\tR\010password\".\n\007Refresh\022#\n\rrefres" +
-      "h_token\030\001 \001(\tR\014refreshToken\")\n\006Logout\022\037\n" +
-      "\013all_devices\030\001 \001(\010R\nallDevices\"\233\002\n\nAuthT" +
-      "okens\022!\n\014access_token\030\001 \001(\tR\013accessToken" +
-      "\022#\n\rrefresh_token\030\002 \001(\tR\014refreshToken\022F\n" +
-      "\021access_expires_at\030\003 \001(\0132\032.google.protob" +
-      "uf.TimestampR\017accessExpiresAt\022H\n\022refresh" +
-      "_expires_at\030\004 \001(\0132\032.google.protobuf.Time" +
-      "stampR\020refreshExpiresAt\022\027\n\007user_id\030\005 \001(\t" +
-      "R\006userId\022\032\n\010username\030\006 \001(\tR\010username\"F\n\020" +
-      "RegisterResponse\0222\n\006tokens\030\001 \001(\0132\032.mvser" +
-      "vernxt.v1.AuthTokensR\006tokens\"C\n\rLoginRes" +
+      "name\030\003 \001(\tR\013displayName\022\024\n\005email\030\004 \001(\tR\005" +
+      "email\"#\n\013VerifyEmail\022\024\n\005token\030\001 \001(\tR\005tok" +
+      "en\"/\n\027ResendVerificationEmail\022\024\n\005email\030\001" +
+      " \001(\tR\005email\"1\n\014Authenticate\022!\n\014access_to" +
+      "ken\030\001 \001(\tR\013accessToken\"?\n\005Login\022\032\n\010usern" +
+      "ame\030\001 \001(\tR\010username\022\032\n\010password\030\002 \001(\tR\010p" +
+      "assword\".\n\007Refresh\022#\n\rrefresh_token\030\001 \001(" +
+      "\tR\014refreshToken\")\n\006Logout\022\037\n\013all_devices" +
+      "\030\001 \001(\010R\nallDevices\"\330\002\n\nAuthTokens\022!\n\014acc" +
+      "ess_token\030\001 \001(\tR\013accessToken\022#\n\rrefresh_" +
+      "token\030\002 \001(\tR\014refreshToken\022F\n\021access_expi" +
+      "res_at\030\003 \001(\0132\032.google.protobuf.Timestamp" +
+      "R\017accessExpiresAt\022H\n\022refresh_expires_at\030" +
+      "\004 \001(\0132\032.google.protobuf.TimestampR\020refre" +
+      "shExpiresAt\022\027\n\007user_id\030\005 \001(\tR\006userId\022\032\n\010" +
+      "username\030\006 \001(\tR\010username\022%\n\016email_verifi" +
+      "ed\030\007 \001(\010R\remailVerified\022\024\n\005email\030\010 \001(\tR\005" +
+      "email\"F\n\020RegisterResponse\0222\n\006tokens\030\001 \001(" +
+      "\0132\032.mvservernxt.v1.AuthTokensR\006tokens\"C\n" +
+      "\rLoginResponse\0222\n\006tokens\030\001 \001(\0132\032.mvserve" +
+      "rnxt.v1.AuthTokensR\006tokens\"E\n\017RefreshRes" +
       "ponse\0222\n\006tokens\030\001 \001(\0132\032.mvservernxt.v1.A" +
-      "uthTokensR\006tokens\"E\n\017RefreshResponse\0222\n\006" +
-      "tokens\030\001 \001(\0132\032.mvservernxt.v1.AuthTokens" +
-      "R\006tokens\"\206\001\n\016UserRegistered\022\027\n\007user_id\030\001" +
-      " \001(\tR\006userId\022\032\n\010username\030\002 \001(\tR\010username" +
-      "\022?\n\rregistered_at\030\003 \001(\0132\032.google.protobu" +
-      "f.TimestampR\014registeredAt\"w\n\014UserLoggedI" +
-      "n\022\027\n\007user_id\030\001 \001(\tR\006userId\022\020\n\003jti\030\002 \001(\tR" +
-      "\003jti\022<\n\014logged_in_at\030\003 \001(\0132\032.google.prot" +
-      "obuf.TimestampR\nloggedInAt\"\236\001\n\016TokenRefr" +
-      "eshed\022\027\n\007user_id\030\001 \001(\tR\006userId\022\033\n\tfamily" +
-      "_id\030\002 \001(\tR\010familyId\022\027\n\007new_jti\030\003 \001(\tR\006ne" +
-      "wJti\022=\n\014refreshed_at\030\004 \001(\0132\032.google.prot" +
-      "obuf.TimestampR\013refreshedAt\"\233\001\n\rUserLogg" +
-      "edOut\022\027\n\007user_id\030\001 \001(\tR\006userId\022\020\n\003jti\030\002 " +
-      "\001(\tR\003jti\022\037\n\013all_devices\030\003 \001(\010R\nallDevice" +
-      "s\022>\n\rlogged_out_at\030\004 \001(\0132\032.google.protob" +
-      "uf.TimestampR\013loggedOutAt\"\216\001\n\031RefreshTok" +
-      "enReuseDetected\022\027\n\007user_id\030\001 \001(\tR\006userId" +
-      "\022\033\n\tfamily_id\030\002 \001(\tR\010familyId\022;\n\013detecte" +
-      "d_at\030\003 \001(\0132\032.google.protobuf.TimestampR\n" +
-      "detectedAtB\332\001\n\037app.mvchat.mvnxt.mvserver" +
-      "nxt.v1B\rIdentityProtoP\001ZOgithub.com/scal" +
-      "ecode-solutions/mvnxt-protos/gen/go/mvse" +
-      "rvernxt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvserve" +
-      "rnxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V" +
-      "1\\GPBMetadata\352\002\017Mvservernxt::V1b\006proto3"
+      "uthTokensR\006tokens\"\206\001\n\016UserRegistered\022\027\n\007" +
+      "user_id\030\001 \001(\tR\006userId\022\032\n\010username\030\002 \001(\tR" +
+      "\010username\022?\n\rregistered_at\030\003 \001(\0132\032.googl" +
+      "e.protobuf.TimestampR\014registeredAt\"w\n\014Us" +
+      "erLoggedIn\022\027\n\007user_id\030\001 \001(\tR\006userId\022\020\n\003j" +
+      "ti\030\002 \001(\tR\003jti\022<\n\014logged_in_at\030\003 \001(\0132\032.go" +
+      "ogle.protobuf.TimestampR\nloggedInAt\"\236\001\n\016" +
+      "TokenRefreshed\022\027\n\007user_id\030\001 \001(\tR\006userId\022" +
+      "\033\n\tfamily_id\030\002 \001(\tR\010familyId\022\027\n\007new_jti\030" +
+      "\003 \001(\tR\006newJti\022=\n\014refreshed_at\030\004 \001(\0132\032.go" +
+      "ogle.protobuf.TimestampR\013refreshedAt\"\233\001\n" +
+      "\rUserLoggedOut\022\027\n\007user_id\030\001 \001(\tR\006userId\022" +
+      "\020\n\003jti\030\002 \001(\tR\003jti\022\037\n\013all_devices\030\003 \001(\010R\n" +
+      "allDevices\022>\n\rlogged_out_at\030\004 \001(\0132\032.goog" +
+      "le.protobuf.TimestampR\013loggedOutAt\"\216\001\n\031R" +
+      "efreshTokenReuseDetected\022\027\n\007user_id\030\001 \001(" +
+      "\tR\006userId\022\033\n\tfamily_id\030\002 \001(\tR\010familyId\022;" +
+      "\n\013detected_at\030\003 \001(\0132\032.google.protobuf.Ti" +
+      "mestampR\ndetectedAt\"{\n\rEmailVerified\022\027\n\007" +
+      "user_id\030\001 \001(\tR\006userId\022\024\n\005email\030\002 \001(\tR\005em" +
+      "ail\022;\n\013verified_at\030\003 \001(\0132\032.google.protob" +
+      "uf.TimestampR\nverifiedAt\"{\n\025Verification" +
+      "EmailSent\022\027\n\007user_id\030\001 \001(\tR\006userId\022\024\n\005em" +
+      "ail\030\002 \001(\tR\005email\0223\n\007sent_at\030\003 \001(\0132\032.goog" +
+      "le.protobuf.TimestampR\006sentAtB\332\001\n\037app.mv" +
+      "chat.mvnxt.mvservernxt.v1B\rIdentityProto" +
+      "P\001ZOgithub.com/scalecode-solutions/mvnxt" +
+      "-protos/gen/go/mvservernxt/v1;mvservernx" +
+      "tv1\242\002\003MXX\252\002\016Mvservernxt.V1\312\002\016Mvservernxt" +
+      "\\V1\342\002\032Mvservernxt\\V1\\GPBMetadata\352\002\017Mvser" +
+      "vernxt::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -162,85 +193,109 @@ public final class IdentityProto extends com.google.protobuf.GeneratedFile {
     internal_static_mvservernxt_v1_Register_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Register_descriptor,
-        new java.lang.String[] { "Username", "Password", "DisplayName", });
-    internal_static_mvservernxt_v1_Authenticate_descriptor =
+        new java.lang.String[] { "Username", "Password", "DisplayName", "Email", });
+    internal_static_mvservernxt_v1_VerifyEmail_descriptor =
       getDescriptor().getMessageType(1);
+    internal_static_mvservernxt_v1_VerifyEmail_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_VerifyEmail_descriptor,
+        new java.lang.String[] { "Token", });
+    internal_static_mvservernxt_v1_ResendVerificationEmail_descriptor =
+      getDescriptor().getMessageType(2);
+    internal_static_mvservernxt_v1_ResendVerificationEmail_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_ResendVerificationEmail_descriptor,
+        new java.lang.String[] { "Email", });
+    internal_static_mvservernxt_v1_Authenticate_descriptor =
+      getDescriptor().getMessageType(3);
     internal_static_mvservernxt_v1_Authenticate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Authenticate_descriptor,
         new java.lang.String[] { "AccessToken", });
     internal_static_mvservernxt_v1_Login_descriptor =
-      getDescriptor().getMessageType(2);
+      getDescriptor().getMessageType(4);
     internal_static_mvservernxt_v1_Login_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Login_descriptor,
         new java.lang.String[] { "Username", "Password", });
     internal_static_mvservernxt_v1_Refresh_descriptor =
-      getDescriptor().getMessageType(3);
+      getDescriptor().getMessageType(5);
     internal_static_mvservernxt_v1_Refresh_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Refresh_descriptor,
         new java.lang.String[] { "RefreshToken", });
     internal_static_mvservernxt_v1_Logout_descriptor =
-      getDescriptor().getMessageType(4);
+      getDescriptor().getMessageType(6);
     internal_static_mvservernxt_v1_Logout_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_Logout_descriptor,
         new java.lang.String[] { "AllDevices", });
     internal_static_mvservernxt_v1_AuthTokens_descriptor =
-      getDescriptor().getMessageType(5);
+      getDescriptor().getMessageType(7);
     internal_static_mvservernxt_v1_AuthTokens_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_AuthTokens_descriptor,
-        new java.lang.String[] { "AccessToken", "RefreshToken", "AccessExpiresAt", "RefreshExpiresAt", "UserId", "Username", });
+        new java.lang.String[] { "AccessToken", "RefreshToken", "AccessExpiresAt", "RefreshExpiresAt", "UserId", "Username", "EmailVerified", "Email", });
     internal_static_mvservernxt_v1_RegisterResponse_descriptor =
-      getDescriptor().getMessageType(6);
+      getDescriptor().getMessageType(8);
     internal_static_mvservernxt_v1_RegisterResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_RegisterResponse_descriptor,
         new java.lang.String[] { "Tokens", });
     internal_static_mvservernxt_v1_LoginResponse_descriptor =
-      getDescriptor().getMessageType(7);
+      getDescriptor().getMessageType(9);
     internal_static_mvservernxt_v1_LoginResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_LoginResponse_descriptor,
         new java.lang.String[] { "Tokens", });
     internal_static_mvservernxt_v1_RefreshResponse_descriptor =
-      getDescriptor().getMessageType(8);
+      getDescriptor().getMessageType(10);
     internal_static_mvservernxt_v1_RefreshResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_RefreshResponse_descriptor,
         new java.lang.String[] { "Tokens", });
     internal_static_mvservernxt_v1_UserRegistered_descriptor =
-      getDescriptor().getMessageType(9);
+      getDescriptor().getMessageType(11);
     internal_static_mvservernxt_v1_UserRegistered_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_UserRegistered_descriptor,
         new java.lang.String[] { "UserId", "Username", "RegisteredAt", });
     internal_static_mvservernxt_v1_UserLoggedIn_descriptor =
-      getDescriptor().getMessageType(10);
+      getDescriptor().getMessageType(12);
     internal_static_mvservernxt_v1_UserLoggedIn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_UserLoggedIn_descriptor,
         new java.lang.String[] { "UserId", "Jti", "LoggedInAt", });
     internal_static_mvservernxt_v1_TokenRefreshed_descriptor =
-      getDescriptor().getMessageType(11);
+      getDescriptor().getMessageType(13);
     internal_static_mvservernxt_v1_TokenRefreshed_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_TokenRefreshed_descriptor,
         new java.lang.String[] { "UserId", "FamilyId", "NewJti", "RefreshedAt", });
     internal_static_mvservernxt_v1_UserLoggedOut_descriptor =
-      getDescriptor().getMessageType(12);
+      getDescriptor().getMessageType(14);
     internal_static_mvservernxt_v1_UserLoggedOut_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_UserLoggedOut_descriptor,
         new java.lang.String[] { "UserId", "Jti", "AllDevices", "LoggedOutAt", });
     internal_static_mvservernxt_v1_RefreshTokenReuseDetected_descriptor =
-      getDescriptor().getMessageType(13);
+      getDescriptor().getMessageType(15);
     internal_static_mvservernxt_v1_RefreshTokenReuseDetected_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_mvservernxt_v1_RefreshTokenReuseDetected_descriptor,
         new java.lang.String[] { "UserId", "FamilyId", "DetectedAt", });
+    internal_static_mvservernxt_v1_EmailVerified_descriptor =
+      getDescriptor().getMessageType(16);
+    internal_static_mvservernxt_v1_EmailVerified_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_EmailVerified_descriptor,
+        new java.lang.String[] { "UserId", "Email", "VerifiedAt", });
+    internal_static_mvservernxt_v1_VerificationEmailSent_descriptor =
+      getDescriptor().getMessageType(17);
+    internal_static_mvservernxt_v1_VerificationEmailSent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_mvservernxt_v1_VerificationEmailSent_descriptor,
+        new java.lang.String[] { "UserId", "Email", "SentAt", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.TimestampProto.getDescriptor();
   }

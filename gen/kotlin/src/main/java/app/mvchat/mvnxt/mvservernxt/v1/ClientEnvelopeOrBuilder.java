@@ -159,5 +159,35 @@ public interface ClientEnvelopeOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.LogoutOrBuilder getLogoutOrBuilder();
 
+  /**
+   * <code>.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];</code>
+   * @return Whether the verifyEmail field is set.
+   */
+  boolean hasVerifyEmail();
+  /**
+   * <code>.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];</code>
+   * @return The verifyEmail.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.VerifyEmail getVerifyEmail();
+  /**
+   * <code>.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.VerifyEmailOrBuilder getVerifyEmailOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];</code>
+   * @return Whether the resendVerificationEmail field is set.
+   */
+  boolean hasResendVerificationEmail();
+  /**
+   * <code>.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];</code>
+   * @return The resendVerificationEmail.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmail getResendVerificationEmail();
+  /**
+   * <code>.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmailOrBuilder getResendVerificationEmailOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase getPayloadCase();
 }

@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dmvservernxt/v1/identity.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"e\n\x08Register\x12\x1a\n\x08username\x18\x01 \x01(\tR\x08username\x12\x1a\n\x08password\x18\x02 \x01(\tR\x08password\x12!\n\x0c\x64isplay_name\x18\x03 \x01(\tR\x0b\x64isplayName\"1\n\x0c\x41uthenticate\x12!\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\tR\x0b\x61\x63\x63\x65ssToken\"?\n\x05Login\x12\x1a\n\x08username\x18\x01 \x01(\tR\x08username\x12\x1a\n\x08password\x18\x02 \x01(\tR\x08password\".\n\x07Refresh\x12#\n\rrefresh_token\x18\x01 \x01(\tR\x0crefreshToken\")\n\x06Logout\x12\x1f\n\x0b\x61ll_devices\x18\x01 \x01(\x08R\nallDevices\"\x9b\x02\n\nAuthTokens\x12!\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\tR\x0b\x61\x63\x63\x65ssToken\x12#\n\rrefresh_token\x18\x02 \x01(\tR\x0crefreshToken\x12\x46\n\x11\x61\x63\x63\x65ss_expires_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0f\x61\x63\x63\x65ssExpiresAt\x12H\n\x12refresh_expires_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x10refreshExpiresAt\x12\x17\n\x07user_id\x18\x05 \x01(\tR\x06userId\x12\x1a\n\x08username\x18\x06 \x01(\tR\x08username\"F\n\x10RegisterResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"C\n\rLoginResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"E\n\x0fRefreshResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"\x86\x01\n\x0eUserRegistered\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n\x08username\x18\x02 \x01(\tR\x08username\x12?\n\rregistered_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0cregisteredAt\"w\n\x0cUserLoggedIn\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x10\n\x03jti\x18\x02 \x01(\tR\x03jti\x12<\n\x0clogged_in_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\nloggedInAt\"\x9e\x01\n\x0eTokenRefreshed\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n\tfamily_id\x18\x02 \x01(\tR\x08\x66\x61milyId\x12\x17\n\x07new_jti\x18\x03 \x01(\tR\x06newJti\x12=\n\x0crefreshed_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0brefreshedAt\"\x9b\x01\n\rUserLoggedOut\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x10\n\x03jti\x18\x02 \x01(\tR\x03jti\x12\x1f\n\x0b\x61ll_devices\x18\x03 \x01(\x08R\nallDevices\x12>\n\rlogged_out_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0bloggedOutAt\"\x8e\x01\n\x19RefreshTokenReuseDetected\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n\tfamily_id\x18\x02 \x01(\tR\x08\x66\x61milyId\x12;\n\x0b\x64\x65tected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\ndetectedAtB\xda\x01\n\x1f\x61pp.mvchat.mvnxt.mvservernxt.v1B\rIdentityProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dmvservernxt/v1/identity.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"{\n\x08Register\x12\x1a\n\x08username\x18\x01 \x01(\tR\x08username\x12\x1a\n\x08password\x18\x02 \x01(\tR\x08password\x12!\n\x0c\x64isplay_name\x18\x03 \x01(\tR\x0b\x64isplayName\x12\x14\n\x05\x65mail\x18\x04 \x01(\tR\x05\x65mail\"#\n\x0bVerifyEmail\x12\x14\n\x05token\x18\x01 \x01(\tR\x05token\"/\n\x17ResendVerificationEmail\x12\x14\n\x05\x65mail\x18\x01 \x01(\tR\x05\x65mail\"1\n\x0c\x41uthenticate\x12!\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\tR\x0b\x61\x63\x63\x65ssToken\"?\n\x05Login\x12\x1a\n\x08username\x18\x01 \x01(\tR\x08username\x12\x1a\n\x08password\x18\x02 \x01(\tR\x08password\".\n\x07Refresh\x12#\n\rrefresh_token\x18\x01 \x01(\tR\x0crefreshToken\")\n\x06Logout\x12\x1f\n\x0b\x61ll_devices\x18\x01 \x01(\x08R\nallDevices\"\xd8\x02\n\nAuthTokens\x12!\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\tR\x0b\x61\x63\x63\x65ssToken\x12#\n\rrefresh_token\x18\x02 \x01(\tR\x0crefreshToken\x12\x46\n\x11\x61\x63\x63\x65ss_expires_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0f\x61\x63\x63\x65ssExpiresAt\x12H\n\x12refresh_expires_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x10refreshExpiresAt\x12\x17\n\x07user_id\x18\x05 \x01(\tR\x06userId\x12\x1a\n\x08username\x18\x06 \x01(\tR\x08username\x12%\n\x0e\x65mail_verified\x18\x07 \x01(\x08R\remailVerified\x12\x14\n\x05\x65mail\x18\x08 \x01(\tR\x05\x65mail\"F\n\x10RegisterResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"C\n\rLoginResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"E\n\x0fRefreshResponse\x12\x32\n\x06tokens\x18\x01 \x01(\x0b\x32\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"\x86\x01\n\x0eUserRegistered\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n\x08username\x18\x02 \x01(\tR\x08username\x12?\n\rregistered_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0cregisteredAt\"w\n\x0cUserLoggedIn\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x10\n\x03jti\x18\x02 \x01(\tR\x03jti\x12<\n\x0clogged_in_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\nloggedInAt\"\x9e\x01\n\x0eTokenRefreshed\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n\tfamily_id\x18\x02 \x01(\tR\x08\x66\x61milyId\x12\x17\n\x07new_jti\x18\x03 \x01(\tR\x06newJti\x12=\n\x0crefreshed_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0brefreshedAt\"\x9b\x01\n\rUserLoggedOut\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x10\n\x03jti\x18\x02 \x01(\tR\x03jti\x12\x1f\n\x0b\x61ll_devices\x18\x03 \x01(\x08R\nallDevices\x12>\n\rlogged_out_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x0bloggedOutAt\"\x8e\x01\n\x19RefreshTokenReuseDetected\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n\tfamily_id\x18\x02 \x01(\tR\x08\x66\x61milyId\x12;\n\x0b\x64\x65tected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\ndetectedAt\"{\n\rEmailVerified\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x14\n\x05\x65mail\x18\x02 \x01(\tR\x05\x65mail\x12;\n\x0bverified_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\nverifiedAt\"{\n\x15VerificationEmailSent\x12\x17\n\x07user_id\x18\x01 \x01(\tR\x06userId\x12\x14\n\x05\x65mail\x18\x02 \x01(\tR\x05\x65mail\x12\x33\n\x07sent_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\x06sentAtB\xda\x01\n\x1f\x61pp.mvchat.mvnxt.mvservernxt.v1B\rIdentityProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,31 +34,39 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\037app.mvchat.mvnxt.mvservernxt.v1B\rIdentityProtoP\001ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\242\002\003MXX\252\002\016Mvservernxt.V1\312\002\016Mvservernxt\\V1\342\002\032Mvservernxt\\V1\\GPBMetadata\352\002\017Mvservernxt::V1'
   _globals['_REGISTER']._serialized_start=82
-  _globals['_REGISTER']._serialized_end=183
-  _globals['_AUTHENTICATE']._serialized_start=185
-  _globals['_AUTHENTICATE']._serialized_end=234
-  _globals['_LOGIN']._serialized_start=236
-  _globals['_LOGIN']._serialized_end=299
-  _globals['_REFRESH']._serialized_start=301
-  _globals['_REFRESH']._serialized_end=347
-  _globals['_LOGOUT']._serialized_start=349
-  _globals['_LOGOUT']._serialized_end=390
-  _globals['_AUTHTOKENS']._serialized_start=393
-  _globals['_AUTHTOKENS']._serialized_end=676
-  _globals['_REGISTERRESPONSE']._serialized_start=678
-  _globals['_REGISTERRESPONSE']._serialized_end=748
-  _globals['_LOGINRESPONSE']._serialized_start=750
-  _globals['_LOGINRESPONSE']._serialized_end=817
-  _globals['_REFRESHRESPONSE']._serialized_start=819
-  _globals['_REFRESHRESPONSE']._serialized_end=888
-  _globals['_USERREGISTERED']._serialized_start=891
-  _globals['_USERREGISTERED']._serialized_end=1025
-  _globals['_USERLOGGEDIN']._serialized_start=1027
-  _globals['_USERLOGGEDIN']._serialized_end=1146
-  _globals['_TOKENREFRESHED']._serialized_start=1149
-  _globals['_TOKENREFRESHED']._serialized_end=1307
-  _globals['_USERLOGGEDOUT']._serialized_start=1310
-  _globals['_USERLOGGEDOUT']._serialized_end=1465
-  _globals['_REFRESHTOKENREUSEDETECTED']._serialized_start=1468
-  _globals['_REFRESHTOKENREUSEDETECTED']._serialized_end=1610
+  _globals['_REGISTER']._serialized_end=205
+  _globals['_VERIFYEMAIL']._serialized_start=207
+  _globals['_VERIFYEMAIL']._serialized_end=242
+  _globals['_RESENDVERIFICATIONEMAIL']._serialized_start=244
+  _globals['_RESENDVERIFICATIONEMAIL']._serialized_end=291
+  _globals['_AUTHENTICATE']._serialized_start=293
+  _globals['_AUTHENTICATE']._serialized_end=342
+  _globals['_LOGIN']._serialized_start=344
+  _globals['_LOGIN']._serialized_end=407
+  _globals['_REFRESH']._serialized_start=409
+  _globals['_REFRESH']._serialized_end=455
+  _globals['_LOGOUT']._serialized_start=457
+  _globals['_LOGOUT']._serialized_end=498
+  _globals['_AUTHTOKENS']._serialized_start=501
+  _globals['_AUTHTOKENS']._serialized_end=845
+  _globals['_REGISTERRESPONSE']._serialized_start=847
+  _globals['_REGISTERRESPONSE']._serialized_end=917
+  _globals['_LOGINRESPONSE']._serialized_start=919
+  _globals['_LOGINRESPONSE']._serialized_end=986
+  _globals['_REFRESHRESPONSE']._serialized_start=988
+  _globals['_REFRESHRESPONSE']._serialized_end=1057
+  _globals['_USERREGISTERED']._serialized_start=1060
+  _globals['_USERREGISTERED']._serialized_end=1194
+  _globals['_USERLOGGEDIN']._serialized_start=1196
+  _globals['_USERLOGGEDIN']._serialized_end=1315
+  _globals['_TOKENREFRESHED']._serialized_start=1318
+  _globals['_TOKENREFRESHED']._serialized_end=1476
+  _globals['_USERLOGGEDOUT']._serialized_start=1479
+  _globals['_USERLOGGEDOUT']._serialized_end=1634
+  _globals['_REFRESHTOKENREUSEDETECTED']._serialized_start=1637
+  _globals['_REFRESHTOKENREUSEDETECTED']._serialized_end=1779
+  _globals['_EMAILVERIFIED']._serialized_start=1781
+  _globals['_EMAILVERIFIED']._serialized_end=1904
+  _globals['_VERIFICATIONEMAILSENT']._serialized_start=1906
+  _globals['_VERIFICATIONEMAILSENT']._serialized_end=2029
 # @@protoc_insertion_point(module_scope)

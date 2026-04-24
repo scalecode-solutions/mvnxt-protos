@@ -108,6 +108,33 @@ public object RegisterKt {
     public fun clearDisplayName() {
       _builder.clearDisplayName()
     }
+
+    /**
+     * ```
+     * Email. Required when the server runs with email verification enabled;
+     * optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+     * ```
+     *
+     * `string email = 4 [json_name = "email"];`
+     */
+    public var email: kotlin.String
+      @kotlin.jvm.JvmName("getEmail")
+        get() = _builder.email
+      @kotlin.jvm.JvmName("setEmail")
+        set(value) {
+        _builder.email = value
+      }
+    /**
+     * ```
+     * Email. Required when the server runs with email verification enabled;
+     * optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+     * ```
+     *
+     * `string email = 4 [json_name = "email"];`
+     */
+    public fun clearEmail() {
+      _builder.clearEmail()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

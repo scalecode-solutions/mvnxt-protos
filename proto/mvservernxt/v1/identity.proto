@@ -16,6 +16,24 @@ message Register {
   string username     = 1;  // Case-preserved for display; uniqueness check is case-insensitive.
   string password     = 2;  // Plaintext on the wire; hashed server-side with argon2id.
   string display_name = 3;  // Optional. Defaults to username.
+
+  // Email. Required when the server runs with email verification enabled;
+  // optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+  string email        = 4;
+}
+
+// VerifyEmail completes the email-verification loop. The token is delivered
+// to the user's inbox by the server after Register. Pre-auth — sent from
+// whichever device clicks the verification link.
+message VerifyEmail {
+  string token = 1;
+}
+
+// ResendVerificationEmail re-dispatches a fresh verification email. Used
+// when the original email expired, was lost, or the user changed addresses.
+// Pre-auth — takes the target email.
+message ResendVerificationEmail {
+  string email = 1;
 }
 
 // Authenticate binds an existing WebSocket session to a prior-issued access
@@ -57,12 +75,20 @@ message AuthTokens {
   google.protobuf.Timestamp refresh_expires_at    = 4;
   string                    user_id               = 5;
   string                    username              = 6;
+
+  // Email-verification status as of the moment these tokens were issued.
+  // Clients render this — e.g. show a "verify your email" banner when
+  // email_verified is false. Server policy may or may not block features
+  // on !email_verified; the token itself is valid either way.
+  bool                      email_verified        = 7;
+  string                    email                 = 8;
 }
 
 message RegisterResponse { AuthTokens tokens = 1; }
 message LoginResponse    { AuthTokens tokens = 1; }
 message RefreshResponse  { AuthTokens tokens = 1; }
-// Authenticate and Logout return empty Ack (code=200 only).
+// Authenticate, Logout, VerifyEmail, ResendVerificationEmail return empty
+// Ack (code=200 only).
 
 // ============================================================================
 // Events (published to the event log via Log.AppendTx)
@@ -101,4 +127,22 @@ message RefreshTokenReuseDetected {
   string                    user_id      = 1;
   string                    family_id    = 2;
   google.protobuf.Timestamp detected_at  = 3;
+}
+
+// EmailVerified fires when a user completes the verification loop.
+// Subscribers (ws-broadcast) deliver it to the user's active sessions so
+// UI can hide the "verify your email" banner without a reload.
+message EmailVerified {
+  string                    user_id     = 1;
+  string                    email       = 2;
+  google.protobuf.Timestamp verified_at = 3;
+}
+
+// VerificationEmailSent fires each time the server dispatches a
+// verification email (initial registration + resends). Useful for audit,
+// abuse detection, email-throttle metrics.
+message VerificationEmailSent {
+  string                    user_id  = 1;
+  string                    email    = 2;
+  google.protobuf.Timestamp sent_at  = 3;
 }

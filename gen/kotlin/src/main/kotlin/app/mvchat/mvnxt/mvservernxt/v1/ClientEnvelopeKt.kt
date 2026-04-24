@@ -255,6 +255,54 @@ public object ClientEnvelopeKt {
     public fun hasLogout(): kotlin.Boolean {
       return _builder.hasLogout()
     }
+
+    /**
+     * `.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];`
+     */
+    public var verifyEmail: app.mvchat.mvnxt.mvservernxt.v1.VerifyEmail
+      @kotlin.jvm.JvmName("getVerifyEmail")
+        get() = _builder.verifyEmail
+      @kotlin.jvm.JvmName("setVerifyEmail")
+        set(value) {
+        _builder.verifyEmail = value
+      }
+    /**
+     * `.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];`
+     */
+    public fun clearVerifyEmail() {
+      _builder.clearVerifyEmail()
+    }
+    /**
+     * `.mvservernxt.v1.VerifyEmail verify_email = 25 [json_name = "verifyEmail"];`
+     * @return Whether the verifyEmail field is set.
+     */
+    public fun hasVerifyEmail(): kotlin.Boolean {
+      return _builder.hasVerifyEmail()
+    }
+
+    /**
+     * `.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];`
+     */
+    public var resendVerificationEmail: app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmail
+      @kotlin.jvm.JvmName("getResendVerificationEmail")
+        get() = _builder.resendVerificationEmail
+      @kotlin.jvm.JvmName("setResendVerificationEmail")
+        set(value) {
+        _builder.resendVerificationEmail = value
+      }
+    /**
+     * `.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];`
+     */
+    public fun clearResendVerificationEmail() {
+      _builder.clearResendVerificationEmail()
+    }
+    /**
+     * `.mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26 [json_name = "resendVerificationEmail"];`
+     * @return Whether the resendVerificationEmail field is set.
+     */
+    public fun hasResendVerificationEmail(): kotlin.Boolean {
+      return _builder.hasResendVerificationEmail()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelope.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -288,4 +336,10 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.refreshOrNull
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.logoutOrNull: app.mvchat.mvnxt.mvservernxt.v1.Logout?
   get() = if (hasLogout()) getLogout() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.verifyEmailOrNull: app.mvchat.mvnxt.mvservernxt.v1.VerifyEmail?
+  get() = if (hasVerifyEmail()) getVerifyEmail() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.resendVerificationEmailOrNull: app.mvchat.mvnxt.mvservernxt.v1.ResendVerificationEmail?
+  get() = if (hasResendVerificationEmail()) getResendVerificationEmail() else null
 

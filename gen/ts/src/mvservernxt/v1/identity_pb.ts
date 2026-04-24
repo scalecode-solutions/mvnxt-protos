@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/identity.proto.
  */
 export const file_mvservernxt_v1_identity: GenFile = /*@__PURE__*/
-  fileDesc("Ch1tdnNlcnZlcm54dC92MS9pZGVudGl0eS5wcm90bxIObXZzZXJ2ZXJueHQudjEiRAoIUmVnaXN0ZXISEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSFAoMZGlzcGxheV9uYW1lGAMgASgJIiQKDEF1dGhlbnRpY2F0ZRIUCgxhY2Nlc3NfdG9rZW4YASABKAkiKwoFTG9naW4SEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiIAoHUmVmcmVzaBIVCg1yZWZyZXNoX3Rva2VuGAEgASgJIh0KBkxvZ291dBITCgthbGxfZGV2aWNlcxgBIAEoCCLLAQoKQXV0aFRva2VucxIUCgxhY2Nlc3NfdG9rZW4YASABKAkSFQoNcmVmcmVzaF90b2tlbhgCIAEoCRI1ChFhY2Nlc3NfZXhwaXJlc19hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASNgoScmVmcmVzaF9leHBpcmVzX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIPCgd1c2VyX2lkGAUgASgJEhAKCHVzZXJuYW1lGAYgASgJIj4KEFJlZ2lzdGVyUmVzcG9uc2USKgoGdG9rZW5zGAEgASgLMhoubXZzZXJ2ZXJueHQudjEuQXV0aFRva2VucyI7Cg1Mb2dpblJlc3BvbnNlEioKBnRva2VucxgBIAEoCzIaLm12c2VydmVybnh0LnYxLkF1dGhUb2tlbnMiPQoPUmVmcmVzaFJlc3BvbnNlEioKBnRva2VucxgBIAEoCzIaLm12c2VydmVybnh0LnYxLkF1dGhUb2tlbnMiZgoOVXNlclJlZ2lzdGVyZWQSDwoHdXNlcl9pZBgBIAEoCRIQCgh1c2VybmFtZRgCIAEoCRIxCg1yZWdpc3RlcmVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJeCgxVc2VyTG9nZ2VkSW4SDwoHdXNlcl9pZBgBIAEoCRILCgNqdGkYAiABKAkSMAoMbG9nZ2VkX2luX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ3Cg5Ub2tlblJlZnJlc2hlZBIPCgd1c2VyX2lkGAEgASgJEhEKCWZhbWlseV9pZBgCIAEoCRIPCgduZXdfanRpGAMgASgJEjAKDHJlZnJlc2hlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidQoNVXNlckxvZ2dlZE91dBIPCgd1c2VyX2lkGAEgASgJEgsKA2p0aRgCIAEoCRITCgthbGxfZGV2aWNlcxgDIAEoCBIxCg1sb2dnZWRfb3V0X2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJwChlSZWZyZXNoVG9rZW5SZXVzZURldGVjdGVkEg8KB3VzZXJfaWQYASABKAkSEQoJZmFtaWx5X2lkGAIgASgJEi8KC2RldGVjdGVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcELaAQofYXBwLm12Y2hhdC5tdm54dC5tdnNlcnZlcm54dC52MUINSWRlbnRpdHlQcm90b1ABWk9naXRodWIuY29tL3NjYWxlY29kZS1zb2x1dGlvbnMvbXZueHQtcHJvdG9zL2dlbi9nby9tdnNlcnZlcm54dC92MTttdnNlcnZlcm54dHYxogIDTVhYqgIOTXZzZXJ2ZXJueHQuVjHKAg5NdnNlcnZlcm54dFxWMeICGk12c2VydmVybnh0XFYxXEdQQk1ldGFkYXRh6gIPTXZzZXJ2ZXJueHQ6OlYxYgZwcm90bzM", [file_google_protobuf_timestamp]);
+  fileDesc("Ch1tdnNlcnZlcm54dC92MS9pZGVudGl0eS5wcm90bxIObXZzZXJ2ZXJueHQudjEiUwoIUmVnaXN0ZXISEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSFAoMZGlzcGxheV9uYW1lGAMgASgJEg0KBWVtYWlsGAQgASgJIhwKC1ZlcmlmeUVtYWlsEg0KBXRva2VuGAEgASgJIigKF1Jlc2VuZFZlcmlmaWNhdGlvbkVtYWlsEg0KBWVtYWlsGAEgASgJIiQKDEF1dGhlbnRpY2F0ZRIUCgxhY2Nlc3NfdG9rZW4YASABKAkiKwoFTG9naW4SEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiIAoHUmVmcmVzaBIVCg1yZWZyZXNoX3Rva2VuGAEgASgJIh0KBkxvZ291dBITCgthbGxfZGV2aWNlcxgBIAEoCCLyAQoKQXV0aFRva2VucxIUCgxhY2Nlc3NfdG9rZW4YASABKAkSFQoNcmVmcmVzaF90b2tlbhgCIAEoCRI1ChFhY2Nlc3NfZXhwaXJlc19hdBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASNgoScmVmcmVzaF9leHBpcmVzX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIPCgd1c2VyX2lkGAUgASgJEhAKCHVzZXJuYW1lGAYgASgJEhYKDmVtYWlsX3ZlcmlmaWVkGAcgASgIEg0KBWVtYWlsGAggASgJIj4KEFJlZ2lzdGVyUmVzcG9uc2USKgoGdG9rZW5zGAEgASgLMhoubXZzZXJ2ZXJueHQudjEuQXV0aFRva2VucyI7Cg1Mb2dpblJlc3BvbnNlEioKBnRva2VucxgBIAEoCzIaLm12c2VydmVybnh0LnYxLkF1dGhUb2tlbnMiPQoPUmVmcmVzaFJlc3BvbnNlEioKBnRva2VucxgBIAEoCzIaLm12c2VydmVybnh0LnYxLkF1dGhUb2tlbnMiZgoOVXNlclJlZ2lzdGVyZWQSDwoHdXNlcl9pZBgBIAEoCRIQCgh1c2VybmFtZRgCIAEoCRIxCg1yZWdpc3RlcmVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJeCgxVc2VyTG9nZ2VkSW4SDwoHdXNlcl9pZBgBIAEoCRILCgNqdGkYAiABKAkSMAoMbG9nZ2VkX2luX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJ3Cg5Ub2tlblJlZnJlc2hlZBIPCgd1c2VyX2lkGAEgASgJEhEKCWZhbWlseV9pZBgCIAEoCRIPCgduZXdfanRpGAMgASgJEjAKDHJlZnJlc2hlZF9hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAidQoNVXNlckxvZ2dlZE91dBIPCgd1c2VyX2lkGAEgASgJEgsKA2p0aRgCIAEoCRITCgthbGxfZGV2aWNlcxgDIAEoCBIxCg1sb2dnZWRfb3V0X2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJwChlSZWZyZXNoVG9rZW5SZXVzZURldGVjdGVkEg8KB3VzZXJfaWQYASABKAkSEQoJZmFtaWx5X2lkGAIgASgJEi8KC2RldGVjdGVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJgCg1FbWFpbFZlcmlmaWVkEg8KB3VzZXJfaWQYASABKAkSDQoFZW1haWwYAiABKAkSLwoLdmVyaWZpZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wImQKFVZlcmlmaWNhdGlvbkVtYWlsU2VudBIPCgd1c2VyX2lkGAEgASgJEg0KBWVtYWlsGAIgASgJEisKB3NlbnRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wQtoBCh9hcHAubXZjaGF0Lm12bnh0Lm12c2VydmVybnh0LnYxQg1JZGVudGl0eVByb3RvUAFaT2dpdGh1Yi5jb20vc2NhbGVjb2RlLXNvbHV0aW9ucy9tdm54dC1wcm90b3MvZ2VuL2dvL212c2VydmVybnh0L3YxO212c2VydmVybnh0djGiAgNNWFiqAg5NdnNlcnZlcm54dC5WMcoCDk12c2VydmVybnh0XFYx4gIaTXZzZXJ2ZXJueHRcVjFcR1BCTWV0YWRhdGHqAg9NdnNlcnZlcm54dDo6VjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
 
 /**
  * Register creates a new user account and auto-logs-the-new-user in.
@@ -44,6 +44,14 @@ export type Register = Message<"mvservernxt.v1.Register"> & {
    * @generated from field: string display_name = 3;
    */
   displayName: string;
+
+  /**
+   * Email. Required when the server runs with email verification enabled;
+   * optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+   *
+   * @generated from field: string email = 4;
+   */
+  email: string;
 };
 
 /**
@@ -52,6 +60,48 @@ export type Register = Message<"mvservernxt.v1.Register"> & {
  */
 export const RegisterSchema: GenMessage<Register> = /*@__PURE__*/
   messageDesc(file_mvservernxt_v1_identity, 0);
+
+/**
+ * VerifyEmail completes the email-verification loop. The token is delivered
+ * to the user's inbox by the server after Register. Pre-auth — sent from
+ * whichever device clicks the verification link.
+ *
+ * @generated from message mvservernxt.v1.VerifyEmail
+ */
+export type VerifyEmail = Message<"mvservernxt.v1.VerifyEmail"> & {
+  /**
+   * @generated from field: string token = 1;
+   */
+  token: string;
+};
+
+/**
+ * Describes the message mvservernxt.v1.VerifyEmail.
+ * Use `create(VerifyEmailSchema)` to create a new message.
+ */
+export const VerifyEmailSchema: GenMessage<VerifyEmail> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_identity, 1);
+
+/**
+ * ResendVerificationEmail re-dispatches a fresh verification email. Used
+ * when the original email expired, was lost, or the user changed addresses.
+ * Pre-auth — takes the target email.
+ *
+ * @generated from message mvservernxt.v1.ResendVerificationEmail
+ */
+export type ResendVerificationEmail = Message<"mvservernxt.v1.ResendVerificationEmail"> & {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email: string;
+};
+
+/**
+ * Describes the message mvservernxt.v1.ResendVerificationEmail.
+ * Use `create(ResendVerificationEmailSchema)` to create a new message.
+ */
+export const ResendVerificationEmailSchema: GenMessage<ResendVerificationEmail> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_identity, 2);
 
 /**
  * Authenticate binds an existing WebSocket session to a prior-issued access
@@ -71,7 +121,7 @@ export type Authenticate = Message<"mvservernxt.v1.Authenticate"> & {
  * Use `create(AuthenticateSchema)` to create a new message.
  */
 export const AuthenticateSchema: GenMessage<Authenticate> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 1);
+  messageDesc(file_mvservernxt_v1_identity, 3);
 
 /**
  * Login exchanges username + password for an AuthTokens pair and binds the
@@ -96,7 +146,7 @@ export type Login = Message<"mvservernxt.v1.Login"> & {
  * Use `create(LoginSchema)` to create a new message.
  */
 export const LoginSchema: GenMessage<Login> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 2);
+  messageDesc(file_mvservernxt_v1_identity, 4);
 
 /**
  * Refresh exchanges a valid refresh token for a fresh AuthTokens pair. The
@@ -117,7 +167,7 @@ export type Refresh = Message<"mvservernxt.v1.Refresh"> & {
  * Use `create(RefreshSchema)` to create a new message.
  */
 export const RefreshSchema: GenMessage<Refresh> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 3);
+  messageDesc(file_mvservernxt_v1_identity, 5);
 
 /**
  * Logout revokes the current session's tokens. Requires an authenticated
@@ -138,7 +188,7 @@ export type Logout = Message<"mvservernxt.v1.Logout"> & {
  * Use `create(LogoutSchema)` to create a new message.
  */
 export const LogoutSchema: GenMessage<Logout> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 4);
+  messageDesc(file_mvservernxt_v1_identity, 6);
 
 /**
  * AuthTokens is the credential bundle issued by Login, Register, and Refresh.
@@ -175,6 +225,21 @@ export type AuthTokens = Message<"mvservernxt.v1.AuthTokens"> & {
    * @generated from field: string username = 6;
    */
   username: string;
+
+  /**
+   * Email-verification status as of the moment these tokens were issued.
+   * Clients render this — e.g. show a "verify your email" banner when
+   * email_verified is false. Server policy may or may not block features
+   * on !email_verified; the token itself is valid either way.
+   *
+   * @generated from field: bool email_verified = 7;
+   */
+  emailVerified: boolean;
+
+  /**
+   * @generated from field: string email = 8;
+   */
+  email: string;
 };
 
 /**
@@ -182,7 +247,7 @@ export type AuthTokens = Message<"mvservernxt.v1.AuthTokens"> & {
  * Use `create(AuthTokensSchema)` to create a new message.
  */
 export const AuthTokensSchema: GenMessage<AuthTokens> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 5);
+  messageDesc(file_mvservernxt_v1_identity, 7);
 
 /**
  * @generated from message mvservernxt.v1.RegisterResponse
@@ -199,7 +264,7 @@ export type RegisterResponse = Message<"mvservernxt.v1.RegisterResponse"> & {
  * Use `create(RegisterResponseSchema)` to create a new message.
  */
 export const RegisterResponseSchema: GenMessage<RegisterResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 6);
+  messageDesc(file_mvservernxt_v1_identity, 8);
 
 /**
  * @generated from message mvservernxt.v1.LoginResponse
@@ -216,7 +281,7 @@ export type LoginResponse = Message<"mvservernxt.v1.LoginResponse"> & {
  * Use `create(LoginResponseSchema)` to create a new message.
  */
 export const LoginResponseSchema: GenMessage<LoginResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 7);
+  messageDesc(file_mvservernxt_v1_identity, 9);
 
 /**
  * @generated from message mvservernxt.v1.RefreshResponse
@@ -233,7 +298,7 @@ export type RefreshResponse = Message<"mvservernxt.v1.RefreshResponse"> & {
  * Use `create(RefreshResponseSchema)` to create a new message.
  */
 export const RefreshResponseSchema: GenMessage<RefreshResponse> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 8);
+  messageDesc(file_mvservernxt_v1_identity, 10);
 
 /**
  * @generated from message mvservernxt.v1.UserRegistered
@@ -260,7 +325,7 @@ export type UserRegistered = Message<"mvservernxt.v1.UserRegistered"> & {
  * Use `create(UserRegisteredSchema)` to create a new message.
  */
 export const UserRegisteredSchema: GenMessage<UserRegistered> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 9);
+  messageDesc(file_mvservernxt_v1_identity, 11);
 
 /**
  * @generated from message mvservernxt.v1.UserLoggedIn
@@ -289,7 +354,7 @@ export type UserLoggedIn = Message<"mvservernxt.v1.UserLoggedIn"> & {
  * Use `create(UserLoggedInSchema)` to create a new message.
  */
 export const UserLoggedInSchema: GenMessage<UserLoggedIn> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 10);
+  messageDesc(file_mvservernxt_v1_identity, 12);
 
 /**
  * @generated from message mvservernxt.v1.TokenRefreshed
@@ -321,7 +386,7 @@ export type TokenRefreshed = Message<"mvservernxt.v1.TokenRefreshed"> & {
  * Use `create(TokenRefreshedSchema)` to create a new message.
  */
 export const TokenRefreshedSchema: GenMessage<TokenRefreshed> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 11);
+  messageDesc(file_mvservernxt_v1_identity, 13);
 
 /**
  * @generated from message mvservernxt.v1.UserLoggedOut
@@ -355,7 +420,7 @@ export type UserLoggedOut = Message<"mvservernxt.v1.UserLoggedOut"> & {
  * Use `create(UserLoggedOutSchema)` to create a new message.
  */
 export const UserLoggedOutSchema: GenMessage<UserLoggedOut> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 12);
+  messageDesc(file_mvservernxt_v1_identity, 14);
 
 /**
  * RefreshTokenReuseDetected fires when a caller presents a previously-rotated
@@ -386,5 +451,67 @@ export type RefreshTokenReuseDetected = Message<"mvservernxt.v1.RefreshTokenReus
  * Use `create(RefreshTokenReuseDetectedSchema)` to create a new message.
  */
 export const RefreshTokenReuseDetectedSchema: GenMessage<RefreshTokenReuseDetected> = /*@__PURE__*/
-  messageDesc(file_mvservernxt_v1_identity, 13);
+  messageDesc(file_mvservernxt_v1_identity, 15);
+
+/**
+ * EmailVerified fires when a user completes the verification loop.
+ * Subscribers (ws-broadcast) deliver it to the user's active sessions so
+ * UI can hide the "verify your email" banner without a reload.
+ *
+ * @generated from message mvservernxt.v1.EmailVerified
+ */
+export type EmailVerified = Message<"mvservernxt.v1.EmailVerified"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp verified_at = 3;
+   */
+  verifiedAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.EmailVerified.
+ * Use `create(EmailVerifiedSchema)` to create a new message.
+ */
+export const EmailVerifiedSchema: GenMessage<EmailVerified> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_identity, 16);
+
+/**
+ * VerificationEmailSent fires each time the server dispatches a
+ * verification email (initial registration + resends). Useful for audit,
+ * abuse detection, email-throttle metrics.
+ *
+ * @generated from message mvservernxt.v1.VerificationEmailSent
+ */
+export type VerificationEmailSent = Message<"mvservernxt.v1.VerificationEmailSent"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp sent_at = 3;
+   */
+  sentAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message mvservernxt.v1.VerificationEmailSent.
+ * Use `create(VerificationEmailSentSchema)` to create a new message.
+ */
+export const VerificationEmailSentSchema: GenMessage<VerificationEmailSent> = /*@__PURE__*/
+  messageDesc(file_mvservernxt_v1_identity, 17);
 

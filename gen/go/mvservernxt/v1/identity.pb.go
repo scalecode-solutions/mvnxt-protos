@@ -28,10 +28,13 @@ const (
 // Register creates a new user account and auto-logs-the-new-user in.
 // Returns AuthTokens on success so the client can skip a separate Login.
 type Register struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`                          // Case-preserved for display; uniqueness check is case-insensitive.
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`                          // Plaintext on the wire; hashed server-side with argon2id.
-	DisplayName   string                 `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"` // Optional. Defaults to username.
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Username    string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`                          // Case-preserved for display; uniqueness check is case-insensitive.
+	Password    string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`                          // Plaintext on the wire; hashed server-side with argon2id.
+	DisplayName string                 `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"` // Optional. Defaults to username.
+	// Email. Required when the server runs with email verification enabled;
+	// optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+	Email         string `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -87,6 +90,107 @@ func (x *Register) GetDisplayName() string {
 	return ""
 }
 
+func (x *Register) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+// VerifyEmail completes the email-verification loop. The token is delivered
+// to the user's inbox by the server after Register. Pre-auth — sent from
+// whichever device clicks the verification link.
+type VerifyEmail struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *VerifyEmail) Reset() {
+	*x = VerifyEmail{}
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyEmail) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyEmail) ProtoMessage() {}
+
+func (x *VerifyEmail) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyEmail.ProtoReflect.Descriptor instead.
+func (*VerifyEmail) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *VerifyEmail) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+// ResendVerificationEmail re-dispatches a fresh verification email. Used
+// when the original email expired, was lost, or the user changed addresses.
+// Pre-auth — takes the target email.
+type ResendVerificationEmail struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResendVerificationEmail) Reset() {
+	*x = ResendVerificationEmail{}
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResendVerificationEmail) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResendVerificationEmail) ProtoMessage() {}
+
+func (x *ResendVerificationEmail) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResendVerificationEmail.ProtoReflect.Descriptor instead.
+func (*ResendVerificationEmail) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ResendVerificationEmail) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
 // Authenticate binds an existing WebSocket session to a prior-issued access
 // token. Used on reconnect to avoid forcing a fresh password login.
 type Authenticate struct {
@@ -98,7 +202,7 @@ type Authenticate struct {
 
 func (x *Authenticate) Reset() {
 	*x = Authenticate{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[1]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -110,7 +214,7 @@ func (x *Authenticate) String() string {
 func (*Authenticate) ProtoMessage() {}
 
 func (x *Authenticate) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[1]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -123,7 +227,7 @@ func (x *Authenticate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Authenticate.ProtoReflect.Descriptor instead.
 func (*Authenticate) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{1}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Authenticate) GetAccessToken() string {
@@ -145,7 +249,7 @@ type Login struct {
 
 func (x *Login) Reset() {
 	*x = Login{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[2]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -157,7 +261,7 @@ func (x *Login) String() string {
 func (*Login) ProtoMessage() {}
 
 func (x *Login) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[2]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -170,7 +274,7 @@ func (x *Login) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Login.ProtoReflect.Descriptor instead.
 func (*Login) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{2}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Login) GetUsername() string {
@@ -199,7 +303,7 @@ type Refresh struct {
 
 func (x *Refresh) Reset() {
 	*x = Refresh{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[3]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -211,7 +315,7 @@ func (x *Refresh) String() string {
 func (*Refresh) ProtoMessage() {}
 
 func (x *Refresh) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[3]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -224,7 +328,7 @@ func (x *Refresh) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Refresh.ProtoReflect.Descriptor instead.
 func (*Refresh) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{3}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Refresh) GetRefreshToken() string {
@@ -246,7 +350,7 @@ type Logout struct {
 
 func (x *Logout) Reset() {
 	*x = Logout{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[4]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -258,7 +362,7 @@ func (x *Logout) String() string {
 func (*Logout) ProtoMessage() {}
 
 func (x *Logout) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[4]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -271,7 +375,7 @@ func (x *Logout) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Logout.ProtoReflect.Descriptor instead.
 func (*Logout) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{4}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Logout) GetAllDevices() bool {
@@ -290,13 +394,19 @@ type AuthTokens struct {
 	RefreshExpiresAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=refresh_expires_at,json=refreshExpiresAt,proto3" json:"refresh_expires_at,omitempty"`
 	UserId           string                 `protobuf:"bytes,5,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Username         string                 `protobuf:"bytes,6,opt,name=username,proto3" json:"username,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	// Email-verification status as of the moment these tokens were issued.
+	// Clients render this — e.g. show a "verify your email" banner when
+	// email_verified is false. Server policy may or may not block features
+	// on !email_verified; the token itself is valid either way.
+	EmailVerified bool   `protobuf:"varint,7,opt,name=email_verified,json=emailVerified,proto3" json:"email_verified,omitempty"`
+	Email         string `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AuthTokens) Reset() {
 	*x = AuthTokens{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[5]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -308,7 +418,7 @@ func (x *AuthTokens) String() string {
 func (*AuthTokens) ProtoMessage() {}
 
 func (x *AuthTokens) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[5]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -321,7 +431,7 @@ func (x *AuthTokens) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthTokens.ProtoReflect.Descriptor instead.
 func (*AuthTokens) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{5}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AuthTokens) GetAccessToken() string {
@@ -366,6 +476,20 @@ func (x *AuthTokens) GetUsername() string {
 	return ""
 }
 
+func (x *AuthTokens) GetEmailVerified() bool {
+	if x != nil {
+		return x.EmailVerified
+	}
+	return false
+}
+
+func (x *AuthTokens) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Tokens        *AuthTokens            `protobuf:"bytes,1,opt,name=tokens,proto3" json:"tokens,omitempty"`
@@ -375,7 +499,7 @@ type RegisterResponse struct {
 
 func (x *RegisterResponse) Reset() {
 	*x = RegisterResponse{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[6]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -387,7 +511,7 @@ func (x *RegisterResponse) String() string {
 func (*RegisterResponse) ProtoMessage() {}
 
 func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[6]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -400,7 +524,7 @@ func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{6}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *RegisterResponse) GetTokens() *AuthTokens {
@@ -419,7 +543,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[7]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -431,7 +555,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[7]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -444,7 +568,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{7}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *LoginResponse) GetTokens() *AuthTokens {
@@ -463,7 +587,7 @@ type RefreshResponse struct {
 
 func (x *RefreshResponse) Reset() {
 	*x = RefreshResponse{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[8]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -475,7 +599,7 @@ func (x *RefreshResponse) String() string {
 func (*RefreshResponse) ProtoMessage() {}
 
 func (x *RefreshResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[8]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -488,7 +612,7 @@ func (x *RefreshResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshResponse.ProtoReflect.Descriptor instead.
 func (*RefreshResponse) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{8}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RefreshResponse) GetTokens() *AuthTokens {
@@ -509,7 +633,7 @@ type UserRegistered struct {
 
 func (x *UserRegistered) Reset() {
 	*x = UserRegistered{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[9]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -521,7 +645,7 @@ func (x *UserRegistered) String() string {
 func (*UserRegistered) ProtoMessage() {}
 
 func (x *UserRegistered) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[9]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -534,7 +658,7 @@ func (x *UserRegistered) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRegistered.ProtoReflect.Descriptor instead.
 func (*UserRegistered) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{9}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UserRegistered) GetUserId() string {
@@ -569,7 +693,7 @@ type UserLoggedIn struct {
 
 func (x *UserLoggedIn) Reset() {
 	*x = UserLoggedIn{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[10]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -581,7 +705,7 @@ func (x *UserLoggedIn) String() string {
 func (*UserLoggedIn) ProtoMessage() {}
 
 func (x *UserLoggedIn) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[10]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -594,7 +718,7 @@ func (x *UserLoggedIn) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserLoggedIn.ProtoReflect.Descriptor instead.
 func (*UserLoggedIn) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{10}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *UserLoggedIn) GetUserId() string {
@@ -630,7 +754,7 @@ type TokenRefreshed struct {
 
 func (x *TokenRefreshed) Reset() {
 	*x = TokenRefreshed{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[11]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -642,7 +766,7 @@ func (x *TokenRefreshed) String() string {
 func (*TokenRefreshed) ProtoMessage() {}
 
 func (x *TokenRefreshed) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[11]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -655,7 +779,7 @@ func (x *TokenRefreshed) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TokenRefreshed.ProtoReflect.Descriptor instead.
 func (*TokenRefreshed) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{11}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *TokenRefreshed) GetUserId() string {
@@ -698,7 +822,7 @@ type UserLoggedOut struct {
 
 func (x *UserLoggedOut) Reset() {
 	*x = UserLoggedOut{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[12]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -710,7 +834,7 @@ func (x *UserLoggedOut) String() string {
 func (*UserLoggedOut) ProtoMessage() {}
 
 func (x *UserLoggedOut) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[12]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -723,7 +847,7 @@ func (x *UserLoggedOut) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserLoggedOut.ProtoReflect.Descriptor instead.
 func (*UserLoggedOut) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{12}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UserLoggedOut) GetUserId() string {
@@ -768,7 +892,7 @@ type RefreshTokenReuseDetected struct {
 
 func (x *RefreshTokenReuseDetected) Reset() {
 	*x = RefreshTokenReuseDetected{}
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[13]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -780,7 +904,7 @@ func (x *RefreshTokenReuseDetected) String() string {
 func (*RefreshTokenReuseDetected) ProtoMessage() {}
 
 func (x *RefreshTokenReuseDetected) ProtoReflect() protoreflect.Message {
-	mi := &file_mvservernxt_v1_identity_proto_msgTypes[13]
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -793,7 +917,7 @@ func (x *RefreshTokenReuseDetected) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshTokenReuseDetected.ProtoReflect.Descriptor instead.
 func (*RefreshTokenReuseDetected) Descriptor() ([]byte, []int) {
-	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{13}
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *RefreshTokenReuseDetected) GetUserId() string {
@@ -817,15 +941,146 @@ func (x *RefreshTokenReuseDetected) GetDetectedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// EmailVerified fires when a user completes the verification loop.
+// Subscribers (ws-broadcast) deliver it to the user's active sessions so
+// UI can hide the "verify your email" banner without a reload.
+type EmailVerified struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	VerifiedAt    *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=verified_at,json=verifiedAt,proto3" json:"verified_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EmailVerified) Reset() {
+	*x = EmailVerified{}
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EmailVerified) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EmailVerified) ProtoMessage() {}
+
+func (x *EmailVerified) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EmailVerified.ProtoReflect.Descriptor instead.
+func (*EmailVerified) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *EmailVerified) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *EmailVerified) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *EmailVerified) GetVerifiedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.VerifiedAt
+	}
+	return nil
+}
+
+// VerificationEmailSent fires each time the server dispatches a
+// verification email (initial registration + resends). Useful for audit,
+// abuse detection, email-throttle metrics.
+type VerificationEmailSent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	SentAt        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=sent_at,json=sentAt,proto3" json:"sent_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *VerificationEmailSent) Reset() {
+	*x = VerificationEmailSent{}
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerificationEmailSent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerificationEmailSent) ProtoMessage() {}
+
+func (x *VerificationEmailSent) ProtoReflect() protoreflect.Message {
+	mi := &file_mvservernxt_v1_identity_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerificationEmailSent.ProtoReflect.Descriptor instead.
+func (*VerificationEmailSent) Descriptor() ([]byte, []int) {
+	return file_mvservernxt_v1_identity_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *VerificationEmailSent) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *VerificationEmailSent) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *VerificationEmailSent) GetSentAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.SentAt
+	}
+	return nil
+}
+
 var File_mvservernxt_v1_identity_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_identity_proto_rawDesc = "" +
 	"\n" +
-	"\x1dmvservernxt/v1/identity.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"e\n" +
+	"\x1dmvservernxt/v1/identity.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"{\n" +
 	"\bRegister\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12!\n" +
-	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\"1\n" +
+	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\x12\x14\n" +
+	"\x05email\x18\x04 \x01(\tR\x05email\"#\n" +
+	"\vVerifyEmail\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"/\n" +
+	"\x17ResendVerificationEmail\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"1\n" +
 	"\fAuthenticate\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"?\n" +
 	"\x05Login\x12\x1a\n" +
@@ -835,7 +1090,7 @@ const file_mvservernxt_v1_identity_proto_rawDesc = "" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\")\n" +
 	"\x06Logout\x12\x1f\n" +
 	"\vall_devices\x18\x01 \x01(\bR\n" +
-	"allDevices\"\x9b\x02\n" +
+	"allDevices\"\xd8\x02\n" +
 	"\n" +
 	"AuthTokens\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
@@ -843,7 +1098,9 @@ const file_mvservernxt_v1_identity_proto_rawDesc = "" +
 	"\x11access_expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x0faccessExpiresAt\x12H\n" +
 	"\x12refresh_expires_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x10refreshExpiresAt\x12\x17\n" +
 	"\auser_id\x18\x05 \x01(\tR\x06userId\x12\x1a\n" +
-	"\busername\x18\x06 \x01(\tR\busername\"F\n" +
+	"\busername\x18\x06 \x01(\tR\busername\x12%\n" +
+	"\x0eemail_verified\x18\a \x01(\bR\remailVerified\x12\x14\n" +
+	"\x05email\x18\b \x01(\tR\x05email\"F\n" +
 	"\x10RegisterResponse\x122\n" +
 	"\x06tokens\x18\x01 \x01(\v2\x1a.mvservernxt.v1.AuthTokensR\x06tokens\"C\n" +
 	"\rLoginResponse\x122\n" +
@@ -874,7 +1131,16 @@ const file_mvservernxt_v1_identity_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n" +
 	"\tfamily_id\x18\x02 \x01(\tR\bfamilyId\x12;\n" +
 	"\vdetected_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"detectedAtB\xda\x01\n" +
+	"detectedAt\"{\n" +
+	"\rEmailVerified\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12;\n" +
+	"\vverified_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"verifiedAt\"{\n" +
+	"\x15VerificationEmailSent\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x123\n" +
+	"\asent_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x06sentAtB\xda\x01\n" +
 	"\x1fapp.mvchat.mvnxt.mvservernxt.v1B\rIdentityProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3"
 
 var (
@@ -889,40 +1155,46 @@ func file_mvservernxt_v1_identity_proto_rawDescGZIP() []byte {
 	return file_mvservernxt_v1_identity_proto_rawDescData
 }
 
-var file_mvservernxt_v1_identity_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_mvservernxt_v1_identity_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_mvservernxt_v1_identity_proto_goTypes = []any{
 	(*Register)(nil),                  // 0: mvservernxt.v1.Register
-	(*Authenticate)(nil),              // 1: mvservernxt.v1.Authenticate
-	(*Login)(nil),                     // 2: mvservernxt.v1.Login
-	(*Refresh)(nil),                   // 3: mvservernxt.v1.Refresh
-	(*Logout)(nil),                    // 4: mvservernxt.v1.Logout
-	(*AuthTokens)(nil),                // 5: mvservernxt.v1.AuthTokens
-	(*RegisterResponse)(nil),          // 6: mvservernxt.v1.RegisterResponse
-	(*LoginResponse)(nil),             // 7: mvservernxt.v1.LoginResponse
-	(*RefreshResponse)(nil),           // 8: mvservernxt.v1.RefreshResponse
-	(*UserRegistered)(nil),            // 9: mvservernxt.v1.UserRegistered
-	(*UserLoggedIn)(nil),              // 10: mvservernxt.v1.UserLoggedIn
-	(*TokenRefreshed)(nil),            // 11: mvservernxt.v1.TokenRefreshed
-	(*UserLoggedOut)(nil),             // 12: mvservernxt.v1.UserLoggedOut
-	(*RefreshTokenReuseDetected)(nil), // 13: mvservernxt.v1.RefreshTokenReuseDetected
-	(*timestamppb.Timestamp)(nil),     // 14: google.protobuf.Timestamp
+	(*VerifyEmail)(nil),               // 1: mvservernxt.v1.VerifyEmail
+	(*ResendVerificationEmail)(nil),   // 2: mvservernxt.v1.ResendVerificationEmail
+	(*Authenticate)(nil),              // 3: mvservernxt.v1.Authenticate
+	(*Login)(nil),                     // 4: mvservernxt.v1.Login
+	(*Refresh)(nil),                   // 5: mvservernxt.v1.Refresh
+	(*Logout)(nil),                    // 6: mvservernxt.v1.Logout
+	(*AuthTokens)(nil),                // 7: mvservernxt.v1.AuthTokens
+	(*RegisterResponse)(nil),          // 8: mvservernxt.v1.RegisterResponse
+	(*LoginResponse)(nil),             // 9: mvservernxt.v1.LoginResponse
+	(*RefreshResponse)(nil),           // 10: mvservernxt.v1.RefreshResponse
+	(*UserRegistered)(nil),            // 11: mvservernxt.v1.UserRegistered
+	(*UserLoggedIn)(nil),              // 12: mvservernxt.v1.UserLoggedIn
+	(*TokenRefreshed)(nil),            // 13: mvservernxt.v1.TokenRefreshed
+	(*UserLoggedOut)(nil),             // 14: mvservernxt.v1.UserLoggedOut
+	(*RefreshTokenReuseDetected)(nil), // 15: mvservernxt.v1.RefreshTokenReuseDetected
+	(*EmailVerified)(nil),             // 16: mvservernxt.v1.EmailVerified
+	(*VerificationEmailSent)(nil),     // 17: mvservernxt.v1.VerificationEmailSent
+	(*timestamppb.Timestamp)(nil),     // 18: google.protobuf.Timestamp
 }
 var file_mvservernxt_v1_identity_proto_depIdxs = []int32{
-	14, // 0: mvservernxt.v1.AuthTokens.access_expires_at:type_name -> google.protobuf.Timestamp
-	14, // 1: mvservernxt.v1.AuthTokens.refresh_expires_at:type_name -> google.protobuf.Timestamp
-	5,  // 2: mvservernxt.v1.RegisterResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
-	5,  // 3: mvservernxt.v1.LoginResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
-	5,  // 4: mvservernxt.v1.RefreshResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
-	14, // 5: mvservernxt.v1.UserRegistered.registered_at:type_name -> google.protobuf.Timestamp
-	14, // 6: mvservernxt.v1.UserLoggedIn.logged_in_at:type_name -> google.protobuf.Timestamp
-	14, // 7: mvservernxt.v1.TokenRefreshed.refreshed_at:type_name -> google.protobuf.Timestamp
-	14, // 8: mvservernxt.v1.UserLoggedOut.logged_out_at:type_name -> google.protobuf.Timestamp
-	14, // 9: mvservernxt.v1.RefreshTokenReuseDetected.detected_at:type_name -> google.protobuf.Timestamp
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	18, // 0: mvservernxt.v1.AuthTokens.access_expires_at:type_name -> google.protobuf.Timestamp
+	18, // 1: mvservernxt.v1.AuthTokens.refresh_expires_at:type_name -> google.protobuf.Timestamp
+	7,  // 2: mvservernxt.v1.RegisterResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
+	7,  // 3: mvservernxt.v1.LoginResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
+	7,  // 4: mvservernxt.v1.RefreshResponse.tokens:type_name -> mvservernxt.v1.AuthTokens
+	18, // 5: mvservernxt.v1.UserRegistered.registered_at:type_name -> google.protobuf.Timestamp
+	18, // 6: mvservernxt.v1.UserLoggedIn.logged_in_at:type_name -> google.protobuf.Timestamp
+	18, // 7: mvservernxt.v1.TokenRefreshed.refreshed_at:type_name -> google.protobuf.Timestamp
+	18, // 8: mvservernxt.v1.UserLoggedOut.logged_out_at:type_name -> google.protobuf.Timestamp
+	18, // 9: mvservernxt.v1.RefreshTokenReuseDetected.detected_at:type_name -> google.protobuf.Timestamp
+	18, // 10: mvservernxt.v1.EmailVerified.verified_at:type_name -> google.protobuf.Timestamp
+	18, // 11: mvservernxt.v1.VerificationEmailSent.sent_at:type_name -> google.protobuf.Timestamp
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_identity_proto_init() }
@@ -936,7 +1208,7 @@ func file_mvservernxt_v1_identity_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mvservernxt_v1_identity_proto_rawDesc), len(file_mvservernxt_v1_identity_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

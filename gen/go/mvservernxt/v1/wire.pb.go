@@ -55,6 +55,8 @@ type ClientEnvelope struct {
 	//	*ClientEnvelope_Login
 	//	*ClientEnvelope_Refresh
 	//	*ClientEnvelope_Logout
+	//	*ClientEnvelope_VerifyEmail
+	//	*ClientEnvelope_ResendVerificationEmail
 	Payload       isClientEnvelope_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -167,6 +169,24 @@ func (x *ClientEnvelope) GetLogout() *Logout {
 	return nil
 }
 
+func (x *ClientEnvelope) GetVerifyEmail() *VerifyEmail {
+	if x != nil {
+		if x, ok := x.Payload.(*ClientEnvelope_VerifyEmail); ok {
+			return x.VerifyEmail
+		}
+	}
+	return nil
+}
+
+func (x *ClientEnvelope) GetResendVerificationEmail() *ResendVerificationEmail {
+	if x != nil {
+		if x, ok := x.Payload.(*ClientEnvelope_ResendVerificationEmail); ok {
+			return x.ResendVerificationEmail
+		}
+	}
+	return nil
+}
+
 type isClientEnvelope_Payload interface {
 	isClientEnvelope_Payload()
 }
@@ -201,6 +221,14 @@ type ClientEnvelope_Logout struct {
 	Logout *Logout `protobuf:"bytes,24,opt,name=logout,proto3,oneof"`
 }
 
+type ClientEnvelope_VerifyEmail struct {
+	VerifyEmail *VerifyEmail `protobuf:"bytes,25,opt,name=verify_email,json=verifyEmail,proto3,oneof"`
+}
+
+type ClientEnvelope_ResendVerificationEmail struct {
+	ResendVerificationEmail *ResendVerificationEmail `protobuf:"bytes,26,opt,name=resend_verification_email,json=resendVerificationEmail,proto3,oneof"`
+}
+
 func (*ClientEnvelope_Ping) isClientEnvelope_Payload() {}
 
 func (*ClientEnvelope_Hello) isClientEnvelope_Payload() {}
@@ -214,6 +242,10 @@ func (*ClientEnvelope_Login) isClientEnvelope_Payload() {}
 func (*ClientEnvelope_Refresh) isClientEnvelope_Payload() {}
 
 func (*ClientEnvelope_Logout) isClientEnvelope_Payload() {}
+
+func (*ClientEnvelope_VerifyEmail) isClientEnvelope_Payload() {}
+
+func (*ClientEnvelope_ResendVerificationEmail) isClientEnvelope_Payload() {}
 
 // ServerEnvelope is any message from server to client.
 // Three distinct kinds:
@@ -573,6 +605,8 @@ type Event struct {
 	//	*Event_TokenRefreshed
 	//	*Event_UserLoggedOut
 	//	*Event_RefreshTokenReuseDetected
+	//	*Event_EmailVerified
+	//	*Event_VerificationEmailSent
 	Payload       isEvent_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -704,6 +738,24 @@ func (x *Event) GetRefreshTokenReuseDetected() *RefreshTokenReuseDetected {
 	return nil
 }
 
+func (x *Event) GetEmailVerified() *EmailVerified {
+	if x != nil {
+		if x, ok := x.Payload.(*Event_EmailVerified); ok {
+			return x.EmailVerified
+		}
+	}
+	return nil
+}
+
+func (x *Event) GetVerificationEmailSent() *VerificationEmailSent {
+	if x != nil {
+		if x, ok := x.Payload.(*Event_VerificationEmailSent); ok {
+			return x.VerificationEmailSent
+		}
+	}
+	return nil
+}
+
 type isEvent_Payload interface {
 	isEvent_Payload()
 }
@@ -734,6 +786,14 @@ type Event_RefreshTokenReuseDetected struct {
 	RefreshTokenReuseDetected *RefreshTokenReuseDetected `protobuf:"bytes,25,opt,name=refresh_token_reuse_detected,json=refreshTokenReuseDetected,proto3,oneof"`
 }
 
+type Event_EmailVerified struct {
+	EmailVerified *EmailVerified `protobuf:"bytes,26,opt,name=email_verified,json=emailVerified,proto3,oneof"`
+}
+
+type Event_VerificationEmailSent struct {
+	VerificationEmailSent *VerificationEmailSent `protobuf:"bytes,27,opt,name=verification_email_sent,json=verificationEmailSent,proto3,oneof"`
+}
+
 func (*Event_SystemNotice) isEvent_Payload() {}
 
 func (*Event_UserRegistered) isEvent_Payload() {}
@@ -746,11 +806,15 @@ func (*Event_UserLoggedOut) isEvent_Payload() {}
 
 func (*Event_RefreshTokenReuseDetected) isEvent_Payload() {}
 
+func (*Event_EmailVerified) isEvent_Payload() {}
+
+func (*Event_VerificationEmailSent) isEvent_Payload() {}
+
 var File_mvservernxt_v1_wire_proto protoreflect.FileDescriptor
 
 const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\n" +
-	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1bmvservernxt/v1/system.proto\"\xb1\x03\n" +
+	"\x19mvservernxt/v1/wire.proto\x12\x0emvservernxt.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bmvservernxt/v1/common.proto\x1a\x1amvservernxt/v1/hello.proto\x1a\x1dmvservernxt/v1/identity.proto\x1a\x1bmvservernxt/v1/system.proto\"\xda\x04\n" +
 	"\x0eClientEnvelope\x12'\n" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12*\n" +
 	"\x04ping\x18\n" +
@@ -760,7 +824,9 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\fauthenticate\x18\x15 \x01(\v2\x1c.mvservernxt.v1.AuthenticateH\x00R\fauthenticate\x12-\n" +
 	"\x05login\x18\x16 \x01(\v2\x15.mvservernxt.v1.LoginH\x00R\x05login\x123\n" +
 	"\arefresh\x18\x17 \x01(\v2\x17.mvservernxt.v1.RefreshH\x00R\arefresh\x120\n" +
-	"\x06logout\x18\x18 \x01(\v2\x16.mvservernxt.v1.LogoutH\x00R\x06logoutB\t\n" +
+	"\x06logout\x18\x18 \x01(\v2\x16.mvservernxt.v1.LogoutH\x00R\x06logout\x12@\n" +
+	"\fverify_email\x18\x19 \x01(\v2\x1b.mvservernxt.v1.VerifyEmailH\x00R\vverifyEmail\x12e\n" +
+	"\x19resend_verification_email\x18\x1a \x01(\v2'.mvservernxt.v1.ResendVerificationEmailH\x00R\x17resendVerificationEmailB\t\n" +
 	"\apayload\"\x9c\x01\n" +
 	"\x0eServerEnvelope\x12'\n" +
 	"\x03ack\x18\x01 \x01(\v2\x13.mvservernxt.v1.AckH\x00R\x03ack\x12'\n" +
@@ -781,7 +847,7 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\x0fidempotency_key\x18\x01 \x01(\tR\x0eidempotencyKey\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x03 \x01(\tR\amessage\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xb8\x05\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xe1\x06\n" +
 	"\x05Event\x12\x10\n" +
 	"\x03seq\x18\x01 \x01(\x03R\x03seq\x12\x16\n" +
 	"\x06stream\x18\x02 \x01(\tR\x06stream\x128\n" +
@@ -794,7 +860,9 @@ const file_mvservernxt_v1_wire_proto_rawDesc = "" +
 	"\x0euser_logged_in\x18\x16 \x01(\v2\x1c.mvservernxt.v1.UserLoggedInH\x00R\fuserLoggedIn\x12I\n" +
 	"\x0ftoken_refreshed\x18\x17 \x01(\v2\x1e.mvservernxt.v1.TokenRefreshedH\x00R\x0etokenRefreshed\x12G\n" +
 	"\x0fuser_logged_out\x18\x18 \x01(\v2\x1d.mvservernxt.v1.UserLoggedOutH\x00R\ruserLoggedOut\x12l\n" +
-	"\x1crefresh_token_reuse_detected\x18\x19 \x01(\v2).mvservernxt.v1.RefreshTokenReuseDetectedH\x00R\x19refreshTokenReuseDetectedB\t\n" +
+	"\x1crefresh_token_reuse_detected\x18\x19 \x01(\v2).mvservernxt.v1.RefreshTokenReuseDetectedH\x00R\x19refreshTokenReuseDetected\x12F\n" +
+	"\x0eemail_verified\x18\x1a \x01(\v2\x1d.mvservernxt.v1.EmailVerifiedH\x00R\remailVerified\x12_\n" +
+	"\x17verification_email_sent\x18\x1b \x01(\v2%.mvservernxt.v1.VerificationEmailSentH\x00R\x15verificationEmailSentB\t\n" +
 	"\apayloadB\xd6\x01\n" +
 	"\x1fapp.mvchat.mvnxt.mvservernxt.v1B\tWireProtoP\x01ZOgithub.com/scalecode-solutions/mvnxt-protos/gen/go/mvservernxt/v1;mvservernxtv1\xa2\x02\x03MXX\xaa\x02\x0eMvservernxt.V1\xca\x02\x0eMvservernxt\\V1\xe2\x02\x1aMvservernxt\\V1\\GPBMetadata\xea\x02\x0fMvservernxt::V1b\x06proto3"
 
@@ -824,19 +892,23 @@ var file_mvservernxt_v1_wire_proto_goTypes = []any{
 	(*Login)(nil),                     // 9: mvservernxt.v1.Login
 	(*Refresh)(nil),                   // 10: mvservernxt.v1.Refresh
 	(*Logout)(nil),                    // 11: mvservernxt.v1.Logout
-	(*Pong)(nil),                      // 12: mvservernxt.v1.Pong
-	(*HelloResponse)(nil),             // 13: mvservernxt.v1.HelloResponse
-	(*RegisterResponse)(nil),          // 14: mvservernxt.v1.RegisterResponse
-	(*LoginResponse)(nil),             // 15: mvservernxt.v1.LoginResponse
-	(*RefreshResponse)(nil),           // 16: mvservernxt.v1.RefreshResponse
-	(*timestamppb.Timestamp)(nil),     // 17: google.protobuf.Timestamp
-	(*UUID)(nil),                      // 18: mvservernxt.v1.UUID
-	(*SystemNotice)(nil),              // 19: mvservernxt.v1.SystemNotice
-	(*UserRegistered)(nil),            // 20: mvservernxt.v1.UserRegistered
-	(*UserLoggedIn)(nil),              // 21: mvservernxt.v1.UserLoggedIn
-	(*TokenRefreshed)(nil),            // 22: mvservernxt.v1.TokenRefreshed
-	(*UserLoggedOut)(nil),             // 23: mvservernxt.v1.UserLoggedOut
-	(*RefreshTokenReuseDetected)(nil), // 24: mvservernxt.v1.RefreshTokenReuseDetected
+	(*VerifyEmail)(nil),               // 12: mvservernxt.v1.VerifyEmail
+	(*ResendVerificationEmail)(nil),   // 13: mvservernxt.v1.ResendVerificationEmail
+	(*Pong)(nil),                      // 14: mvservernxt.v1.Pong
+	(*HelloResponse)(nil),             // 15: mvservernxt.v1.HelloResponse
+	(*RegisterResponse)(nil),          // 16: mvservernxt.v1.RegisterResponse
+	(*LoginResponse)(nil),             // 17: mvservernxt.v1.LoginResponse
+	(*RefreshResponse)(nil),           // 18: mvservernxt.v1.RefreshResponse
+	(*timestamppb.Timestamp)(nil),     // 19: google.protobuf.Timestamp
+	(*UUID)(nil),                      // 20: mvservernxt.v1.UUID
+	(*SystemNotice)(nil),              // 21: mvservernxt.v1.SystemNotice
+	(*UserRegistered)(nil),            // 22: mvservernxt.v1.UserRegistered
+	(*UserLoggedIn)(nil),              // 23: mvservernxt.v1.UserLoggedIn
+	(*TokenRefreshed)(nil),            // 24: mvservernxt.v1.TokenRefreshed
+	(*UserLoggedOut)(nil),             // 25: mvservernxt.v1.UserLoggedOut
+	(*RefreshTokenReuseDetected)(nil), // 26: mvservernxt.v1.RefreshTokenReuseDetected
+	(*EmailVerified)(nil),             // 27: mvservernxt.v1.EmailVerified
+	(*VerificationEmailSent)(nil),     // 28: mvservernxt.v1.VerificationEmailSent
 }
 var file_mvservernxt_v1_wire_proto_depIdxs = []int32{
 	5,  // 0: mvservernxt.v1.ClientEnvelope.ping:type_name -> mvservernxt.v1.Ping
@@ -846,28 +918,32 @@ var file_mvservernxt_v1_wire_proto_depIdxs = []int32{
 	9,  // 4: mvservernxt.v1.ClientEnvelope.login:type_name -> mvservernxt.v1.Login
 	10, // 5: mvservernxt.v1.ClientEnvelope.refresh:type_name -> mvservernxt.v1.Refresh
 	11, // 6: mvservernxt.v1.ClientEnvelope.logout:type_name -> mvservernxt.v1.Logout
-	2,  // 7: mvservernxt.v1.ServerEnvelope.ack:type_name -> mvservernxt.v1.Ack
-	3,  // 8: mvservernxt.v1.ServerEnvelope.err:type_name -> mvservernxt.v1.Err
-	4,  // 9: mvservernxt.v1.ServerEnvelope.event:type_name -> mvservernxt.v1.Event
-	12, // 10: mvservernxt.v1.Ack.pong:type_name -> mvservernxt.v1.Pong
-	13, // 11: mvservernxt.v1.Ack.hello:type_name -> mvservernxt.v1.HelloResponse
-	14, // 12: mvservernxt.v1.Ack.register:type_name -> mvservernxt.v1.RegisterResponse
-	15, // 13: mvservernxt.v1.Ack.login:type_name -> mvservernxt.v1.LoginResponse
-	16, // 14: mvservernxt.v1.Ack.refresh:type_name -> mvservernxt.v1.RefreshResponse
-	17, // 15: mvservernxt.v1.Event.timestamp:type_name -> google.protobuf.Timestamp
-	18, // 16: mvservernxt.v1.Event.actor_id:type_name -> mvservernxt.v1.UUID
-	18, // 17: mvservernxt.v1.Event.aggregate_id:type_name -> mvservernxt.v1.UUID
-	19, // 18: mvservernxt.v1.Event.system_notice:type_name -> mvservernxt.v1.SystemNotice
-	20, // 19: mvservernxt.v1.Event.user_registered:type_name -> mvservernxt.v1.UserRegistered
-	21, // 20: mvservernxt.v1.Event.user_logged_in:type_name -> mvservernxt.v1.UserLoggedIn
-	22, // 21: mvservernxt.v1.Event.token_refreshed:type_name -> mvservernxt.v1.TokenRefreshed
-	23, // 22: mvservernxt.v1.Event.user_logged_out:type_name -> mvservernxt.v1.UserLoggedOut
-	24, // 23: mvservernxt.v1.Event.refresh_token_reuse_detected:type_name -> mvservernxt.v1.RefreshTokenReuseDetected
-	24, // [24:24] is the sub-list for method output_type
-	24, // [24:24] is the sub-list for method input_type
-	24, // [24:24] is the sub-list for extension type_name
-	24, // [24:24] is the sub-list for extension extendee
-	0,  // [0:24] is the sub-list for field type_name
+	12, // 7: mvservernxt.v1.ClientEnvelope.verify_email:type_name -> mvservernxt.v1.VerifyEmail
+	13, // 8: mvservernxt.v1.ClientEnvelope.resend_verification_email:type_name -> mvservernxt.v1.ResendVerificationEmail
+	2,  // 9: mvservernxt.v1.ServerEnvelope.ack:type_name -> mvservernxt.v1.Ack
+	3,  // 10: mvservernxt.v1.ServerEnvelope.err:type_name -> mvservernxt.v1.Err
+	4,  // 11: mvservernxt.v1.ServerEnvelope.event:type_name -> mvservernxt.v1.Event
+	14, // 12: mvservernxt.v1.Ack.pong:type_name -> mvservernxt.v1.Pong
+	15, // 13: mvservernxt.v1.Ack.hello:type_name -> mvservernxt.v1.HelloResponse
+	16, // 14: mvservernxt.v1.Ack.register:type_name -> mvservernxt.v1.RegisterResponse
+	17, // 15: mvservernxt.v1.Ack.login:type_name -> mvservernxt.v1.LoginResponse
+	18, // 16: mvservernxt.v1.Ack.refresh:type_name -> mvservernxt.v1.RefreshResponse
+	19, // 17: mvservernxt.v1.Event.timestamp:type_name -> google.protobuf.Timestamp
+	20, // 18: mvservernxt.v1.Event.actor_id:type_name -> mvservernxt.v1.UUID
+	20, // 19: mvservernxt.v1.Event.aggregate_id:type_name -> mvservernxt.v1.UUID
+	21, // 20: mvservernxt.v1.Event.system_notice:type_name -> mvservernxt.v1.SystemNotice
+	22, // 21: mvservernxt.v1.Event.user_registered:type_name -> mvservernxt.v1.UserRegistered
+	23, // 22: mvservernxt.v1.Event.user_logged_in:type_name -> mvservernxt.v1.UserLoggedIn
+	24, // 23: mvservernxt.v1.Event.token_refreshed:type_name -> mvservernxt.v1.TokenRefreshed
+	25, // 24: mvservernxt.v1.Event.user_logged_out:type_name -> mvservernxt.v1.UserLoggedOut
+	26, // 25: mvservernxt.v1.Event.refresh_token_reuse_detected:type_name -> mvservernxt.v1.RefreshTokenReuseDetected
+	27, // 26: mvservernxt.v1.Event.email_verified:type_name -> mvservernxt.v1.EmailVerified
+	28, // 27: mvservernxt.v1.Event.verification_email_sent:type_name -> mvservernxt.v1.VerificationEmailSent
+	28, // [28:28] is the sub-list for method output_type
+	28, // [28:28] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_mvservernxt_v1_wire_proto_init() }
@@ -887,6 +963,8 @@ func file_mvservernxt_v1_wire_proto_init() {
 		(*ClientEnvelope_Login)(nil),
 		(*ClientEnvelope_Refresh)(nil),
 		(*ClientEnvelope_Logout)(nil),
+		(*ClientEnvelope_VerifyEmail)(nil),
+		(*ClientEnvelope_ResendVerificationEmail)(nil),
 	}
 	file_mvservernxt_v1_wire_proto_msgTypes[1].OneofWrappers = []any{
 		(*ServerEnvelope_Ack)(nil),
@@ -907,6 +985,8 @@ func file_mvservernxt_v1_wire_proto_init() {
 		(*Event_TokenRefreshed)(nil),
 		(*Event_UserLoggedOut)(nil),
 		(*Event_RefreshTokenReuseDetected)(nil),
+		(*Event_EmailVerified)(nil),
+		(*Event_VerificationEmailSent)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

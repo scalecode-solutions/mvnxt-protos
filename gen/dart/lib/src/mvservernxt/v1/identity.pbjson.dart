@@ -22,13 +22,40 @@ const Register$json = {
     {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
     {'1': 'password', '3': 2, '4': 1, '5': 9, '10': 'password'},
     {'1': 'display_name', '3': 3, '4': 1, '5': 9, '10': 'displayName'},
+    {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
   ],
 };
 
 /// Descriptor for `Register`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List registerDescriptor = $convert.base64Decode(
     'CghSZWdpc3RlchIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWUSGgoIcGFzc3dvcmQYAiABKA'
-    'lSCHBhc3N3b3JkEiEKDGRpc3BsYXlfbmFtZRgDIAEoCVILZGlzcGxheU5hbWU=');
+    'lSCHBhc3N3b3JkEiEKDGRpc3BsYXlfbmFtZRgDIAEoCVILZGlzcGxheU5hbWUSFAoFZW1haWwY'
+    'BCABKAlSBWVtYWls');
+
+@$core.Deprecated('Use verifyEmailDescriptor instead')
+const VerifyEmail$json = {
+  '1': 'VerifyEmail',
+  '2': [
+    {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
+  ],
+};
+
+/// Descriptor for `VerifyEmail`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verifyEmailDescriptor =
+    $convert.base64Decode('CgtWZXJpZnlFbWFpbBIUCgV0b2tlbhgBIAEoCVIFdG9rZW4=');
+
+@$core.Deprecated('Use resendVerificationEmailDescriptor instead')
+const ResendVerificationEmail$json = {
+  '1': 'ResendVerificationEmail',
+  '2': [
+    {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+  ],
+};
+
+/// Descriptor for `ResendVerificationEmail`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List resendVerificationEmailDescriptor =
+    $convert.base64Decode(
+        'ChdSZXNlbmRWZXJpZmljYXRpb25FbWFpbBIUCgVlbWFpbBgBIAEoCVIFZW1haWw=');
 
 @$core.Deprecated('Use authenticateDescriptor instead')
 const Authenticate$json = {
@@ -104,6 +131,8 @@ const AuthTokens$json = {
     },
     {'1': 'user_id', '3': 5, '4': 1, '5': 9, '10': 'userId'},
     {'1': 'username', '3': 6, '4': 1, '5': 9, '10': 'username'},
+    {'1': 'email_verified', '3': 7, '4': 1, '5': 8, '10': 'emailVerified'},
+    {'1': 'email', '3': 8, '4': 1, '5': 9, '10': 'email'},
   ],
 };
 
@@ -114,7 +143,8 @@ final $typed_data.Uint8List authTokensDescriptor = $convert.base64Decode(
     'MhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIPYWNjZXNzRXhwaXJlc0F0EkgKEnJlZnJlc2'
     'hfZXhwaXJlc19hdBgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSEHJlZnJlc2hF'
     'eHBpcmVzQXQSFwoHdXNlcl9pZBgFIAEoCVIGdXNlcklkEhoKCHVzZXJuYW1lGAYgASgJUgh1c2'
-    'VybmFtZQ==');
+    'VybmFtZRIlCg5lbWFpbF92ZXJpZmllZBgHIAEoCFINZW1haWxWZXJpZmllZBIUCgVlbWFpbBgI'
+    'IAEoCVIFZW1haWw=');
 
 @$core.Deprecated('Use registerResponseDescriptor instead')
 const RegisterResponse$json = {
@@ -292,3 +322,49 @@ final $typed_data.Uint8List refreshTokenReuseDetectedDescriptor = $convert.base6
     'ChlSZWZyZXNoVG9rZW5SZXVzZURldGVjdGVkEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZBIbCg'
     'lmYW1pbHlfaWQYAiABKAlSCGZhbWlseUlkEjsKC2RldGVjdGVkX2F0GAMgASgLMhouZ29vZ2xl'
     'LnByb3RvYnVmLlRpbWVzdGFtcFIKZGV0ZWN0ZWRBdA==');
+
+@$core.Deprecated('Use emailVerifiedDescriptor instead')
+const EmailVerified$json = {
+  '1': 'EmailVerified',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
+    {
+      '1': 'verified_at',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'verifiedAt'
+    },
+  ],
+};
+
+/// Descriptor for `EmailVerified`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List emailVerifiedDescriptor = $convert.base64Decode(
+    'Cg1FbWFpbFZlcmlmaWVkEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZBIUCgVlbWFpbBgCIAEoCV'
+    'IFZW1haWwSOwoLdmVyaWZpZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w'
+    'Ugp2ZXJpZmllZEF0');
+
+@$core.Deprecated('Use verificationEmailSentDescriptor instead')
+const VerificationEmailSent$json = {
+  '1': 'VerificationEmailSent',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
+    {
+      '1': 'sent_at',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'sentAt'
+    },
+  ],
+};
+
+/// Descriptor for `VerificationEmailSent`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verificationEmailSentDescriptor = $convert.base64Decode(
+    'ChVWZXJpZmljYXRpb25FbWFpbFNlbnQSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkEhQKBWVtYW'
+    'lsGAIgASgJUgVlbWFpbBIzCgdzZW50X2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVz'
+    'dGFtcFIGc2VudEF0');

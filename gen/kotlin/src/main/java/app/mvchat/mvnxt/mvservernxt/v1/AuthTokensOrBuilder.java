@@ -87,4 +87,29 @@ public interface AuthTokensOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUsernameBytes();
+
+  /**
+   * <pre>
+   * Email-verification status as of the moment these tokens were issued.
+   * Clients render this — e.g. show a "verify your email" banner when
+   * email_verified is false. Server policy may or may not block features
+   * on !email_verified; the token itself is valid either way.
+   * </pre>
+   *
+   * <code>bool email_verified = 7 [json_name = "emailVerified"];</code>
+   * @return The emailVerified.
+   */
+  boolean getEmailVerified();
+
+  /**
+   * <code>string email = 8 [json_name = "email"];</code>
+   * @return The email.
+   */
+  java.lang.String getEmail();
+  /**
+   * <code>string email = 8 [json_name = "email"];</code>
+   * @return The bytes for email.
+   */
+  com.google.protobuf.ByteString
+      getEmailBytes();
 }

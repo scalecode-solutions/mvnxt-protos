@@ -17,7 +17,7 @@ import type { UUID } from "./common_pb";
 import { file_mvservernxt_v1_common } from "./common_pb";
 import type { Hello, HelloResponse } from "./hello_pb";
 import { file_mvservernxt_v1_hello } from "./hello_pb";
-import type { Authenticate, Login, LoginResponse, Logout, Refresh, RefreshResponse, RefreshTokenReuseDetected, Register, RegisterResponse, TokenRefreshed, UserLoggedIn, UserLoggedOut, UserRegistered } from "./identity_pb";
+import type { Authenticate, EmailVerified, Login, LoginResponse, Logout, Refresh, RefreshResponse, RefreshTokenReuseDetected, Register, RegisterResponse, ResendVerificationEmail, TokenRefreshed, UserLoggedIn, UserLoggedOut, UserRegistered, VerificationEmailSent, VerifyEmail } from "./identity_pb";
 import { file_mvservernxt_v1_identity } from "./identity_pb";
 import type { Ping, Pong, SystemNotice } from "./system_pb";
 import { file_mvservernxt_v1_system } from "./system_pb";
@@ -27,7 +27,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file mvservernxt/v1/wire.proto.
  */
 export const file_mvservernxt_v1_wire: GenFile = /*@__PURE__*/
-  fileDesc("ChltdnNlcnZlcm54dC92MS93aXJlLnByb3RvEg5tdnNlcnZlcm54dC52MSLkAgoOQ2xpZW50RW52ZWxvcGUSFwoPaWRlbXBvdGVuY3lfa2V5GAEgASgJEiQKBHBpbmcYCiABKAsyFC5tdnNlcnZlcm54dC52MS5QaW5nSAASJgoFaGVsbG8YCyABKAsyFS5tdnNlcnZlcm54dC52MS5IZWxsb0gAEiwKCHJlZ2lzdGVyGBQgASgLMhgubXZzZXJ2ZXJueHQudjEuUmVnaXN0ZXJIABI0CgxhdXRoZW50aWNhdGUYFSABKAsyHC5tdnNlcnZlcm54dC52MS5BdXRoZW50aWNhdGVIABImCgVsb2dpbhgWIAEoCzIVLm12c2VydmVybnh0LnYxLkxvZ2luSAASKgoHcmVmcmVzaBgXIAEoCzIXLm12c2VydmVybnh0LnYxLlJlZnJlc2hIABIoCgZsb2dvdXQYGCABKAsyFi5tdnNlcnZlcm54dC52MS5Mb2dvdXRIAEIJCgdwYXlsb2FkIosBCg5TZXJ2ZXJFbnZlbG9wZRIiCgNhY2sYASABKAsyEy5tdnNlcnZlcm54dC52MS5BY2tIABIiCgNlcnIYAiABKAsyEy5tdnNlcnZlcm54dC52MS5FcnJIABImCgVldmVudBgDIAEoCzIVLm12c2VydmVybnh0LnYxLkV2ZW50SABCCQoHcGF5bG9hZCKnAgoDQWNrEhcKD2lkZW1wb3RlbmN5X2tleRgBIAEoCRIMCgRjb2RlGAIgASgFEiQKBHBvbmcYCiABKAsyFC5tdnNlcnZlcm54dC52MS5Qb25nSAASLgoFaGVsbG8YCyABKAsyHS5tdnNlcnZlcm54dC52MS5IZWxsb1Jlc3BvbnNlSAASNAoIcmVnaXN0ZXIYFCABKAsyIC5tdnNlcnZlcm54dC52MS5SZWdpc3RlclJlc3BvbnNlSAASLgoFbG9naW4YFiABKAsyHS5tdnNlcnZlcm54dC52MS5Mb2dpblJlc3BvbnNlSAASMgoHcmVmcmVzaBgXIAEoCzIfLm12c2VydmVybnh0LnYxLlJlZnJlc2hSZXNwb25zZUgAQgkKB3BheWxvYWQiTQoDRXJyEhcKD2lkZW1wb3RlbmN5X2tleRgBIAEoCRIMCgRjb2RlGAIgASgFEg8KB21lc3NhZ2UYAyABKAkSDgoGcmVhc29uGAQgASgJIqQECgVFdmVudBILCgNzZXEYASABKAMSDgoGc3RyZWFtGAIgASgJEi0KCXRpbWVzdGFtcBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASJgoIYWN0b3JfaWQYBCABKAsyFC5tdnNlcnZlcm54dC52MS5VVUlEEioKDGFnZ3JlZ2F0ZV9pZBgFIAEoCzIULm12c2VydmVybnh0LnYxLlVVSUQSNQoNc3lzdGVtX25vdGljZRgKIAEoCzIcLm12c2VydmVybnh0LnYxLlN5c3RlbU5vdGljZUgAEjkKD3VzZXJfcmVnaXN0ZXJlZBgUIAEoCzIeLm12c2VydmVybnh0LnYxLlVzZXJSZWdpc3RlcmVkSAASNgoOdXNlcl9sb2dnZWRfaW4YFiABKAsyHC5tdnNlcnZlcm54dC52MS5Vc2VyTG9nZ2VkSW5IABI5Cg90b2tlbl9yZWZyZXNoZWQYFyABKAsyHi5tdnNlcnZlcm54dC52MS5Ub2tlblJlZnJlc2hlZEgAEjgKD3VzZXJfbG9nZ2VkX291dBgYIAEoCzIdLm12c2VydmVybnh0LnYxLlVzZXJMb2dnZWRPdXRIABJRChxyZWZyZXNoX3Rva2VuX3JldXNlX2RldGVjdGVkGBkgASgLMikubXZzZXJ2ZXJueHQudjEuUmVmcmVzaFRva2VuUmV1c2VEZXRlY3RlZEgAQgkKB3BheWxvYWRC1gEKH2FwcC5tdmNoYXQubXZueHQubXZzZXJ2ZXJueHQudjFCCVdpcmVQcm90b1ABWk9naXRodWIuY29tL3NjYWxlY29kZS1zb2x1dGlvbnMvbXZueHQtcHJvdG9zL2dlbi9nby9tdnNlcnZlcm54dC92MTttdnNlcnZlcm54dHYxogIDTVhYqgIOTXZzZXJ2ZXJueHQuVjHKAg5NdnNlcnZlcm54dFxWMeICGk12c2VydmVybnh0XFYxXEdQQk1ldGFkYXRh6gIPTXZzZXJ2ZXJueHQ6OlYxYgZwcm90bzM", [file_google_protobuf_timestamp, file_mvservernxt_v1_common, file_mvservernxt_v1_hello, file_mvservernxt_v1_identity, file_mvservernxt_v1_system]);
+  fileDesc("ChltdnNlcnZlcm54dC92MS93aXJlLnByb3RvEg5tdnNlcnZlcm54dC52MSLnAwoOQ2xpZW50RW52ZWxvcGUSFwoPaWRlbXBvdGVuY3lfa2V5GAEgASgJEiQKBHBpbmcYCiABKAsyFC5tdnNlcnZlcm54dC52MS5QaW5nSAASJgoFaGVsbG8YCyABKAsyFS5tdnNlcnZlcm54dC52MS5IZWxsb0gAEiwKCHJlZ2lzdGVyGBQgASgLMhgubXZzZXJ2ZXJueHQudjEuUmVnaXN0ZXJIABI0CgxhdXRoZW50aWNhdGUYFSABKAsyHC5tdnNlcnZlcm54dC52MS5BdXRoZW50aWNhdGVIABImCgVsb2dpbhgWIAEoCzIVLm12c2VydmVybnh0LnYxLkxvZ2luSAASKgoHcmVmcmVzaBgXIAEoCzIXLm12c2VydmVybnh0LnYxLlJlZnJlc2hIABIoCgZsb2dvdXQYGCABKAsyFi5tdnNlcnZlcm54dC52MS5Mb2dvdXRIABIzCgx2ZXJpZnlfZW1haWwYGSABKAsyGy5tdnNlcnZlcm54dC52MS5WZXJpZnlFbWFpbEgAEkwKGXJlc2VuZF92ZXJpZmljYXRpb25fZW1haWwYGiABKAsyJy5tdnNlcnZlcm54dC52MS5SZXNlbmRWZXJpZmljYXRpb25FbWFpbEgAQgkKB3BheWxvYWQiiwEKDlNlcnZlckVudmVsb3BlEiIKA2FjaxgBIAEoCzITLm12c2VydmVybnh0LnYxLkFja0gAEiIKA2VychgCIAEoCzITLm12c2VydmVybnh0LnYxLkVyckgAEiYKBWV2ZW50GAMgASgLMhUubXZzZXJ2ZXJueHQudjEuRXZlbnRIAEIJCgdwYXlsb2FkIqcCCgNBY2sSFwoPaWRlbXBvdGVuY3lfa2V5GAEgASgJEgwKBGNvZGUYAiABKAUSJAoEcG9uZxgKIAEoCzIULm12c2VydmVybnh0LnYxLlBvbmdIABIuCgVoZWxsbxgLIAEoCzIdLm12c2VydmVybnh0LnYxLkhlbGxvUmVzcG9uc2VIABI0CghyZWdpc3RlchgUIAEoCzIgLm12c2VydmVybnh0LnYxLlJlZ2lzdGVyUmVzcG9uc2VIABIuCgVsb2dpbhgWIAEoCzIdLm12c2VydmVybnh0LnYxLkxvZ2luUmVzcG9uc2VIABIyCgdyZWZyZXNoGBcgASgLMh8ubXZzZXJ2ZXJueHQudjEuUmVmcmVzaFJlc3BvbnNlSABCCQoHcGF5bG9hZCJNCgNFcnISFwoPaWRlbXBvdGVuY3lfa2V5GAEgASgJEgwKBGNvZGUYAiABKAUSDwoHbWVzc2FnZRgDIAEoCRIOCgZyZWFzb24YBCABKAkipwUKBUV2ZW50EgsKA3NlcRgBIAEoAxIOCgZzdHJlYW0YAiABKAkSLQoJdGltZXN0YW1wGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBImCghhY3Rvcl9pZBgEIAEoCzIULm12c2VydmVybnh0LnYxLlVVSUQSKgoMYWdncmVnYXRlX2lkGAUgASgLMhQubXZzZXJ2ZXJueHQudjEuVVVJRBI1Cg1zeXN0ZW1fbm90aWNlGAogASgLMhwubXZzZXJ2ZXJueHQudjEuU3lzdGVtTm90aWNlSAASOQoPdXNlcl9yZWdpc3RlcmVkGBQgASgLMh4ubXZzZXJ2ZXJueHQudjEuVXNlclJlZ2lzdGVyZWRIABI2Cg51c2VyX2xvZ2dlZF9pbhgWIAEoCzIcLm12c2VydmVybnh0LnYxLlVzZXJMb2dnZWRJbkgAEjkKD3Rva2VuX3JlZnJlc2hlZBgXIAEoCzIeLm12c2VydmVybnh0LnYxLlRva2VuUmVmcmVzaGVkSAASOAoPdXNlcl9sb2dnZWRfb3V0GBggASgLMh0ubXZzZXJ2ZXJueHQudjEuVXNlckxvZ2dlZE91dEgAElEKHHJlZnJlc2hfdG9rZW5fcmV1c2VfZGV0ZWN0ZWQYGSABKAsyKS5tdnNlcnZlcm54dC52MS5SZWZyZXNoVG9rZW5SZXVzZURldGVjdGVkSAASNwoOZW1haWxfdmVyaWZpZWQYGiABKAsyHS5tdnNlcnZlcm54dC52MS5FbWFpbFZlcmlmaWVkSAASSAoXdmVyaWZpY2F0aW9uX2VtYWlsX3NlbnQYGyABKAsyJS5tdnNlcnZlcm54dC52MS5WZXJpZmljYXRpb25FbWFpbFNlbnRIAEIJCgdwYXlsb2FkQtYBCh9hcHAubXZjaGF0Lm12bnh0Lm12c2VydmVybnh0LnYxQglXaXJlUHJvdG9QAVpPZ2l0aHViLmNvbS9zY2FsZWNvZGUtc29sdXRpb25zL212bnh0LXByb3Rvcy9nZW4vZ28vbXZzZXJ2ZXJueHQvdjE7bXZzZXJ2ZXJueHR2MaICA01YWKoCDk12c2VydmVybnh0LlYxygIOTXZzZXJ2ZXJueHRcVjHiAhpNdnNlcnZlcm54dFxWMVxHUEJNZXRhZGF0YeoCD012c2VydmVybnh0OjpWMWIGcHJvdG8z", [file_google_protobuf_timestamp, file_mvservernxt_v1_common, file_mvservernxt_v1_hello, file_mvservernxt_v1_identity, file_mvservernxt_v1_system]);
 
 /**
  * ClientEnvelope is a command message from client to server.
@@ -103,6 +103,18 @@ export type ClientEnvelope = Message<"mvservernxt.v1.ClientEnvelope"> & {
      */
     value: Logout;
     case: "logout";
+  } | {
+    /**
+     * @generated from field: mvservernxt.v1.VerifyEmail verify_email = 25;
+     */
+    value: VerifyEmail;
+    case: "verifyEmail";
+  } | {
+    /**
+     * @generated from field: mvservernxt.v1.ResendVerificationEmail resend_verification_email = 26;
+     */
+    value: ResendVerificationEmail;
+    case: "resendVerificationEmail";
   } | { case: undefined; value?: undefined };
 };
 
@@ -356,6 +368,18 @@ export type Event = Message<"mvservernxt.v1.Event"> & {
      */
     value: RefreshTokenReuseDetected;
     case: "refreshTokenReuseDetected";
+  } | {
+    /**
+     * @generated from field: mvservernxt.v1.EmailVerified email_verified = 26;
+     */
+    value: EmailVerified;
+    case: "emailVerified";
+  } | {
+    /**
+     * @generated from field: mvservernxt.v1.VerificationEmailSent verification_email_sent = 27;
+     */
+    value: VerificationEmailSent;
+    case: "verificationEmailSent";
   } | { case: undefined; value?: undefined };
 };
 

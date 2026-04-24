@@ -32,6 +32,8 @@ enum ClientEnvelope_Payload {
   login,
   refresh,
   logout,
+  verifyEmail,
+  resendVerificationEmail,
   notSet
 }
 
@@ -52,6 +54,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $2.Login? login,
     $2.Refresh? refresh,
     $2.Logout? logout,
+    $2.VerifyEmail? verifyEmail,
+    $2.ResendVerificationEmail? resendVerificationEmail,
   }) {
     final result = create();
     if (idempotencyKey != null) result.idempotencyKey = idempotencyKey;
@@ -62,6 +66,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (login != null) result.login = login;
     if (refresh != null) result.refresh = refresh;
     if (logout != null) result.logout = logout;
+    if (verifyEmail != null) result.verifyEmail = verifyEmail;
+    if (resendVerificationEmail != null)
+      result.resendVerificationEmail = resendVerificationEmail;
     return result;
   }
 
@@ -83,13 +90,15 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     22: ClientEnvelope_Payload.login,
     23: ClientEnvelope_Payload.refresh,
     24: ClientEnvelope_Payload.logout,
+    25: ClientEnvelope_Payload.verifyEmail,
+    26: ClientEnvelope_Payload.resendVerificationEmail,
     0: ClientEnvelope_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ClientEnvelope',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 11, 20, 21, 22, 23, 24])
+    ..oo(0, [10, 11, 20, 21, 22, 23, 24, 25, 26])
     ..aOS(1, _omitFieldNames ? '' : 'idempotencyKey')
     ..aOM<$0.Ping>(10, _omitFieldNames ? '' : 'ping',
         subBuilder: $0.Ping.create)
@@ -105,6 +114,11 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $2.Refresh.create)
     ..aOM<$2.Logout>(24, _omitFieldNames ? '' : 'logout',
         subBuilder: $2.Logout.create)
+    ..aOM<$2.VerifyEmail>(25, _omitFieldNames ? '' : 'verifyEmail',
+        subBuilder: $2.VerifyEmail.create)
+    ..aOM<$2.ResendVerificationEmail>(
+        26, _omitFieldNames ? '' : 'resendVerificationEmail',
+        subBuilder: $2.ResendVerificationEmail.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -133,6 +147,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(22)
   @$pb.TagNumber(23)
   @$pb.TagNumber(24)
+  @$pb.TagNumber(25)
+  @$pb.TagNumber(26)
   ClientEnvelope_Payload whichPayload() =>
       _ClientEnvelope_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
@@ -142,6 +158,8 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(22)
   @$pb.TagNumber(23)
   @$pb.TagNumber(24)
+  @$pb.TagNumber(25)
+  @$pb.TagNumber(26)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Client-generated UUID. Required. Reused on retry.
@@ -232,6 +250,29 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   void clearLogout() => $_clearField(24);
   @$pb.TagNumber(24)
   $2.Logout ensureLogout() => $_ensure(7);
+
+  @$pb.TagNumber(25)
+  $2.VerifyEmail get verifyEmail => $_getN(8);
+  @$pb.TagNumber(25)
+  set verifyEmail($2.VerifyEmail value) => $_setField(25, value);
+  @$pb.TagNumber(25)
+  $core.bool hasVerifyEmail() => $_has(8);
+  @$pb.TagNumber(25)
+  void clearVerifyEmail() => $_clearField(25);
+  @$pb.TagNumber(25)
+  $2.VerifyEmail ensureVerifyEmail() => $_ensure(8);
+
+  @$pb.TagNumber(26)
+  $2.ResendVerificationEmail get resendVerificationEmail => $_getN(9);
+  @$pb.TagNumber(26)
+  set resendVerificationEmail($2.ResendVerificationEmail value) =>
+      $_setField(26, value);
+  @$pb.TagNumber(26)
+  $core.bool hasResendVerificationEmail() => $_has(9);
+  @$pb.TagNumber(26)
+  void clearResendVerificationEmail() => $_clearField(26);
+  @$pb.TagNumber(26)
+  $2.ResendVerificationEmail ensureResendVerificationEmail() => $_ensure(9);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -615,6 +656,8 @@ enum Event_Payload {
   tokenRefreshed,
   userLoggedOut,
   refreshTokenReuseDetected,
+  emailVerified,
+  verificationEmailSent,
   notSet
 }
 
@@ -634,6 +677,8 @@ class Event extends $pb.GeneratedMessage {
     $2.TokenRefreshed? tokenRefreshed,
     $2.UserLoggedOut? userLoggedOut,
     $2.RefreshTokenReuseDetected? refreshTokenReuseDetected,
+    $2.EmailVerified? emailVerified,
+    $2.VerificationEmailSent? verificationEmailSent,
   }) {
     final result = create();
     if (seq != null) result.seq = seq;
@@ -648,6 +693,9 @@ class Event extends $pb.GeneratedMessage {
     if (userLoggedOut != null) result.userLoggedOut = userLoggedOut;
     if (refreshTokenReuseDetected != null)
       result.refreshTokenReuseDetected = refreshTokenReuseDetected;
+    if (emailVerified != null) result.emailVerified = emailVerified;
+    if (verificationEmailSent != null)
+      result.verificationEmailSent = verificationEmailSent;
     return result;
   }
 
@@ -667,13 +715,15 @@ class Event extends $pb.GeneratedMessage {
     23: Event_Payload.tokenRefreshed,
     24: Event_Payload.userLoggedOut,
     25: Event_Payload.refreshTokenReuseDetected,
+    26: Event_Payload.emailVerified,
+    27: Event_Payload.verificationEmailSent,
     0: Event_Payload.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Event',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'mvservernxt.v1'),
       createEmptyInstance: create)
-    ..oo(0, [10, 20, 22, 23, 24, 25])
+    ..oo(0, [10, 20, 22, 23, 24, 25, 26, 27])
     ..aInt64(1, _omitFieldNames ? '' : 'seq')
     ..aOS(2, _omitFieldNames ? '' : 'stream')
     ..aOM<$3.Timestamp>(3, _omitFieldNames ? '' : 'timestamp',
@@ -695,6 +745,11 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$2.RefreshTokenReuseDetected>(
         25, _omitFieldNames ? '' : 'refreshTokenReuseDetected',
         subBuilder: $2.RefreshTokenReuseDetected.create)
+    ..aOM<$2.EmailVerified>(26, _omitFieldNames ? '' : 'emailVerified',
+        subBuilder: $2.EmailVerified.create)
+    ..aOM<$2.VerificationEmailSent>(
+        27, _omitFieldNames ? '' : 'verificationEmailSent',
+        subBuilder: $2.VerificationEmailSent.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -721,6 +776,8 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(23)
   @$pb.TagNumber(24)
   @$pb.TagNumber(25)
+  @$pb.TagNumber(26)
+  @$pb.TagNumber(27)
   Event_Payload whichPayload() => _Event_PayloadByTag[$_whichOneof(0)]!;
   @$pb.TagNumber(10)
   @$pb.TagNumber(20)
@@ -728,6 +785,8 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(23)
   @$pb.TagNumber(24)
   @$pb.TagNumber(25)
+  @$pb.TagNumber(26)
+  @$pb.TagNumber(27)
   void clearPayload() => $_clearField($_whichOneof(0));
 
   /// Position in the global event log.
@@ -856,6 +915,29 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(25)
   $2.RefreshTokenReuseDetected ensureRefreshTokenReuseDetected() =>
       $_ensure(10);
+
+  @$pb.TagNumber(26)
+  $2.EmailVerified get emailVerified => $_getN(11);
+  @$pb.TagNumber(26)
+  set emailVerified($2.EmailVerified value) => $_setField(26, value);
+  @$pb.TagNumber(26)
+  $core.bool hasEmailVerified() => $_has(11);
+  @$pb.TagNumber(26)
+  void clearEmailVerified() => $_clearField(26);
+  @$pb.TagNumber(26)
+  $2.EmailVerified ensureEmailVerified() => $_ensure(11);
+
+  @$pb.TagNumber(27)
+  $2.VerificationEmailSent get verificationEmailSent => $_getN(12);
+  @$pb.TagNumber(27)
+  set verificationEmailSent($2.VerificationEmailSent value) =>
+      $_setField(27, value);
+  @$pb.TagNumber(27)
+  $core.bool hasVerificationEmailSent() => $_has(12);
+  @$pb.TagNumber(27)
+  void clearVerificationEmailSent() => $_clearField(27);
+  @$pb.TagNumber(27)
+  $2.VerificationEmailSent ensureVerificationEmailSent() => $_ensure(12);
 }
 
 const $core.bool _omitFieldNames =

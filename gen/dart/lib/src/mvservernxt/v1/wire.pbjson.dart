@@ -83,6 +83,24 @@ const ClientEnvelope$json = {
       '9': 0,
       '10': 'logout'
     },
+    {
+      '1': 'verify_email',
+      '3': 25,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.VerifyEmail',
+      '9': 0,
+      '10': 'verifyEmail'
+    },
+    {
+      '1': 'resend_verification_email',
+      '3': 26,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.ResendVerificationEmail',
+      '9': 0,
+      '10': 'resendVerificationEmail'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -98,7 +116,10 @@ final $typed_data.Uint8List clientEnvelopeDescriptor = $convert.base64Decode(
     'IAEoCzIcLm12c2VydmVybnh0LnYxLkF1dGhlbnRpY2F0ZUgAUgxhdXRoZW50aWNhdGUSLQoFbG'
     '9naW4YFiABKAsyFS5tdnNlcnZlcm54dC52MS5Mb2dpbkgAUgVsb2dpbhIzCgdyZWZyZXNoGBcg'
     'ASgLMhcubXZzZXJ2ZXJueHQudjEuUmVmcmVzaEgAUgdyZWZyZXNoEjAKBmxvZ291dBgYIAEoCz'
-    'IWLm12c2VydmVybnh0LnYxLkxvZ291dEgAUgZsb2dvdXRCCQoHcGF5bG9hZA==');
+    'IWLm12c2VydmVybnh0LnYxLkxvZ291dEgAUgZsb2dvdXQSQAoMdmVyaWZ5X2VtYWlsGBkgASgL'
+    'MhsubXZzZXJ2ZXJueHQudjEuVmVyaWZ5RW1haWxIAFILdmVyaWZ5RW1haWwSZQoZcmVzZW5kX3'
+    'ZlcmlmaWNhdGlvbl9lbWFpbBgaIAEoCzInLm12c2VydmVybnh0LnYxLlJlc2VuZFZlcmlmaWNh'
+    'dGlvbkVtYWlsSABSF3Jlc2VuZFZlcmlmaWNhdGlvbkVtYWlsQgkKB3BheWxvYWQ=');
 
 @$core.Deprecated('Use serverEnvelopeDescriptor instead')
 const ServerEnvelope$json = {
@@ -311,6 +332,24 @@ const Event$json = {
       '9': 0,
       '10': 'refreshTokenReuseDetected'
     },
+    {
+      '1': 'email_verified',
+      '3': 26,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.EmailVerified',
+      '9': 0,
+      '10': 'emailVerified'
+    },
+    {
+      '1': 'verification_email_sent',
+      '3': 27,
+      '4': 1,
+      '5': 11,
+      '6': '.mvservernxt.v1.VerificationEmailSent',
+      '9': 0,
+      '10': 'verificationEmailSent'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -331,4 +370,7 @@ final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
     'hlZBJHCg91c2VyX2xvZ2dlZF9vdXQYGCABKAsyHS5tdnNlcnZlcm54dC52MS5Vc2VyTG9nZ2Vk'
     'T3V0SABSDXVzZXJMb2dnZWRPdXQSbAoccmVmcmVzaF90b2tlbl9yZXVzZV9kZXRlY3RlZBgZIA'
     'EoCzIpLm12c2VydmVybnh0LnYxLlJlZnJlc2hUb2tlblJldXNlRGV0ZWN0ZWRIAFIZcmVmcmVz'
-    'aFRva2VuUmV1c2VEZXRlY3RlZEIJCgdwYXlsb2Fk');
+    'aFRva2VuUmV1c2VEZXRlY3RlZBJGCg5lbWFpbF92ZXJpZmllZBgaIAEoCzIdLm12c2VydmVybn'
+    'h0LnYxLkVtYWlsVmVyaWZpZWRIAFINZW1haWxWZXJpZmllZBJfChd2ZXJpZmljYXRpb25fZW1h'
+    'aWxfc2VudBgbIAEoCzIlLm12c2VydmVybnh0LnYxLlZlcmlmaWNhdGlvbkVtYWlsU2VudEgAUh'
+    'V2ZXJpZmljYXRpb25FbWFpbFNlbnRCCQoHcGF5bG9hZA==');

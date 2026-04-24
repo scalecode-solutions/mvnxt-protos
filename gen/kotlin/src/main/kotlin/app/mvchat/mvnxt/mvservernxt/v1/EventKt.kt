@@ -371,6 +371,54 @@ public object EventKt {
     public fun hasRefreshTokenReuseDetected(): kotlin.Boolean {
       return _builder.hasRefreshTokenReuseDetected()
     }
+
+    /**
+     * `.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];`
+     */
+    public var emailVerified: app.mvchat.mvnxt.mvservernxt.v1.EmailVerified
+      @kotlin.jvm.JvmName("getEmailVerified")
+        get() = _builder.emailVerified
+      @kotlin.jvm.JvmName("setEmailVerified")
+        set(value) {
+        _builder.emailVerified = value
+      }
+    /**
+     * `.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];`
+     */
+    public fun clearEmailVerified() {
+      _builder.clearEmailVerified()
+    }
+    /**
+     * `.mvservernxt.v1.EmailVerified email_verified = 26 [json_name = "emailVerified"];`
+     * @return Whether the emailVerified field is set.
+     */
+    public fun hasEmailVerified(): kotlin.Boolean {
+      return _builder.hasEmailVerified()
+    }
+
+    /**
+     * `.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];`
+     */
+    public var verificationEmailSent: app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent
+      @kotlin.jvm.JvmName("getVerificationEmailSent")
+        get() = _builder.verificationEmailSent
+      @kotlin.jvm.JvmName("setVerificationEmailSent")
+        set(value) {
+        _builder.verificationEmailSent = value
+      }
+    /**
+     * `.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];`
+     */
+    public fun clearVerificationEmailSent() {
+      _builder.clearVerificationEmailSent()
+    }
+    /**
+     * `.mvservernxt.v1.VerificationEmailSent verification_email_sent = 27 [json_name = "verificationEmailSent"];`
+     * @return Whether the verificationEmailSent field is set.
+     */
+    public fun hasVerificationEmailSent(): kotlin.Boolean {
+      return _builder.hasVerificationEmailSent()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -410,4 +458,10 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.userLoggedOutOrNull: a
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.refreshTokenReuseDetectedOrNull: app.mvchat.mvnxt.mvservernxt.v1.RefreshTokenReuseDetected?
   get() = if (hasRefreshTokenReuseDetected()) getRefreshTokenReuseDetected() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.emailVerifiedOrNull: app.mvchat.mvnxt.mvservernxt.v1.EmailVerified?
+  get() = if (hasEmailVerified()) getEmailVerified() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.verificationEmailSentOrNull: app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent?
+  get() = if (hasVerificationEmailSent()) getVerificationEmailSent() else null
 

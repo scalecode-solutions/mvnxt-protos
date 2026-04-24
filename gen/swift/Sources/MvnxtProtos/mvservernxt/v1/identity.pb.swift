@@ -39,6 +39,40 @@ public struct Mvservernxt_V1_Register: Sendable {
   /// Optional. Defaults to username.
   public var displayName: String = String()
 
+  /// Email. Required when the server runs with email verification enabled;
+  /// optional otherwise. Uniqueness enforced case-insensitively when non-empty.
+  public var email: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// VerifyEmail completes the email-verification loop. The token is delivered
+/// to the user's inbox by the server after Register. Pre-auth — sent from
+/// whichever device clicks the verification link.
+public struct Mvservernxt_V1_VerifyEmail: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var token: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// ResendVerificationEmail re-dispatches a fresh verification email. Used
+/// when the original email expired, was lost, or the user changed addresses.
+/// Pre-auth — takes the target email.
+public struct Mvservernxt_V1_ResendVerificationEmail: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var email: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -135,6 +169,14 @@ public struct Mvservernxt_V1_AuthTokens: Sendable {
   public var userID: String = String()
 
   public var username: String = String()
+
+  /// Email-verification status as of the moment these tokens were issued.
+  /// Clients render this — e.g. show a "verify your email" banner when
+  /// email_verified is false. Server policy may or may not block features
+  /// on !email_verified; the token itself is valid either way.
+  public var emailVerified: Bool = false
+
+  public var email: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -341,13 +383,69 @@ public struct Mvservernxt_V1_RefreshTokenReuseDetected: Sendable {
   fileprivate var _detectedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+/// EmailVerified fires when a user completes the verification loop.
+/// Subscribers (ws-broadcast) deliver it to the user's active sessions so
+/// UI can hide the "verify your email" banner without a reload.
+public struct Mvservernxt_V1_EmailVerified: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: String = String()
+
+  public var email: String = String()
+
+  public var verifiedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_verifiedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_verifiedAt = newValue}
+  }
+  /// Returns true if `verifiedAt` has been explicitly set.
+  public var hasVerifiedAt: Bool {self._verifiedAt != nil}
+  /// Clears the value of `verifiedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearVerifiedAt() {self._verifiedAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _verifiedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// VerificationEmailSent fires each time the server dispatches a
+/// verification email (initial registration + resends). Useful for audit,
+/// abuse detection, email-throttle metrics.
+public struct Mvservernxt_V1_VerificationEmailSent: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: String = String()
+
+  public var email: String = String()
+
+  public var sentAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_sentAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_sentAt = newValue}
+  }
+  /// Returns true if `sentAt` has been explicitly set.
+  public var hasSentAt: Bool {self._sentAt != nil}
+  /// Clears the value of `sentAt`. Subsequent reads from it will return its default value.
+  public mutating func clearSentAt() {self._sentAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _sentAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mvservernxt.v1"
 
 extension Mvservernxt_V1_Register: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Register"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}username\0\u{1}password\0\u{3}display_name\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}username\0\u{1}password\0\u{3}display_name\0\u{1}email\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -358,6 +456,7 @@ extension Mvservernxt_V1_Register: SwiftProtobuf.Message, SwiftProtobuf._Message
       case 1: try { try decoder.decodeSingularStringField(value: &self.username) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.password) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.displayName) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.email) }()
       default: break
       }
     }
@@ -373,6 +472,9 @@ extension Mvservernxt_V1_Register: SwiftProtobuf.Message, SwiftProtobuf._Message
     if !self.displayName.isEmpty {
       try visitor.visitSingularStringField(value: self.displayName, fieldNumber: 3)
     }
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -380,6 +482,67 @@ extension Mvservernxt_V1_Register: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs.username != rhs.username {return false}
     if lhs.password != rhs.password {return false}
     if lhs.displayName != rhs.displayName {return false}
+    if lhs.email != rhs.email {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_VerifyEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VerifyEmail"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}token\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_VerifyEmail, rhs: Mvservernxt_V1_VerifyEmail) -> Bool {
+    if lhs.token != rhs.token {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_ResendVerificationEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ResendVerificationEmail"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}email\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.email) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_ResendVerificationEmail, rhs: Mvservernxt_V1_ResendVerificationEmail) -> Bool {
+    if lhs.email != rhs.email {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -512,7 +675,7 @@ extension Mvservernxt_V1_Logout: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
 extension Mvservernxt_V1_AuthTokens: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AuthTokens"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}access_token\0\u{3}refresh_token\0\u{3}access_expires_at\0\u{3}refresh_expires_at\0\u{3}user_id\0\u{1}username\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}access_token\0\u{3}refresh_token\0\u{3}access_expires_at\0\u{3}refresh_expires_at\0\u{3}user_id\0\u{1}username\0\u{3}email_verified\0\u{1}email\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -526,6 +689,8 @@ extension Mvservernxt_V1_AuthTokens: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 4: try { try decoder.decodeSingularMessageField(value: &self._refreshExpiresAt) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.userID) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.username) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.emailVerified) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.email) }()
       default: break
       }
     }
@@ -554,6 +719,12 @@ extension Mvservernxt_V1_AuthTokens: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.username.isEmpty {
       try visitor.visitSingularStringField(value: self.username, fieldNumber: 6)
     }
+    if self.emailVerified != false {
+      try visitor.visitSingularBoolField(value: self.emailVerified, fieldNumber: 7)
+    }
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -564,6 +735,8 @@ extension Mvservernxt_V1_AuthTokens: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs._refreshExpiresAt != rhs._refreshExpiresAt {return false}
     if lhs.userID != rhs.userID {return false}
     if lhs.username != rhs.username {return false}
+    if lhs.emailVerified != rhs.emailVerified {return false}
+    if lhs.email != rhs.email {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -896,6 +1069,94 @@ extension Mvservernxt_V1_RefreshTokenReuseDetected: SwiftProtobuf.Message, Swift
     if lhs.userID != rhs.userID {return false}
     if lhs.familyID != rhs.familyID {return false}
     if lhs._detectedAt != rhs._detectedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_EmailVerified: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EmailVerified"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}user_id\0\u{1}email\0\u{3}verified_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.email) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._verifiedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 2)
+    }
+    try { if let v = self._verifiedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_EmailVerified, rhs: Mvservernxt_V1_EmailVerified) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.email != rhs.email {return false}
+    if lhs._verifiedAt != rhs._verifiedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_VerificationEmailSent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VerificationEmailSent"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}user_id\0\u{1}email\0\u{3}sent_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.email) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._sentAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 2)
+    }
+    try { if let v = self._sentAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_VerificationEmailSent, rhs: Mvservernxt_V1_VerificationEmailSent) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.email != rhs.email {return false}
+    if lhs._sentAt != rhs._sentAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
