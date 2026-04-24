@@ -132,6 +132,61 @@ public enum Mvservernxt_V1_DeletionKind: SwiftProtobuf.Enum, Swift.CaseIterable 
 
 }
 
+/// ConversationRole is the per-member role within a group. DMs keep
+/// every member as MEMBER — role-gated commands reject on DMs.
+///
+/// Semantics (enforced server-side in the chat handlers):
+///
+///   OWNER:   exactly one per group. Can promote, demote, transfer,
+///            everything an admin can do. Cannot be removed;
+///            transfers ownership to leave a group.
+///   ADMIN:   zero or more. Can Add/Remove members (but not other
+///            admins or the owner), set disappearing messages,
+///            update conversation metadata, delete-for-everyone any
+///            message. Cannot change roles.
+///   MEMBER:  default. Sends / edits-own / reacts / reads / leaves.
+public enum Mvservernxt_V1_ConversationRole: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case member // = 1
+  case admin // = 2
+  case owner // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .member
+    case 2: self = .admin
+    case 3: self = .owner
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .member: return 1
+    case .admin: return 2
+    case .owner: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Mvservernxt_V1_ConversationRole] = [
+    .unspecified,
+    .member,
+    .admin,
+    .owner,
+  ]
+
+}
+
 /// Reaction is one emoji reaction from one user on one message.
 /// Servers return a full list on Message.reactions; clients aggregate
 /// by emoji for display.
@@ -271,11 +326,35 @@ public struct Mvservernxt_V1_Conversation: Sendable {
   /// default. Max 64 chars.
   public var theme: String = String()
 
+  /// Per-member detail for active members (left_at IS NULL), keyed
+  /// on user_id. Present alongside member_ids — clients can use
+  /// either. members carries role so UIs can render "owner" /
+  /// "admin" badges without a follow-up fetch. DMs return empty
+  /// here (role model doesn't apply).
+  public var members: [Mvservernxt_V1_GroupMember] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _createdAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// GroupMember is one active member's public projection: user_id +
+/// role. Nickname, join time, and read state are not included —
+/// those are per-viewer / fetch-on-demand concerns.
+public struct Mvservernxt_V1_GroupMember: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: String = String()
+
+  public var role: Mvservernxt_V1_ConversationRole = .unspecified
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// Message is the client-facing view of one message row.
@@ -936,6 +1015,64 @@ public struct Mvservernxt_V1_UpdateConversationMetadata: Sendable {
   fileprivate var _title: String? = nil
   fileprivate var _description_p: String? = nil
   fileprivate var _theme: String? = nil
+}
+
+/// PromoteMember raises a MEMBER to ADMIN in a group. Caller must be
+/// OWNER or ADMIN. Target must be a current member (not left).
+/// Re-promoting an ADMIN is a no-op. Rejected on DMs. Cannot target
+/// self (there's no useful path that goes through Promote for self).
+public struct Mvservernxt_V1_PromoteMember: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var userID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// DemoteMember lowers an ADMIN to MEMBER. Caller must be OWNER
+/// (admins cannot demote each other — keeps the power structure
+/// honest). Demoting a MEMBER is a no-op. Cannot target the owner;
+/// use TransferOwnership. Rejected on DMs.
+public struct Mvservernxt_V1_DemoteMember: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var userID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// TransferOwnership atomically swaps the OWNER role with the named
+/// target. The caller (current owner) becomes ADMIN; the target
+/// becomes OWNER. Caller must be OWNER. Target must be a current
+/// active member. Cannot target self. Rejected on DMs.
+///
+/// Used as the owner's explicit "leave" path — owners cannot simply
+/// LeaveConversation while holding the role; they must hand off
+/// first.
+public struct Mvservernxt_V1_TransferOwnership: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var newOwnerID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// MarkRead advances the caller's last_read_seq on a conversation.
@@ -1746,6 +1883,45 @@ public struct Mvservernxt_V1_ConversationMetadataChanged: Sendable {
   fileprivate var _changedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+/// MemberRoleChanged fires for each Promote/Demote/TransferOwnership
+/// that actually moves a role. A TransferOwnership emits TWO
+/// MemberRoleChanged events in one fan-out: one for the demoted
+/// owner (→ admin) and one for the promoted target (→ owner).
+///
+/// Audience: every active member of the conversation — role changes
+/// are public within the group.
+public struct Mvservernxt_V1_MemberRoleChanged: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  /// whose role changed
+  public var userID: String = String()
+
+  public var previousRole: Mvservernxt_V1_ConversationRole = .unspecified
+
+  public var newRole: Mvservernxt_V1_ConversationRole = .unspecified
+
+  public var changedBy: String = String()
+
+  public var changedAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {_changedAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_changedAt = newValue}
+  }
+  /// Returns true if `changedAt` has been explicitly set.
+  public var hasChangedAt: Bool {self._changedAt != nil}
+  /// Clears the value of `changedAt`. Subsequent reads from it will return its default value.
+  public mutating func clearChangedAt() {self._changedAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _changedAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mvservernxt.v1"
@@ -1756,6 +1932,10 @@ extension Mvservernxt_V1_ConversationType: SwiftProtobuf._ProtoNameProviding {
 
 extension Mvservernxt_V1_DeletionKind: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0DELETION_KIND_UNSPECIFIED\0\u{1}DELETION_KIND_FOR_EVERYONE\0\u{1}DELETION_KIND_UNSENT\0\u{1}DELETION_KIND_EXPIRED\0")
+}
+
+extension Mvservernxt_V1_ConversationRole: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0CONVERSATION_ROLE_UNSPECIFIED\0\u{1}CONVERSATION_ROLE_MEMBER\0\u{1}CONVERSATION_ROLE_ADMIN\0\u{1}CONVERSATION_ROLE_OWNER\0")
 }
 
 extension Mvservernxt_V1_Reaction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -1884,7 +2064,7 @@ extension Mvservernxt_V1_Mention: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
 extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Conversation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}title\0\u{3}created_by\0\u{3}created_at\0\u{3}member_ids\0\u{3}last_message_seq\0\u{3}disappearing_seconds\0\u{1}description\0\u{1}theme\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}title\0\u{3}created_by\0\u{3}created_at\0\u{3}member_ids\0\u{3}last_message_seq\0\u{3}disappearing_seconds\0\u{1}description\0\u{1}theme\0\u{1}members\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1902,6 +2082,7 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
       case 8: try { try decoder.decodeSingularInt32Field(value: &self.disappearingSeconds) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.theme) }()
+      case 11: try { try decoder.decodeRepeatedMessageField(value: &self.members) }()
       default: break
       }
     }
@@ -1942,6 +2123,9 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.theme.isEmpty {
       try visitor.visitSingularStringField(value: self.theme, fieldNumber: 10)
     }
+    if !self.members.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.members, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1956,6 +2140,42 @@ extension Mvservernxt_V1_Conversation: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.disappearingSeconds != rhs.disappearingSeconds {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.theme != rhs.theme {return false}
+    if lhs.members != rhs.members {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_GroupMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GroupMember"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}user_id\0\u{1}role\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.role) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if self.role != .unspecified {
+      try visitor.visitSingularEnumField(value: self.role, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_GroupMember, rhs: Mvservernxt_V1_GroupMember) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.role != rhs.role {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2839,6 +3059,111 @@ extension Mvservernxt_V1_UpdateConversationMetadata: SwiftProtobuf.Message, Swif
     if lhs._title != rhs._title {return false}
     if lhs._description_p != rhs._description_p {return false}
     if lhs._theme != rhs._theme {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_PromoteMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".PromoteMember"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}user_id\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_PromoteMember, rhs: Mvservernxt_V1_PromoteMember) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_DemoteMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DemoteMember"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}user_id\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_DemoteMember, rhs: Mvservernxt_V1_DemoteMember) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_TransferOwnership: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferOwnership"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}new_owner_id\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.newOwnerID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.newOwnerID.isEmpty {
+      try visitor.visitSingularStringField(value: self.newOwnerID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_TransferOwnership, rhs: Mvservernxt_V1_TransferOwnership) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.newOwnerID != rhs.newOwnerID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4109,6 +4434,65 @@ extension Mvservernxt_V1_ConversationMetadataChanged: SwiftProtobuf.Message, Swi
     if lhs._title != rhs._title {return false}
     if lhs._description_p != rhs._description_p {return false}
     if lhs._theme != rhs._theme {return false}
+    if lhs.changedBy != rhs.changedBy {return false}
+    if lhs._changedAt != rhs._changedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mvservernxt_V1_MemberRoleChanged: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".MemberRoleChanged"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}conversation_id\0\u{3}user_id\0\u{3}previous_role\0\u{3}new_role\0\u{3}changed_by\0\u{3}changed_at\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.previousRole) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.newRole) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.changedBy) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._changedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
+    }
+    if self.previousRole != .unspecified {
+      try visitor.visitSingularEnumField(value: self.previousRole, fieldNumber: 3)
+    }
+    if self.newRole != .unspecified {
+      try visitor.visitSingularEnumField(value: self.newRole, fieldNumber: 4)
+    }
+    if !self.changedBy.isEmpty {
+      try visitor.visitSingularStringField(value: self.changedBy, fieldNumber: 5)
+    }
+    try { if let v = self._changedAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Mvservernxt_V1_MemberRoleChanged, rhs: Mvservernxt_V1_MemberRoleChanged) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.previousRole != rhs.previousRole {return false}
+    if lhs.newRole != rhs.newRole {return false}
     if lhs.changedBy != rhs.changedBy {return false}
     if lhs._changedAt != rhs._changedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

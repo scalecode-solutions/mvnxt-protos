@@ -58,6 +58,9 @@ enum ClientEnvelope_Payload {
   setConversationNickname,
   updateConversationMetadata,
   markDelivered,
+  promoteMember,
+  demoteMember,
+  transferOwnership,
   addContact,
   removeContact,
   listContacts,
@@ -111,6 +114,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     $3.SetConversationNickname? setConversationNickname,
     $3.UpdateConversationMetadata? updateConversationMetadata,
     $3.MarkDelivered? markDelivered,
+    $3.PromoteMember? promoteMember,
+    $3.DemoteMember? demoteMember,
+    $3.TransferOwnership? transferOwnership,
     $4.AddContact? addContact,
     $4.RemoveContact? removeContact,
     $4.ListContacts? listContacts,
@@ -160,6 +166,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     if (updateConversationMetadata != null)
       result.updateConversationMetadata = updateConversationMetadata;
     if (markDelivered != null) result.markDelivered = markDelivered;
+    if (promoteMember != null) result.promoteMember = promoteMember;
+    if (demoteMember != null) result.demoteMember = demoteMember;
+    if (transferOwnership != null) result.transferOwnership = transferOwnership;
     if (addContact != null) result.addContact = addContact;
     if (removeContact != null) result.removeContact = removeContact;
     if (listContacts != null) result.listContacts = listContacts;
@@ -216,6 +225,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
     48: ClientEnvelope_Payload.setConversationNickname,
     49: ClientEnvelope_Payload.updateConversationMetadata,
     50: ClientEnvelope_Payload.markDelivered,
+    51: ClientEnvelope_Payload.promoteMember,
+    52: ClientEnvelope_Payload.demoteMember,
+    53: ClientEnvelope_Payload.transferOwnership,
     100: ClientEnvelope_Payload.addContact,
     101: ClientEnvelope_Payload.removeContact,
     102: ClientEnvelope_Payload.listContacts,
@@ -263,6 +275,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
       48,
       49,
       50,
+      51,
+      52,
+      53,
       100,
       101,
       102,
@@ -341,6 +356,12 @@ class ClientEnvelope extends $pb.GeneratedMessage {
         subBuilder: $3.UpdateConversationMetadata.create)
     ..aOM<$3.MarkDelivered>(50, _omitFieldNames ? '' : 'markDelivered',
         subBuilder: $3.MarkDelivered.create)
+    ..aOM<$3.PromoteMember>(51, _omitFieldNames ? '' : 'promoteMember',
+        subBuilder: $3.PromoteMember.create)
+    ..aOM<$3.DemoteMember>(52, _omitFieldNames ? '' : 'demoteMember',
+        subBuilder: $3.DemoteMember.create)
+    ..aOM<$3.TransferOwnership>(53, _omitFieldNames ? '' : 'transferOwnership',
+        subBuilder: $3.TransferOwnership.create)
     ..aOM<$4.AddContact>(100, _omitFieldNames ? '' : 'addContact',
         subBuilder: $4.AddContact.create)
     ..aOM<$4.RemoveContact>(101, _omitFieldNames ? '' : 'removeContact',
@@ -414,6 +435,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
   @$pb.TagNumber(50)
+  @$pb.TagNumber(51)
+  @$pb.TagNumber(52)
+  @$pb.TagNumber(53)
   @$pb.TagNumber(100)
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
@@ -456,6 +480,9 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
   @$pb.TagNumber(50)
+  @$pb.TagNumber(51)
+  @$pb.TagNumber(52)
+  @$pb.TagNumber(53)
   @$pb.TagNumber(100)
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
@@ -819,119 +846,152 @@ class ClientEnvelope extends $pb.GeneratedMessage {
   @$pb.TagNumber(50)
   $3.MarkDelivered ensureMarkDelivered() => $_ensure(30);
 
+  @$pb.TagNumber(51)
+  $3.PromoteMember get promoteMember => $_getN(31);
+  @$pb.TagNumber(51)
+  set promoteMember($3.PromoteMember value) => $_setField(51, value);
+  @$pb.TagNumber(51)
+  $core.bool hasPromoteMember() => $_has(31);
+  @$pb.TagNumber(51)
+  void clearPromoteMember() => $_clearField(51);
+  @$pb.TagNumber(51)
+  $3.PromoteMember ensurePromoteMember() => $_ensure(31);
+
+  @$pb.TagNumber(52)
+  $3.DemoteMember get demoteMember => $_getN(32);
+  @$pb.TagNumber(52)
+  set demoteMember($3.DemoteMember value) => $_setField(52, value);
+  @$pb.TagNumber(52)
+  $core.bool hasDemoteMember() => $_has(32);
+  @$pb.TagNumber(52)
+  void clearDemoteMember() => $_clearField(52);
+  @$pb.TagNumber(52)
+  $3.DemoteMember ensureDemoteMember() => $_ensure(32);
+
+  @$pb.TagNumber(53)
+  $3.TransferOwnership get transferOwnership => $_getN(33);
+  @$pb.TagNumber(53)
+  set transferOwnership($3.TransferOwnership value) => $_setField(53, value);
+  @$pb.TagNumber(53)
+  $core.bool hasTransferOwnership() => $_has(33);
+  @$pb.TagNumber(53)
+  void clearTransferOwnership() => $_clearField(53);
+  @$pb.TagNumber(53)
+  $3.TransferOwnership ensureTransferOwnership() => $_ensure(33);
+
   /// Contacts (range 100-109)
   @$pb.TagNumber(100)
-  $4.AddContact get addContact => $_getN(31);
+  $4.AddContact get addContact => $_getN(34);
   @$pb.TagNumber(100)
   set addContact($4.AddContact value) => $_setField(100, value);
   @$pb.TagNumber(100)
-  $core.bool hasAddContact() => $_has(31);
+  $core.bool hasAddContact() => $_has(34);
   @$pb.TagNumber(100)
   void clearAddContact() => $_clearField(100);
   @$pb.TagNumber(100)
-  $4.AddContact ensureAddContact() => $_ensure(31);
+  $4.AddContact ensureAddContact() => $_ensure(34);
 
   @$pb.TagNumber(101)
-  $4.RemoveContact get removeContact => $_getN(32);
+  $4.RemoveContact get removeContact => $_getN(35);
   @$pb.TagNumber(101)
   set removeContact($4.RemoveContact value) => $_setField(101, value);
   @$pb.TagNumber(101)
-  $core.bool hasRemoveContact() => $_has(32);
+  $core.bool hasRemoveContact() => $_has(35);
   @$pb.TagNumber(101)
   void clearRemoveContact() => $_clearField(101);
   @$pb.TagNumber(101)
-  $4.RemoveContact ensureRemoveContact() => $_ensure(32);
+  $4.RemoveContact ensureRemoveContact() => $_ensure(35);
 
   @$pb.TagNumber(102)
-  $4.ListContacts get listContacts => $_getN(33);
+  $4.ListContacts get listContacts => $_getN(36);
   @$pb.TagNumber(102)
   set listContacts($4.ListContacts value) => $_setField(102, value);
   @$pb.TagNumber(102)
-  $core.bool hasListContacts() => $_has(33);
+  $core.bool hasListContacts() => $_has(36);
   @$pb.TagNumber(102)
   void clearListContacts() => $_clearField(102);
   @$pb.TagNumber(102)
-  $4.ListContacts ensureListContacts() => $_ensure(33);
+  $4.ListContacts ensureListContacts() => $_ensure(36);
 
   @$pb.TagNumber(103)
-  $4.SearchUsers get searchUsers => $_getN(34);
+  $4.SearchUsers get searchUsers => $_getN(37);
   @$pb.TagNumber(103)
   set searchUsers($4.SearchUsers value) => $_setField(103, value);
   @$pb.TagNumber(103)
-  $core.bool hasSearchUsers() => $_has(34);
+  $core.bool hasSearchUsers() => $_has(37);
   @$pb.TagNumber(103)
   void clearSearchUsers() => $_clearField(103);
   @$pb.TagNumber(103)
-  $4.SearchUsers ensureSearchUsers() => $_ensure(34);
+  $4.SearchUsers ensureSearchUsers() => $_ensure(37);
 
   @$pb.TagNumber(104)
-  $4.BlockUser get blockUser => $_getN(35);
+  $4.BlockUser get blockUser => $_getN(38);
   @$pb.TagNumber(104)
   set blockUser($4.BlockUser value) => $_setField(104, value);
   @$pb.TagNumber(104)
-  $core.bool hasBlockUser() => $_has(35);
+  $core.bool hasBlockUser() => $_has(38);
   @$pb.TagNumber(104)
   void clearBlockUser() => $_clearField(104);
   @$pb.TagNumber(104)
-  $4.BlockUser ensureBlockUser() => $_ensure(35);
+  $4.BlockUser ensureBlockUser() => $_ensure(38);
 
   @$pb.TagNumber(105)
-  $4.UnblockUser get unblockUser => $_getN(36);
+  $4.UnblockUser get unblockUser => $_getN(39);
   @$pb.TagNumber(105)
   set unblockUser($4.UnblockUser value) => $_setField(105, value);
   @$pb.TagNumber(105)
-  $core.bool hasUnblockUser() => $_has(36);
+  $core.bool hasUnblockUser() => $_has(39);
   @$pb.TagNumber(105)
   void clearUnblockUser() => $_clearField(105);
   @$pb.TagNumber(105)
-  $4.UnblockUser ensureUnblockUser() => $_ensure(36);
+  $4.UnblockUser ensureUnblockUser() => $_ensure(39);
 
   /// Presence (range 110-119)
   @$pb.TagNumber(110)
-  $5.SubscribeToPresence get subscribeToPresence => $_getN(37);
+  $5.SubscribeToPresence get subscribeToPresence => $_getN(40);
   @$pb.TagNumber(110)
   set subscribeToPresence($5.SubscribeToPresence value) =>
       $_setField(110, value);
   @$pb.TagNumber(110)
-  $core.bool hasSubscribeToPresence() => $_has(37);
+  $core.bool hasSubscribeToPresence() => $_has(40);
   @$pb.TagNumber(110)
   void clearSubscribeToPresence() => $_clearField(110);
   @$pb.TagNumber(110)
-  $5.SubscribeToPresence ensureSubscribeToPresence() => $_ensure(37);
+  $5.SubscribeToPresence ensureSubscribeToPresence() => $_ensure(40);
 
   @$pb.TagNumber(111)
-  $5.UnsubscribeFromPresence get unsubscribeFromPresence => $_getN(38);
+  $5.UnsubscribeFromPresence get unsubscribeFromPresence => $_getN(41);
   @$pb.TagNumber(111)
   set unsubscribeFromPresence($5.UnsubscribeFromPresence value) =>
       $_setField(111, value);
   @$pb.TagNumber(111)
-  $core.bool hasUnsubscribeFromPresence() => $_has(38);
+  $core.bool hasUnsubscribeFromPresence() => $_has(41);
   @$pb.TagNumber(111)
   void clearUnsubscribeFromPresence() => $_clearField(111);
   @$pb.TagNumber(111)
-  $5.UnsubscribeFromPresence ensureUnsubscribeFromPresence() => $_ensure(38);
+  $5.UnsubscribeFromPresence ensureUnsubscribeFromPresence() => $_ensure(41);
 
   @$pb.TagNumber(112)
-  $5.SetActivityState get setActivityState => $_getN(39);
+  $5.SetActivityState get setActivityState => $_getN(42);
   @$pb.TagNumber(112)
   set setActivityState($5.SetActivityState value) => $_setField(112, value);
   @$pb.TagNumber(112)
-  $core.bool hasSetActivityState() => $_has(39);
+  $core.bool hasSetActivityState() => $_has(42);
   @$pb.TagNumber(112)
   void clearSetActivityState() => $_clearField(112);
   @$pb.TagNumber(112)
-  $5.SetActivityState ensureSetActivityState() => $_ensure(39);
+  $5.SetActivityState ensureSetActivityState() => $_ensure(42);
 
   @$pb.TagNumber(113)
-  $5.SetVisibility get setVisibility => $_getN(40);
+  $5.SetVisibility get setVisibility => $_getN(43);
   @$pb.TagNumber(113)
   set setVisibility($5.SetVisibility value) => $_setField(113, value);
   @$pb.TagNumber(113)
-  $core.bool hasSetVisibility() => $_has(40);
+  $core.bool hasSetVisibility() => $_has(43);
   @$pb.TagNumber(113)
   void clearSetVisibility() => $_clearField(113);
   @$pb.TagNumber(113)
-  $5.SetVisibility ensureSetVisibility() => $_ensure(40);
+  $5.SetVisibility ensureSetVisibility() => $_ensure(43);
 }
 
 enum ServerEnvelope_Payload { ack, err, event, notSet }
@@ -1511,6 +1571,7 @@ enum Event_Payload {
   conversationNicknameChanged,
   conversationMetadataChanged,
   deliveryReceiptUpdated,
+  memberRoleChanged,
   contactAdded,
   contactRemoved,
   userBlocked,
@@ -1558,6 +1619,7 @@ class Event extends $pb.GeneratedMessage {
     $3.ConversationNicknameChanged? conversationNicknameChanged,
     $3.ConversationMetadataChanged? conversationMetadataChanged,
     $3.DeliveryReceiptUpdated? deliveryReceiptUpdated,
+    $3.MemberRoleChanged? memberRoleChanged,
     $4.ContactAdded? contactAdded,
     $4.ContactRemoved? contactRemoved,
     $4.UserBlocked? userBlocked,
@@ -1610,6 +1672,7 @@ class Event extends $pb.GeneratedMessage {
       result.conversationMetadataChanged = conversationMetadataChanged;
     if (deliveryReceiptUpdated != null)
       result.deliveryReceiptUpdated = deliveryReceiptUpdated;
+    if (memberRoleChanged != null) result.memberRoleChanged = memberRoleChanged;
     if (contactAdded != null) result.contactAdded = contactAdded;
     if (contactRemoved != null) result.contactRemoved = contactRemoved;
     if (userBlocked != null) result.userBlocked = userBlocked;
@@ -1658,6 +1721,7 @@ class Event extends $pb.GeneratedMessage {
     47: Event_Payload.conversationNicknameChanged,
     48: Event_Payload.conversationMetadataChanged,
     49: Event_Payload.deliveryReceiptUpdated,
+    50: Event_Payload.memberRoleChanged,
     100: Event_Payload.contactAdded,
     101: Event_Payload.contactRemoved,
     102: Event_Payload.userBlocked,
@@ -1699,6 +1763,7 @@ class Event extends $pb.GeneratedMessage {
       47,
       48,
       49,
+      50,
       100,
       101,
       102,
@@ -1781,6 +1846,8 @@ class Event extends $pb.GeneratedMessage {
     ..aOM<$3.DeliveryReceiptUpdated>(
         49, _omitFieldNames ? '' : 'deliveryReceiptUpdated',
         subBuilder: $3.DeliveryReceiptUpdated.create)
+    ..aOM<$3.MemberRoleChanged>(50, _omitFieldNames ? '' : 'memberRoleChanged',
+        subBuilder: $3.MemberRoleChanged.create)
     ..aOM<$4.ContactAdded>(100, _omitFieldNames ? '' : 'contactAdded',
         subBuilder: $4.ContactAdded.create)
     ..aOM<$4.ContactRemoved>(101, _omitFieldNames ? '' : 'contactRemoved',
@@ -1842,6 +1909,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(50)
   @$pb.TagNumber(100)
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
@@ -1877,6 +1945,7 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(47)
   @$pb.TagNumber(48)
   @$pb.TagNumber(49)
+  @$pb.TagNumber(50)
   @$pb.TagNumber(100)
   @$pb.TagNumber(101)
   @$pb.TagNumber(102)
@@ -2268,75 +2337,86 @@ class Event extends $pb.GeneratedMessage {
   @$pb.TagNumber(49)
   $3.DeliveryReceiptUpdated ensureDeliveryReceiptUpdated() => $_ensure(32);
 
+  @$pb.TagNumber(50)
+  $3.MemberRoleChanged get memberRoleChanged => $_getN(33);
+  @$pb.TagNumber(50)
+  set memberRoleChanged($3.MemberRoleChanged value) => $_setField(50, value);
+  @$pb.TagNumber(50)
+  $core.bool hasMemberRoleChanged() => $_has(33);
+  @$pb.TagNumber(50)
+  void clearMemberRoleChanged() => $_clearField(50);
+  @$pb.TagNumber(50)
+  $3.MemberRoleChanged ensureMemberRoleChanged() => $_ensure(33);
+
   /// Contacts (range 100-109)
   @$pb.TagNumber(100)
-  $4.ContactAdded get contactAdded => $_getN(33);
+  $4.ContactAdded get contactAdded => $_getN(34);
   @$pb.TagNumber(100)
   set contactAdded($4.ContactAdded value) => $_setField(100, value);
   @$pb.TagNumber(100)
-  $core.bool hasContactAdded() => $_has(33);
+  $core.bool hasContactAdded() => $_has(34);
   @$pb.TagNumber(100)
   void clearContactAdded() => $_clearField(100);
   @$pb.TagNumber(100)
-  $4.ContactAdded ensureContactAdded() => $_ensure(33);
+  $4.ContactAdded ensureContactAdded() => $_ensure(34);
 
   @$pb.TagNumber(101)
-  $4.ContactRemoved get contactRemoved => $_getN(34);
+  $4.ContactRemoved get contactRemoved => $_getN(35);
   @$pb.TagNumber(101)
   set contactRemoved($4.ContactRemoved value) => $_setField(101, value);
   @$pb.TagNumber(101)
-  $core.bool hasContactRemoved() => $_has(34);
+  $core.bool hasContactRemoved() => $_has(35);
   @$pb.TagNumber(101)
   void clearContactRemoved() => $_clearField(101);
   @$pb.TagNumber(101)
-  $4.ContactRemoved ensureContactRemoved() => $_ensure(34);
+  $4.ContactRemoved ensureContactRemoved() => $_ensure(35);
 
   @$pb.TagNumber(102)
-  $4.UserBlocked get userBlocked => $_getN(35);
+  $4.UserBlocked get userBlocked => $_getN(36);
   @$pb.TagNumber(102)
   set userBlocked($4.UserBlocked value) => $_setField(102, value);
   @$pb.TagNumber(102)
-  $core.bool hasUserBlocked() => $_has(35);
+  $core.bool hasUserBlocked() => $_has(36);
   @$pb.TagNumber(102)
   void clearUserBlocked() => $_clearField(102);
   @$pb.TagNumber(102)
-  $4.UserBlocked ensureUserBlocked() => $_ensure(35);
+  $4.UserBlocked ensureUserBlocked() => $_ensure(36);
 
   @$pb.TagNumber(103)
-  $4.UserUnblocked get userUnblocked => $_getN(36);
+  $4.UserUnblocked get userUnblocked => $_getN(37);
   @$pb.TagNumber(103)
   set userUnblocked($4.UserUnblocked value) => $_setField(103, value);
   @$pb.TagNumber(103)
-  $core.bool hasUserUnblocked() => $_has(36);
+  $core.bool hasUserUnblocked() => $_has(37);
   @$pb.TagNumber(103)
   void clearUserUnblocked() => $_clearField(103);
   @$pb.TagNumber(103)
-  $4.UserUnblocked ensureUserUnblocked() => $_ensure(36);
+  $4.UserUnblocked ensureUserUnblocked() => $_ensure(37);
 
   /// Presence (range 110-119). Only two kinds — PresenceChanged is
   /// the public, masked projection; OwnPresenceChanged is the full
   /// self-loopback for multi-device sync.
   @$pb.TagNumber(110)
-  $5.PresenceChanged get presenceChanged => $_getN(37);
+  $5.PresenceChanged get presenceChanged => $_getN(38);
   @$pb.TagNumber(110)
   set presenceChanged($5.PresenceChanged value) => $_setField(110, value);
   @$pb.TagNumber(110)
-  $core.bool hasPresenceChanged() => $_has(37);
+  $core.bool hasPresenceChanged() => $_has(38);
   @$pb.TagNumber(110)
   void clearPresenceChanged() => $_clearField(110);
   @$pb.TagNumber(110)
-  $5.PresenceChanged ensurePresenceChanged() => $_ensure(37);
+  $5.PresenceChanged ensurePresenceChanged() => $_ensure(38);
 
   @$pb.TagNumber(111)
-  $5.OwnPresenceChanged get ownPresenceChanged => $_getN(38);
+  $5.OwnPresenceChanged get ownPresenceChanged => $_getN(39);
   @$pb.TagNumber(111)
   set ownPresenceChanged($5.OwnPresenceChanged value) => $_setField(111, value);
   @$pb.TagNumber(111)
-  $core.bool hasOwnPresenceChanged() => $_has(38);
+  $core.bool hasOwnPresenceChanged() => $_has(39);
   @$pb.TagNumber(111)
   void clearOwnPresenceChanged() => $_clearField(111);
   @$pb.TagNumber(111)
-  $5.OwnPresenceChanged ensureOwnPresenceChanged() => $_ensure(38);
+  $5.OwnPresenceChanged ensureOwnPresenceChanged() => $_ensure(39);
 }
 
 const $core.bool _omitFieldNames =

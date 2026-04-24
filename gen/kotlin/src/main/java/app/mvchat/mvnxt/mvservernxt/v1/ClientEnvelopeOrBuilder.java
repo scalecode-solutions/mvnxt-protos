@@ -523,6 +523,51 @@ public interface ClientEnvelopeOrBuilder extends
   app.mvchat.mvnxt.mvservernxt.v1.MarkDeliveredOrBuilder getMarkDeliveredOrBuilder();
 
   /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   * @return Whether the promoteMember field is set.
+   */
+  boolean hasPromoteMember();
+  /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   * @return The promoteMember.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PromoteMember getPromoteMember();
+  /**
+   * <code>.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.PromoteMemberOrBuilder getPromoteMemberOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   * @return Whether the demoteMember field is set.
+   */
+  boolean hasDemoteMember();
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   * @return The demoteMember.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DemoteMember getDemoteMember();
+  /**
+   * <code>.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.DemoteMemberOrBuilder getDemoteMemberOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   * @return Whether the transferOwnership field is set.
+   */
+  boolean hasTransferOwnership();
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   * @return The transferOwnership.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership getTransferOwnership();
+  /**
+   * <code>.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.TransferOwnershipOrBuilder getTransferOwnershipOrBuilder();
+
+  /**
    * <pre>
    * Contacts (range 100-109)
    * </pre>

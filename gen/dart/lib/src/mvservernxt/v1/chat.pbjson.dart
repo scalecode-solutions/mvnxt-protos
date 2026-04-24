@@ -47,6 +47,23 @@ final $typed_data.Uint8List deletionKindDescriptor = $convert.base64Decode(
     '9OX0tJTkRfRk9SX0VWRVJZT05FEAESGAoUREVMRVRJT05fS0lORF9VTlNFTlQQAhIZChVERUxF'
     'VElPTl9LSU5EX0VYUElSRUQQAw==');
 
+@$core.Deprecated('Use conversationRoleDescriptor instead')
+const ConversationRole$json = {
+  '1': 'ConversationRole',
+  '2': [
+    {'1': 'CONVERSATION_ROLE_UNSPECIFIED', '2': 0},
+    {'1': 'CONVERSATION_ROLE_MEMBER', '2': 1},
+    {'1': 'CONVERSATION_ROLE_ADMIN', '2': 2},
+    {'1': 'CONVERSATION_ROLE_OWNER', '2': 3},
+  ],
+};
+
+/// Descriptor for `ConversationRole`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List conversationRoleDescriptor = $convert.base64Decode(
+    'ChBDb252ZXJzYXRpb25Sb2xlEiEKHUNPTlZFUlNBVElPTl9ST0xFX1VOU1BFQ0lGSUVEEAASHA'
+    'oYQ09OVkVSU0FUSU9OX1JPTEVfTUVNQkVSEAESGwoXQ09OVkVSU0FUSU9OX1JPTEVfQURNSU4Q'
+    'AhIbChdDT05WRVJTQVRJT05fUk9MRV9PV05FUhAD');
+
 @$core.Deprecated('Use reactionDescriptor instead')
 const Reaction$json = {
   '1': 'Reaction',
@@ -135,6 +152,14 @@ const Conversation$json = {
     },
     {'1': 'description', '3': 9, '4': 1, '5': 9, '10': 'description'},
     {'1': 'theme', '3': 10, '4': 1, '5': 9, '10': 'theme'},
+    {
+      '1': 'members',
+      '3': 11,
+      '4': 3,
+      '5': 11,
+      '6': '.mvservernxt.v1.GroupMember',
+      '10': 'members'
+    },
   ],
 };
 
@@ -146,7 +171,29 @@ final $typed_data.Uint8List conversationDescriptor = $convert.base64Decode(
     '5wcm90b2J1Zi5UaW1lc3RhbXBSCWNyZWF0ZWRBdBIdCgptZW1iZXJfaWRzGAYgAygJUgltZW1i'
     'ZXJJZHMSKAoQbGFzdF9tZXNzYWdlX3NlcRgHIAEoA1IObGFzdE1lc3NhZ2VTZXESMQoUZGlzYX'
     'BwZWFyaW5nX3NlY29uZHMYCCABKAVSE2Rpc2FwcGVhcmluZ1NlY29uZHMSIAoLZGVzY3JpcHRp'
-    'b24YCSABKAlSC2Rlc2NyaXB0aW9uEhQKBXRoZW1lGAogASgJUgV0aGVtZQ==');
+    'b24YCSABKAlSC2Rlc2NyaXB0aW9uEhQKBXRoZW1lGAogASgJUgV0aGVtZRI1CgdtZW1iZXJzGA'
+    'sgAygLMhsubXZzZXJ2ZXJueHQudjEuR3JvdXBNZW1iZXJSB21lbWJlcnM=');
+
+@$core.Deprecated('Use groupMemberDescriptor instead')
+const GroupMember$json = {
+  '1': 'GroupMember',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {
+      '1': 'role',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.mvservernxt.v1.ConversationRole',
+      '10': 'role'
+    },
+  ],
+};
+
+/// Descriptor for `GroupMember`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List groupMemberDescriptor = $convert.base64Decode(
+    'CgtHcm91cE1lbWJlchIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSNAoEcm9sZRgCIAEoDjIgLm'
+    '12c2VydmVybnh0LnYxLkNvbnZlcnNhdGlvblJvbGVSBHJvbGU=');
 
 @$core.Deprecated('Use messageDescriptor instead')
 const Message$json = {
@@ -570,6 +617,48 @@ final $typed_data.Uint8List updateConversationMetadataDescriptor = $convert.base
     'NvbnZlcnNhdGlvbklkEhkKBXRpdGxlGAIgASgJSABSBXRpdGxliAEBEiUKC2Rlc2NyaXB0aW9u'
     'GAMgASgJSAFSC2Rlc2NyaXB0aW9uiAEBEhkKBXRoZW1lGAQgASgJSAJSBXRoZW1liAEBQggKBl'
     '90aXRsZUIOCgxfZGVzY3JpcHRpb25CCAoGX3RoZW1l');
+
+@$core.Deprecated('Use promoteMemberDescriptor instead')
+const PromoteMember$json = {
+  '1': 'PromoteMember',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `PromoteMember`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List promoteMemberDescriptor = $convert.base64Decode(
+    'Cg1Qcm9tb3RlTWVtYmVyEicKD2NvbnZlcnNhdGlvbl9pZBgBIAEoCVIOY29udmVyc2F0aW9uSW'
+    'QSFwoHdXNlcl9pZBgCIAEoCVIGdXNlcklk');
+
+@$core.Deprecated('Use demoteMemberDescriptor instead')
+const DemoteMember$json = {
+  '1': 'DemoteMember',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `DemoteMember`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List demoteMemberDescriptor = $convert.base64Decode(
+    'CgxEZW1vdGVNZW1iZXISJwoPY29udmVyc2F0aW9uX2lkGAEgASgJUg5jb252ZXJzYXRpb25JZB'
+    'IXCgd1c2VyX2lkGAIgASgJUgZ1c2VySWQ=');
+
+@$core.Deprecated('Use transferOwnershipDescriptor instead')
+const TransferOwnership$json = {
+  '1': 'TransferOwnership',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'new_owner_id', '3': 2, '4': 1, '5': 9, '10': 'newOwnerId'},
+  ],
+};
+
+/// Descriptor for `TransferOwnership`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List transferOwnershipDescriptor = $convert.base64Decode(
+    'ChFUcmFuc2Zlck93bmVyc2hpcBInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdG'
+    'lvbklkEiAKDG5ld19vd25lcl9pZBgCIAEoCVIKbmV3T3duZXJJZA==');
 
 @$core.Deprecated('Use markReadDescriptor instead')
 const MarkRead$json = {
@@ -1266,3 +1355,46 @@ final $typed_data.Uint8List conversationMetadataChangedDescriptor = $convert.bas
     'pjaGFuZ2VkX2J5GAUgASgJUgljaGFuZ2VkQnkSOQoKY2hhbmdlZF9hdBgGIAEoCzIaLmdvb2ds'
     'ZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNoYW5nZWRBdEIICgZfdGl0bGVCDgoMX2Rlc2NyaXB0aW'
     '9uQggKBl90aGVtZQ==');
+
+@$core.Deprecated('Use memberRoleChangedDescriptor instead')
+const MemberRoleChanged$json = {
+  '1': 'MemberRoleChanged',
+  '2': [
+    {'1': 'conversation_id', '3': 1, '4': 1, '5': 9, '10': 'conversationId'},
+    {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+    {
+      '1': 'previous_role',
+      '3': 3,
+      '4': 1,
+      '5': 14,
+      '6': '.mvservernxt.v1.ConversationRole',
+      '10': 'previousRole'
+    },
+    {
+      '1': 'new_role',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.mvservernxt.v1.ConversationRole',
+      '10': 'newRole'
+    },
+    {'1': 'changed_by', '3': 5, '4': 1, '5': 9, '10': 'changedBy'},
+    {
+      '1': 'changed_at',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'changedAt'
+    },
+  ],
+};
+
+/// Descriptor for `MemberRoleChanged`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List memberRoleChangedDescriptor = $convert.base64Decode(
+    'ChFNZW1iZXJSb2xlQ2hhbmdlZBInCg9jb252ZXJzYXRpb25faWQYASABKAlSDmNvbnZlcnNhdG'
+    'lvbklkEhcKB3VzZXJfaWQYAiABKAlSBnVzZXJJZBJFCg1wcmV2aW91c19yb2xlGAMgASgOMiAu'
+    'bXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uUm9sZVIMcHJldmlvdXNSb2xlEjsKCG5ld19yb2'
+    'xlGAQgASgOMiAubXZzZXJ2ZXJueHQudjEuQ29udmVyc2F0aW9uUm9sZVIHbmV3Um9sZRIdCgpj'
+    'aGFuZ2VkX2J5GAUgASgJUgljaGFuZ2VkQnkSOQoKY2hhbmdlZF9hdBgGIAEoCzIaLmdvb2dsZS'
+    '5wcm90b2J1Zi5UaW1lc3RhbXBSCWNoYW5nZWRBdA==');

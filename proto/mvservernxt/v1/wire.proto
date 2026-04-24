@@ -71,6 +71,9 @@ message ClientEnvelope {
     SetConversationNickname set_conversation_nickname  = 48;
     UpdateConversationMetadata update_conversation_metadata = 49;
     MarkDelivered           mark_delivered             = 50;
+    PromoteMember           promote_member             = 51;
+    DemoteMember            demote_member              = 52;
+    TransferOwnership       transfer_ownership         = 53;
 
     // Contacts (range 100-109)
     AddContact              add_contact                = 100;
@@ -218,6 +221,7 @@ message Event {
     ConversationNicknameChanged conversation_nickname_changed = 47;
     ConversationMetadataChanged conversation_metadata_changed = 48;
     DeliveryReceiptUpdated     delivery_receipt_updated     = 49;
+    MemberRoleChanged          member_role_changed          = 50;
 
     // Contacts (range 100-109)
     ContactAdded               contact_added                = 100;

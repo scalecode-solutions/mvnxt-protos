@@ -78,5 +78,44 @@ class DeletionKind extends $pb.ProtobufEnum {
   const DeletionKind._(super.value, super.name);
 }
 
+/// ConversationRole is the per-member role within a group. DMs keep
+/// every member as MEMBER — role-gated commands reject on DMs.
+///
+/// Semantics (enforced server-side in the chat handlers):
+///
+///   OWNER:   exactly one per group. Can promote, demote, transfer,
+///            everything an admin can do. Cannot be removed;
+///            transfers ownership to leave a group.
+///   ADMIN:   zero or more. Can Add/Remove members (but not other
+///            admins or the owner), set disappearing messages,
+///            update conversation metadata, delete-for-everyone any
+///            message. Cannot change roles.
+///   MEMBER:  default. Sends / edits-own / reacts / reads / leaves.
+class ConversationRole extends $pb.ProtobufEnum {
+  static const ConversationRole CONVERSATION_ROLE_UNSPECIFIED =
+      ConversationRole._(
+          0, _omitEnumNames ? '' : 'CONVERSATION_ROLE_UNSPECIFIED');
+  static const ConversationRole CONVERSATION_ROLE_MEMBER =
+      ConversationRole._(1, _omitEnumNames ? '' : 'CONVERSATION_ROLE_MEMBER');
+  static const ConversationRole CONVERSATION_ROLE_ADMIN =
+      ConversationRole._(2, _omitEnumNames ? '' : 'CONVERSATION_ROLE_ADMIN');
+  static const ConversationRole CONVERSATION_ROLE_OWNER =
+      ConversationRole._(3, _omitEnumNames ? '' : 'CONVERSATION_ROLE_OWNER');
+
+  static const $core.List<ConversationRole> values = <ConversationRole>[
+    CONVERSATION_ROLE_UNSPECIFIED,
+    CONVERSATION_ROLE_MEMBER,
+    CONVERSATION_ROLE_ADMIN,
+    CONVERSATION_ROLE_OWNER,
+  ];
+
+  static final $core.List<ConversationRole?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 3);
+  static ConversationRole? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const ConversationRole._(super.value, super.name);
+}
+
 const $core.bool _omitEnumNames =
     $core.bool.fromEnvironment('protobuf.omit_enum_names');

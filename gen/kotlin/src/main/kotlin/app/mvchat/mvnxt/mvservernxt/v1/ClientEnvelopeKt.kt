@@ -827,6 +827,78 @@ public object ClientEnvelopeKt {
     }
 
     /**
+     * `.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];`
+     */
+    public var promoteMember: app.mvchat.mvnxt.mvservernxt.v1.PromoteMember
+      @kotlin.jvm.JvmName("getPromoteMember")
+        get() = _builder.promoteMember
+      @kotlin.jvm.JvmName("setPromoteMember")
+        set(value) {
+        _builder.promoteMember = value
+      }
+    /**
+     * `.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];`
+     */
+    public fun clearPromoteMember() {
+      _builder.clearPromoteMember()
+    }
+    /**
+     * `.mvservernxt.v1.PromoteMember promote_member = 51 [json_name = "promoteMember"];`
+     * @return Whether the promoteMember field is set.
+     */
+    public fun hasPromoteMember(): kotlin.Boolean {
+      return _builder.hasPromoteMember()
+    }
+
+    /**
+     * `.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];`
+     */
+    public var demoteMember: app.mvchat.mvnxt.mvservernxt.v1.DemoteMember
+      @kotlin.jvm.JvmName("getDemoteMember")
+        get() = _builder.demoteMember
+      @kotlin.jvm.JvmName("setDemoteMember")
+        set(value) {
+        _builder.demoteMember = value
+      }
+    /**
+     * `.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];`
+     */
+    public fun clearDemoteMember() {
+      _builder.clearDemoteMember()
+    }
+    /**
+     * `.mvservernxt.v1.DemoteMember demote_member = 52 [json_name = "demoteMember"];`
+     * @return Whether the demoteMember field is set.
+     */
+    public fun hasDemoteMember(): kotlin.Boolean {
+      return _builder.hasDemoteMember()
+    }
+
+    /**
+     * `.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];`
+     */
+    public var transferOwnership: app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership
+      @kotlin.jvm.JvmName("getTransferOwnership")
+        get() = _builder.transferOwnership
+      @kotlin.jvm.JvmName("setTransferOwnership")
+        set(value) {
+        _builder.transferOwnership = value
+      }
+    /**
+     * `.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];`
+     */
+    public fun clearTransferOwnership() {
+      _builder.clearTransferOwnership()
+    }
+    /**
+     * `.mvservernxt.v1.TransferOwnership transfer_ownership = 53 [json_name = "transferOwnership"];`
+     * @return Whether the transferOwnership field is set.
+     */
+    public fun hasTransferOwnership(): kotlin.Boolean {
+      return _builder.hasTransferOwnership()
+    }
+
+    /**
      * ```
      * Contacts (range 100-109)
      * ```
@@ -1191,6 +1263,15 @@ public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.updateConvers
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.markDeliveredOrNull: app.mvchat.mvnxt.mvservernxt.v1.MarkDelivered?
   get() = if (hasMarkDelivered()) getMarkDelivered() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.promoteMemberOrNull: app.mvchat.mvnxt.mvservernxt.v1.PromoteMember?
+  get() = if (hasPromoteMember()) getPromoteMember() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.demoteMemberOrNull: app.mvchat.mvnxt.mvservernxt.v1.DemoteMember?
+  get() = if (hasDemoteMember()) getDemoteMember() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.transferOwnershipOrNull: app.mvchat.mvnxt.mvservernxt.v1.TransferOwnership?
+  get() = if (hasTransferOwnership()) getTransferOwnership() else null
 
 public val app.mvchat.mvnxt.mvservernxt.v1.ClientEnvelopeOrBuilder.addContactOrNull: app.mvchat.mvnxt.mvservernxt.v1.AddContact?
   get() = if (hasAddContact()) getAddContact() else null

@@ -41,6 +41,7 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.LazyStringArrayList.emptyList();
     description_ = "";
     theme_ = "";
+    members_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -442,6 +443,87 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int MEMBERS_FIELD_NUMBER = 11;
+  @SuppressWarnings("serial")
+  private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember> members_;
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember> getMembersList() {
+    return members_;
+  }
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder> 
+      getMembersOrBuilderList() {
+    return members_;
+  }
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  @java.lang.Override
+  public int getMembersCount() {
+    return members_.size();
+  }
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GroupMember getMembers(int index) {
+    return members_.get(index);
+  }
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder getMembersOrBuilder(
+      int index) {
+    return members_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -485,6 +567,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(theme_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 10, theme_);
+    }
+    for (int i = 0; i < members_.size(); i++) {
+      output.writeMessage(11, members_.get(i));
     }
     getUnknownFields().writeTo(output);
   }
@@ -534,6 +619,15 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(theme_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(10, theme_);
     }
+
+        {
+          final int count = members_.size();
+          for (int i = 0; i < count; i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSizeNoTag(members_.get(i));
+          }
+          size += 1 * count;
+        }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -571,6 +665,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getDescription())) return false;
     if (!getTheme()
         .equals(other.getTheme())) return false;
+    if (!getMembersList()
+        .equals(other.getMembersList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -607,6 +703,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getDescription().hashCode();
     hash = (37 * hash) + THEME_FIELD_NUMBER;
     hash = (53 * hash) + getTheme().hashCode();
+    if (getMembersCount() > 0) {
+      hash = (37 * hash) + MEMBERS_FIELD_NUMBER;
+      hash = (53 * hash) + getMembersList().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -743,6 +843,7 @@ private static final long serialVersionUID = 0L;
       if (com.google.protobuf.GeneratedMessage
               .alwaysUseFieldBuilders) {
         internalGetCreatedAtFieldBuilder();
+        internalGetMembersFieldBuilder();
       }
     }
     @java.lang.Override
@@ -764,6 +865,13 @@ private static final long serialVersionUID = 0L;
       disappearingSeconds_ = 0;
       description_ = "";
       theme_ = "";
+      if (membersBuilder_ == null) {
+        members_ = java.util.Collections.emptyList();
+      } else {
+        members_ = null;
+        membersBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000400);
       return this;
     }
 
@@ -790,9 +898,22 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public app.mvchat.mvnxt.mvservernxt.v1.Conversation buildPartial() {
       app.mvchat.mvnxt.mvservernxt.v1.Conversation result = new app.mvchat.mvnxt.mvservernxt.v1.Conversation(this);
+      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
+    }
+
+    private void buildPartialRepeatedFields(app.mvchat.mvnxt.mvservernxt.v1.Conversation result) {
+      if (membersBuilder_ == null) {
+        if (((bitField0_ & 0x00000400) != 0)) {
+          members_ = java.util.Collections.unmodifiableList(members_);
+          bitField0_ = (bitField0_ & ~0x00000400);
+        }
+        result.members_ = members_;
+      } else {
+        result.members_ = membersBuilder_.build();
+      }
     }
 
     private void buildPartial0(app.mvchat.mvnxt.mvservernxt.v1.Conversation result) {
@@ -894,6 +1015,32 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000200;
         onChanged();
       }
+      if (membersBuilder_ == null) {
+        if (!other.members_.isEmpty()) {
+          if (members_.isEmpty()) {
+            members_ = other.members_;
+            bitField0_ = (bitField0_ & ~0x00000400);
+          } else {
+            ensureMembersIsMutable();
+            members_.addAll(other.members_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.members_.isEmpty()) {
+          if (membersBuilder_.isEmpty()) {
+            membersBuilder_.dispose();
+            membersBuilder_ = null;
+            members_ = other.members_;
+            bitField0_ = (bitField0_ & ~0x00000400);
+            membersBuilder_ = 
+              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                 internalGetMembersFieldBuilder() : null;
+          } else {
+            membersBuilder_.addAllMessages(other.members_);
+          }
+        }
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -972,6 +1119,19 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000200;
               break;
             } // case 82
+            case 90: {
+              app.mvchat.mvnxt.mvservernxt.v1.GroupMember m =
+                  input.readMessage(
+                      app.mvchat.mvnxt.mvservernxt.v1.GroupMember.parser(),
+                      extensionRegistry);
+              if (membersBuilder_ == null) {
+                ensureMembersIsMutable();
+                members_.add(m);
+              } else {
+                membersBuilder_.addMessage(m);
+              }
+              break;
+            } // case 90
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1903,6 +2063,390 @@ private static final long serialVersionUID = 0L;
       bitField0_ |= 0x00000200;
       onChanged();
       return this;
+    }
+
+    private java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember> members_ =
+      java.util.Collections.emptyList();
+    private void ensureMembersIsMutable() {
+      if (!((bitField0_ & 0x00000400) != 0)) {
+        members_ = new java.util.ArrayList<app.mvchat.mvnxt.mvservernxt.v1.GroupMember>(members_);
+        bitField0_ |= 0x00000400;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GroupMember, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder> membersBuilder_;
+
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember> getMembersList() {
+      if (membersBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(members_);
+      } else {
+        return membersBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public int getMembersCount() {
+      if (membersBuilder_ == null) {
+        return members_.size();
+      } else {
+        return membersBuilder_.getCount();
+      }
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GroupMember getMembers(int index) {
+      if (membersBuilder_ == null) {
+        return members_.get(index);
+      } else {
+        return membersBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder setMembers(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.GroupMember value) {
+      if (membersBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMembersIsMutable();
+        members_.set(index, value);
+        onChanged();
+      } else {
+        membersBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder setMembers(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder builderForValue) {
+      if (membersBuilder_ == null) {
+        ensureMembersIsMutable();
+        members_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        membersBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder addMembers(app.mvchat.mvnxt.mvservernxt.v1.GroupMember value) {
+      if (membersBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMembersIsMutable();
+        members_.add(value);
+        onChanged();
+      } else {
+        membersBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder addMembers(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.GroupMember value) {
+      if (membersBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureMembersIsMutable();
+        members_.add(index, value);
+        onChanged();
+      } else {
+        membersBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder addMembers(
+        app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder builderForValue) {
+      if (membersBuilder_ == null) {
+        ensureMembersIsMutable();
+        members_.add(builderForValue.build());
+        onChanged();
+      } else {
+        membersBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder addMembers(
+        int index, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder builderForValue) {
+      if (membersBuilder_ == null) {
+        ensureMembersIsMutable();
+        members_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        membersBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder addAllMembers(
+        java.lang.Iterable<? extends app.mvchat.mvnxt.mvservernxt.v1.GroupMember> values) {
+      if (membersBuilder_ == null) {
+        ensureMembersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, members_);
+        onChanged();
+      } else {
+        membersBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder clearMembers() {
+      if (membersBuilder_ == null) {
+        members_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000400);
+        onChanged();
+      } else {
+        membersBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public Builder removeMembers(int index) {
+      if (membersBuilder_ == null) {
+        ensureMembersIsMutable();
+        members_.remove(index);
+        onChanged();
+      } else {
+        membersBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder getMembersBuilder(
+        int index) {
+      return internalGetMembersFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder getMembersOrBuilder(
+        int index) {
+      if (membersBuilder_ == null) {
+        return members_.get(index);  } else {
+        return membersBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder> 
+         getMembersOrBuilderList() {
+      if (membersBuilder_ != null) {
+        return membersBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(members_);
+      }
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder addMembersBuilder() {
+      return internalGetMembersFieldBuilder().addBuilder(
+          app.mvchat.mvnxt.mvservernxt.v1.GroupMember.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder addMembersBuilder(
+        int index) {
+      return internalGetMembersFieldBuilder().addBuilder(
+          index, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Per-member detail for active members (left_at IS NULL), keyed
+     * on user_id. Present alongside member_ids — clients can use
+     * either. members carries role so UIs can render "owner" /
+     * "admin" badges without a follow-up fetch. DMs return empty
+     * here (role model doesn't apply).
+     * </pre>
+     *
+     * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+     */
+    public java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder> 
+         getMembersBuilderList() {
+      return internalGetMembersFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GroupMember, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder> 
+        internalGetMembersFieldBuilder() {
+      if (membersBuilder_ == null) {
+        membersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.GroupMember, app.mvchat.mvnxt.mvservernxt.v1.GroupMember.Builder, app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder>(
+                members_,
+                ((bitField0_ & 0x00000400) != 0),
+                getParentForChildren(),
+                isClean());
+        members_ = null;
+      }
+      return membersBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Conversation)

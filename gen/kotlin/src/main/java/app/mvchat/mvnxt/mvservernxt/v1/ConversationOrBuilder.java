@@ -214,4 +214,68 @@ public interface ConversationOrBuilder extends
    */
   com.google.protobuf.ByteString
       getThemeBytes();
+
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  java.util.List<app.mvchat.mvnxt.mvservernxt.v1.GroupMember> 
+      getMembersList();
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GroupMember getMembers(int index);
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  int getMembersCount();
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  java.util.List<? extends app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder> 
+      getMembersOrBuilderList();
+  /**
+   * <pre>
+   * Per-member detail for active members (left_at IS NULL), keyed
+   * on user_id. Present alongside member_ids — clients can use
+   * either. members carries role so UIs can render "owner" /
+   * "admin" badges without a follow-up fetch. DMs return empty
+   * here (role model doesn't apply).
+   * </pre>
+   *
+   * <code>repeated .mvservernxt.v1.GroupMember members = 11 [json_name = "members"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.GroupMemberOrBuilder getMembersOrBuilder(
+      int index);
 }
