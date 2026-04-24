@@ -419,6 +419,162 @@ public object EventKt {
     public fun hasVerificationEmailSent(): kotlin.Boolean {
       return _builder.hasVerificationEmailSent()
     }
+
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];`
+     */
+    public var conversationCreated: app.mvchat.mvnxt.mvservernxt.v1.ConversationCreated
+      @kotlin.jvm.JvmName("getConversationCreated")
+        get() = _builder.conversationCreated
+      @kotlin.jvm.JvmName("setConversationCreated")
+        set(value) {
+        _builder.conversationCreated = value
+      }
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];`
+     */
+    public fun clearConversationCreated() {
+      _builder.clearConversationCreated()
+    }
+    /**
+     * ```
+     * Chat
+     * ```
+     *
+     * `.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];`
+     * @return Whether the conversationCreated field is set.
+     */
+    public fun hasConversationCreated(): kotlin.Boolean {
+      return _builder.hasConversationCreated()
+    }
+
+    /**
+     * `.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];`
+     */
+    public var memberAdded: app.mvchat.mvnxt.mvservernxt.v1.MemberAdded
+      @kotlin.jvm.JvmName("getMemberAdded")
+        get() = _builder.memberAdded
+      @kotlin.jvm.JvmName("setMemberAdded")
+        set(value) {
+        _builder.memberAdded = value
+      }
+    /**
+     * `.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];`
+     */
+    public fun clearMemberAdded() {
+      _builder.clearMemberAdded()
+    }
+    /**
+     * `.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];`
+     * @return Whether the memberAdded field is set.
+     */
+    public fun hasMemberAdded(): kotlin.Boolean {
+      return _builder.hasMemberAdded()
+    }
+
+    /**
+     * `.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];`
+     */
+    public var memberRemoved: app.mvchat.mvnxt.mvservernxt.v1.MemberRemoved
+      @kotlin.jvm.JvmName("getMemberRemoved")
+        get() = _builder.memberRemoved
+      @kotlin.jvm.JvmName("setMemberRemoved")
+        set(value) {
+        _builder.memberRemoved = value
+      }
+    /**
+     * `.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];`
+     */
+    public fun clearMemberRemoved() {
+      _builder.clearMemberRemoved()
+    }
+    /**
+     * `.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];`
+     * @return Whether the memberRemoved field is set.
+     */
+    public fun hasMemberRemoved(): kotlin.Boolean {
+      return _builder.hasMemberRemoved()
+    }
+
+    /**
+     * `.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];`
+     */
+    public var memberLeft: app.mvchat.mvnxt.mvservernxt.v1.MemberLeft
+      @kotlin.jvm.JvmName("getMemberLeft")
+        get() = _builder.memberLeft
+      @kotlin.jvm.JvmName("setMemberLeft")
+        set(value) {
+        _builder.memberLeft = value
+      }
+    /**
+     * `.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];`
+     */
+    public fun clearMemberLeft() {
+      _builder.clearMemberLeft()
+    }
+    /**
+     * `.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];`
+     * @return Whether the memberLeft field is set.
+     */
+    public fun hasMemberLeft(): kotlin.Boolean {
+      return _builder.hasMemberLeft()
+    }
+
+    /**
+     * `.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];`
+     */
+    public var messageSent: app.mvchat.mvnxt.mvservernxt.v1.MessageSent
+      @kotlin.jvm.JvmName("getMessageSent")
+        get() = _builder.messageSent
+      @kotlin.jvm.JvmName("setMessageSent")
+        set(value) {
+        _builder.messageSent = value
+      }
+    /**
+     * `.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];`
+     */
+    public fun clearMessageSent() {
+      _builder.clearMessageSent()
+    }
+    /**
+     * `.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];`
+     * @return Whether the messageSent field is set.
+     */
+    public fun hasMessageSent(): kotlin.Boolean {
+      return _builder.hasMessageSent()
+    }
+
+    /**
+     * `.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];`
+     */
+    public var readReceiptUpdated: app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdated
+      @kotlin.jvm.JvmName("getReadReceiptUpdated")
+        get() = _builder.readReceiptUpdated
+      @kotlin.jvm.JvmName("setReadReceiptUpdated")
+        set(value) {
+        _builder.readReceiptUpdated = value
+      }
+    /**
+     * `.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];`
+     */
+    public fun clearReadReceiptUpdated() {
+      _builder.clearReadReceiptUpdated()
+    }
+    /**
+     * `.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];`
+     * @return Whether the readReceiptUpdated field is set.
+     */
+    public fun hasReadReceiptUpdated(): kotlin.Boolean {
+      return _builder.hasReadReceiptUpdated()
+    }
     public val payloadCase: app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase
     @kotlin.jvm.JvmName("getPayloadCase")
       get() = _builder.getPayloadCase()
@@ -464,4 +620,22 @@ public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.emailVerifiedOrNull: a
 
 public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.verificationEmailSentOrNull: app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSent?
   get() = if (hasVerificationEmailSent()) getVerificationEmailSent() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.conversationCreatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ConversationCreated?
+  get() = if (hasConversationCreated()) getConversationCreated() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.memberAddedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MemberAdded?
+  get() = if (hasMemberAdded()) getMemberAdded() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.memberRemovedOrNull: app.mvchat.mvnxt.mvservernxt.v1.MemberRemoved?
+  get() = if (hasMemberRemoved()) getMemberRemoved() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.memberLeftOrNull: app.mvchat.mvnxt.mvservernxt.v1.MemberLeft?
+  get() = if (hasMemberLeft()) getMemberLeft() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.messageSentOrNull: app.mvchat.mvnxt.mvservernxt.v1.MessageSent?
+  get() = if (hasMessageSent()) getMessageSent() else null
+
+public val app.mvchat.mvnxt.mvservernxt.v1.EventOrBuilder.readReceiptUpdatedOrNull: app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdated?
+  get() = if (hasReadReceiptUpdated()) getReadReceiptUpdated() else null
 

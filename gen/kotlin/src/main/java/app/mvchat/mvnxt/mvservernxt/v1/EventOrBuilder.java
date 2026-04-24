@@ -267,5 +267,107 @@ public interface EventOrBuilder extends
    */
   app.mvchat.mvnxt.mvservernxt.v1.VerificationEmailSentOrBuilder getVerificationEmailSentOrBuilder();
 
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];</code>
+   * @return Whether the conversationCreated field is set.
+   */
+  boolean hasConversationCreated();
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];</code>
+   * @return The conversationCreated.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationCreated getConversationCreated();
+  /**
+   * <pre>
+   * Chat
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.ConversationCreated conversation_created = 30 [json_name = "conversationCreated"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ConversationCreatedOrBuilder getConversationCreatedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];</code>
+   * @return Whether the memberAdded field is set.
+   */
+  boolean hasMemberAdded();
+  /**
+   * <code>.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];</code>
+   * @return The memberAdded.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberAdded getMemberAdded();
+  /**
+   * <code>.mvservernxt.v1.MemberAdded member_added = 31 [json_name = "memberAdded"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberAddedOrBuilder getMemberAddedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];</code>
+   * @return Whether the memberRemoved field is set.
+   */
+  boolean hasMemberRemoved();
+  /**
+   * <code>.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];</code>
+   * @return The memberRemoved.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberRemoved getMemberRemoved();
+  /**
+   * <code>.mvservernxt.v1.MemberRemoved member_removed = 32 [json_name = "memberRemoved"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberRemovedOrBuilder getMemberRemovedOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];</code>
+   * @return Whether the memberLeft field is set.
+   */
+  boolean hasMemberLeft();
+  /**
+   * <code>.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];</code>
+   * @return The memberLeft.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberLeft getMemberLeft();
+  /**
+   * <code>.mvservernxt.v1.MemberLeft member_left = 33 [json_name = "memberLeft"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MemberLeftOrBuilder getMemberLeftOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];</code>
+   * @return Whether the messageSent field is set.
+   */
+  boolean hasMessageSent();
+  /**
+   * <code>.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];</code>
+   * @return The messageSent.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageSent getMessageSent();
+  /**
+   * <code>.mvservernxt.v1.MessageSent message_sent = 34 [json_name = "messageSent"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.MessageSentOrBuilder getMessageSentOrBuilder();
+
+  /**
+   * <code>.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];</code>
+   * @return Whether the readReceiptUpdated field is set.
+   */
+  boolean hasReadReceiptUpdated();
+  /**
+   * <code>.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];</code>
+   * @return The readReceiptUpdated.
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdated getReadReceiptUpdated();
+  /**
+   * <code>.mvservernxt.v1.ReadReceiptUpdated read_receipt_updated = 35 [json_name = "readReceiptUpdated"];</code>
+   */
+  app.mvchat.mvnxt.mvservernxt.v1.ReadReceiptUpdatedOrBuilder getReadReceiptUpdatedOrBuilder();
+
   app.mvchat.mvnxt.mvservernxt.v1.Event.PayloadCase getPayloadCase();
 }

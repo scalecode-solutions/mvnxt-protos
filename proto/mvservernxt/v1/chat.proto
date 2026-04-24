@@ -1,0 +1,231 @@
+// Chat domain: conversations, members, messages, read receipts.
+// See internal/chat/ for the service implementation.
+//
+// Slice 1 scope — minimum viable chat that exercises every built
+// foundation primitive (actor inbox, event log, ws-broadcast, hub,
+// persistent idempotency, rate limiter). Edits, unsends, deletes,
+// reactions, typing, disappearing messages ship in subsequent slices.
+//
+// Ordering: every mutation runs inside a per-conversation actor
+// (doc 08). Per-conversation monotonic `seq` is assigned inside the
+// actor — no row-lock gymnastics needed.
+syntax = "proto3";
+
+package mvservernxt.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// ============================================================================
+// Shared types
+// ============================================================================
+
+// ConversationType distinguishes the two conversation flavors shipping
+// in slice 1. More flavors (broadcast, channel, system) land as their
+// own enum values without renumbering.
+enum ConversationType {
+  CONVERSATION_TYPE_UNSPECIFIED = 0;
+  CONVERSATION_TYPE_DM          = 1;  // Exactly 2 members, created via CreateConversation.
+  CONVERSATION_TYPE_GROUP       = 2;  // 2+ members, named, mutable membership.
+}
+
+// Conversation is the client-facing view of a conversation row +
+// participant set. Returned by CreateConversation / ListConversations.
+message Conversation {
+  string                    id              = 1;  // UUIDv4
+  ConversationType          type            = 2;
+  string                    title           = 3;  // Empty for DMs (clients render from members).
+  string                    created_by      = 4;  // User ID of the creator.
+  google.protobuf.Timestamp created_at      = 5;
+
+  // Current active membership (left_at IS NULL). Order is not guaranteed
+  // stable across calls; clients should treat as a set.
+  repeated string           member_ids      = 6;
+
+  // Seq of the latest message in the conversation, or 0 if no messages
+  // yet. Useful for sorting in ListConversations without an extra query.
+  int64                     last_message_seq = 7;
+}
+
+// Message is the client-facing view of one message row.
+message Message {
+  string                    id              = 1;  // UUIDv4
+  string                    conversation_id = 2;
+  int64                     seq             = 3;  // Per-conversation monotonic.
+  string                    sender_id       = 4;
+  string                    body            = 5;  // Plain text in slice 1.
+
+  // Reply threading. Empty string if this message isn't a reply.
+  string                    reply_to_id     = 6;
+
+  google.protobuf.Timestamp created_at      = 7;
+}
+
+// ============================================================================
+// Commands (sent by client via ClientEnvelope.payload)
+// ============================================================================
+
+// CreateConversation makes a new conversation and auto-adds the creator
+// as a member. `member_ids` are the OTHER members (the creator is
+// implicit).
+//
+// Validation:
+//   - DM: exactly one other member_id, not the creator's own.
+//   - GROUP: at least one other member_id, title required.
+//
+// Returns CreateConversationResponse with the full Conversation.
+message CreateConversation {
+  ConversationType type       = 1;
+  repeated string  member_ids = 2;
+  string           title      = 3;  // Required for GROUP, ignored for DM.
+}
+
+// AddMember adds a user to an existing GROUP. DMs are fixed at creation
+// time; adding a third member is a validation error (slice 1 — later we
+// may auto-promote to GROUP).
+//
+// The caller must be an existing member of the conversation. Role-based
+// admin checks land in a later slice.
+message AddMember {
+  string conversation_id = 1;
+  string user_id         = 2;
+}
+
+// RemoveMember removes a user from a GROUP. Caller must be a member.
+// Removing yourself is allowed but prefer LeaveConversation for clarity.
+message RemoveMember {
+  string conversation_id = 1;
+  string user_id         = 2;
+}
+
+// LeaveConversation removes the caller from a conversation. No-op if
+// already left. DMs can be left (the other party still sees them until
+// they leave too).
+message LeaveConversation {
+  string conversation_id = 1;
+}
+
+// SendMessage posts a new message. Assigns a per-conversation monotonic
+// seq and fans out via ws-broadcast to every active member's sessions.
+//
+// Idempotency: clients that retry with the same ClientEnvelope.idempotency_key
+// get the original response (see docs/v2/09-idempotency-keys.md) — the
+// message is NOT re-inserted.
+message SendMessage {
+  string conversation_id = 1;
+  string body            = 2;
+  string reply_to_id     = 3;  // Optional; empty = not a reply.
+}
+
+// ListConversations returns the caller's active conversations. Slice 1
+// returns all in one shot (sorted by last_message_seq DESC, then
+// created_at DESC). Pagination lands when volume warrants it.
+message ListConversations {
+  // Reserved for future pagination. Currently ignored; server returns
+  // all active conversations for the caller.
+  int32 limit = 1;
+}
+
+// GetMessages pulls a window of messages from one conversation.
+//
+//   since_seq = 0  → newest `limit` messages (initial load)
+//   since_seq > 0  → messages with seq > since_seq (forward catch-up)
+//
+// Caller must be a member. Results ordered by seq ASC when doing
+// forward catch-up, seq DESC when doing initial load.
+message GetMessages {
+  string conversation_id = 1;
+  int64  since_seq       = 2;
+  int32  limit           = 3;  // 0 = server default (50).
+}
+
+// MarkRead advances the caller's last_read_seq on a conversation.
+// Idempotent — sending a value ≤ the stored one is a no-op.
+//
+// Emits ReadReceiptUpdated to the caller's own sessions (multi-device
+// sync) AND to other members (so their UI can show "seen by X").
+message MarkRead {
+  string conversation_id = 1;
+  int64  last_read_seq   = 2;
+}
+
+// ============================================================================
+// Ack payloads (returned via Ack.payload)
+// ============================================================================
+
+message CreateConversationResponse { Conversation conversation = 1; }
+
+message SendMessageResponse        { Message message          = 1; }
+
+message ListConversationsResponse  { repeated Conversation conversations = 1; }
+
+message GetMessagesResponse {
+  repeated Message messages = 1;
+
+  // True if the server capped the result at `limit` — client knows more
+  // messages exist past this window.
+  bool             has_more = 2;
+}
+
+// AddMember, RemoveMember, LeaveConversation, MarkRead return empty Ack
+// (code=200 only).
+
+// ============================================================================
+// Events (published to the event log via Log.AppendTx)
+// ============================================================================
+
+// ConversationCreated fires once per CreateConversation.
+// Fans out to every member's sessions.
+message ConversationCreated {
+  string                    conversation_id = 1;
+  ConversationType          type            = 2;
+  string                    title           = 3;
+  string                    created_by      = 4;
+  repeated string           member_ids      = 5;
+  google.protobuf.Timestamp created_at      = 6;
+}
+
+// MemberAdded fires for each AddMember call. Fans out to every member
+// including the new one (so their client picks up the conversation).
+message MemberAdded {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;
+  string                    added_by        = 3;
+  google.protobuf.Timestamp added_at        = 4;
+}
+
+// MemberRemoved fires for each RemoveMember call.
+message MemberRemoved {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;
+  string                    removed_by      = 3;
+  google.protobuf.Timestamp removed_at      = 4;
+}
+
+// MemberLeft fires for each LeaveConversation call.
+message MemberLeft {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;
+  google.protobuf.Timestamp left_at         = 3;
+}
+
+// MessageSent fires for each SendMessage call. Fans out to every
+// active member's sessions — this is how recipients receive messages.
+message MessageSent {
+  string                    message_id      = 1;
+  string                    conversation_id = 2;
+  int64                     seq             = 3;
+  string                    sender_id       = 4;
+  string                    body            = 5;
+  string                    reply_to_id     = 6;
+  google.protobuf.Timestamp created_at      = 7;
+}
+
+// ReadReceiptUpdated fires for each MarkRead that actually advances the
+// caller's last_read_seq. Fans out to every member — the caller's other
+// devices (for local state sync) and other members (for "seen by" UX).
+message ReadReceiptUpdated {
+  string                    conversation_id = 1;
+  string                    user_id         = 2;
+  int64                     last_read_seq   = 3;
+  google.protobuf.Timestamp updated_at      = 4;
+}

@@ -64,6 +64,10 @@ private static final long serialVersionUID = 0L;
     REGISTER(20),
     LOGIN(22),
     REFRESH(23),
+    CREATE_CONVERSATION(30),
+    SEND_MESSAGE(34),
+    LIST_CONVERSATIONS(35),
+    GET_MESSAGES(36),
     PAYLOAD_NOT_SET(0);
     private final int value;
     private PayloadCase(int value) {
@@ -86,6 +90,10 @@ private static final long serialVersionUID = 0L;
         case 20: return REGISTER;
         case 22: return LOGIN;
         case 23: return REFRESH;
+        case 30: return CREATE_CONVERSATION;
+        case 34: return SEND_MESSAGE;
+        case 35: return LIST_CONVERSATIONS;
+        case 36: return GET_MESSAGES;
         case 0: return PAYLOAD_NOT_SET;
         default: return null;
       }
@@ -342,6 +350,145 @@ private static final long serialVersionUID = 0L;
     return app.mvchat.mvnxt.mvservernxt.v1.RefreshResponse.getDefaultInstance();
   }
 
+  public static final int CREATE_CONVERSATION_FIELD_NUMBER = 30;
+  /**
+   * <pre>
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+   * empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+   * @return Whether the createConversation field is set.
+   */
+  @java.lang.Override
+  public boolean hasCreateConversation() {
+    return payloadCase_ == 30;
+  }
+  /**
+   * <pre>
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+   * empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+   * @return The createConversation.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse getCreateConversation() {
+    if (payloadCase_ == 30) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+   * empty Ack with no payload)
+   * </pre>
+   *
+   * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponseOrBuilder getCreateConversationOrBuilder() {
+    if (payloadCase_ == 30) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+  }
+
+  public static final int SEND_MESSAGE_FIELD_NUMBER = 34;
+  /**
+   * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+   * @return Whether the sendMessage field is set.
+   */
+  @java.lang.Override
+  public boolean hasSendMessage() {
+    return payloadCase_ == 34;
+  }
+  /**
+   * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+   * @return The sendMessage.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse getSendMessage() {
+    if (payloadCase_ == 34) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponseOrBuilder getSendMessageOrBuilder() {
+    if (payloadCase_ == 34) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+  }
+
+  public static final int LIST_CONVERSATIONS_FIELD_NUMBER = 35;
+  /**
+   * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+   * @return Whether the listConversations field is set.
+   */
+  @java.lang.Override
+  public boolean hasListConversations() {
+    return payloadCase_ == 35;
+  }
+  /**
+   * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+   * @return The listConversations.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse getListConversations() {
+    if (payloadCase_ == 35) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponseOrBuilder getListConversationsOrBuilder() {
+    if (payloadCase_ == 35) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+  }
+
+  public static final int GET_MESSAGES_FIELD_NUMBER = 36;
+  /**
+   * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+   * @return Whether the getMessages field is set.
+   */
+  @java.lang.Override
+  public boolean hasGetMessages() {
+    return payloadCase_ == 36;
+  }
+  /**
+   * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+   * @return The getMessages.
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse getGetMessages() {
+    if (payloadCase_ == 36) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+  }
+  /**
+   * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+   */
+  @java.lang.Override
+  public app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder getGetMessagesOrBuilder() {
+    if (payloadCase_ == 36) {
+       return (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_;
+    }
+    return app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -376,6 +523,18 @@ private static final long serialVersionUID = 0L;
     }
     if (payloadCase_ == 23) {
       output.writeMessage(23, (app.mvchat.mvnxt.mvservernxt.v1.RefreshResponse) payload_);
+    }
+    if (payloadCase_ == 30) {
+      output.writeMessage(30, (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_);
+    }
+    if (payloadCase_ == 34) {
+      output.writeMessage(34, (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_);
+    }
+    if (payloadCase_ == 35) {
+      output.writeMessage(35, (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_);
+    }
+    if (payloadCase_ == 36) {
+      output.writeMessage(36, (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -412,6 +571,22 @@ private static final long serialVersionUID = 0L;
     if (payloadCase_ == 23) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(23, (app.mvchat.mvnxt.mvservernxt.v1.RefreshResponse) payload_);
+    }
+    if (payloadCase_ == 30) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(30, (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_);
+    }
+    if (payloadCase_ == 34) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(34, (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_);
+    }
+    if (payloadCase_ == 35) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(35, (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_);
+    }
+    if (payloadCase_ == 36) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(36, (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -454,6 +629,22 @@ private static final long serialVersionUID = 0L;
         if (!getRefresh()
             .equals(other.getRefresh())) return false;
         break;
+      case 30:
+        if (!getCreateConversation()
+            .equals(other.getCreateConversation())) return false;
+        break;
+      case 34:
+        if (!getSendMessage()
+            .equals(other.getSendMessage())) return false;
+        break;
+      case 35:
+        if (!getListConversations()
+            .equals(other.getListConversations())) return false;
+        break;
+      case 36:
+        if (!getGetMessages()
+            .equals(other.getGetMessages())) return false;
+        break;
       case 0:
       default:
     }
@@ -492,6 +683,22 @@ private static final long serialVersionUID = 0L;
       case 23:
         hash = (37 * hash) + REFRESH_FIELD_NUMBER;
         hash = (53 * hash) + getRefresh().hashCode();
+        break;
+      case 30:
+        hash = (37 * hash) + CREATE_CONVERSATION_FIELD_NUMBER;
+        hash = (53 * hash) + getCreateConversation().hashCode();
+        break;
+      case 34:
+        hash = (37 * hash) + SEND_MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getSendMessage().hashCode();
+        break;
+      case 35:
+        hash = (37 * hash) + LIST_CONVERSATIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getListConversations().hashCode();
+        break;
+      case 36:
+        hash = (37 * hash) + GET_MESSAGES_FIELD_NUMBER;
+        hash = (53 * hash) + getGetMessages().hashCode();
         break;
       case 0:
       default:
@@ -648,6 +855,18 @@ private static final long serialVersionUID = 0L;
       if (refreshBuilder_ != null) {
         refreshBuilder_.clear();
       }
+      if (createConversationBuilder_ != null) {
+        createConversationBuilder_.clear();
+      }
+      if (sendMessageBuilder_ != null) {
+        sendMessageBuilder_.clear();
+      }
+      if (listConversationsBuilder_ != null) {
+        listConversationsBuilder_.clear();
+      }
+      if (getMessagesBuilder_ != null) {
+        getMessagesBuilder_.clear();
+      }
       payloadCase_ = 0;
       payload_ = null;
       return this;
@@ -715,6 +934,22 @@ private static final long serialVersionUID = 0L;
           refreshBuilder_ != null) {
         result.payload_ = refreshBuilder_.build();
       }
+      if (payloadCase_ == 30 &&
+          createConversationBuilder_ != null) {
+        result.payload_ = createConversationBuilder_.build();
+      }
+      if (payloadCase_ == 34 &&
+          sendMessageBuilder_ != null) {
+        result.payload_ = sendMessageBuilder_.build();
+      }
+      if (payloadCase_ == 35 &&
+          listConversationsBuilder_ != null) {
+        result.payload_ = listConversationsBuilder_.build();
+      }
+      if (payloadCase_ == 36 &&
+          getMessagesBuilder_ != null) {
+        result.payload_ = getMessagesBuilder_.build();
+      }
     }
 
     @java.lang.Override
@@ -756,6 +991,22 @@ private static final long serialVersionUID = 0L;
         }
         case REFRESH: {
           mergeRefresh(other.getRefresh());
+          break;
+        }
+        case CREATE_CONVERSATION: {
+          mergeCreateConversation(other.getCreateConversation());
+          break;
+        }
+        case SEND_MESSAGE: {
+          mergeSendMessage(other.getSendMessage());
+          break;
+        }
+        case LIST_CONVERSATIONS: {
+          mergeListConversations(other.getListConversations());
+          break;
+        }
+        case GET_MESSAGES: {
+          mergeGetMessages(other.getGetMessages());
           break;
         }
         case PAYLOAD_NOT_SET: {
@@ -833,6 +1084,34 @@ private static final long serialVersionUID = 0L;
               payloadCase_ = 23;
               break;
             } // case 186
+            case 242: {
+              input.readMessage(
+                  internalGetCreateConversationFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 30;
+              break;
+            } // case 242
+            case 274: {
+              input.readMessage(
+                  internalGetSendMessageFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 34;
+              break;
+            } // case 274
+            case 282: {
+              input.readMessage(
+                  internalGetListConversationsFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 35;
+              break;
+            } // case 282
+            case 290: {
+              input.readMessage(
+                  internalGetGetMessagesFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              payloadCase_ = 36;
+              break;
+            } // case 290
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1781,6 +2060,619 @@ private static final long serialVersionUID = 0L;
       payloadCase_ = 23;
       onChanged();
       return refreshBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponseOrBuilder> createConversationBuilder_;
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     * @return Whether the createConversation field is set.
+     */
+    @java.lang.Override
+    public boolean hasCreateConversation() {
+      return payloadCase_ == 30;
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     * @return The createConversation.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse getCreateConversation() {
+      if (createConversationBuilder_ == null) {
+        if (payloadCase_ == 30) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 30) {
+          return createConversationBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    public Builder setCreateConversation(app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse value) {
+      if (createConversationBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        createConversationBuilder_.setMessage(value);
+      }
+      payloadCase_ = 30;
+      return this;
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    public Builder setCreateConversation(
+        app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.Builder builderForValue) {
+      if (createConversationBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        createConversationBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 30;
+      return this;
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    public Builder mergeCreateConversation(app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse value) {
+      if (createConversationBuilder_ == null) {
+        if (payloadCase_ == 30 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 30) {
+          createConversationBuilder_.mergeFrom(value);
+        } else {
+          createConversationBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 30;
+      return this;
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    public Builder clearCreateConversation() {
+      if (createConversationBuilder_ == null) {
+        if (payloadCase_ == 30) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 30) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        createConversationBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.Builder getCreateConversationBuilder() {
+      return internalGetCreateConversationFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponseOrBuilder getCreateConversationOrBuilder() {
+      if ((payloadCase_ == 30) && (createConversationBuilder_ != null)) {
+        return createConversationBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 30) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * Chat (AddMember, RemoveMember, LeaveConversation, MarkRead return
+     * empty Ack with no payload)
+     * </pre>
+     *
+     * <code>.mvservernxt.v1.CreateConversationResponse create_conversation = 30 [json_name = "createConversation"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponseOrBuilder> 
+        internalGetCreateConversationFieldBuilder() {
+      if (createConversationBuilder_ == null) {
+        if (!(payloadCase_ == 30)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.getDefaultInstance();
+        }
+        createConversationBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.CreateConversationResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 30;
+      onChanged();
+      return createConversationBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponseOrBuilder> sendMessageBuilder_;
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     * @return Whether the sendMessage field is set.
+     */
+    @java.lang.Override
+    public boolean hasSendMessage() {
+      return payloadCase_ == 34;
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     * @return The sendMessage.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse getSendMessage() {
+      if (sendMessageBuilder_ == null) {
+        if (payloadCase_ == 34) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 34) {
+          return sendMessageBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    public Builder setSendMessage(app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse value) {
+      if (sendMessageBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        sendMessageBuilder_.setMessage(value);
+      }
+      payloadCase_ = 34;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    public Builder setSendMessage(
+        app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.Builder builderForValue) {
+      if (sendMessageBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        sendMessageBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 34;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    public Builder mergeSendMessage(app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse value) {
+      if (sendMessageBuilder_ == null) {
+        if (payloadCase_ == 34 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 34) {
+          sendMessageBuilder_.mergeFrom(value);
+        } else {
+          sendMessageBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 34;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    public Builder clearSendMessage() {
+      if (sendMessageBuilder_ == null) {
+        if (payloadCase_ == 34) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 34) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        sendMessageBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.Builder getSendMessageBuilder() {
+      return internalGetSendMessageFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponseOrBuilder getSendMessageOrBuilder() {
+      if ((payloadCase_ == 34) && (sendMessageBuilder_ != null)) {
+        return sendMessageBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 34) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.SendMessageResponse send_message = 34 [json_name = "sendMessage"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponseOrBuilder> 
+        internalGetSendMessageFieldBuilder() {
+      if (sendMessageBuilder_ == null) {
+        if (!(payloadCase_ == 34)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.getDefaultInstance();
+        }
+        sendMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.SendMessageResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 34;
+      onChanged();
+      return sendMessageBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponseOrBuilder> listConversationsBuilder_;
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     * @return Whether the listConversations field is set.
+     */
+    @java.lang.Override
+    public boolean hasListConversations() {
+      return payloadCase_ == 35;
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     * @return The listConversations.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse getListConversations() {
+      if (listConversationsBuilder_ == null) {
+        if (payloadCase_ == 35) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 35) {
+          return listConversationsBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    public Builder setListConversations(app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse value) {
+      if (listConversationsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        listConversationsBuilder_.setMessage(value);
+      }
+      payloadCase_ = 35;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    public Builder setListConversations(
+        app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.Builder builderForValue) {
+      if (listConversationsBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        listConversationsBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 35;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    public Builder mergeListConversations(app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse value) {
+      if (listConversationsBuilder_ == null) {
+        if (payloadCase_ == 35 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 35) {
+          listConversationsBuilder_.mergeFrom(value);
+        } else {
+          listConversationsBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 35;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    public Builder clearListConversations() {
+      if (listConversationsBuilder_ == null) {
+        if (payloadCase_ == 35) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 35) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        listConversationsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.Builder getListConversationsBuilder() {
+      return internalGetListConversationsFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponseOrBuilder getListConversationsOrBuilder() {
+      if ((payloadCase_ == 35) && (listConversationsBuilder_ != null)) {
+        return listConversationsBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 35) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.ListConversationsResponse list_conversations = 35 [json_name = "listConversations"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponseOrBuilder> 
+        internalGetListConversationsFieldBuilder() {
+      if (listConversationsBuilder_ == null) {
+        if (!(payloadCase_ == 35)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.getDefaultInstance();
+        }
+        listConversationsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.ListConversationsResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 35;
+      onChanged();
+      return listConversationsBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder> getMessagesBuilder_;
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     * @return Whether the getMessages field is set.
+     */
+    @java.lang.Override
+    public boolean hasGetMessages() {
+      return payloadCase_ == 36;
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     * @return The getMessages.
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse getGetMessages() {
+      if (getMessagesBuilder_ == null) {
+        if (payloadCase_ == 36) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+      } else {
+        if (payloadCase_ == 36) {
+          return getMessagesBuilder_.getMessage();
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    public Builder setGetMessages(app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse value) {
+      if (getMessagesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        payload_ = value;
+        onChanged();
+      } else {
+        getMessagesBuilder_.setMessage(value);
+      }
+      payloadCase_ = 36;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    public Builder setGetMessages(
+        app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.Builder builderForValue) {
+      if (getMessagesBuilder_ == null) {
+        payload_ = builderForValue.build();
+        onChanged();
+      } else {
+        getMessagesBuilder_.setMessage(builderForValue.build());
+      }
+      payloadCase_ = 36;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    public Builder mergeGetMessages(app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse value) {
+      if (getMessagesBuilder_ == null) {
+        if (payloadCase_ == 36 &&
+            payload_ != app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance()) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.newBuilder((app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          payload_ = value;
+        }
+        onChanged();
+      } else {
+        if (payloadCase_ == 36) {
+          getMessagesBuilder_.mergeFrom(value);
+        } else {
+          getMessagesBuilder_.setMessage(value);
+        }
+      }
+      payloadCase_ = 36;
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    public Builder clearGetMessages() {
+      if (getMessagesBuilder_ == null) {
+        if (payloadCase_ == 36) {
+          payloadCase_ = 0;
+          payload_ = null;
+          onChanged();
+        }
+      } else {
+        if (payloadCase_ == 36) {
+          payloadCase_ = 0;
+          payload_ = null;
+        }
+        getMessagesBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    public app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.Builder getGetMessagesBuilder() {
+      return internalGetGetMessagesFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    @java.lang.Override
+    public app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder getGetMessagesOrBuilder() {
+      if ((payloadCase_ == 36) && (getMessagesBuilder_ != null)) {
+        return getMessagesBuilder_.getMessageOrBuilder();
+      } else {
+        if (payloadCase_ == 36) {
+          return (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_;
+        }
+        return app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.mvservernxt.v1.GetMessagesResponse get_messages = 36 [json_name = "getMessages"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder> 
+        internalGetGetMessagesFieldBuilder() {
+      if (getMessagesBuilder_ == null) {
+        if (!(payloadCase_ == 36)) {
+          payload_ = app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.getDefaultInstance();
+        }
+        getMessagesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse.Builder, app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponseOrBuilder>(
+                (app.mvchat.mvnxt.mvservernxt.v1.GetMessagesResponse) payload_,
+                getParentForChildren(),
+                isClean());
+        payload_ = null;
+      }
+      payloadCase_ = 36;
+      onChanged();
+      return getMessagesBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:mvservernxt.v1.Ack)
